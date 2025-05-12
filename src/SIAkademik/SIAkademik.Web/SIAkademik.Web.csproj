@@ -15,4 +15,8 @@
     <Folder Include="Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SIAkademik.Domain\SIAkademik.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
