@@ -9,5 +9,30 @@ namespace SIAkademik.Web.Areas.Profil.Controllers
         {
             return View();
         }
+
+        public IActionResult Kurikulum()
+        {
+            return View();
+        }
+
+        public IActionResult Fasilitas()
+        {
+            return View();
+        }
+
+        public IActionResult TentangKami()
+        {
+            return View();
+        }
+
+        public IActionResult CoreValue()
+        {
+            return View();
+        }
+
+        public IActionResult Kontak()
+        {
+            return View();
+        }
     }
 }

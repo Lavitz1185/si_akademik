@@ -1,48 +1,95 @@
-﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+﻿/* ================================= FOOTER ================================= */
+footer {
+    padding: 5vw 8vw;
+    background-color: #101c32;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
 }
 
-a {
-  color: #0077cc;
-}
+    footer .footer-col {
+        padding-bottom: 40px;
+    }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
+        footer .footer-col h3 {
+            color: rgb(241, 240, 245);
+            font-weight: 600;
+            padding-bottom: 20px;
+        }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
+        footer .footer-col li {
+            list-style: none;
+            color: #7b838a;
+            padding: 10px 0;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
+            footer .footer-col li:hover {
+                color: rgb(241, 240, 245);
+            }
 
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
+        footer .footer-col p {
+            color: #7b838a;
+        }
 
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
-}
+        footer .footer-col .subscribe {
+            margin-top: 20px;
+        }
 
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
-}
+            footer .footer-col .subscribe input {
+                width: 220px;
+                padding: 12px 15px;
+                border: none;
+                outline: none;
+                background: #334f6c;
+                color: #ffffff;
+            }
+
+            footer .footer-col .subscribe a {
+                text-decoration: none;
+                font-size: 0.9rem;
+                padding: 12px 15px;
+                background-color: #ffffff;
+                font-weight: 600;
+            }
+
+                footer .footer-col .subscribe a.yellow {
+                    color: #2c2c2c;
+                    background-color: #fdc93b;
+                    transition: 0.3s ease;
+                }
+
+                    footer .footer-col .subscribe a.yellow:hover {
+                        color: rgb(21, 21, 100);
+                        background-color: #ffffff;
+                    }
+
+    footer .copyright {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+        footer .copyright p {
+            color: #ffffff;
+        }
+
+        footer .copyright .pro-links i {
+            padding: 10px 13px;
+            border: 1px solid rgb(21, 21, 100);
+            cursor: pointer;
+            background-color: #5f7185;
+            color: #fff;
+            transition: 0.3s ease;
+        }
+
+            footer .copyright .pro-links i:hover {
+                background-color: #fdc93b;
+                color: #2c2c2c;
+            }

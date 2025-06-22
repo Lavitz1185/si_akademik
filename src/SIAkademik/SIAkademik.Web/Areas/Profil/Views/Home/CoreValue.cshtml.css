@@ -1,0 +1,143 @@
+﻿/* ==================================== HALAMAN CORE VALUE ==================================== */
+/* ------------------------------------ SECTION PENGANTAR ------------------------------------ */
+#value-home {
+    background-image: linear-gradient(rgba(9, 5, 54, 0.4), rgba(5, 4, 46, 0.4)), url("images/siswa2.jpg");
+    width: 100%;
+    height: 60vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    text-align: end;
+    padding: 14vw 8vw 0;
+}
+
+    #value-home h2 {
+        color: #ffffff;
+        font-size: 2.5rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    #value-home .value-breadcumbs {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+        #value-home .value-breadcumbs a {
+            text-decoration: none;
+            text-transform: uppercase;
+            color: #ffffff;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: 0.3s ease;
+        }
+
+            #value-home .value-breadcumbs a:hover {
+                color: #fdc93b;
+            }
+
+        #value-home .value-breadcumbs i {
+            color: #ffffff;
+            font-size: 22px;
+        }
+
+/* ------------------------------------ SECTION CORE VALUE ------------------------------------ */
+#value {
+    padding: 5vw 8vw 5vw;
+    background-color: #ffffff;
+}
+
+    #value .value-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px;
+        padding-top: 30px;
+    }
+
+        #value .value-container .value-box {
+            width: 300px;
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 20px;
+            color: #000000;
+            text-align: center;
+            font-family: sans-serif;
+        }
+
+            #value .value-container .value-box::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background-color: rgb(21, 21, 100, 0.75);
+                z-index: 0;
+            }
+
+            #value .value-container .value-box h3,
+            #value .value-container .value-box h4,
+            #value .value-container .value-box p {
+                position: relative;
+                z-index: 1;
+            }
+
+            #value .value-container .value-box h3 {
+                font-size: 1.1rem;
+                font-weight: 700;
+                margin-bottom: 10px;
+                color: #ffffff;
+            }
+
+            #value .value-container .value-box h4 {
+                font-size: 0.95rem;
+                font-weight: 600;
+                margin-bottom: 10px;
+                color: #ffffff;
+            }
+
+            #value .value-container .value-box p {
+                font-size: 0.9rem;
+                line-height: 1.4;
+                color: #ffffff;
+            }
+
+/* ------------------------------------ SECTION KETERAMPILAN ------------------------------------ */
+#features {
+    padding: 0 8vw 5vw 8vw;
+    text-align: center;
+}
+
+    #features .fea-base {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-gap: 1rem;
+        margin-top: 50px;
+    }
+
+        #features .fea-base .fea-box {
+            background: #f9f9ff;
+            text-align: start;
+            padding: 15px 15px 0 15px;
+        }
+
+            #features .fea-base .fea-box i {
+                font-size: 2.3rem;
+                color: #000000;
+            }
+
+            #features .fea-base .fea-box h3 {
+                font-size: 1rem;
+                font-weight: 600;
+                color: rgb(46, 46, 59);
+                padding: 13px 0 7px 0;
+            }

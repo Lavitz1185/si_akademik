@@ -1,19 +1,29 @@
-﻿<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-    <div class="container-fluid">
-        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SIAkademik.Web</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-            <ul class="navbar-nav flex-grow-1">
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                </li>
-            </ul>
-        </div>
+﻿<!-- ======================================= NAVIGATION ======================================= -->
+<nav>
+    <div class="logo">
+        <img src="/images/navigation/logo_sekolah.jpg" alt="Logo Sekolah" />
+        <a href="index.html">
+            SMA Kristen<br />
+            Pandhega Jaya
+        </a>
+    </div>
+    <div class="navigation">
+        <ul>
+            <i id="menu-close" class="ri-close-fill"></i>
+            <li><a asp-action="Index" asp-controller="Home" asp-area="Profil">Beranda</a></li>
+            <li class="has-submenu">
+                <a> Informasi <i class="ri-arrow-down-s-line"></i> </a>
+                <ul class="submenu">
+                    <li><a href="berita.html">Berita & Pengumuman</a></li>
+                    <li><a href="guru.html">Guru & Karyawan</a></li>
+                    <li><a href="galeri.html">Galeri</a></li>
+                    <li><a href="statistik.html">Statistik</a></li>
+                </ul>
+            </li>
+            <li><a asp-action="Fasilitas" asp-controller="Home" asp-area="Profil">Fasilitas</a></li>
+            <li><a asp-action="TentangKami" asp-controller="Home" asp-area="Profil">Tentang Kami</a></li>
+            <li><a asp-action="Kontak" asp-controller="Home" asp-area="Profil">Alamat</a></li>
+        </ul>
+        <img id="menu-btn" src="/images/menu.png" alt="Menu Button" />
     </div>
 </nav>

@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+/* ================================= GLOBAL CSS ================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: rgb(35, 35, 85);
+}
+
+span {
+    font-size: 0.9rem;
+    color: #757373;
+}
+
+h6 {
+    font-size: 1.1rem;
+    color: rgb(24, 24, 49);
+}
+
+.judul-garis {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+    .judul-garis h2 {
+        color: #2c234d;
+        font-size: 30px;
+        font-weight: bold;
+        line-height: 0.8;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+    }
+
+    .judul-garis .garis-sisa {
+        flex-grow: 1;
+        height: 3px;
+        background-color: rgb(21, 21, 100);
+    }
+
+/* ================================= SCROLL TOP BUTTON ================================= */
+.scroll-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+    .scroll-buttons .scroll-btn {
+        background-color: rgb(56 56 159);
+        color: #ffffff;
+        border: none;
+        border-radius: 50%;
+        padding: 5px 12px;
+        cursor: pointer;
+        font-size: 24px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+        .scroll-buttons .scroll-btn i {
+            color: #ffffff;
+        }
+
+.scroll-btn.show {
+    opacity: 1;
+    visibility: visible;
+}
