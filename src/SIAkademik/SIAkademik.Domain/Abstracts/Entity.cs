@@ -1,16 +1,16 @@
 ﻿namespace SIAkademik.Domain.Abstracts;
 
-public abstract class Entity : IEquatable<Entity>
+public abstract class Entity<T> : IEquatable<Entity<T>> where T : IEquatable<T>
 {
-    public int Id { get; set; }
+    public required T Id { get; set; }
 
-    public override bool Equals(object? obj) => obj is not null && obj is Entity entity && Equals(entity);
+    public override bool Equals(object? obj) => obj is not null && obj is Entity<T> entity && Equals(entity);
 
     public override int GetHashCode() => Id.GetHashCode();
 
-    public bool Equals(Entity? other) => other is not null && other.GetType() == GetType() && other.Id == Id;
+    public bool Equals(Entity<T>? other) => other is not null && other.GetType() == GetType() && other.Id.Equals(Id);
 
-    public static bool operator ==(Entity? left, Entity? right) => left is not null && left.Equals(right);
+    public static bool operator ==(Entity<T>? left, Entity<T>? right) => left is not null && left.Equals(right);
 
-    public static bool operator !=(Entity? left, Entity? right) => !(left == right);
+    public static bool operator !=(Entity<T>? left, Entity<T>? right) => !(left == right);
 }
