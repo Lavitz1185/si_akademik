@@ -26,6 +26,7 @@ public class Siswa : Entity<string>
     public required int AnakKe { get; set; }
     public required Uri AktaKelahiran { get; set; }
     public required string NomorKartuKeluarga { get; set; }
+    public required Peminatan Peminatan { get; set; }
 
     // Biodata Ayah
     public required string NamaAyah { get; set; }
@@ -54,4 +55,6 @@ public class Siswa : Entity<string>
     public required StatusHidup StatusHidupWali { get; set; }
     public required string PendidikanTerakhirWali { get; set; }
     public string? HubunganDenganWali { get; set; }
+
+    public Rombel Rombel { get; set; }
 }
