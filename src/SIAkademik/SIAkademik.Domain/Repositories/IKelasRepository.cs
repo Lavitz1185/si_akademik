@@ -10,6 +10,6 @@ public interface IKelasRepository
     Task<List<Kelas>> GetAllByTahunAjaran(int idTahunAjaran);
     Task<List<Kelas>> GetAllByPeminatan(int idTahunAjaran, Peminatan peminatan);
 
-    Task Add(Kelas kelas);
-    Task Delete(Kelas kelas);
+    void Add(Kelas kelas);
+    void Delete(Kelas kelas);
 }

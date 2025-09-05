@@ -4,6 +4,6 @@ namespace SIAkademik.Domain.Repositories;
 
 public interface IAnggotaRombelRepository
 {
-    Task Add(AnggotaRombel anggotaRombel);
-    Task Delete(AnggotaRombel nggotaRombel);
+    void Add(AnggotaRombel anggotaRombel);
+    void Delete(AnggotaRombel nggotaRombel);
 }

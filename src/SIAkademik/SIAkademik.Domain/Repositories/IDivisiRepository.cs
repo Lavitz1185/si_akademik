@@ -7,6 +7,6 @@ public interface IDivisiRepository
     Task<Divisi?> Get(int id);
     Task<List<Divisi>> GetAll();
 
-    Task Add(Divisi divisi);
-    Task Delete(Divisi divisi);
+    void Add(Divisi divisi);
+    void Delete(Divisi divisi);
 }

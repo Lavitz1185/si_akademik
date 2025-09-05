@@ -4,6 +4,6 @@ namespace SIAkademik.Domain.Repositories;
 
 public interface IJadwalMengajarRepository
 {
-    Task Add(JadwalMengajar jadwalMengajar);
-    Task Delete(JadwalMengajar jadwalMengajar);
+    void Add(JadwalMengajar jadwalMengajar);
+    void Delete(JadwalMengajar jadwalMengajar);
 }

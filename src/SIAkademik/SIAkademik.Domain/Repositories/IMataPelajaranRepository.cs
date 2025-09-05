@@ -7,6 +7,6 @@ public interface IMataPelajaranRepository
     Task<MataPelajaran?> Get(int id);
     Task<List<MataPelajaran>> GetAll();
 
-    Task Add(MataPelajaran mataPelajaran);
-    Task Delete(MataPelajaran mataPelajaran);
+    void Add(MataPelajaran mataPelajaran);
+    void Delete(MataPelajaran mataPelajaran);
 }

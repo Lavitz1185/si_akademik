@@ -7,6 +7,6 @@ public interface ITahunAjaranRepository
     Task<TahunAjaran?> Get(int id);
     Task<List<TahunAjaran>> GetAll();
 
-    Task Add(TahunAjaran tahunAjaran);
-    Task Delete(TahunAjaran tahunAjaran);
+    void Add(TahunAjaran tahunAjaran);
+    void Delete(TahunAjaran tahunAjaran);
 }
