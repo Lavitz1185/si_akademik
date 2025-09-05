@@ -2,7 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SIAkademik.Domain.Abstracts;
+using SIAkademik.Domain.Authentication;
 using SIAkademik.Domain.Repositories;
+using SIAkademik.Infrastructure.Authentication;
 using SIAkademik.Infrastructure.Database;
 using SIAkademik.Infrastructure.Repositories;
 
@@ -12,14 +14,16 @@ public static class DepedencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("Default") ?? throw new NullReferenceException("connection string 'default' is null");
+        var connectionString = configuration.GetConnectionString("Default")
+            ?? throw new NullReferenceException("connection string 'Default' is null");
 
         services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString).EnableSensitiveDataLogging());
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        services.AddScoped<IAbsenRepository, IAbsenRepository>();
-        services.AddScoped<IAnggotaRombelRepository, IAnggotaRombelRepository>();
+        services.AddScoped<IAppUserRepository, AppUserRepository>();
+        services.AddScoped<IAbsenRepository, AbsenRepository>();
+        services.AddScoped<IAnggotaRombelRepository, AnggotaRombelRepository>();
         services.AddScoped<IDivisiRepository, DivisiRepository>();
         services.AddScoped<IJabatanRepository, JabatanRepository>();
         services.AddScoped<IJadwalMengajarRepository, JadwalMengajarRepository>();

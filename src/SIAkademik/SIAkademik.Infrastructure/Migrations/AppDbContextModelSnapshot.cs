@@ -21,13 +21,15 @@ namespace SIAkademik.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "9.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "postgis");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("SIAkademik.Domain.Authentication.AppUser", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
@@ -258,8 +260,8 @@ namespace SIAkademik.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("text");
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("DivisiId")
                         .HasColumnType("integer");
@@ -412,8 +414,8 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Property<int>("AnakKe")
                         .HasColumnType("integer");
 
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("text");
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("AsalSekolah")
                         .IsRequired()
@@ -683,7 +685,9 @@ namespace SIAkademik.Infrastructure.Migrations
                 {
                     b.HasOne("SIAkademik.Domain.Authentication.AppUser", "Account")
                         .WithOne("Guru")
-                        .HasForeignKey("SIAkademik.Domain.Entities.Pegawai", "AppUserId");
+                        .HasForeignKey("SIAkademik.Domain.Entities.Pegawai", "AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SIAkademik.Domain.Entities.Divisi", "Divisi")
                         .WithMany("DaftarPegawai")
@@ -727,7 +731,9 @@ namespace SIAkademik.Infrastructure.Migrations
                 {
                     b.HasOne("SIAkademik.Domain.Authentication.AppUser", "Account")
                         .WithOne("Siswa")
-                        .HasForeignKey("SIAkademik.Domain.Entities.Siswa", "AppUserId");
+                        .HasForeignKey("SIAkademik.Domain.Entities.Siswa", "AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Account");
                 });

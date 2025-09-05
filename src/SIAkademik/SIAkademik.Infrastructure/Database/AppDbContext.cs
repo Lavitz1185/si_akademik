@@ -9,8 +9,6 @@ internal class AppDbContext(DbContextOptions<AppDbContext> dbContextOptions) : D
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.HasPostgresExtension("postgis");
-
         foreach (var entityType in modelBuilder.Model.GetEntityTypes().ToList())
         {
             if (typeof(IAuditableEntity).IsAssignableFrom(entityType.ClrType))

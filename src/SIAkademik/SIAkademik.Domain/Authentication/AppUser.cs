@@ -3,7 +3,7 @@ using SIAkademik.Domain.Entities;
 
 namespace SIAkademik.Domain.Authentication;
 
-public class AppUser : Entity<string>
+public class AppUser : Entity<int>
 {
     public required string UserName { get; set; }
     public required string PasswordHash { get; set; }

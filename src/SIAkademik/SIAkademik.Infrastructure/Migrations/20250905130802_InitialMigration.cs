@@ -12,14 +12,12 @@ namespace SIAkademik.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterDatabase()
-                .Annotation("Npgsql:PostgresExtension:postgis", ",,");
-
             migrationBuilder.CreateTable(
                 name: "AppUser",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserName = table.Column<string>(type: "text", nullable: false),
                     PasswordHash = table.Column<string>(type: "text", nullable: false),
                     Role = table.Column<string>(type: "text", nullable: false)
@@ -128,7 +126,7 @@ namespace SIAkademik.Infrastructure.Migrations
                     StatusHidupWali = table.Column<int>(type: "integer", nullable: true),
                     PendidikanTerakhirWali = table.Column<string>(type: "text", nullable: true),
                     HubunganDenganWali = table.Column<string>(type: "text", nullable: true),
-                    AppUserId = table.Column<string>(type: "text", nullable: true),
+                    AppUserId = table.Column<int>(type: "integer", nullable: false),
                     AlamatLengkap_Jalan = table.Column<string>(type: "text", nullable: false),
                     AlamatLengkap_Kecamatan = table.Column<string>(type: "text", nullable: false),
                     AlamatLengkap_KelurahanDesa = table.Column<string>(type: "text", nullable: false),
@@ -145,7 +143,8 @@ namespace SIAkademik.Infrastructure.Migrations
                         name: "FK_TblSiswa_AppUser_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "AppUser",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -168,7 +167,7 @@ namespace SIAkademik.Infrastructure.Migrations
                     NoRekening = table.Column<string>(type: "text", nullable: false),
                     DivisiId = table.Column<int>(type: "integer", nullable: false),
                     JabatanId = table.Column<int>(type: "integer", nullable: false),
-                    AppUserId = table.Column<string>(type: "text", nullable: true),
+                    AppUserId = table.Column<int>(type: "integer", nullable: false),
                     AlamatKTP_Jalan = table.Column<string>(type: "text", nullable: false),
                     AlamatKTP_Kecamatan = table.Column<string>(type: "text", nullable: false),
                     AlamatKTP_KelurahanDesa = table.Column<string>(type: "text", nullable: false),
@@ -185,7 +184,8 @@ namespace SIAkademik.Infrastructure.Migrations
                         name: "FK_TblPegawai_AppUser_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "AppUser",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TblPegawai_TblDivisi_DivisiId",
                         column: x => x.DivisiId,
