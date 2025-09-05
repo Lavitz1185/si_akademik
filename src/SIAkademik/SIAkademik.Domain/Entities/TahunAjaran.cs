@@ -1,7 +1,7 @@
 ﻿using SIAkademik.Domain.Abstracts;
 using SIAkademik.Domain.Enums;
 
-namespace SIAkademik.Domain.Master;
+namespace SIAkademik.Domain.Entities;
 
 public class TahunAjaran : Entity<int>
 {

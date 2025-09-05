@@ -12,9 +12,9 @@ public class NoHP : ValueObject
 
     public string Value { get; }
 
-    private NoHP(string noWa)
+    private NoHP(string noHP)
     {
-        Value = noWa;
+        Value = noHP;
     }
 
     public static Result<NoHP> Create(string noHP)

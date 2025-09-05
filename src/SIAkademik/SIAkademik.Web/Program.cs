@@ -1,7 +1,10 @@
+using SIAkademik.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
@@ -38,7 +41,7 @@ app.MapAreaControllerRoute(
 app.MapAreaControllerRoute(
     name: "DashboardGuru",
     areaName: "DashboardGuru",
-    pattern: "Dashboard/Guru/{controller=Home}/{action=Index}/{id?}");
+    pattern: "Dashboard/Pegawai/{controller=Home}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "DashboardSiswa",

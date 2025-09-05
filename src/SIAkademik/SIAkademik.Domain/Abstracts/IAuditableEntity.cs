@@ -2,6 +2,6 @@
 
 public interface IAuditableEntity
 {
-    DateTime TanggalDitambahkan { get; set; }
-    DateTime? TanggalDiubah { get; set; }
+    DateTime DateAdded { get; set; }
+    DateTime? DateModified { get; set; }
 }

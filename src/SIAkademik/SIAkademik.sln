@@ -4,10 +4,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIAkademik.Web", "SIAkademik.Web\SIAkademik.Web.csproj", "{29B3BABA-F214-4587-9FE4-F83EA1C0E94A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D821962A-0AAC-41EA-8C04-C53AF5651C54} = {D821962A-0AAC-41EA-8C04-C53AF5651C54}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIAkademik.Domain", "SIAkademik.Domain\SIAkademik.Domain.csproj", "{8C173A94-B6CD-4686-B663-1149AB503A9C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIAkademik.Infrastructure", "SIAkademik.Infrastructure\SIAkademik.Infrastructure.csproj", "{D821962A-0AAC-41EA-8C04-C53AF5651C54}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8C173A94-B6CD-4686-B663-1149AB503A9C} = {8C173A94-B6CD-4686-B663-1149AB503A9C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

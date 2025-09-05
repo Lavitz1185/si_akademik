@@ -1,13 +1,12 @@
 ﻿using SIAkademik.Domain.Abstracts;
+using SIAkademik.Domain.Authentication;
 using SIAkademik.Domain.Enums;
 using SIAkademik.Domain.ValueObjects;
 
-namespace SIAkademik.Domain.Master;
+namespace SIAkademik.Domain.Entities;
 
 public class Siswa : Entity<string>
 {
-    public string NISN => Id;
-
     // Biodata Siswa
     public required string Nama { get; set; }
     public required JenisKelamin JenisKelamin { get; set; }
@@ -51,10 +50,11 @@ public class Siswa : Entity<string>
     public string? PekerjaanWali { get; set; }
     public string? AgamaWali { get; set; }
     public NoHP? NoHPWali { get; set; }
-    public required DateOnly TanggalLahirWali { get; set; }
-    public required StatusHidup StatusHidupWali { get; set; }
-    public required string PendidikanTerakhirWali { get; set; }
+    public DateOnly? TanggalLahirWali { get; set; }
+    public StatusHidup? StatusHidupWali { get; set; }
+    public string? PendidikanTerakhirWali { get; set; }
     public string? HubunganDenganWali { get; set; }
 
-    public Rombel Rombel { get; set; }
+    public List<AnggotaRombel> DaftarAnggotaRombel { get; set; } = [];
+    public AppUser Account { get; set; }
 }

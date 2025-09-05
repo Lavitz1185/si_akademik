@@ -1,4 +1,4 @@
-﻿using PKMGerejaEbenhaezer.Domain.Shared;
+﻿using SIAkademik.Domain.Shared;
 
 namespace SIAkademik.Domain.Errors;
 
