@@ -37,7 +37,7 @@ namespace SIAkademik.Web.Areas.DashboardAdmin.Controllers
         {
             if (!ModelState.IsValid) return View(vm);
 
-            var result = await _signInManager.Login(vm.UserName, vm.Password, vm.RememberMe);
+            var result = await _signInManager.Login(vm.UserName, vm.Password, vm.RememberMe, AppUserRoles.Admin);
             if (result.IsFailure)
             {
                 ModelState.AddModelError(string.Empty, result.Error.Message);

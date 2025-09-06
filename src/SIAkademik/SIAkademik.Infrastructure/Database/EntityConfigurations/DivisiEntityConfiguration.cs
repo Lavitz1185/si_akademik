@@ -10,5 +10,13 @@ internal class DivisiEntityConfiguration : IEntityTypeConfiguration<Divisi>
     {
         builder.HasKey(x => x.Id);
         builder.HasMany(x => x.DaftarPegawai).WithOne(y => y.Divisi);
+
+        builder.HasData(
+            new Divisi
+            {
+                Id = 1,
+                Nama = "SMA"
+            }
+        );
     }
 }

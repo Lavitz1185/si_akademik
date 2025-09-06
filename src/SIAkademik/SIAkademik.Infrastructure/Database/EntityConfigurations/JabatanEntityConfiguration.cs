@@ -10,5 +10,13 @@ internal class JabatanEntityConfiguration : IEntityTypeConfiguration<Jabatan>
     {
         builder.HasKey(x => x.Id);
         builder.HasMany(x => x.DaftarPegawai).WithOne(x => x.Jabatan);
+
+        builder.HasData(
+            new Jabatan
+            {
+                Id = 1,
+                Nama = "Guru Matematika"
+            }
+        );
     }
 }
