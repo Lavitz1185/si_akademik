@@ -2,7 +2,7 @@
 
 namespace SIAkademik.Web.Areas.DashboardSiswa.Controllers
 {
-    [Area("DashboardSiswa")]
+    [Area(AreaNames.DashboardSiswa)]
     public class HomeController : Controller
     {
         public IActionResult Index()

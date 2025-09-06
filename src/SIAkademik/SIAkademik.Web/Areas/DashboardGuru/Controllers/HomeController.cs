@@ -2,7 +2,7 @@
 
 namespace SIAkademik.Web.Areas.DashboardGuru.Controllers
 {
-    [Area("DashboardGuru")]
+    [Area(AreaNames.DashboardGuru)]
     public class HomeController : Controller
     {
         public IActionResult Index()

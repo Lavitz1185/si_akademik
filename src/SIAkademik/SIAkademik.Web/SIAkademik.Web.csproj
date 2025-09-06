@@ -28,12 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\DashboardAdmin\Models\" />
     <Folder Include="Areas\DashboardGuru\Models\" />
     <Folder Include="Areas\Pendaftaran\Models\" />
     <Folder Include="Areas\Profil\Models\" />
     <Folder Include="Areas\DashboardSiswa\Models\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,7 +2,7 @@
 
 namespace SIAkademik.Web.Areas.Pendaftaran.Controllers
 {
-    [Area("Pendaftaran")]
+    [Area(AreaNames.Pendaftaran)]
     public class HomeController : Controller
     {
         public IActionResult Index()
