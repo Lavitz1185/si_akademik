@@ -26,6 +26,7 @@ public class Siswa : Entity<string>
     public required Uri AktaKelahiran { get; set; }
     public required string NomorKartuKeluarga { get; set; }
     public required Peminatan Peminatan { get; set; }
+    public required string Email { get; set; }
 
     // Biodata Ayah
     public required string NamaAyah { get; set; }

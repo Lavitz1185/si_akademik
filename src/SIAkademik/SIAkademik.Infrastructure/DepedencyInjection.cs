@@ -1,12 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using SIAkademik.Domain.Abstracts;
 using SIAkademik.Domain.Authentication;
 using SIAkademik.Domain.Repositories;
 using SIAkademik.Infrastructure.Authentication;
+using SIAkademik.Infrastructure.Configurations;
 using SIAkademik.Infrastructure.Database;
 using SIAkademik.Infrastructure.Repositories;
+using SIAkademik.Infrastructure.Services.FileServices;
 
 namespace SIAkademik.Infrastructure;
 
@@ -34,6 +37,10 @@ public static class DepedencyInjection
         services.AddScoped<IRombelRepository, RombelRepository>();
         services.AddScoped<ISiswaRepository, SiswaRepository>();
         services.AddScoped<ITahunAjaranRepository, TahunAjaranRepository>();
+
+        services.Configure<FileConfigurationOptions>(configuration.GetSection(FileConfigurationOptions.FileConfiguration));
+        services.AddScoped(sp => sp.GetRequiredService<IOptionsSnapshot<FileConfigurationOptions>>().Value);
+        services.AddScoped<IFileService, FileService>();
 
         return services;
     }
