@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SIAkademik.Domain.Authentication;
-using SIAkademik.Domain.Entities;
+using SIAkademik.Domain.ModulSiakad.Entities;
 
 namespace SIAkademik.Infrastructure.Authentication;
 

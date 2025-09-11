@@ -4,6 +4,7 @@ using SIAkademik.Domain.Authentication;
 using SIAkademik.Infrastructure;
 using SIAkademik.Web.Areas;
 using SIAkademik.Web.Authentication;
+using SIAkademik.Web.Services.Toastr;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddScoped<ISignInManager, SignInManager>();
+builder.Services.AddScoped<IToastrNotificationService, ToastrNotificationService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

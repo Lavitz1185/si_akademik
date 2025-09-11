@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SIAkademik.Domain.Abstracts;
 using SIAkademik.Domain.Authentication;
-using SIAkademik.Domain.Entities;
+using SIAkademik.Domain.ModulSiakad.Entities;
 
 namespace SIAkademik.Infrastructure.Database;
 

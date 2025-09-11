@@ -4,12 +4,12 @@ namespace SIAkademik.Domain.ValueObjects;
 
 public class Alamat
 {
-    public required int RT { get; set; }
-    public required int RW { get; set; }
-    public required string Jalan { get; set;}
-    public required string KelurahanDesa { get; set; }
-    public required string Kecamatan { get; set; }
-    public required string KotaKabupaten { get; set; }
-    public required string Provinsi { get; set; }
-    public required string KodePos { get; set; }
+    public int RT { get; set; }
+    public int RW { get; set; }
+    public string Jalan { get; set; } = string.Empty;
+    public string KelurahanDesa { get; set; } = string.Empty;
+    public string Kecamatan { get; set; } = string.Empty;
+    public string KotaKabupaten { get; set; } = string.Empty;
+    public string Provinsi { get; set; } = string.Empty;
+    public string KodePos { get; set; } = string.Empty;
 }

@@ -4,11 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using SIAkademik.Domain.Abstracts;
 using SIAkademik.Domain.Authentication;
-using SIAkademik.Domain.Repositories;
+using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Infrastructure.Authentication;
 using SIAkademik.Infrastructure.Configurations;
 using SIAkademik.Infrastructure.Database;
-using SIAkademik.Infrastructure.Repositories;
+using SIAkademik.Infrastructure.ModulSiakad.Repositories;
 using SIAkademik.Infrastructure.Services.FileServices;
 
 namespace SIAkademik.Infrastructure;

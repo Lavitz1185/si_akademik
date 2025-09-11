@@ -1,5 +1,5 @@
 ﻿using SIAkademik.Domain.Abstracts;
-using SIAkademik.Domain.Entities;
+using SIAkademik.Domain.ModulSiakad.Entities;
 
 namespace SIAkademik.Domain.Authentication;
 

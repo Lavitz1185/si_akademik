@@ -2,7 +2,7 @@
 
 public abstract class Entity<T> : IEquatable<Entity<T>> where T : IEquatable<T>
 {
-    public required T Id { get; set; }
+    public T Id { get; set; }
 
     public override bool Equals(object? obj) => obj is not null && obj is Entity<T> entity && Equals(entity);
 
