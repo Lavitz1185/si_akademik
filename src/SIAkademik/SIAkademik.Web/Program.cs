@@ -11,8 +11,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddScoped<ISignInManager, SignInManager>();
-builder.Services.AddScoped<IToastrNotificationService, ToastrNotificationService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -26,6 +24,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddScoped<IPasswordHasher<AppUser>, PasswordHasher<AppUser>>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<ISignInManager, SignInManager>();
+builder.Services.AddScoped<IToastrNotificationService, ToastrNotificationService>();
 
 var app = builder.Build();
 
