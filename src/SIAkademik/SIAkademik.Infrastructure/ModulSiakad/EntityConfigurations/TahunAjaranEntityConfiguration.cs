@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SIAkademik.Domain.Enums;
 using SIAkademik.Domain.ModulSiakad.Entities;
 
 namespace SIAkademik.Infrastructure.ModulSiakad.EntityConfigurations;
@@ -9,5 +10,20 @@ internal class TahunAjaranEntityConfiguration : IEntityTypeConfiguration<TahunAj
     public void Configure(EntityTypeBuilder<TahunAjaran> builder)
     {
         builder.HasMany(x => x.DaftarKelas).WithOne(x => x.TahunAjaran);
+
+        builder.HasData(
+            new TahunAjaran
+            {
+                Id = 1,
+                Periode = "2024/2025",
+                Semester = Semester.Ganjil
+            },
+            new TahunAjaran
+            {
+                Id = 2,
+                Periode = "2024/2025",
+                Semester = Semester.Genap
+            }
+        );
     }
 }
