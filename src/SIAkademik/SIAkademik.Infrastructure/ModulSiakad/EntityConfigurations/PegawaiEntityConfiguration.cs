@@ -23,7 +23,7 @@ internal class PegawaiEntityConfiguration : IEntityTypeConfiguration<Pegawai>
             o.Property(y => y.KotaKabupaten).IsRequired();
             o.Property(y => y.Provinsi).IsRequired();
         });
-        builder.HasOne(x => x.Account).WithOne(y => y.Guru).HasForeignKey<Pegawai>("AppUserId");
+        builder.HasOne(x => x.Account).WithOne(y => y.Guru).HasForeignKey<Pegawai>("AppUserId").IsRequired(false);
         builder.HasMany(x => x.DaftarRombelWali).WithOne(y => y.Wali);
         builder.HasMany(x => x.DaftarJadwalMengajar).WithOne(y => y.Pegawai);
         builder.HasOne(x => x.Divisi).WithMany(x => x.DaftarPegawai);

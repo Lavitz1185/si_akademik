@@ -1,0 +1,54 @@
+﻿@model List<Pegawai>
+
+<a asp-action="Tambah">Tambah Pegawai</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>NIP</th>
+            <th>Nama Lengkap</th>
+            <th>Jenis Kelamin</th>
+            <th>Agama</th>
+            <th>TTL</th>
+            <th>Status Kawin</th>
+            <th>Alamat (KTP)</th>
+            <th>No. HP</th>
+            <th>Gol. Darah</th>
+            <th>Tanggal Masuk</th>
+            <th>NIK</th>
+            <th>Nama Instagram</th>
+            <th>No. Rekening</th>
+            <th>Divisi</th>
+            <th>Jabatan</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Nama</td>
+                <td>@item.JenisKelamin.Humanize()</td>
+                <td>@item.Agama</td>
+                <td>@item.TTL</td>
+                <td>@item.StatusPerkawinan.Humanize()</td>
+                <td>@item.AlamatKTP</td>
+                <td>@item.NoHP.Value</td>
+                <td>@item.GolonganDarah.Humanize()</td>
+                <td>@item.TanggalMasuk.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td>
+                <td>@item.NIK</td>
+                <td>@item.NamaInstagram</td>
+                <td>@item.NoRekening</td>
+                <td>@item.Divisi.Nama</td>
+                <td>@item.Jabatan.Nama</td>
+                <td>
+                    <a asp-action="Edit" asp-route-nip="@item.Id">Edit</a>
+                    <form asp-action="Hapus" asp-route-nip="@item.Id">
+                        <button type="submit">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

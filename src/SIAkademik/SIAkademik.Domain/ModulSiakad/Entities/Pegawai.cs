@@ -2,11 +2,22 @@
 using SIAkademik.Domain.Authentication;
 using SIAkademik.Domain.Enums;
 using SIAkademik.Domain.ValueObjects;
+using System.Globalization;
 
 namespace SIAkademik.Domain.ModulSiakad.Entities;
 
 public class Pegawai : Entity<string>
 {
+    public string TTL 
+    { 
+        get
+        {
+            var cu = new CultureInfo("id-ID");
+
+            return $"{TempatLahir}, {TanggalLahir.ToString(cu.DateTimeFormat.LongDatePattern, cu)}";
+        } 
+    }
+
     public required string Nama { get; set; }
     public required JenisKelamin JenisKelamin { get; set; }
     public required string Agama { get; set; }
@@ -27,5 +38,5 @@ public class Pegawai : Entity<string>
     public Divisi Divisi { get; set; }
     public Jabatan Jabatan { get; set; }
     
-    public AppUser Account { get; set; }
+    public AppUser? Account { get; set; }
 }

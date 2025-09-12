@@ -8,6 +8,7 @@ using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Domain.ValueObjects;
 using SIAkademik.Web.Areas.DashboardAdmin.Models.PegawaiModels;
+using SIAkademik.Web.Services.Toastr;
 
 namespace SIAkademik.Web.Areas.DashboardAdmin.Controllers;
 
@@ -21,6 +22,7 @@ public class PegawaiController : Controller
     private readonly IJabatanRepository _jabatanRepository;
     private readonly IDivisiRepository _divisiRepository;
     private readonly IPasswordHasher<AppUser> _passwordHasher;
+    private readonly IToastrNotificationService _toastrNotificationService;
 
     public PegawaiController(
         IUnitOfWork unitOfWork,
@@ -28,7 +30,8 @@ public class PegawaiController : Controller
         IAppUserRepository appUserRepository,
         IJabatanRepository jabatanRepository,
         IDivisiRepository divisiRepository,
-        IPasswordHasher<AppUser> passwordHasher)
+        IPasswordHasher<AppUser> passwordHasher,
+        IToastrNotificationService toastrNotificationService)
     {
         _unitOfWork = unitOfWork;
         _pegawaiRepository = pegawaiRepository;
@@ -36,6 +39,7 @@ public class PegawaiController : Controller
         _jabatanRepository = jabatanRepository;
         _divisiRepository = divisiRepository;
         _passwordHasher = passwordHasher;
+        _toastrNotificationService = toastrNotificationService;
     }
 
     public async Task<IActionResult> Index()
@@ -110,7 +114,7 @@ public class PegawaiController : Controller
             Id = vm.NIP,
             Nama = vm.Nama,
             Agama = vm.Agama,
-            AlamatKTP = vm.AlamatKTP,
+            AlamatKTP = vm.Alamat,
             Email = vm.Email,
             NoHP = noHP.Value,
             GolonganDarah = vm.GolonganDarah,
@@ -149,6 +153,138 @@ public class PegawaiController : Controller
             ModelState.AddModelError(string.Empty, "Gagal menyimpan data pegawai baru!");
             return View(vm);
         }
+
+        _toastrNotificationService.AddSuccess("Data pegawai baru berhasil ditambahkan");
+
+        return RedirectToAction(nameof(Index));
+    }
+
+    public async Task<IActionResult> Edit(string nip)
+    {
+        var pegawai = await _pegawaiRepository.Get(nip);
+
+        if (pegawai == null) return NotFound();
+
+        return View(
+            new EditVM
+            {
+                NIP = pegawai.Id,
+                Agama = pegawai.Agama,
+                Alamat = pegawai.AlamatKTP,
+                DivisiId = pegawai.Divisi.Id,
+                Email = pegawai.Email,
+                GolonganDarah = pegawai.GolonganDarah,
+                JabatanId = pegawai.Jabatan.Id,
+                JenisKelamin = pegawai.JenisKelamin,
+                Nama = pegawai.Nama,
+                NamaInstagram = pegawai.NamaInstagram,
+                NIK = pegawai.NIK,
+                NoHP = pegawai.NoHP.Value,
+                NoRekening = pegawai.NoRekening,
+                StatusPerkawinan = pegawai.StatusPerkawinan,
+                TanggalLahir = pegawai.TanggalLahir,
+                TanggalMasuk = pegawai.TanggalMasuk,
+                TempatLahir = pegawai.TempatLahir
+            }
+        );
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(EditVM vm)
+    {
+        if (!ModelState.IsValid) return View(vm);
+
+        var pegawai = await _pegawaiRepository.Get(vm.NIP);
+        if (pegawai is null) return NotFound();
+
+        var noHP = NoHP.Create(vm.NoHP);
+        if (noHP.IsFailure)
+        {
+            ModelState.AddModelError(nameof(TambahVM.NoHP), noHP.Error.Message);
+            return View(vm);
+        }
+
+        var duplicateEmail = await _appUserRepository.GetByUserName(vm.Email);
+        if (duplicateEmail is not null && duplicateEmail.Id != pegawai.Account.Id)
+        {
+            ModelState.AddModelError(nameof(TambahVM.Email), $"Email '{vm.Email}' sudah digunakan! Gunakan email lain.");
+            return View(vm);
+        }
+
+        var jabatan = await _jabatanRepository.Get(vm.JabatanId);
+        if (jabatan is null)
+        {
+            ModelState.AddModelError(nameof(TambahVM.JabatanId), $"Jabatan dengan Id '{vm.JabatanId}' tidak ditemukan");
+            return View(vm);
+        }
+
+        if (jabatan.Jenis != JenisJabatan.Guru && vm.Password is not null)
+        {
+            ModelState.AddModelError(nameof(TambahVM.Password), $"Password hanya untuk Guru");
+            return View(vm);
+        }
+
+        var divisi = await _divisiRepository.Get(vm.DivisiId);
+        if (divisi is null)
+        {
+            ModelState.AddModelError(nameof(TambahVM.DivisiId), $"Divisi dengan Id '{vm.DivisiId}' tidak ditemukan");
+            return View(vm);
+        }
+
+        //Edit Data
+        pegawai.Nama = vm.Nama;
+        pegawai.StatusPerkawinan = vm.StatusPerkawinan;
+        pegawai.NoHP = noHP.Value;
+        pegawai.NamaInstagram = vm.NamaInstagram;
+        pegawai.AlamatKTP = vm.Alamat;
+        pegawai.Agama = vm.Agama;
+        pegawai.TempatLahir = vm.TempatLahir;
+        pegawai.TanggalLahir = vm.TanggalLahir;
+        pegawai.Email = vm.Email;
+        pegawai.JenisKelamin = vm.JenisKelamin;
+        pegawai.NIK = vm.NIK;
+        pegawai.TanggalMasuk = vm.TanggalMasuk;
+        pegawai.GolonganDarah = vm.GolonganDarah;
+        pegawai.Divisi = divisi;
+        pegawai.Jabatan = jabatan;
+        pegawai.NoRekening = vm.NoRekening;
+
+        if(pegawai.Account is not null)
+        {
+            var account = (await _appUserRepository.Get(pegawai.Account.Id))!;
+            account.UserName = vm.Email;
+
+            if(vm.Password is not null)
+            {
+                account.PasswordHash = _passwordHasher.HashPassword(null, vm.Password);
+            }
+        }
+
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsFailure)
+        {
+            ModelState.AddModelError(string.Empty, "Gagal menguban data pegawai!");
+            return View(vm);
+        }
+
+        _toastrNotificationService.AddSuccess("Data pegawai berhasil diubah!");
+
+        return RedirectToAction(nameof(Index));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Hapus(string nip)
+    {
+        var pegawai = await _pegawaiRepository.Get(nip);
+
+        if (pegawai == null) return NotFound();
+
+        _pegawaiRepository.Delete(pegawai);
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsFailure)
+            _toastrNotificationService.AddError("Gagal Menghapus Data Pegawai");
+        else
+            _toastrNotificationService.AddSuccess("Berhasil Menghapus Data Pegawai");
 
         return RedirectToAction(nameof(Index));
     }

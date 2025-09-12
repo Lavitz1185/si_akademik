@@ -12,4 +12,7 @@ public class Alamat
     public string KotaKabupaten { get; set; } = string.Empty;
     public string Provinsi { get; set; } = string.Empty;
     public string KodePos { get; set; } = string.Empty;
+
+    public override string ToString() => 
+        $"{Jalan}, RT/RW {RT}/{RW}, {KelurahanDesa}, {Kecamatan}, {KotaKabupaten}, {Provinsi}, Kode Pos : {KodePos}";
 }

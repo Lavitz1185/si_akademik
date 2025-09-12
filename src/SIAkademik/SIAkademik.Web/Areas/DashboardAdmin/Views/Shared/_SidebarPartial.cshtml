@@ -10,7 +10,11 @@
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
             <li>
-                <a asp-area="Dashboard" asp-controller="Home" asp-action="Index" data-match="all" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
+                <a asp-area="@AreaNames.DashboardAdmin" asp-controller="Home" asp-action="Index" data-match="all" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
+            </li>
+
+            <li>
+                <a asp-area="@AreaNames.DashboardAdmin" asp-controller="Pegawai" asp-action="Index" data-match="all" class="nav-link"><i data-feather="monitor"></i><span>Pegawai</span></a>
             </li>
 
 

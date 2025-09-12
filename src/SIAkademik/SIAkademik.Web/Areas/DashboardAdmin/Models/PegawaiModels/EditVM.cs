@@ -5,77 +5,77 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SIAkademik.Web.Areas.DashboardAdmin.Models.PegawaiModels;
 
-public class TambahVM : IHaveAlamat
+public class EditVM : IHaveAlamat
 {
     [Display(Name = "NIP")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public string NIP { get; set; } = string.Empty;
+    public required string NIP { get; set; }
 
     [Display(Name = "Nama")]
     [Required(ErrorMessage = "{0} harus diisi")]
-	public string Nama { get; set; }  = string.Empty;
+	public required string Nama { get; set; }
 
     [Display(Name = "Jenis Kelamin")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public JenisKelamin JenisKelamin { get; set; }
+    public required JenisKelamin JenisKelamin { get; set; }
 
     [Display(Name = "Agama")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public string Agama { get; set; }  = string.Empty;
+    public required string Agama { get; set; }
 
     [Display(Name = "Tanggal Lahir")]
     [Required(ErrorMessage = "{0} harus diisi")]
     [DataType(DataType.Date)]
-    public DateOnly TanggalLahir { get; set; }
+    public required DateOnly TanggalLahir { get; set; }
 
     [Display(Name = "Tempat Lahir")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public string TempatLahir { get; set; }   = string.Empty;
+    public required string TempatLahir { get; set; }
 
     [Display(Name = "Status Perkawinan")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public StatusPerkawinan StatusPerkawinan { get; set; }
+    public required StatusPerkawinan StatusPerkawinan { get; set; }
 
     [Display(Name = "Alamat (KTP)")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public Alamat Alamat { get; set; } = new();
+    public required Alamat Alamat { get; set; }
 
     [Display(Name = "No. HP")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public string NoHP { get; set; }  = string.Empty;
+    public required string NoHP { get; set; }
 
     [Display(Name = "Golongan Darah")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public GolonganDarah GolonganDarah { get; set; }
+    public required GolonganDarah GolonganDarah { get; set; }
 
     [Display(Name = "Email")]
     [Required(ErrorMessage = "{0} harus diisi")]
     [DataType(DataType.EmailAddress)]
-    public string Email { get; set; }  = string.Empty;
+    public required string Email { get; set; }
 
     [Display(Name = "Tanggal Masuk")]
     [Required(ErrorMessage = "{0} harus diisi")]
     [DataType(DataType.Date)]
-    public DateOnly TanggalMasuk { get; set; }
+    public required DateOnly TanggalMasuk { get; set; }
 
     [Display(Name = "NIK")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public string NIK { get; set; }  = string.Empty;
+    public required string NIK { get; set; }
 
     [Display(Name = "Instagram")]
-    public string? NamaInstagram { get; set; }
+    public required string NamaInstagram { get; set; }
 
     [Display(Name = "No. Rekening")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public string NoRekening { get; set; }  = string.Empty;
+    public required string NoRekening { get; set; }
 
     [Display(Name = "Divisi")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public int DivisiId { get; set; }
+    public required int DivisiId { get; set; }
 
     [Display(Name = "Jabatan")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public int JabatanId { get; set; }
+    public required int JabatanId { get; set; }
 
     [Display(Name = "Password")]
     [DataType(DataType.Password)]

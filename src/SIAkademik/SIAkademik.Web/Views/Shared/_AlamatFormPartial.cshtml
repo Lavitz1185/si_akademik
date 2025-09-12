@@ -1,0 +1,45 @@
+﻿@using SIAkademik.Web.Models
+
+@model IHaveAlamat
+
+<div class="container">
+    <div class="row mb-3">
+        <label>Kode Pos</label>
+        <input asp-for="@Model.Alamat.KodePos" />
+    </div>
+
+    <div class="row mb-3">
+        <label>Jalan</label>
+        <input asp-for="@Model.Alamat.Jalan" />
+    </div>
+
+    <div class="row mb-3">
+        <label>RW</label>
+        <input asp-for="@Model.Alamat.RW" />
+    </div>
+
+    <div class="row mb-3">
+        <label>RT</label>
+        <input asp-for="@Model.Alamat.RT" />
+    </div>
+
+    <div class="row mb-3">
+        <label>Kelurahan/Desa</label>
+        <input asp-for="@Model.Alamat.KelurahanDesa" />
+    </div>
+
+    <div class="row mb-3">
+        <label>Kecamatan</label>
+        <input asp-for="@Model.Alamat.Kecamatan" />
+    </div>
+
+    <div class="row mb-3">
+        <label>Kota/Kabupaten</label>
+        <input asp-for="@Model.Alamat.KotaKabupaten" />
+    </div>
+
+    <div class="row mb-3">
+        <label>Provinsi</label>
+        <input asp-for="@Model.Alamat.Provinsi" />
+    </div>
+</div>
