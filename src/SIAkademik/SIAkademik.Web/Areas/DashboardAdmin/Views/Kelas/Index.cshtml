@@ -1,4 +1,37 @@
-﻿@model List<Kelas>
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.KelasModels
+
+@model IndexVM
+@inject ITahunAjaranRepository TahunAjaranRepository
+
+@{
+    var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
+}
+
+<form method="get" asp-action="Index">
+    <select id="idTahunAjaran" name="idTahunAjaran">
+        @if (Model.TahunAjaran is null)
+        {
+            <option selected value="@null">--</option>
+        }
+        else
+        {
+            <option value="@null">--</option>
+        }
+        @foreach (var tahunAjaran in daftarTahunAjaran)
+        {
+            @if (tahunAjaran == Model.TahunAjaran)
+            {
+                <option selected value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+            }
+            else
+            {
+                <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+            }
+        }
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
 
 <a asp-action="Tambah">Tambah Kelas</a>
 
@@ -7,18 +40,19 @@
         <tr>
             <th>Id</th>
             <th>Jenjang</th>
-            <th>Semester</th>
+            <th>Peminatan</th>
             <th>Tahun Ajaran</th>
             <th>Jumlah Rombel</th>
             <th>Aksi</th>
         </tr>
     </thead>
     <tbody>
-        @foreach(var kelas in Model)
+        @foreach(var kelas in Model.DaftarKelas)
         {
             <tr>
                 <td>@kelas.Id</td>
                 <td>@kelas.Jenjang.Humanize()</td>
+                <td>@kelas.Peminatan.Humanize()</td>
                 <td>@kelas.TahunAjaran.Periode-@kelas.TahunAjaran.Semester.Humanize()</td>
                 <td>@kelas.DaftarRombel.Count</td>
                 <td>
