@@ -1,0 +1,32 @@
+﻿@model List<MataPelajaran>
+
+<a asp-action="Tambah">Tambah</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nama</th>
+            <th>Jenjang</th>
+            <th>Peminatan</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var mataPelajaran in Model)
+        {
+            <tr>
+                <td>@mataPelajaran.Id</td>
+                <td>@mataPelajaran.Nama</td>
+                <td>@mataPelajaran.Jenjang</td>
+                <td>@mataPelajaran.Peminatan</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@mataPelajaran.Id">Edit</a>
+                    <form asp-action="Hapus" asp-route-id="@mataPelajaran.Id">
+                        <button type="submit">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

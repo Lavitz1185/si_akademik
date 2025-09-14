@@ -1,0 +1,40 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.MataPelajaranModels
+@model TambahVM
+
+<form asp-action="Tambah" method="post" class="container">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div class="row">
+        <label asp-for="@Model.Nama"></label>
+        <input asp-for="@Model.Nama" type="text"/>
+        <span asp-validation-for="@Model.Nama"></span>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.Jenjang"></label>
+        <select asp-for="@Model.Jenjang">
+            @foreach(var jenjang in Enum.GetValues<Jenjang>())
+            {
+                <option value="@jenjang">@jenjang.Humanize()</option>
+            }
+        </select>
+        <span asp-validation-for="@Model.Jenjang"></span>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.Peminatan"></label>
+        <select asp-for="@Model.Peminatan">
+            @foreach (var peminatan in Enum.GetValues<Peminatan>())
+            {
+                <option value="@peminatan">@peminatan.Humanize()</option>
+            }
+        </select>
+        <span asp-validation-for="@Model.Peminatan"></span>
+    </div>
+
+    <button type="submit">Simpan</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
