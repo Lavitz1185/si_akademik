@@ -3,13 +3,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SIAkademik.Web.Areas.DashboardAdmin.Models.TahunAjaranModels;
 
-public class TambahVM
+public class EditVM
 {
-    [Display(Name = "Periode")]
+    [Display(Name = "Id")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public string Periode { get; set; } = string.Empty;
+    public required int Id { get; init; }
 
     [Display(Name = "Periode")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public Semester Semester { get; set; }
+    public required string Periode { get; set; } = string.Empty;
+
+    [Display(Name = "Periode")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public required Semester Semester { get; set; }
 }

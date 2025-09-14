@@ -1,0 +1,26 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.TahunAjaranModels
+
+@model TambahVM
+
+<form asp-action="Tambah" class="container">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div class="row">
+        <label asp-for="@Model.Periode"></label>
+        <input asp-for="@Model.Periode" type="text"/>
+        <span asp-validation-for="@Model.Periode"></span>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.Semester"></label>
+        <select asp-for="@Model.Semester">
+            @foreach(var semester in Enum.GetValues<Semester>())
+            {
+                <option value="@semester">@semester.Humanize()</option>
+            }
+        </select>
+        <span asp-validation-for="@Model.Semester"></span>
+    </div>
+
+    <button type="submit">Simpan</button>
+</form>

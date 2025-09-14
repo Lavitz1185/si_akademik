@@ -1,5 +1,7 @@
 ﻿@model List<TahunAjaran>
 
+<a asp-action="Tambah">Tambah Tahun Ajaran</a>
+
 <table>
     <thead>
         <tr>
@@ -7,6 +9,7 @@
             <th>Periode</th>
             <th>Semester</th>
             <th>Jumlah Kelas</th>
+            <th>Aksi</th>
         </tr>
     </thead>
     <tbody>
@@ -17,6 +20,19 @@
                 <td>@tahunAjaran.Periode</td>
                 <td>@tahunAjaran.Semester.Humanize()</td>
                 <td>@tahunAjaran.DaftarKelas.Count</td>
+                <td>
+                    <a asp-action="Index" asp-controller="Kelas" asp-route-id="@tahunAjaran.Id">Lihat Kelas</a>
+                    <a asp-action="Edit" asp-route-id="@tahunAjaran.Id">Edit</a>
+                    @if(tahunAjaran.DaftarKelas.Count == 0)
+                    {
+                        <form asp-action="GenerateKelas" asp-route-id="@tahunAjaran.Id">
+                            <button type="submit">Generate Kelas</button>
+                        </form>
+                    }
+                    <form asp-action="Hapus" asp-route-id="@tahunAjaran.Id">
+                        <button type="submit">Hapus</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>
