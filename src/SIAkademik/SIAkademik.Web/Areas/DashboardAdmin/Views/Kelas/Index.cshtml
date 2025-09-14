@@ -7,8 +7,8 @@
     var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
 }
 
-<form method="get" asp-action="Index">
-    <select id="idTahunAjaran" name="idTahunAjaran">
+<form method="get" asp-action="Index" id="form">
+    <select id="idTahunAjaran" name="idTahunAjaran" required>
         @if (Model.TahunAjaran is null)
         {
             <option selected value="@null">--</option>
@@ -65,3 +65,11 @@
         }
     </tbody>
 </table>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script type="text/javascript">
+        $('#form').validate()
+    </script>
+}

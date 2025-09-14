@@ -38,7 +38,7 @@ public class TambahVM : IHaveAlamat
 
     [Display(Name = "Alamat (KTP)")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public Alamat Alamat { get; set; } = new();
+    public AlamatVM Alamat { get; set; } = new();
 
     [Display(Name = "No. HP")]
     [Required(ErrorMessage = "{0} harus diisi")]
