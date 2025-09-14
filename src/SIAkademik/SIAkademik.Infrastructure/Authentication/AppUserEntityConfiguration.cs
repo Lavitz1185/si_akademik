@@ -29,6 +29,13 @@ internal class AppUserEntityConfiguration : IEntityTypeConfiguration<AppUser>
                 UserName = "megalello99@gmail.com",
                 PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
                 Role = AppUserRoles.Guru
+            },
+            new
+            {
+                Id = 3,
+                UserName = "0044710570",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
             }
         );
     }

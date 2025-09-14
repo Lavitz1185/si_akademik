@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SIAkademik.Domain.Enums;
 using SIAkademik.Domain.ModulSiakad.Entities;
+using SIAkademik.Domain.ValueObjects;
 using SIAkademik.Infrastructure.Database.ValueConverters;
 
 namespace SIAkademik.Infrastructure.ModulSiakad.EntityConfigurations;
@@ -28,5 +30,19 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
         builder.Property(x => x.NoHPWali).HasConversion<NoHPIntConverter>();
         builder.HasOne(x => x.Account).WithOne(x => x.Siswa).HasForeignKey<Siswa>("AppUserId");
         builder.HasMany(x => x.DaftarAnggotaRombel).WithOne(x => x.Siswa);
+
+        builder.HasData(
+            new
+            {
+                Id = "0044710570",
+                Nama = "OSWALDUS PUTRA FERNANDO",
+                JenisKelamin = JenisKelamin.LakiLaki,
+                TanggalLahir = new DateOnly(2004, 10, 14),
+                TanggalMasuk = new DateOnly(2025, 01, 01),
+                TempatLahir = "Makassar",
+                Agama = Agama.Katolik,
+                AppUserId = 3
+            }
+        );
     }
 }
