@@ -20,7 +20,7 @@ public class Pegawai : Entity<string>
 
     public required string Nama { get; set; }
     public required JenisKelamin JenisKelamin { get; set; }
-    public required string Agama { get; set; }
+    public required Agama Agama { get; set; }
     public required DateOnly TanggalLahir { get; set; }
     public required string TempatLahir { get; set; }
     public required StatusPerkawinan StatusPerkawinan { get; set; }

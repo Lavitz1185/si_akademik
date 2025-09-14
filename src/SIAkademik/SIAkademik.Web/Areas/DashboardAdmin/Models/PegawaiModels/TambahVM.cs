@@ -21,7 +21,7 @@ public class TambahVM : IHaveAlamat
 
     [Display(Name = "Agama")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public string Agama { get; set; }  = string.Empty;
+    public Agama Agama { get; set; }
 
     [Display(Name = "Tanggal Lahir")]
     [Required(ErrorMessage = "{0} harus diisi")]

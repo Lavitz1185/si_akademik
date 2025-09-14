@@ -297,9 +297,8 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<string>("Agama")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Agama")
+                        .HasColumnType("integer");
 
                     b.Property<int?>("AppUserId")
                         .HasColumnType("integer");
@@ -403,7 +402,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = "PJ24-003",
-                            Agama = "Kristen Protestan",
+                            Agama = 0,
                             AppUserId = 2,
                             DivisiId = 1,
                             Email = "megalello99@gmail.com",

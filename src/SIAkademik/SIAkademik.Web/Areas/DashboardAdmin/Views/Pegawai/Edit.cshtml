@@ -36,7 +36,12 @@
 
     <div class="row mb-3">
         <label asp-for="@Model.Agama"></label>
-        <input asp-for="@Model.Agama" type="text" />
+        <select asp-for="@Model.Agama">
+            @foreach (var a in Enum.GetValues<Agama>())
+            {
+                <option value="@a">@a.Humanize()</option>
+            }
+        </select>
         <span asp-validation-for="@Model.Agama"></span>
     </div>
 
