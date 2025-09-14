@@ -13,8 +13,8 @@ using SIAkademik.Infrastructure.Database;
 namespace SIAkademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250914054045_TambahDataSiswaDummy")]
-    partial class TambahDataSiswaDummy
+    [Migration("20250914103601_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -300,9 +300,8 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<string>("Agama")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Agama")
+                        .HasColumnType("integer");
 
                     b.Property<int?>("AppUserId")
                         .HasColumnType("integer");
@@ -406,7 +405,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = "PJ24-003",
-                            Agama = "Kristen Protestan",
+                            Agama = 0,
                             AppUserId = 2,
                             DivisiId = 1,
                             Email = "megalello99@gmail.com",
@@ -510,6 +509,10 @@ namespace SIAkademik.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("NIKWali")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NIS")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Nama")
@@ -647,6 +650,7 @@ namespace SIAkademik.Infrastructure.Migrations
                             Agama = 1,
                             AppUserId = 3,
                             JenisKelamin = 0,
+                            NIS = "123456",
                             Nama = "OSWALDUS PUTRA FERNANDO",
                             TanggalLahir = new DateOnly(2004, 10, 14),
                             TanggalMasuk = new DateOnly(2025, 1, 1),

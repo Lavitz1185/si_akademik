@@ -8,6 +8,7 @@ using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Domain.ValueObjects;
 using SIAkademik.Web.Areas.DashboardAdmin.Models.PegawaiModels;
+using SIAkademik.Web.Models;
 using SIAkademik.Web.Services.Toastr;
 
 namespace SIAkademik.Web.Areas.DashboardAdmin.Controllers;
@@ -114,7 +115,17 @@ public class PegawaiController : Controller
             Id = vm.NIP,
             Nama = vm.Nama,
             Agama = vm.Agama,
-            AlamatKTP = vm.Alamat,
+            AlamatKTP = new Alamat 
+            {
+                Jalan = vm.Alamat.Jalan,
+                RT = vm.Alamat.RT,
+                RW = vm.Alamat.RW,
+                KelurahanDesa = vm.Alamat.KelurahanDesa,
+                Kecamatan = vm.Alamat.Kecamatan,
+                KotaKabupaten = vm.Alamat.KotaKabupaten,
+                Provinsi = vm.Alamat.Provinsi,
+                KodePos = vm.Alamat.KodePos
+            },
             Email = vm.Email,
             NoHP = noHP.Value,
             GolonganDarah = vm.GolonganDarah,
@@ -170,7 +181,17 @@ public class PegawaiController : Controller
             {
                 NIP = pegawai.Id,
                 Agama = pegawai.Agama,
-                Alamat = pegawai.AlamatKTP,
+                Alamat = new AlamatVM
+                {
+                    Jalan = pegawai.AlamatKTP.Jalan,
+                    RT = pegawai.AlamatKTP.RT,
+                    RW = pegawai.AlamatKTP.RW,
+                    KelurahanDesa = pegawai.AlamatKTP.KelurahanDesa,
+                    Kecamatan = pegawai.AlamatKTP.Kecamatan,
+                    KotaKabupaten = pegawai.AlamatKTP.KotaKabupaten,
+                    Provinsi = pegawai.AlamatKTP.Provinsi,
+                    KodePos = pegawai.AlamatKTP.KodePos
+                },
                 DivisiId = pegawai.Divisi.Id,
                 Email = pegawai.Email,
                 GolonganDarah = pegawai.GolonganDarah,
@@ -236,7 +257,17 @@ public class PegawaiController : Controller
         pegawai.StatusPerkawinan = vm.StatusPerkawinan;
         pegawai.NoHP = noHP.Value;
         pegawai.NamaInstagram = vm.NamaInstagram;
-        pegawai.AlamatKTP = vm.Alamat;
+        pegawai.AlamatKTP = new Alamat
+        {
+            Jalan = vm.Alamat.Jalan,
+            RT = vm.Alamat.RT,
+            RW = vm.Alamat.RW,
+            KelurahanDesa = vm.Alamat.KelurahanDesa,
+            Kecamatan = vm.Alamat.Kecamatan,
+            KotaKabupaten = vm.Alamat.KotaKabupaten,
+            Provinsi = vm.Alamat.Provinsi,
+            KodePos = vm.Alamat.KodePos
+        };
         pegawai.Agama = vm.Agama;
         pegawai.TempatLahir = vm.TempatLahir;
         pegawai.TanggalLahir = vm.TanggalLahir;

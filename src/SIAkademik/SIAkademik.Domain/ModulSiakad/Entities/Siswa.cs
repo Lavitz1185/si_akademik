@@ -51,6 +51,7 @@ public class Siswa : Entity<string>
 
     //Data Penting
     public required string Nama { get; set; }
+    public required string NIS { get; set; }
     public required JenisKelamin JenisKelamin { get; set; }
     public required DateOnly TanggalLahir { get; set; }
     public required string TempatLahir { get; set; }

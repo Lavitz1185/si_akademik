@@ -21,7 +21,7 @@ public class EditVM : IHaveAlamat
 
     [Display(Name = "Agama")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public required string Agama { get; set; }
+    public required Agama Agama { get; set; }
 
     [Display(Name = "Tanggal Lahir")]
     [Required(ErrorMessage = "{0} harus diisi")]
@@ -38,7 +38,7 @@ public class EditVM : IHaveAlamat
 
     [Display(Name = "Alamat (KTP)")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public required Alamat Alamat { get; set; }
+    public required AlamatVM Alamat { get; set; }
 
     [Display(Name = "No. HP")]
     [Required(ErrorMessage = "{0} harus diisi")]

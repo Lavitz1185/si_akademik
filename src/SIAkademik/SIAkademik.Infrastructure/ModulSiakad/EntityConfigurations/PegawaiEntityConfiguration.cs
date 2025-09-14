@@ -49,7 +49,7 @@ internal class PegawaiEntityConfiguration : IEntityTypeConfiguration<Pegawai>
                 AlamatKTP_Kecamatan = "Kupang Tengah",
                 AlamatKTP_KotaKabupaten = "Kabupaten Kupang",
                 AlamatKTP_Provinsi = "NTT",
-                Agama = "Kristen Protestan",
+                Agama = Agama.KristenProtestan,
                 GolonganDarah = GolonganDarah.A,
                 StatusPerkawinan = StatusPerkawinan.TidakKawin,
                 NamaInstagram = string.Empty,

@@ -36,6 +36,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             {
                 Id = "0044710570",
                 Nama = "OSWALDUS PUTRA FERNANDO",
+                NIS = "123456",
                 JenisKelamin = JenisKelamin.LakiLaki,
                 TanggalLahir = new DateOnly(2004, 10, 14),
                 TanggalMasuk = new DateOnly(2025, 01, 01),
