@@ -21,8 +21,14 @@ public class TahunAjaranController : Controller
         _unitOfWork = unitOfWork;
     }
 
+    public async Task<IActionResult> Index()
+    {
+        var daftarTahunAjaran = await _tahunAjaranRepository.GetAll();
 
-    public IActionResult Index()
+        return View(daftarTahunAjaran);
+    }
+
+    public IActionResult Tambah()
     {
         return View();
     }

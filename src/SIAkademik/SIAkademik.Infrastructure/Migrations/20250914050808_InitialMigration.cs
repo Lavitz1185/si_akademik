@@ -4,6 +4,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace SIAkademik.Infrastructure.Migrations
 {
     /// <inheritdoc />
@@ -46,7 +48,8 @@ namespace SIAkademik.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Nama = table.Column<string>(type: "text", nullable: false)
+                    Nama = table.Column<string>(type: "text", nullable: false),
+                    Jenis = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -91,34 +94,40 @@ namespace SIAkademik.Infrastructure.Migrations
                     JenisKelamin = table.Column<int>(type: "integer", nullable: false),
                     TanggalLahir = table.Column<DateOnly>(type: "date", nullable: false),
                     TempatLahir = table.Column<string>(type: "text", nullable: false),
-                    Agama = table.Column<string>(type: "text", nullable: false),
-                    Suku = table.Column<string>(type: "text", nullable: false),
-                    AsalSekolah = table.Column<string>(type: "text", nullable: false),
-                    GolonganDarah = table.Column<int>(type: "integer", nullable: false),
-                    TinggiBadan = table.Column<double>(type: "double precision", nullable: false),
-                    BeratBadan = table.Column<double>(type: "double precision", nullable: false),
-                    Hobi = table.Column<string>(type: "text", nullable: false),
-                    NoHP = table.Column<string>(type: "text", nullable: false),
-                    JumlahSaudara = table.Column<int>(type: "integer", nullable: false),
-                    AnakKe = table.Column<int>(type: "integer", nullable: false),
-                    AktaKelahiran = table.Column<string>(type: "text", nullable: false),
-                    NomorKartuKeluarga = table.Column<string>(type: "text", nullable: false),
-                    Peminatan = table.Column<int>(type: "integer", nullable: false),
-                    NamaAyah = table.Column<string>(type: "text", nullable: false),
-                    PekerjaanAyah = table.Column<string>(type: "text", nullable: false),
-                    AgamaAyah = table.Column<string>(type: "text", nullable: false),
-                    NoHPAyah = table.Column<string>(type: "text", nullable: false),
-                    TanggalLahirAyah = table.Column<DateOnly>(type: "date", nullable: false),
-                    StatusHidupAyah = table.Column<int>(type: "integer", nullable: false),
-                    PendidikanTerakhirAyah = table.Column<string>(type: "text", nullable: false),
-                    NamaIbu = table.Column<string>(type: "text", nullable: false),
-                    PekerjaanIbu = table.Column<string>(type: "text", nullable: false),
-                    AgamaIbu = table.Column<string>(type: "text", nullable: false),
-                    NoHPIbu = table.Column<string>(type: "text", nullable: false),
-                    TanggalLahirIbu = table.Column<DateOnly>(type: "date", nullable: false),
-                    StatusHidupIbu = table.Column<int>(type: "integer", nullable: false),
-                    PendidikanTerakhirIbu = table.Column<string>(type: "text", nullable: false),
+                    Agama = table.Column<int>(type: "integer", nullable: false),
+                    TanggalMasuk = table.Column<DateOnly>(type: "date", nullable: false),
+                    Suku = table.Column<string>(type: "text", nullable: true),
+                    GolonganDarah = table.Column<int>(type: "integer", nullable: true),
+                    TinggiBadan = table.Column<double>(type: "double precision", nullable: true),
+                    BeratBadan = table.Column<double>(type: "double precision", nullable: true),
+                    Hobi = table.Column<string>(type: "text", nullable: true),
+                    NoHP = table.Column<string>(type: "text", nullable: true),
+                    JumlahSaudara = table.Column<int>(type: "integer", nullable: true),
+                    AnakKe = table.Column<int>(type: "integer", nullable: true),
+                    AktaKelahiran = table.Column<string>(type: "text", nullable: true),
+                    NomorKartuKeluarga = table.Column<string>(type: "text", nullable: true),
+                    NomorKartuPelajar = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    AsalSekolah = table.Column<string>(type: "text", nullable: true),
+                    Peminatan = table.Column<int>(type: "integer", nullable: true),
+                    NamaAyah = table.Column<string>(type: "text", nullable: true),
+                    NIKAyah = table.Column<string>(type: "text", nullable: true),
+                    PekerjaanAyah = table.Column<string>(type: "text", nullable: true),
+                    AgamaAyah = table.Column<string>(type: "text", nullable: true),
+                    NoHPAyah = table.Column<string>(type: "text", nullable: true),
+                    TanggalLahirAyah = table.Column<DateOnly>(type: "date", nullable: true),
+                    StatusHidupAyah = table.Column<int>(type: "integer", nullable: true),
+                    PendidikanTerakhirAyah = table.Column<string>(type: "text", nullable: true),
+                    NamaIbu = table.Column<string>(type: "text", nullable: true),
+                    NIKIbu = table.Column<string>(type: "text", nullable: true),
+                    PekerjaanIbu = table.Column<string>(type: "text", nullable: true),
+                    AgamaIbu = table.Column<string>(type: "text", nullable: true),
+                    NoHPIbu = table.Column<string>(type: "text", nullable: true),
+                    TanggalLahirIbu = table.Column<DateOnly>(type: "date", nullable: true),
+                    StatusHidupIbu = table.Column<int>(type: "integer", nullable: true),
+                    PendidikanTerakhirIbu = table.Column<string>(type: "text", nullable: true),
                     NamaWali = table.Column<string>(type: "text", nullable: true),
+                    NIKWali = table.Column<string>(type: "text", nullable: true),
                     PekerjaanWali = table.Column<string>(type: "text", nullable: true),
                     AgamaWali = table.Column<string>(type: "text", nullable: true),
                     NoHPWali = table.Column<string>(type: "text", nullable: true),
@@ -167,7 +176,7 @@ namespace SIAkademik.Infrastructure.Migrations
                     NoRekening = table.Column<string>(type: "text", nullable: false),
                     DivisiId = table.Column<int>(type: "integer", nullable: false),
                     JabatanId = table.Column<int>(type: "integer", nullable: false),
-                    AppUserId = table.Column<int>(type: "integer", nullable: false),
+                    AppUserId = table.Column<int>(type: "integer", nullable: true),
                     AlamatKTP_Jalan = table.Column<string>(type: "text", nullable: false),
                     AlamatKTP_Kecamatan = table.Column<string>(type: "text", nullable: false),
                     AlamatKTP_KelurahanDesa = table.Column<string>(type: "text", nullable: false),
@@ -184,8 +193,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         name: "FK_TblPegawai_AppUser_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "AppUser",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_TblPegawai_TblDivisi_DivisiId",
                         column: x => x.DivisiId,
@@ -360,6 +368,93 @@ namespace SIAkademik.Infrastructure.Migrations
                         principalTable: "TblJadwalMengajar",
                         principalColumns: new[] { "NIP", "IdMataPelajaran", "IdRombel" },
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AppUser",
+                columns: new[] { "Id", "PasswordHash", "Role", "UserName" },
+                values: new object[,]
+                {
+                    { 1, "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==", "ADMIN", "Admin" },
+                    { 2, "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==", "GURU", "megalello99@gmail.com" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TblDivisi",
+                columns: new[] { "Id", "Nama" },
+                values: new object[] { 1, "SMA" });
+
+            migrationBuilder.InsertData(
+                table: "TblJabatan",
+                columns: new[] { "Id", "Jenis", "Nama" },
+                values: new object[] { 1, 0, "Guru Matematika" });
+
+            migrationBuilder.InsertData(
+                table: "TblTahunAjaran",
+                columns: new[] { "Id", "Periode", "Semester" },
+                values: new object[,]
+                {
+                    { 1, "2024/2025", 1 },
+                    { 2, "2024/2025", 0 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TblPegawai",
+                columns: new[]
+                {
+                    "Id",
+                    "Agama",
+                    "AppUserId",
+                    "DivisiId",
+                    "Email",
+                    "GolonganDarah",
+                    "JabatanId",
+                    "JenisKelamin",
+                    "NIK",
+                    "Nama",
+                    "NamaInstagram",
+                    "NoHP",
+                    "NoRekening",
+                    "StatusPerkawinan",
+                    "TanggalLahir",
+                    "TanggalMasuk",
+                    "TempatLahir",
+                    "AlamatKTP_KodePos",
+                    "AlamatKTP_Jalan",
+                    "AlamatKTP_RT",
+                    "AlamatKTP_RW",
+                    "AlamatKTP_KelurahanDesa",
+                    "AlamatKTP_Kecamatan",
+                    "AlamatKTP_KotaKabupaten",
+                    "AlamatKTP_Provinsi",
+                },
+                values: new object[]
+                {
+                    "PJ24-003",
+                    "Kristen Protestan",
+                    2,
+                    1,
+                    "megalello99@gmail.com",
+                    0,
+                    1,
+                    1,
+                    "5301086707010008",
+                    "Mega Lita A. Lello, S.Pd",
+                    "",
+                    "081237731427",
+                    "169601013554503(BRI)",
+                    1,
+                    new DateOnly(2001, 7, 27),
+                    new DateOnly(2024, 7, 1),
+                    "Noelbaki",
+                    "",
+                    "Noelbaki",
+                    37,
+                    14,
+                    "Kelurahan Noelbaki",
+                    "Kupang Tengah",
+                    "Kabupaten Kupang",
+                    "NTT",
                 });
 
             migrationBuilder.CreateIndex(

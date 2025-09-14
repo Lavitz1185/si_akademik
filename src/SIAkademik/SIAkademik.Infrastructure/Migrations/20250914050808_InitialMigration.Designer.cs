@@ -13,7 +13,7 @@ using SIAkademik.Infrastructure.Database;
 namespace SIAkademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250905130802_InitialMigration")]
+    [Migration("20250914050808_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -49,9 +49,25 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppUser");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                            Role = "ADMIN",
+                            UserName = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                            Role = "GURU",
+                            UserName = "megalello99@gmail.com"
+                        });
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.Absen", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Absen", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -82,7 +98,7 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.ToTable("TblAbsen");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.AnggotaRombel", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.AnggotaRombel", b =>
                 {
                     b.Property<string>("NISN")
                         .HasColumnType("text");
@@ -103,7 +119,7 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.ToTable("TblAnggotaRombel");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.Divisi", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Divisi", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -118,15 +134,25 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TblDivisi");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Nama = "SMA"
+                        });
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.Jabatan", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Jabatan", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Jenis")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Nama")
                         .IsRequired()
@@ -135,9 +161,17 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TblJabatan");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Jenis = 0,
+                            Nama = "Guru Matematika"
+                        });
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.JadwalMengajar", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.JadwalMengajar", b =>
                 {
                     b.Property<string>("NIP")
                         .HasColumnType("text");
@@ -163,7 +197,7 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.ToTable("TblJadwalMengajar");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.Kelas", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Kelas", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -187,7 +221,7 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.ToTable("TblKelas");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.MataPelajaran", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.MataPelajaran", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -210,7 +244,7 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.ToTable("TblMataPelajaran");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.Nilai", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Nilai", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -254,7 +288,7 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.ToTable("TblNilai");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.Pegawai", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Pegawai", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -263,7 +297,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("AppUserId")
+                    b.Property<int?>("AppUserId")
                         .HasColumnType("integer");
 
                     b.Property<int>("DivisiId")
@@ -315,7 +349,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.ComplexProperty<Dictionary<string, object>>("AlamatKTP", "SIAkademik.Domain.Entities.Pegawai.AlamatKTP#Alamat", b1 =>
+                    b.ComplexProperty<Dictionary<string, object>>("AlamatKTP", "SIAkademik.Domain.ModulSiakad.Entities.Pegawai.AlamatKTP#Alamat", b1 =>
                         {
                             b1.IsRequired();
 
@@ -360,9 +394,31 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.HasIndex("JabatanId");
 
                     b.ToTable("TblPegawai");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "PJ24-003",
+                            Agama = "Kristen Protestan",
+                            AppUserId = 2,
+                            DivisiId = 1,
+                            Email = "megalello99@gmail.com",
+                            GolonganDarah = 0,
+                            JabatanId = 1,
+                            JenisKelamin = 1,
+                            NIK = "5301086707010008",
+                            Nama = "Mega Lita A. Lello, S.Pd",
+                            NamaInstagram = "",
+                            NoHP = "081237731427",
+                            NoRekening = "169601013554503(BRI)",
+                            StatusPerkawinan = 1,
+                            TanggalLahir = new DateOnly(2001, 7, 27),
+                            TanggalMasuk = new DateOnly(2024, 7, 1),
+                            TempatLahir = "Noelbaki"
+                        });
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.Rombel", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Rombel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -390,48 +446,45 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.ToTable("TblRombel");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.Siswa", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Siswa", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<string>("Agama")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Agama")
+                        .HasColumnType("integer");
 
                     b.Property<string>("AgamaAyah")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("AgamaIbu")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("AgamaWali")
                         .HasColumnType("text");
 
                     b.Property<string>("AktaKelahiran")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("AnakKe")
+                    b.Property<int?>("AnakKe")
                         .HasColumnType("integer");
 
                     b.Property<int>("AppUserId")
                         .HasColumnType("integer");
 
                     b.Property<string>("AsalSekolah")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<double>("BeratBadan")
+                    b.Property<double?>("BeratBadan")
                         .HasColumnType("double precision");
 
-                    b.Property<int>("GolonganDarah")
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("GolonganDarah")
                         .HasColumnType("integer");
 
                     b.Property<string>("Hobi")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("HubunganDenganWali")
@@ -440,101 +493,105 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Property<int>("JenisKelamin")
                         .HasColumnType("integer");
 
-                    b.Property<int>("JumlahSaudara")
+                    b.Property<int?>("JumlahSaudara")
                         .HasColumnType("integer");
+
+                    b.Property<string>("NIKAyah")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NIKIbu")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NIKWali")
+                        .HasColumnType("text");
 
                     b.Property<string>("Nama")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("NamaAyah")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("NamaIbu")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("NamaWali")
                         .HasColumnType("text");
 
                     b.Property<string>("NoHP")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("NoHPAyah")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("NoHPIbu")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("NoHPWali")
                         .HasColumnType("text");
 
                     b.Property<string>("NomorKartuKeluarga")
-                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("NomorKartuPelajar")
                         .HasColumnType("text");
 
                     b.Property<string>("PekerjaanAyah")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PekerjaanIbu")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PekerjaanWali")
                         .HasColumnType("text");
 
-                    b.Property<int>("Peminatan")
+                    b.Property<int?>("Peminatan")
                         .HasColumnType("integer");
 
                     b.Property<string>("PendidikanTerakhirAyah")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PendidikanTerakhirIbu")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PendidikanTerakhirWali")
                         .HasColumnType("text");
 
-                    b.Property<int>("StatusHidupAyah")
+                    b.Property<int?>("StatusHidupAyah")
                         .HasColumnType("integer");
 
-                    b.Property<int>("StatusHidupIbu")
+                    b.Property<int?>("StatusHidupIbu")
                         .HasColumnType("integer");
 
                     b.Property<int?>("StatusHidupWali")
                         .HasColumnType("integer");
 
                     b.Property<string>("Suku")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateOnly>("TanggalLahir")
                         .HasColumnType("date");
 
-                    b.Property<DateOnly>("TanggalLahirAyah")
+                    b.Property<DateOnly?>("TanggalLahirAyah")
                         .HasColumnType("date");
 
-                    b.Property<DateOnly>("TanggalLahirIbu")
+                    b.Property<DateOnly?>("TanggalLahirIbu")
                         .HasColumnType("date");
 
                     b.Property<DateOnly?>("TanggalLahirWali")
+                        .HasColumnType("date");
+
+                    b.Property<DateOnly>("TanggalMasuk")
                         .HasColumnType("date");
 
                     b.Property<string>("TempatLahir")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<double>("TinggiBadan")
+                    b.Property<double?>("TinggiBadan")
                         .HasColumnType("double precision");
 
-                    b.ComplexProperty<Dictionary<string, object>>("AlamatLengkap", "SIAkademik.Domain.Entities.Siswa.AlamatLengkap#Alamat", b1 =>
+                    b.ComplexProperty<Dictionary<string, object>>("AlamatLengkap", "SIAkademik.Domain.ModulSiakad.Entities.Siswa.AlamatLengkap#Alamat", b1 =>
                         {
                             b1.IsRequired();
 
@@ -577,7 +634,7 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.ToTable("TblSiswa");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.TahunAjaran", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.TahunAjaran", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -595,11 +652,25 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TblTahunAjaran");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Periode = "2024/2025",
+                            Semester = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Periode = "2024/2025",
+                            Semester = 0
+                        });
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.Absen", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Absen", b =>
                 {
-                    b.HasOne("SIAkademik.Domain.Entities.AnggotaRombel", "AnggotaRombel")
+                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.AnggotaRombel", "AnggotaRombel")
                         .WithMany("DaftarAbsen")
                         .HasForeignKey("AnggotaRombelNISN", "AnggotaRombelIdRombel")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -608,15 +679,15 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Navigation("AnggotaRombel");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.AnggotaRombel", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.AnggotaRombel", b =>
                 {
-                    b.HasOne("SIAkademik.Domain.Entities.Rombel", "Rombel")
+                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.Rombel", "Rombel")
                         .WithMany("DaftarAnggotaRombel")
                         .HasForeignKey("IdRombel")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SIAkademik.Domain.Entities.Siswa", "Siswa")
+                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.Siswa", "Siswa")
                         .WithMany("DaftarAnggotaRombel")
                         .HasForeignKey("NISN")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -627,21 +698,21 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Navigation("Siswa");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.JadwalMengajar", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.JadwalMengajar", b =>
                 {
-                    b.HasOne("SIAkademik.Domain.Entities.MataPelajaran", "MataPelajaran")
+                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.MataPelajaran", "MataPelajaran")
                         .WithMany("DaftarJadwalMengajar")
                         .HasForeignKey("IdMataPelajaran")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SIAkademik.Domain.Entities.Rombel", "Rombel")
+                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.Rombel", "Rombel")
                         .WithMany("DaftarJadwalMengajar")
                         .HasForeignKey("IdRombel")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SIAkademik.Domain.Entities.Pegawai", "Pegawai")
+                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.Pegawai", "Pegawai")
                         .WithMany("DaftarJadwalMengajar")
                         .HasForeignKey("NIP")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -654,9 +725,9 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Navigation("Rombel");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.Kelas", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Kelas", b =>
                 {
-                    b.HasOne("SIAkademik.Domain.Entities.TahunAjaran", "TahunAjaran")
+                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.TahunAjaran", "TahunAjaran")
                         .WithMany("DaftarKelas")
                         .HasForeignKey("TahunAjaranId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -665,15 +736,15 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Navigation("TahunAjaran");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.Nilai", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Nilai", b =>
                 {
-                    b.HasOne("SIAkademik.Domain.Entities.AnggotaRombel", "AnggotaRombel")
+                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.AnggotaRombel", "AnggotaRombel")
                         .WithMany("DaftarNilai")
                         .HasForeignKey("AnggotaRombelNISN", "AnggotaRombelIdRombel")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SIAkademik.Domain.Entities.JadwalMengajar", "JadwalMengajar")
+                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.JadwalMengajar", "JadwalMengajar")
                         .WithMany("DaftarNilai")
                         .HasForeignKey("JadwalMengajarNIP", "JadwalMengajarIdMataPelajaran", "JadwalMengajarIdRombel")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -684,21 +755,19 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Navigation("JadwalMengajar");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.Pegawai", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Pegawai", b =>
                 {
                     b.HasOne("SIAkademik.Domain.Authentication.AppUser", "Account")
                         .WithOne("Guru")
-                        .HasForeignKey("SIAkademik.Domain.Entities.Pegawai", "AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SIAkademik.Domain.ModulSiakad.Entities.Pegawai", "AppUserId");
 
-                    b.HasOne("SIAkademik.Domain.Entities.Divisi", "Divisi")
+                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.Divisi", "Divisi")
                         .WithMany("DaftarPegawai")
                         .HasForeignKey("DivisiId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SIAkademik.Domain.Entities.Jabatan", "Jabatan")
+                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.Jabatan", "Jabatan")
                         .WithMany("DaftarPegawai")
                         .HasForeignKey("JabatanId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -711,15 +780,15 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Navigation("Jabatan");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.Rombel", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Rombel", b =>
                 {
-                    b.HasOne("SIAkademik.Domain.Entities.Kelas", "Kelas")
+                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.Kelas", "Kelas")
                         .WithMany("DaftarRombel")
                         .HasForeignKey("KelasId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SIAkademik.Domain.Entities.Pegawai", "Wali")
+                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.Pegawai", "Wali")
                         .WithMany("DaftarRombelWali")
                         .HasForeignKey("WaliId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -730,11 +799,11 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Navigation("Wali");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.Siswa", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Siswa", b =>
                 {
                     b.HasOne("SIAkademik.Domain.Authentication.AppUser", "Account")
                         .WithOne("Siswa")
-                        .HasForeignKey("SIAkademik.Domain.Entities.Siswa", "AppUserId")
+                        .HasForeignKey("SIAkademik.Domain.ModulSiakad.Entities.Siswa", "AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -748,58 +817,58 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Navigation("Siswa");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.AnggotaRombel", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.AnggotaRombel", b =>
                 {
                     b.Navigation("DaftarAbsen");
 
                     b.Navigation("DaftarNilai");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.Divisi", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Divisi", b =>
                 {
                     b.Navigation("DaftarPegawai");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.Jabatan", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Jabatan", b =>
                 {
                     b.Navigation("DaftarPegawai");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.JadwalMengajar", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.JadwalMengajar", b =>
                 {
                     b.Navigation("DaftarNilai");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.Kelas", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Kelas", b =>
                 {
                     b.Navigation("DaftarRombel");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.MataPelajaran", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.MataPelajaran", b =>
                 {
                     b.Navigation("DaftarJadwalMengajar");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.Pegawai", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Pegawai", b =>
                 {
                     b.Navigation("DaftarJadwalMengajar");
 
                     b.Navigation("DaftarRombelWali");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.Rombel", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Rombel", b =>
                 {
                     b.Navigation("DaftarAnggotaRombel");
 
                     b.Navigation("DaftarJadwalMengajar");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.Siswa", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Siswa", b =>
                 {
                     b.Navigation("DaftarAnggotaRombel");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.Entities.TahunAjaran", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.TahunAjaran", b =>
                 {
                     b.Navigation("DaftarKelas");
                 });

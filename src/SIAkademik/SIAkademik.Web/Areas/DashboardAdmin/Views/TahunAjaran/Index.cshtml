@@ -1,0 +1,23 @@
+﻿@model List<TahunAjaran>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Periode</th>
+            <th>Semester</th>
+            <th>Jumlah Kelas</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var tahunAjaran in Model)
+        {
+            <tr>
+                <td>@tahunAjaran.Id</td>
+                <td>@tahunAjaran.Periode</td>
+                <td>@tahunAjaran.Semester.Humanize()</td>
+                <td>@tahunAjaran.DaftarKelas.Count</td>
+            </tr>
+        }
+    </tbody>
+</table>

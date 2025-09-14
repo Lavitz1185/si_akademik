@@ -448,47 +448,40 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<string>("Agama")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Agama")
+                        .HasColumnType("integer");
 
                     b.Property<string>("AgamaAyah")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("AgamaIbu")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("AgamaWali")
                         .HasColumnType("text");
 
                     b.Property<string>("AktaKelahiran")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("AnakKe")
+                    b.Property<int?>("AnakKe")
                         .HasColumnType("integer");
 
                     b.Property<int>("AppUserId")
                         .HasColumnType("integer");
 
                     b.Property<string>("AsalSekolah")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<double>("BeratBadan")
+                    b.Property<double?>("BeratBadan")
                         .HasColumnType("double precision");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("GolonganDarah")
+                    b.Property<int?>("GolonganDarah")
                         .HasColumnType("integer");
 
                     b.Property<string>("Hobi")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("HubunganDenganWali")
@@ -497,98 +490,102 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Property<int>("JenisKelamin")
                         .HasColumnType("integer");
 
-                    b.Property<int>("JumlahSaudara")
+                    b.Property<int?>("JumlahSaudara")
                         .HasColumnType("integer");
+
+                    b.Property<string>("NIKAyah")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NIKIbu")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NIKWali")
+                        .HasColumnType("text");
 
                     b.Property<string>("Nama")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("NamaAyah")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("NamaIbu")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("NamaWali")
                         .HasColumnType("text");
 
                     b.Property<string>("NoHP")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("NoHPAyah")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("NoHPIbu")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("NoHPWali")
                         .HasColumnType("text");
 
                     b.Property<string>("NomorKartuKeluarga")
-                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("NomorKartuPelajar")
                         .HasColumnType("text");
 
                     b.Property<string>("PekerjaanAyah")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PekerjaanIbu")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PekerjaanWali")
                         .HasColumnType("text");
 
-                    b.Property<int>("Peminatan")
+                    b.Property<int?>("Peminatan")
                         .HasColumnType("integer");
 
                     b.Property<string>("PendidikanTerakhirAyah")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PendidikanTerakhirIbu")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PendidikanTerakhirWali")
                         .HasColumnType("text");
 
-                    b.Property<int>("StatusHidupAyah")
+                    b.Property<int?>("StatusHidupAyah")
                         .HasColumnType("integer");
 
-                    b.Property<int>("StatusHidupIbu")
+                    b.Property<int?>("StatusHidupIbu")
                         .HasColumnType("integer");
 
                     b.Property<int?>("StatusHidupWali")
                         .HasColumnType("integer");
 
                     b.Property<string>("Suku")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateOnly>("TanggalLahir")
                         .HasColumnType("date");
 
-                    b.Property<DateOnly>("TanggalLahirAyah")
+                    b.Property<DateOnly?>("TanggalLahirAyah")
                         .HasColumnType("date");
 
-                    b.Property<DateOnly>("TanggalLahirIbu")
+                    b.Property<DateOnly?>("TanggalLahirIbu")
                         .HasColumnType("date");
 
                     b.Property<DateOnly?>("TanggalLahirWali")
+                        .HasColumnType("date");
+
+                    b.Property<DateOnly>("TanggalMasuk")
                         .HasColumnType("date");
 
                     b.Property<string>("TempatLahir")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<double>("TinggiBadan")
+                    b.Property<double?>("TinggiBadan")
                         .HasColumnType("double precision");
 
                     b.ComplexProperty<Dictionary<string, object>>("AlamatLengkap", "SIAkademik.Domain.ModulSiakad.Entities.Siswa.AlamatLengkap#Alamat", b1 =>
