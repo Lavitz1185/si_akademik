@@ -1,6 +1,80 @@
 ﻿@model List<Pegawai>
 
-<a asp-action="Tambah">Tambah Pegawai</a>
+<div class="card card-warning">
+    <div class="card-header">
+        <h4>Data Pegawai</h4>
+    </div>
+    <div class="padding-20">
+        <div class="d-flex justify-content-start ml-auto mb-2">
+
+            <div class="mb-0">
+                <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah"
+                    data-toggle="tooltip" title="Tambah Detail Akun">
+                    <i class="fas fa-plus"></i> Tambah Pegawai
+                </a>
+            </div>                               
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover" id="table-akun-1">
+                <thead>
+                    <tr>
+                        <th style="min-width: 90px !important">NIP</th>
+                        <th style="min-width: 180px !important">Nama Lengkap</th>
+                        <th style="min-width: 100px !important">Jenis Kelamin</th>
+                        <th>Agama</th>
+                        <th style="min-width: 130px !important">TTL</th>
+                        <th style="min-width: 120px !important">Status Kawin</th>
+                        <th style="min-width: 200px !important">Alamat (KTP)</th>
+                        <th>No. HP</th>
+                        <th>Gol. Darah</th>
+                        <th>Tanggal Masuk</th>
+                        <th>NIK</th>
+                        <th>Nama Instagram</th>
+                        <th>No. Rekening</th>
+                        <th>Divisi</th>
+                        <th>Jabatan</th>
+                        <th style="min-width: 120px !important">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Nama</td>
+                            <td>@item.JenisKelamin.Humanize()</td>
+                            <td>@item.Agama.Humanize()</td>
+                            <td>@item.TTL</td>
+                            <td>@item.StatusPerkawinan.Humanize()</td>
+                            <td>@item.AlamatKTP</td>
+                            <td>@item.NoHP.Value</td>
+                            <td>@item.GolonganDarah.Humanize()</td>
+                            <td>@item.TanggalMasuk.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td>
+                            <td>@item.NIK</td>
+                            <td>@item.NamaInstagram</td>
+                            <td>@item.NoRekening</td>
+                            <td>@item.Divisi.Nama</td>
+                            <td>@item.Jabatan.Nama</td>
+                            <td>
+                                <a asp-action="Edit" asp-route-nip="@item.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                                <form style="display:inline" asp-action="Hapus" asp-route-nip="@item.Id">
+                                    <button type="submit" class="btn btn-danger btn-action" title="Hapus">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@* <a asp-action="Tambah">Tambah Pegawai</a>
 
 <table>
     <thead>
@@ -51,4 +125,4 @@
             </tr>
         }
     </tbody>
-</table>
+</table> *@
