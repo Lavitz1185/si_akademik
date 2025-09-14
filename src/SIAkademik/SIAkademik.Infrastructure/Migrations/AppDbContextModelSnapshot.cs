@@ -85,9 +85,8 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Property<int>("AnggotaRombelIdRombel")
                         .HasColumnType("integer");
 
-                    b.Property<string>("AnggotaRombelNISN")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("AnggotaRombelIdSiswa")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Keterangan")
                         .HasColumnType("text");
@@ -97,15 +96,15 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AnggotaRombelNISN", "AnggotaRombelIdRombel");
+                    b.HasIndex("AnggotaRombelIdSiswa", "AnggotaRombelIdRombel");
 
                     b.ToTable("TblAbsen");
                 });
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.AnggotaRombel", b =>
                 {
-                    b.Property<string>("NISN")
-                        .HasColumnType("text");
+                    b.Property<int>("IdSiswa")
+                        .HasColumnType("integer");
 
                     b.Property<int>("IdRombel")
                         .HasColumnType("integer");
@@ -116,7 +115,7 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Property<DateOnly>("TanggalMasuk")
                         .HasColumnType("date");
 
-                    b.HasKey("NISN", "IdRombel");
+                    b.HasKey("IdSiswa", "IdRombel");
 
                     b.HasIndex("IdRombel");
 
@@ -259,9 +258,8 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Property<int>("AnggotaRombelIdRombel")
                         .HasColumnType("integer");
 
-                    b.Property<string>("AnggotaRombelNISN")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("AnggotaRombelIdSiswa")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Deskripsi")
                         .IsRequired()
@@ -285,7 +283,7 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AnggotaRombelNISN", "AnggotaRombelIdRombel");
+                    b.HasIndex("AnggotaRombelIdSiswa", "AnggotaRombelIdRombel");
 
                     b.HasIndex("JadwalMengajarNIP", "JadwalMengajarIdMataPelajaran", "JadwalMengajarIdRombel");
 
@@ -451,8 +449,11 @@ namespace SIAkademik.Infrastructure.Migrations
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Siswa", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Agama")
                         .HasColumnType("integer");
@@ -509,6 +510,10 @@ namespace SIAkademik.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("NIS")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("NISN")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -643,11 +648,12 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0044710570",
+                            Id = 1,
                             Agama = 1,
                             AppUserId = 3,
                             JenisKelamin = 0,
                             NIS = "123456",
+                            NISN = "0044710570",
                             Nama = "OSWALDUS PUTRA FERNANDO",
                             TanggalLahir = new DateOnly(2004, 10, 14),
                             TanggalMasuk = new DateOnly(2025, 1, 1),
@@ -693,7 +699,7 @@ namespace SIAkademik.Infrastructure.Migrations
                 {
                     b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.AnggotaRombel", "AnggotaRombel")
                         .WithMany("DaftarAbsen")
-                        .HasForeignKey("AnggotaRombelNISN", "AnggotaRombelIdRombel")
+                        .HasForeignKey("AnggotaRombelIdSiswa", "AnggotaRombelIdRombel")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -710,7 +716,7 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.Siswa", "Siswa")
                         .WithMany("DaftarAnggotaRombel")
-                        .HasForeignKey("NISN")
+                        .HasForeignKey("IdSiswa")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -761,7 +767,7 @@ namespace SIAkademik.Infrastructure.Migrations
                 {
                     b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.AnggotaRombel", "AnggotaRombel")
                         .WithMany("DaftarNilai")
-                        .HasForeignKey("AnggotaRombelNISN", "AnggotaRombelIdRombel")
+                        .HasForeignKey("AnggotaRombelIdSiswa", "AnggotaRombelIdRombel")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

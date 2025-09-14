@@ -34,7 +34,8 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
         builder.HasData(
             new
             {
-                Id = "0044710570",
+                Id = 1,
+                NISN = "0044710570",
                 Nama = "OSWALDUS PUTRA FERNANDO",
                 NIS = "123456",
                 JenisKelamin = JenisKelamin.LakiLaki,

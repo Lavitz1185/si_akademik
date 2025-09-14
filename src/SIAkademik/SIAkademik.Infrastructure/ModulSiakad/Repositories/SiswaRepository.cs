@@ -19,13 +19,29 @@ internal class SiswaRepository : ISiswaRepository
 
     public void Delete(Siswa siswa) => _appDbContext.TblSiswa.Remove(siswa);
 
-    public async Task<Siswa?> Get(string nisn) => await _appDbContext
+    public async Task<Siswa?> Get(int id) => await _appDbContext
         .TblSiswa
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Wali)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
         .Include(s => s.Account)
-        .FirstOrDefaultAsync(s => s.Id == nisn);
+        .FirstOrDefaultAsync(s => s.Id == id);
+
+    public async Task<Siswa?> GetByNISN(string nisn) => await _appDbContext
+        .TblSiswa
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Wali)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
+        .Include(s => s.Account)
+        .FirstOrDefaultAsync(s => s.NISN == nisn);
+
+    public async Task<Siswa?> GetByNIS(string nis) => await _appDbContext
+        .TblSiswa
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Wali)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
+        .Include(s => s.Account)
+        .FirstOrDefaultAsync(s => s.NIS == nis);
 
     public async Task<List<Siswa>> GetAll() => await _appDbContext
         .TblSiswa

@@ -1,0 +1,70 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.SiswaModels
+@model TambahVM
+
+<form asp-action="Tambah" method="post" class="container">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div class="row">
+        <label asp-for="@Model.NISN"></label>
+        <input asp-for="@Model.NISN" type="text"/>
+        <span asp-validation-for="@Model.NISN"></span>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.NIS"></label>
+        <input asp-for="@Model.NIS" type="text" />
+        <span asp-validation-for="@Model.NIS"></span>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.Nama"></label>
+        <input asp-for="@Model.Nama" type="text" />
+        <span asp-validation-for="@Model.Nama"></span>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.Agama"></label>
+        <select asp-for="@Model.Agama">
+            @foreach(var agama in Enum.GetValues<Agama>())
+            {
+                <option value="@agama">@agama.Humanize()</option>
+            }
+        </select>
+        <span asp-validation-for="@Model.Agama"></span>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.JenisKelamin"></label>
+        <select asp-for="@Model.JenisKelamin">
+            @foreach (var jenisKelamin in Enum.GetValues<JenisKelamin>())
+            {
+                <option value="@jenisKelamin">@jenisKelamin.Humanize()</option>
+            }
+        </select>
+        <span asp-validation-for="@Model.JenisKelamin"></span>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.TempatLahir"></label>
+        <input asp-for="@Model.TempatLahir" type="text" />
+        <span asp-validation-for="@Model.TempatLahir"></span>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.TanggalLahir"></label>
+        <input asp-for="@Model.TanggalLahir" type="date" />
+        <span asp-validation-for="@Model.TanggalLahir"></span>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.TanggalMasuk"></label>
+        <input asp-for="@Model.TanggalMasuk" type="date" />
+        <span asp-validation-for="@Model.TanggalMasuk"></span>
+    </div>
+
+    <button type="submit">Simpan</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

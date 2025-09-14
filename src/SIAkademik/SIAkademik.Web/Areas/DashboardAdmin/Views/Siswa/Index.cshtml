@@ -1,0 +1,51 @@
+﻿@model List<Siswa>
+
+<a asp-action="Tambah">Tambah</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>NISN</th>
+            <th>NIS</th>
+            <th>Nama</th>
+            <th>Agama</th>
+            <th>Jenis Kelamin</th>
+            <th>TTL</th>
+            <th>Tanggal Masuk</th>
+            <th>Biodata Lengkap?</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var siswa in Model)
+        {
+            <tr>
+                <td>@siswa.Id</td>
+                <td>@siswa.NISN</td>
+                <td>@siswa.NIS</td>
+                <td>@siswa.Nama</td>
+                <td>@siswa.Agama.Humanize()</td>
+                <td>@siswa.JenisKelamin.Humanize()</td>
+                <td>@siswa.TTL</td>
+                <td>@siswa.TanggalMasuk.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td>
+                <td>
+                    @if(siswa.IsBiodataComplete())
+                    {
+                        @("Lengkap")
+                    }
+                    else
+                    {
+                        @("Tidak Lengkap")
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@siswa.Id">Edit</a>
+                    <form asp-action="Hapus" asp-route-id="@siswa.Id">
+                        <button type="submit">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

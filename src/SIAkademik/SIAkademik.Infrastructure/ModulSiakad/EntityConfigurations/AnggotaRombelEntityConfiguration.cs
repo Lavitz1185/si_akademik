@@ -8,8 +8,8 @@ internal class AnggotaRombelEntityConfiguration : IEntityTypeConfiguration<Anggo
 {
     public void Configure(EntityTypeBuilder<AnggotaRombel> builder)
     {
-        builder.HasKey(x => new { x.NISN, x.IdRombel });
-        builder.HasOne(x => x.Siswa).WithMany(s => s.DaftarAnggotaRombel).HasForeignKey(x => x.NISN);
+        builder.HasKey(x => new { x.IdSiswa, x.IdRombel });
+        builder.HasOne(x => x.Siswa).WithMany(s => s.DaftarAnggotaRombel).HasForeignKey(x => x.IdSiswa);
         builder.HasOne(x => x.Rombel).WithMany(s => s.DaftarAnggotaRombel).HasForeignKey(x => x.IdRombel);
         builder.HasMany(x => x.DaftarNilai).WithOne(s => s.AnggotaRombel);
         builder.HasMany(x => x.DaftarAbsen).WithOne(s => s.AnggotaRombel);

@@ -89,8 +89,10 @@ namespace SIAkademik.Infrastructure.Migrations
                 name: "TblSiswa",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Nama = table.Column<string>(type: "text", nullable: false),
+                    NISN = table.Column<string>(type: "text", nullable: false),
                     NIS = table.Column<string>(type: "text", nullable: false),
                     JenisKelamin = table.Column<int>(type: "integer", nullable: false),
                     TanggalLahir = table.Column<DateOnly>(type: "date", nullable: false),
@@ -261,14 +263,14 @@ namespace SIAkademik.Infrastructure.Migrations
                 name: "TblAnggotaRombel",
                 columns: table => new
                 {
-                    NISN = table.Column<string>(type: "text", nullable: false),
+                    IdSiswa = table.Column<int>(type: "integer", nullable: false),
                     IdRombel = table.Column<int>(type: "integer", nullable: false),
                     TanggalMasuk = table.Column<DateOnly>(type: "date", nullable: false),
                     TanggalKeluar = table.Column<DateOnly>(type: "date", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TblAnggotaRombel", x => new { x.NISN, x.IdRombel });
+                    table.PrimaryKey("PK_TblAnggotaRombel", x => new { x.IdSiswa, x.IdRombel });
                     table.ForeignKey(
                         name: "FK_TblAnggotaRombel_TblRombel_IdRombel",
                         column: x => x.IdRombel,
@@ -276,8 +278,8 @@ namespace SIAkademik.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TblAnggotaRombel_TblSiswa_NISN",
-                        column: x => x.NISN,
+                        name: "FK_TblAnggotaRombel_TblSiswa_IdSiswa",
+                        column: x => x.IdSiswa,
                         principalTable: "TblSiswa",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -325,17 +327,17 @@ namespace SIAkademik.Infrastructure.Migrations
                     Tanggal = table.Column<DateOnly>(type: "date", nullable: false),
                     Absensi = table.Column<int>(type: "integer", nullable: false),
                     Keterangan = table.Column<string>(type: "text", nullable: true),
-                    AnggotaRombelNISN = table.Column<string>(type: "text", nullable: false),
+                    AnggotaRombelIdSiswa = table.Column<int>(type: "integer", nullable: false),
                     AnggotaRombelIdRombel = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TblAbsen", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TblAbsen_TblAnggotaRombel_AnggotaRombelNISN_AnggotaRombelId~",
-                        columns: x => new { x.AnggotaRombelNISN, x.AnggotaRombelIdRombel },
+                        name: "FK_TblAbsen_TblAnggotaRombel_AnggotaRombelIdSiswa_AnggotaRombe~",
+                        columns: x => new { x.AnggotaRombelIdSiswa, x.AnggotaRombelIdRombel },
                         principalTable: "TblAnggotaRombel",
-                        principalColumns: new[] { "NISN", "IdRombel" },
+                        principalColumns: new[] { "IdSiswa", "IdRombel" },
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -348,7 +350,7 @@ namespace SIAkademik.Infrastructure.Migrations
                     Skor = table.Column<double>(type: "double precision", nullable: false),
                     Deskripsi = table.Column<string>(type: "text", nullable: false),
                     Jenis = table.Column<int>(type: "integer", nullable: false),
-                    AnggotaRombelNISN = table.Column<string>(type: "text", nullable: false),
+                    AnggotaRombelIdSiswa = table.Column<int>(type: "integer", nullable: false),
                     AnggotaRombelIdRombel = table.Column<int>(type: "integer", nullable: false),
                     JadwalMengajarNIP = table.Column<string>(type: "text", nullable: false),
                     JadwalMengajarIdMataPelajaran = table.Column<int>(type: "integer", nullable: false),
@@ -358,10 +360,10 @@ namespace SIAkademik.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_TblNilai", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TblNilai_TblAnggotaRombel_AnggotaRombelNISN_AnggotaRombelId~",
-                        columns: x => new { x.AnggotaRombelNISN, x.AnggotaRombelIdRombel },
+                        name: "FK_TblNilai_TblAnggotaRombel_AnggotaRombelIdSiswa_AnggotaRombe~",
+                        columns: x => new { x.AnggotaRombelIdSiswa, x.AnggotaRombelIdRombel },
                         principalTable: "TblAnggotaRombel",
-                        principalColumns: new[] { "NISN", "IdRombel" },
+                        principalColumns: new[] { "IdSiswa", "IdRombel" },
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TblNilai_TblJadwalMengajar_JadwalMengajarNIP_JadwalMengajar~",
@@ -464,6 +466,7 @@ namespace SIAkademik.Infrastructure.Migrations
                 columns: new[]
                 {
                     "Id",
+                    "NISN",
                     "Agama",
                     "AgamaAyah",
                     "AgamaIbu",
@@ -522,6 +525,7 @@ namespace SIAkademik.Infrastructure.Migrations
                 },
                 values: new object[]
                 {
+                    1,
                     "0044710570",
                     1,
                     null,
@@ -581,9 +585,9 @@ namespace SIAkademik.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_TblAbsen_AnggotaRombelNISN_AnggotaRombelIdRombel",
+                name: "IX_TblAbsen_AnggotaRombelIdSiswa_AnggotaRombelIdRombel",
                 table: "TblAbsen",
-                columns: new[] { "AnggotaRombelNISN", "AnggotaRombelIdRombel" });
+                columns: new[] { "AnggotaRombelIdSiswa", "AnggotaRombelIdRombel" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_TblAnggotaRombel_IdRombel",
@@ -606,9 +610,9 @@ namespace SIAkademik.Infrastructure.Migrations
                 column: "TahunAjaranId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TblNilai_AnggotaRombelNISN_AnggotaRombelIdRombel",
+                name: "IX_TblNilai_AnggotaRombelIdSiswa_AnggotaRombelIdRombel",
                 table: "TblNilai",
-                columns: new[] { "AnggotaRombelNISN", "AnggotaRombelIdRombel" });
+                columns: new[] { "AnggotaRombelIdSiswa", "AnggotaRombelIdRombel" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_TblNilai_JadwalMengajarNIP_JadwalMengajarIdMataPelajaran_Ja~",

@@ -2,11 +2,22 @@
 using SIAkademik.Domain.Authentication;
 using SIAkademik.Domain.Enums;
 using SIAkademik.Domain.ValueObjects;
+using System.Globalization;
 
 namespace SIAkademik.Domain.ModulSiakad.Entities;
 
-public class Siswa : Entity<string>
+public class Siswa : Entity<int>
 {
+    public string TTL
+    {
+        get
+        {
+            var cu = new CultureInfo("id-ID");
+
+            return $"{TempatLahir}, {TanggalLahir.ToString(cu.DateTimeFormat.LongDatePattern, cu)}";
+        }
+    }
+
     public bool IsBiodataComplete() =>
         Suku is not null &&
         AlamatLengkap != new Alamat() &&
@@ -51,6 +62,7 @@ public class Siswa : Entity<string>
 
     //Data Penting
     public required string Nama { get; set; }
+    public required string NISN { get; set; }
     public required string NIS { get; set; }
     public required JenisKelamin JenisKelamin { get; set; }
     public required DateOnly TanggalLahir { get; set; }
