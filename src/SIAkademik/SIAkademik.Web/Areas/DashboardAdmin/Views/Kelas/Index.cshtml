@@ -1,0 +1,33 @@
+﻿@model List<Kelas>
+
+<a asp-action="Tambah">Tambah Kelas</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Jenjang</th>
+            <th>Semester</th>
+            <th>Tahun Ajaran</th>
+            <th>Jumlah Rombel</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var kelas in Model)
+        {
+            <tr>
+                <td>@kelas.Id</td>
+                <td>@kelas.Jenjang.Humanize()</td>
+                <td>@kelas.TahunAjaran.Periode-@kelas.TahunAjaran.Semester.Humanize()</td>
+                <td>@kelas.DaftarRombel.Count</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@kelas.Id">Edit</a>
+                    <form asp-action="Hapus" asp-route-id="@kelas.Id">
+                        <button type="submit">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

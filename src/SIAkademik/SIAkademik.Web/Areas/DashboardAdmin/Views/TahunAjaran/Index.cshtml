@@ -21,7 +21,7 @@
                 <td>@tahunAjaran.Semester.Humanize()</td>
                 <td>@tahunAjaran.DaftarKelas.Count</td>
                 <td>
-                    <a asp-action="Index" asp-controller="Kelas" asp-route-id="@tahunAjaran.Id">Lihat Kelas</a>
+                    <a asp-action="Index" asp-controller="Kelas" asp-route-idTahunAjaran="@tahunAjaran.Id">Lihat Kelas</a>
                     <a asp-action="Edit" asp-route-id="@tahunAjaran.Id">Edit</a>
                     @if(tahunAjaran.DaftarKelas.Count == 0)
                     {
