@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SIAkademik.Web.Areas.DashboardAdmin.Models.Home;
+namespace SIAkademik.Web.Areas.Profil.Models.Home;
 
 public class LoginVM
 {

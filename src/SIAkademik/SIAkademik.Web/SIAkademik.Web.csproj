@@ -29,8 +29,9 @@
 
   <ItemGroup>
     <Folder Include="Areas\DashboardAdmin\Models\TahunAjaranModels\" />
+    <Folder Include="Areas\DashboardGuru\Models\" />
+    <Folder Include="Areas\DashboardSiswa\Models\" />
     <Folder Include="Areas\Pendaftaran\Models\" />
-    <Folder Include="Areas\Profil\Models\" />
   </ItemGroup>
 
   <ItemGroup>

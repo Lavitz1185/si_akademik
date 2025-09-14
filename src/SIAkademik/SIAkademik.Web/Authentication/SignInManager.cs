@@ -39,7 +39,7 @@ public class SignInManager : ISignInManager
         return appUser; 
     }
 
-    public async Task<Result> Login(string username, string password, bool rememberMe, string role)
+    public async Task<Result<string>> Login(string username, string password, bool rememberMe)
     {
         var httpContext = _contextAccessor.HttpContext;
         if (httpContext is null)
@@ -48,9 +48,6 @@ public class SignInManager : ISignInManager
         var appUser = await _appUserRepository.GetByUserName(username);
         if (appUser is null)
             return new Error("Login.AkunTidakDitemukan", $"Akun '{username}' tidak ditemukan");
-
-        if (role != appUser.Role)
-            return new Error("Login.RoleTidakSamam", $"Role akun '{username}' bukan '{role}'");
 
         if (_passwordHasher.VerifyHashedPassword(appUser, appUser.PasswordHash, password) == PasswordVerificationResult.Failed)
             return new Error("Login.PasswordSalah", "Password yang dimasukan salah!");
@@ -68,7 +65,7 @@ public class SignInManager : ISignInManager
 
         _logger.LogInformation("{@userName} logged in at {@time}", username, DateTime.Now);
 
-        return Result.Success();
+        return appUser.Role;
     }
 
     public async Task Logout()
