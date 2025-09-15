@@ -1,0 +1,82 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.RombelModels
+@model TambahVM
+@inject ITahunAjaranRepository TahunAjaranRepository
+@inject IPegawaiRepository PegawaiRepository
+
+@{
+    var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
+    var daftarPegawai = await PegawaiRepository.GetAll();
+}
+
+<form asp-action="Tambah" method="post" class="container">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div class="row">
+        <label for="tahunAjaran">Tahun Ajaran</label>
+        <select id="tahunAjaran" name="tahunAjaran">
+            <option value="@null">--</option>
+
+            @foreach (var tahunAjaran in daftarTahunAjaran)
+            {
+                <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+            }
+        </select>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.IdKelas"></label>
+        <select asp-for="@Model.IdKelas">
+            <option value="@null">--</option>
+        </select>
+        <span asp-validation-for="@Model.IdKelas"></span>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.Nama"></label>
+        <input asp-for="@Model.Nama" type="text"/>
+        <span asp-validation-for="@Model.Nama"></span>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.NIPWali"></label>
+        <select asp-for="@Model.NIPWali">
+            <option value="@null">--</option>
+
+            @foreach(var pegawai in daftarPegawai)
+            {
+                <option value="@pegawai.Id">@pegawai.Nama - @pegawai.Jabatan.Nama</option>
+            }
+        </select>
+        <span asp-validation-for="@Model.NIPWali"></span>
+    </div>
+
+    <button type="submit">Simpan</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script type="text/javascript">
+        $(
+            $('form select#tahunAjaran').on('change', async function() {
+                const idTahunAjaran = $(this).val()
+                console.log(idTahunAjaran)
+
+                if(idTahunAjaran == "") {
+                    $('form select#IdKelas').html('<option value="">--</option>');
+                } else {
+                    const response = await fetch(`/Dashboard/Admin/Kelas/DaftarKelas?idTahunAjaran=${idTahunAjaran}`)
+                    const daftarKelas = await response.json();
+                    console.log(daftarKelas)
+
+                    $('form select#IdKelas').html('<option value="">--</option>');
+
+                    for(let kelas of daftarKelas) {
+                        $('form select#IdKelas')
+                            .append(`<option value="${kelas.id}">${kelas.jenjang} ${kelas.peminatan}</option>`);
+                    }
+                }
+            })
+        )
+    </script>
+}

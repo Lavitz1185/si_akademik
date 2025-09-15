@@ -13,5 +13,15 @@ internal class RombelEntityConfiguration : IEntityTypeConfiguration<Rombel>
         builder.HasOne(x => x.Wali).WithMany(y => y.DaftarRombelWali);
         builder.HasMany(x => x.DaftarAnggotaRombel).WithOne(x => x.Rombel);
         builder.HasMany(x => x.DaftarJadwalMengajar).WithOne(x => x.Rombel);
+
+        builder.HasData(
+            new
+            {
+                Id = 1,
+                Nama = "A",
+                KelasId = 1,
+                WaliId = "PJ24-003"
+            }
+        );
     }
 }

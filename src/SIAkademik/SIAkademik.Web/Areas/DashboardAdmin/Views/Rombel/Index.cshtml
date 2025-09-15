@@ -1,0 +1,117 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.RombelModels
+@model IndexVM
+
+@inject ITahunAjaranRepository TahunAjaranRepository
+@inject IKelasRepository KelasRepository
+
+@{
+    var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
+    var daftarKelas = Model.TahunAjaran?.DaftarKelas ?? [];
+}
+
+<a asp-action="Tambah">Tambah</a>
+
+<form asp-action="Index" method="get">
+    <select name="idTahunAjaran" id="idTahunAjaran">
+        @if (Model.TahunAjaran is null)
+        {
+            <option selected value="@null">--</option>
+        }
+        else
+        {
+            <option value="@null">--</option>
+        }
+
+        @foreach (var tahunAjaran in daftarTahunAjaran)
+        {
+            @if (Model.TahunAjaran == tahunAjaran)
+            {
+                <option selected value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+            }
+            else
+            {
+                <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+            }
+        }
+    </select>
+
+    <select name="idKelas" id="idKelas">
+        @if (Model.Kelas is null)
+        {
+            <option selected value="@null">--</option>
+        }
+        else
+        {
+            <option value="@null">--</option>
+        }
+
+        @foreach (var kelas in daftarKelas)
+        {
+            @if (Model.Kelas == kelas)
+            {
+                <option selected value="@kelas.Id">@kelas.Jenjang.Humanize() @kelas.Peminatan.Humanize()</option>
+            }
+            else
+            {
+                <option value="@kelas.Id">@kelas.Jenjang.Humanize() @kelas.Peminatan.Humanize()</option>
+            }
+        }
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nama</th>
+            <th>Kelas</th>
+            <th>Wali</th>
+            <th>Tahun Ajaran</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var rombel in Model.DaftarRombel)
+        {
+            <tr>
+                <td>@rombel.Id</td>
+                <td>@rombel.Nama</td>
+                <td>@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Humanize()</td>
+                <td>@rombel.Wali.Nama</td>
+                <td>@rombel.Kelas.TahunAjaran.Periode @rombel.Kelas.TahunAjaran.Semester.Humanize()</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@rombel.Id">Edit</a>
+                    <form asp-action="Hapus" asp-route-id="@rombel.Id">
+                        <button type="submit">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(
+            $('form select#idTahunAjaran').on('change', async function() {
+                const idTahunAjaran = $(this).val()
+
+                if(idTahunAjaran == "") {
+                    $('form select#idKelas').html('<option value="">--</option>');
+                } else {
+                    const response = await fetch(`/Dashboard/Admin/Kelas/DaftarKelas?idTahunAjaran=${idTahunAjaran}`)
+                    const daftarKelas = await response.json();
+
+                    $('form select#idKelas').html('<option value="">--</option>');
+
+                    for(let kelas of daftarKelas) {
+                        $('form select#idKelas')
+                            .append(`<option value="${kelas.id}">${kelas.jenjang} ${kelas.peminatan}</option>`);
+                    }
+                }
+            })
+        )
+    </script>
+}

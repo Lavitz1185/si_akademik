@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Humanizer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SIAkademik.Domain.Abstracts;
 using SIAkademik.Domain.Authentication;
+using SIAkademik.Domain.Enums;
 using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Web.Areas.DashboardAdmin.Models.KelasModels;
@@ -49,10 +51,10 @@ public class KelasController : Controller
     [HttpPost]
     public async Task<IActionResult> Tambah(TambahVM vm)
     {
-        if(!ModelState.IsValid) return View(vm);
+        if (!ModelState.IsValid) return View(vm);
 
         var tahunAjaran = await _tahunAjaranRepository.Get(vm.IdTahunAjaran);
-        if(tahunAjaran is null)
+        if (tahunAjaran is null)
         {
             ModelState.AddModelError(nameof(TambahVM.IdTahunAjaran), $"Tahun Ajaran dengan Id '{vm.IdTahunAjaran}' tidak dapat ditemukan");
             return View(vm);
@@ -67,7 +69,7 @@ public class KelasController : Controller
 
         _kelasRepository.Add(kelas);
         var result = await _unitOfWork.SaveChangesAsync();
-        if(result.IsFailure)
+        if (result.IsFailure)
         {
             ModelState.AddModelError(string.Empty, "Simpan kelas baru gagal!");
             return View(vm);
@@ -95,13 +97,13 @@ public class KelasController : Controller
     [HttpPost]
     public async Task<IActionResult> Edit(EditVM vm)
     {
-        if(!ModelState.IsValid) return View(vm);
+        if (!ModelState.IsValid) return View(vm);
 
         var kelas = await _kelasRepository.Get(vm.Id);
         if (kelas is null) return NotFound();
 
         var tahunAjaran = await _tahunAjaranRepository.Get(vm.IdTahunAjaran);
-        if(tahunAjaran is null)
+        if (tahunAjaran is null)
         {
             ModelState.AddModelError(nameof(EditVM.IdTahunAjaran), $"Tahun ajaran dengan Id '{vm.IdTahunAjaran}' tidak ditemukan");
             return View(vm);
@@ -112,7 +114,7 @@ public class KelasController : Controller
         kelas.TahunAjaran = tahunAjaran;
 
         var result = await _unitOfWork.SaveChangesAsync();
-        if(result.IsFailure)
+        if (result.IsFailure)
         {
             ModelState.AddModelError(string.Empty, "Gagal menyimpan perubahan");
             return View(vm);
@@ -137,5 +139,12 @@ public class KelasController : Controller
             _toastrNotificationService.AddSuccess("Sukses menghapus kelas!");
 
         return RedirectToAction(nameof(Index));
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> DaftarKelas(int idTahunAjaran)
+    {
+        var daftarKelas = await _kelasRepository.GetAllByTahunAjaran(idTahunAjaran);
+        return Json(daftarKelas.Select(x => new { x.Id, Jenjang = x.Jenjang.Humanize(), Peminatan = x.Peminatan.Humanize() }));
     }
 }
