@@ -712,7 +712,7 @@ $(function () {
         $("#sticky_header_setting").prop("checked", true);
     } else {
         jQuery("body").addClass("light");
-        jQuery("body").addClass("dark-sidebar");
+        jQuery("body").addClass("light-sidebar");
         jQuery("body").addClass("theme-white");
         // set theme default color
         $(".choose-theme li").removeClass("active");

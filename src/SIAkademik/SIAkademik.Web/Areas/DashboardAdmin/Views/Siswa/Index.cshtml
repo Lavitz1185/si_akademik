@@ -1,51 +1,73 @@
 ﻿@model List<Siswa>
 
-<a asp-action="Tambah">Tambah</a>
+<div class="card card-primary">
+    <div class="card-header">
+        <h4>Data Siswa</h4>
+    </div>
+    <div class="padding-20">
+        <div class="d-flex justify-content-start ml-auto mb-2">
 
-<table>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>NISN</th>
-            <th>NIS</th>
-            <th>Nama</th>
-            <th>Agama</th>
-            <th>Jenis Kelamin</th>
-            <th>TTL</th>
-            <th>Tanggal Masuk</th>
-            <th>Biodata Lengkap?</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var siswa in Model)
-        {
-            <tr>
-                <td>@siswa.Id</td>
-                <td>@siswa.NISN</td>
-                <td>@siswa.NIS</td>
-                <td>@siswa.Nama</td>
-                <td>@siswa.Agama.Humanize()</td>
-                <td>@siswa.JenisKelamin.Humanize()</td>
-                <td>@siswa.TTL</td>
-                <td>@siswa.TanggalMasuk.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td>
-                <td>
-                    @if(siswa.IsBiodataComplete())
+            <div class="mb-0">
+                <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah"
+                   data-toggle="tooltip" title="Tambah Siswa">
+                    <i class="fas fa-plus"></i> Tambah Siswa
+                </a>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover" id="table-akun-1">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>NISN</th>
+                        <th>NIS</th>
+                        <th>Nama</th>
+                        <th>Agama</th>
+                        <th>Jenis Kelamin</th>
+                        <th>TTL</th>
+                        <th>Tanggal Masuk</th>
+                        <th>Biodata Lengkap?</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var siswa in Model)
                     {
-                        @("Lengkap")
+                        <tr>
+                            <td>@siswa.Id</td>
+                            <td>@siswa.NISN</td>
+                            <td>@siswa.NIS</td>
+                            <td>@siswa.Nama</td>
+                            <td>@siswa.Agama.Humanize()</td>
+                            <td>@siswa.JenisKelamin.Humanize()</td>
+                            <td>@siswa.TTL</td>
+                            <td>@siswa.TanggalMasuk.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td>
+                            <td>
+                                @if (siswa.IsBiodataComplete())
+                                {
+                                    @("Lengkap")
+                                }
+                                else
+                                {
+                                    @("Tidak Lengkap")
+                                }
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-nip="@siswa.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                                <form style="display:inline" asp-action="Hapus" asp-route-nip="@siswa.Id">
+                                    <button type="submit" class="btn btn-danger btn-action" title="Hapus">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
                     }
-                    else
-                    {
-                        @("Tidak Lengkap")
-                    }
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@siswa.Id">Edit</a>
-                    <form asp-action="Hapus" asp-route-id="@siswa.Id">
-                        <button type="submit">Hapus</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

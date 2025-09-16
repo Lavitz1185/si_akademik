@@ -1,6 +1,65 @@
 ﻿@model List<TahunAjaran>
 
-<a asp-action="Tambah">Tambah Tahun Ajaran</a>
+<div class="card card-primary">
+    <div class="card-header">
+        <h4>Data Tahun Ajaran</h4>
+    </div>
+    <div class="padding-20">
+        <div class="d-flex justify-content-start ml-auto mb-2">
+
+            <div class="mb-0">
+                <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah"
+                   data-toggle="tooltip" title="Tambah Tahun Ajaran">
+                    <i class="fas fa-plus"></i> Tambah Tahun Ajaran
+                </a>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover" id="table-akun-1">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Periode</th>
+                        <th>Semester</th>
+                        <th>Jumlah Kelas</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tahunAjaran in Model)
+                    {
+                        <tr>
+                            <td>@tahunAjaran.Id</td>
+                            <td>@tahunAjaran.Periode</td>
+                            <td>@tahunAjaran.Semester.Humanize()</td>
+                            <td>@tahunAjaran.DaftarKelas.Count</td>
+                            <td>
+                                <a asp-action="Index" asp-controller="Kelas" asp-route-idTahunAjaran="@tahunAjaran.Id">Lihat Kelas</a>
+                                <a asp-action="Edit" asp-route-nip="@tahunAjaran.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                                @if (tahunAjaran.DaftarKelas.Count == 0)
+                                {
+                                    <form asp-action="GenerateKelas" asp-route-id="@tahunAjaran.Id">
+                                        <button type="submit">Generate Kelas</button>
+                                    </form>
+                                }
+                                <form style="display:inline" asp-action="Hapus" asp-route-nip="@tahunAjaran.Id">
+                                    <button type="submit" class="btn btn-danger btn-action" title="Hapus">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@* <a asp-action="Tambah">Tambah Tahun Ajaran</a>
 
 <table>
     <thead>
@@ -36,4 +95,4 @@
             </tr>
         }
     </tbody>
-</table>
+</table> *@

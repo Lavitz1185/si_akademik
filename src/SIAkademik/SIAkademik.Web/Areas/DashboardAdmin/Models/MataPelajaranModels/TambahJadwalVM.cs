@@ -6,9 +6,9 @@ public class TambahJadwalVM
 {
     [Display(Name = "Mata Pelajaran")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public int IdMataPelajaran { get; set; } = string.Empty;
+    public int IdMataPelajaran { get; set; }
 
     [Display(Name = "Rombel")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public int IdaRombel { get; set; } = string.Empty;
+    public int IdaRombel { get; set; }
 }
