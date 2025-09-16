@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Humanizer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SIAkademik.Domain.Abstracts;
 using SIAkademik.Domain.Authentication;
@@ -14,15 +15,24 @@ namespace SIAkademik.Web.Areas.DashboardAdmin.Controllers;
 public class MataPelajaranController : Controller
 {
     private readonly IMataPelajaranRepository _mataPelajaranRepository;
+    private readonly IRombelRepository _rombelRepository;
+    private readonly IPegawaiRepository _pegawaiRepository;
+    private readonly IJadwalMengajarRepository _jadwalMengajarRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IToastrNotificationService _toastrNotificationService;
 
     public MataPelajaranController(
         IMataPelajaranRepository mataPelajaranRepository,
+        IRombelRepository rombelRepository,
+        IPegawaiRepository pegawaiRepository,
+        IJadwalMengajarRepository jadwalMengajarRepository,
         IUnitOfWork unitOfWork,
         IToastrNotificationService toastrNotificationService)
     {
         _mataPelajaranRepository = mataPelajaranRepository;
+        _rombelRepository = rombelRepository;
+        _pegawaiRepository = pegawaiRepository;
+        _jadwalMengajarRepository = jadwalMengajarRepository;
         _unitOfWork = unitOfWork;
         _toastrNotificationService = toastrNotificationService;
     }
@@ -115,4 +125,33 @@ public class MataPelajaranController : Controller
 
         return RedirectToAction(nameof(Index));
     }
-}
+
+    //[HttpPost]
+    //public async Task<IActionResult> TambahJadwal(int id, int idRombel, string nipPegawai)
+    //{
+    //    var mataPelajaran = await _mataPelajaranRepository.Get(id);
+    //    if (mataPelajaran is null) return NotFound();
+
+    //    var rombel = await _rombelRepository.Get(idRombel);
+    //    if (rombel is null) return NotFound();
+
+    //    var pegawai = await _pegawaiRepository.Get(nipPegawai);
+    //    if (pegawai is null) return NotFound();
+
+    //    if (mataPelajaran.DaftarJadwalMengajar.Any(j => j.Rombel == rombel))
+    //    {
+    //        _toastrNotificationService.AddError($"Mata pelajaran sudah dijadwalkan untuk rombel {rombel.Kelas.Jenjang.Humanize()}" +
+    //            $"{rombel.Kelas.Peminatan.Humanize()}")
+    //    }
+
+    //    var jadwalMengajar = new JadwalMengajar
+    //    {
+    //        IdMataPelajaran = mataPelajaran.Id,
+    //        IdRombel = rombel.Id,
+    //        NIP = pegawai.Id,
+    //        MataPelajaran = mataPelajaran,
+    //        Rombel = rombel,
+    //        Pegawai = pegawai
+    //    };
+    //}
+ }
