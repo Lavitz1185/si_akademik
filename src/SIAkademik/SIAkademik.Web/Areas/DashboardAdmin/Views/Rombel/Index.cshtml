@@ -68,6 +68,7 @@
             <th>Nama</th>
             <th>Kelas</th>
             <th>Wali</th>
+            <th>Jumlah Siswa</th>
             <th>Tahun Ajaran</th>
             <th>Aksi</th>
         </tr>
@@ -80,8 +81,10 @@
                 <td>@rombel.Nama</td>
                 <td>@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Humanize()</td>
                 <td>@rombel.Wali.Nama</td>
+                <td>@rombel.DaftarAnggotaRombel.Count</td>
                 <td>@rombel.Kelas.TahunAjaran.Periode @rombel.Kelas.TahunAjaran.Semester.Humanize()</td>
                 <td>
+                    <a asp-action="Detail" asp-route-id="@rombel.Id">Detail</a>
                     <a asp-action="Edit" asp-route-id="@rombel.Id">Edit</a>
                     <form asp-action="Hapus" asp-route-id="@rombel.Id">
                         <button type="submit">Hapus</button>

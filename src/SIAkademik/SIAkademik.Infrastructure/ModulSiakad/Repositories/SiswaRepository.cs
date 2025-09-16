@@ -46,6 +46,7 @@ internal class SiswaRepository : ISiswaRepository
     public async Task<List<Siswa>> GetAll() => await _appDbContext
         .TblSiswa
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Wali)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
         .Include(s => s.Account)

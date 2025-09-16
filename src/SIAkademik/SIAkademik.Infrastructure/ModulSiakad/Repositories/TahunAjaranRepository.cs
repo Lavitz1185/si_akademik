@@ -20,7 +20,7 @@ internal class TahunAjaranRepository : ITahunAjaranRepository
 
     public async Task<TahunAjaran?> Get(int id) => await _appDbContext
         .TblTahunAjaran
-        .Include(t => t.DaftarKelas).ThenInclude(k => k.DaftarRombel)
+        .Include(t => t.DaftarKelas).ThenInclude(k => k.DaftarRombel).ThenInclude(r => r.DaftarAnggotaRombel)
         .FirstOrDefaultAsync(t => t.Id == id);
 
     public async Task<List<TahunAjaran>> GetAll() => await _appDbContext

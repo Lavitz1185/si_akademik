@@ -1,0 +1,45 @@
+﻿@model Rombel
+
+@inject ISiswaRepository SiswaRepository
+@inject IKelasRepository KelasRepository
+
+@{
+    var daftarSiswa = await SiswaRepository.GetAll();
+    daftarSiswa = daftarSiswa.Where(s => s.DaftarAnggotaRombel.All(a => a.Rombel.Kelas.TahunAjaran != Model.Kelas.TahunAjaran)).ToList();
+}
+
+<h1>@Model.Kelas.Jenjang.Humanize() @Model.Kelas.Peminatan.Humanize() @Model.Nama - @Model.Kelas.TahunAjaran.Periode @Model.Kelas.TahunAjaran.Semester.Humanize()</h1>
+<h2>Wali : @Model.Wali.Nama (@Model.Wali.Id)</h2>
+
+<div class="row">
+    <div class="col-6">
+        <table>
+            @foreach(var siswa in daftarSiswa)
+            {
+                <tr>
+                    <td>@siswa.NISN @siswa.Nama</td>
+                    <td>
+                        <form asp-action="TambahSiswa" asp-route-id="@Model.Id" asp-route-idSiswa="@siswa.Id">
+                            <button type="submit">Tambah</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-6">
+        <table>
+            @foreach (var siswa in Model.DaftarAnggotaRombel.Select(a => a.Siswa))
+            {
+                <tr>
+                    <td>@siswa.NISN @siswa.Nama</td>
+                    <td>
+                        <form asp-action="HapusSiswa" asp-route-id="@Model.Id" asp-route-idSiswa="@siswa.Id">
+                            <button type="submit">Hapus</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

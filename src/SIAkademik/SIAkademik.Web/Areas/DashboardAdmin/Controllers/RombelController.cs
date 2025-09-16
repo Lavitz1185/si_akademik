@@ -1,4 +1,5 @@
 ﻿
+using Humanizer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SIAkademik.Domain.Abstracts;
@@ -7,6 +8,7 @@ using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Web.Areas.DashboardAdmin.Models.RombelModels;
 using SIAkademik.Web.Services.Toastr;
+using System.Security.Cryptography.Xml;
 
 namespace SIAkademik.Web.Areas.DashboardAdmin.Controllers;
 
@@ -18,6 +20,8 @@ public class RombelController : Controller
     private readonly IKelasRepository _kelasRepository;
     private readonly ITahunAjaranRepository _tahunAjaranRepository;
     private readonly IPegawaiRepository _pegawaiRepository;
+    private readonly ISiswaRepository _siswaRepository;
+    private readonly IAnggotaRombelRepository _anggotaRombelRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IToastrNotificationService _toastrNotificationService;
 
@@ -26,6 +30,8 @@ public class RombelController : Controller
         IKelasRepository kelasRepository,
         ITahunAjaranRepository tahunAjaranRepository,
         IPegawaiRepository pegawaiRepository,
+        ISiswaRepository siswaRepository,
+        IAnggotaRombelRepository anggotaRombelRepository,
         IUnitOfWork unitOfWork,
         IToastrNotificationService toastrNotificationService)
     {
@@ -33,6 +39,8 @@ public class RombelController : Controller
         _kelasRepository = kelasRepository;
         _tahunAjaranRepository = tahunAjaranRepository;
         _pegawaiRepository = pegawaiRepository;
+        _siswaRepository = siswaRepository;
+        _anggotaRombelRepository = anggotaRombelRepository;
         _unitOfWork = unitOfWork;
         _toastrNotificationService = toastrNotificationService;
     }
@@ -190,5 +198,82 @@ public class RombelController : Controller
         else _toastrNotificationService.AddSuccess("Hapus data rombel berhasil!");
 
         return RedirectToAction(nameof(Index));
+    }
+
+    public async Task<IActionResult> Detail(int id)
+    {
+        var rombel = await _rombelRepository.Get(id);
+        if (rombel is null) return NotFound();
+
+        var kelas = await _kelasRepository.Get(rombel.Kelas.Id);
+
+        rombel.Kelas = kelas!;
+
+        return View(rombel);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> TambahSiswa(int id, int idSiswa)
+    {
+        var rombel = await _rombelRepository.Get(id);
+        if (rombel is null) return NotFound();
+
+        var siswa = await _siswaRepository.Get(idSiswa);
+        if (siswa is null) return NotFound();
+
+        var kelas = await _kelasRepository.Get(rombel.Kelas.Id);
+
+        if (rombel.DaftarAnggotaRombel.Any(a => a.Siswa == siswa))
+        {
+            _toastrNotificationService.AddError($"Siswa dengan Id '{idSiswa}' sudah ada dalam rombel");
+            return RedirectToAction(nameof(Detail), new { id });
+        }
+
+        if (kelas!.DaftarRombel.Any(r => r != rombel && r.DaftarAnggotaRombel.Any(a => a.Siswa == siswa)))
+        {
+            _toastrNotificationService.AddError($"Siswa dengan Id '{idSiswa}' sudah ada dalam rombel di kelas {kelas.Peminatan.Humanize()}" +
+                $" {kelas.Jenjang.Humanize()} - {kelas.TahunAjaran.Periode} {kelas.TahunAjaran.Semester.Humanize()}");
+            return RedirectToAction(nameof(Detail), new { id });
+        }
+
+        var anggotaRombel = new AnggotaRombel
+        {
+            IdRombel = rombel.Id,
+            IdSiswa = siswa.Id,
+            TanggalMasuk = DateOnly.FromDateTime(DateTime.Now),
+            Rombel = rombel,
+            Siswa = siswa
+        };
+
+        _anggotaRombelRepository.Add(anggotaRombel);
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsFailure)
+            _toastrNotificationService.AddError("Siswa gagal ditambahkan ke rombel");
+        else
+            _toastrNotificationService.AddSuccess("Siswa berhasil ditambahkan ke rombel");
+
+        return RedirectToAction(nameof(Detail), new { id });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> HapusSiswa(int id, int idSiswa)
+    {
+        var rombel = await _rombelRepository.Get(id);
+        if (rombel is null) return NotFound();
+
+        var siswa = await _siswaRepository.Get(idSiswa);
+        if (siswa is null) return NotFound();
+
+        var anggotaRombel = rombel.DaftarAnggotaRombel.FirstOrDefault(a => a.Siswa == siswa);
+        if (anggotaRombel is null) return NotFound();
+
+        _anggotaRombelRepository.Delete(anggotaRombel);
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsFailure)
+            _toastrNotificationService.AddError("Siswa gagal dihapus dari rombel");
+        else
+            _toastrNotificationService.AddSuccess("Siswa berhasil dihapus dari rombel");
+
+        return RedirectToAction(nameof(Detail), new { id });
     }
 }
