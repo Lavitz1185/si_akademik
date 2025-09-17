@@ -2,52 +2,52 @@
 
 @model IHaveAlamat
 
-<div class="container">
-    <div class="row mb-3">
+<div class="">
+    <div class="form-group">
         <label asp-for="@Model.Alamat.KodePos"></label>
-        <input asp-for="@Model.Alamat.KodePos" />
+        <input asp-for="@Model.Alamat.KodePos" class="form-control"/>
         <span asp-validation-for="@Model.Alamat.KodePos"></span>
     </div>
 
-    <div class="row mb-3">
+    <div class="form-group">
         <label asp-for="@Model.Alamat.Jalan"></label>
-        <input asp-for="@Model.Alamat.Jalan" />
+        <input asp-for="@Model.Alamat.Jalan" class="form-control" />
         <span asp-validation-for="@Model.Alamat.Jalan"></span>
     </div>
 
-    <div class="row mb-3">
+    <div class="form-group">
         <label asp-for="@Model.Alamat.RW"></label>
-        <input asp-for="@Model.Alamat.RW" />
+        <input asp-for="@Model.Alamat.RW" class="form-control" />
         <span asp-validation-for="@Model.Alamat.RW"></span>
     </div>
 
-    <div class="row mb-3">
+    <div class="form-group">
         <label asp-for="@Model.Alamat.RT"></label>
-        <input asp-for="@Model.Alamat.RT" />
+        <input asp-for="@Model.Alamat.RT" class="form-control" />
         <span asp-validation-for="@Model.Alamat.RT"></span>
     </div>
 
-    <div class="row mb-3">
+    <div class="form-group">
         <label asp-for="@Model.Alamat.KelurahanDesa"></label>
-        <input asp-for="@Model.Alamat.KelurahanDesa" />
+        <input asp-for="@Model.Alamat.KelurahanDesa" class="form-control" />
         <span asp-validation-for="@Model.Alamat.KelurahanDesa"></span>
     </div>
 
-    <div class="row mb-3">
+    <div class="form-group">
         <label asp-for="@Model.Alamat.Kecamatan"></label>
-        <input asp-for="@Model.Alamat.Kecamatan" />
+        <input asp-for="@Model.Alamat.Kecamatan" class="form-control" />
         <span asp-validation-for="@Model.Alamat.Kecamatan"></span>
     </div>
 
-    <div class="row mb-3">
+    <div class="form-group">
         <label asp-for="@Model.Alamat.KotaKabupaten"></label>
-        <input asp-for="@Model.Alamat.KotaKabupaten" />
+        <input asp-for="@Model.Alamat.KotaKabupaten" class="form-control" />
         <span asp-validation-for="@Model.Alamat.KotaKabupaten"></span>
     </div>
 
-    <div class="row mb-3">
+    <div class="form-group">
         <label asp-for="@Model.Alamat.Provinsi"></label>
-        <input asp-for="@Model.Alamat.Provinsi" />
+        <input asp-for="@Model.Alamat.Provinsi" class="form-control" />
         <span asp-validation-for="@Model.Alamat.Provinsi"></span>
     </div>
 </div>

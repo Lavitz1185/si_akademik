@@ -15,6 +15,7 @@
     <div class="row" style="justify-content: center;">
         <div class="col-12 col-md-6 col-lg-6">
             <div class="card card-warning">
+
                 <div class="card-header" style="padding-top: 20px;">
                     <h4>Edit Data Guru/Pegawai</h4>
                 </div>
@@ -23,18 +24,19 @@
                     <div class="card-body">
                         <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
 
-                        <input asp-for="@Model.NIP" type="text" hidden readonly />
-                        <span asp-validation-for="@Model.NIP"></span>
-
-                        <div class="row mb-3">
+                        <div>
+                            <input asp-for="@Model.NIP" type="text" hidden readonly />
+                            <span asp-validation-for="@Model.NIP"></span>
+                        </div>                   
+                        <div class="form-group">
                             <label asp-for="@Model.Nama"></label>
-                            <input asp-for="@Model.Nama" type="text" />
+                            <input asp-for="@Model.Nama" type="text" class="form-control" />
                             <span asp-validation-for="@Model.Nama"></span>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="form-group">
                             <label asp-for="@Model.JenisKelamin"></label>
-                            <select asp-for="@Model.JenisKelamin">
+                            <select asp-for="@Model.JenisKelamin" class="form-control">
                                 @foreach (var jk in Enum.GetValues<JenisKelamin>())
                                 {
                                     <option value="@jk">@jk.Humanize()</option>
@@ -43,9 +45,9 @@
                             <span asp-validation-for="@Model.JenisKelamin"></span>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="form-group">
                             <label asp-for="@Model.Agama"></label>
-                            <select asp-for="@Model.Agama">
+                            <select asp-for="@Model.Agama" class="form-control">
                                 @foreach (var a in Enum.GetValues<Agama>())
                                 {
                                     <option value="@a">@a.Humanize()</option>
@@ -54,21 +56,21 @@
                             <span asp-validation-for="@Model.Agama"></span>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="form-group">
                             <label asp-for="@Model.TempatLahir"></label>
-                            <input asp-for="@Model.TempatLahir" type="text" />
+                            <input asp-for="@Model.TempatLahir" class="form-control" type="text" />
                             <span asp-validation-for="@Model.TempatLahir"></span>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="form-group">
                             <label asp-for="@Model.TanggalLahir"></label>
-                            <input asp-for="@Model.TanggalLahir" type="date" />
+                            <input asp-for="@Model.TanggalLahir" type="date" class="form-control datepicker" fdprocessedid="v2nenb" />
                             <span asp-validation-for="@Model.TanggalLahir"></span>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="form-group">
                             <label asp-for="@Model.StatusPerkawinan"></label>
-                            <select asp-for="@Model.StatusPerkawinan">
+                            <select asp-for="@Model.StatusPerkawinan" class="form-control">
                                 @foreach (var sp in Enum.GetValues<StatusPerkawinan>())
                                 {
                                     <option value="@sp">@sp.Humanize()</option>
@@ -77,23 +79,21 @@
                             <span asp-validation-for="@Model.StatusPerkawinan"></span>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="form-group">
                             <label asp-for="@Model.Alamat"></label>
-
                             <partial name="_AlamatFormPartial" />
-
                             <span asp-validation-for="@Model.Alamat"></span>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="form-group">
                             <label asp-for="@Model.NoHP"></label>
-                            <input asp-for="@Model.NoHP" type="text" />
+                            <input asp-for="@Model.NoHP" type="text" class="form-control" />
                             <span asp-validation-for="@Model.NoHP"></span>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="form-group">
                             <label asp-for="@Model.GolonganDarah"></label>
-                            <select asp-for="@Model.GolonganDarah">
+                            <select asp-for="@Model.GolonganDarah" class="form-control">
                                 @foreach (var gd in Enum.GetValues<GolonganDarah>())
                                 {
                                     <option value="@gd">@gd.Humanize()</option>
@@ -102,39 +102,39 @@
                             <span asp-validation-for="@Model.GolonganDarah"></span>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="form-group">
                             <label asp-for="@Model.Email"></label>
-                            <input asp-for="@Model.Email" type="text" />
+                            <input asp-for="@Model.Email" type="text" class="form-control" />
                             <span asp-validation-for="@Model.Email"></span>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="form-group">
                             <label asp-for="@Model.TanggalMasuk"></label>
-                            <input asp-for="@Model.TanggalMasuk" type="date" />
+                            <input asp-for="@Model.TanggalMasuk" type="date" class="form-control datepicker" fdprocessedid="v2nenb" />
                             <span asp-validation-for="@Model.TanggalMasuk"></span>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="form-group">
                             <label asp-for="@Model.NIK"></label>
-                            <input asp-for="@Model.NIK" type="text" />
+                            <input asp-for="@Model.NIK" type="text" class="form-control" />
                             <span asp-validation-for="@Model.NIK"></span>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="form-group">
                             <label asp-for="@Model.NamaInstagram"></label>
-                            <input asp-for="@Model.NamaInstagram" type="text" />
+                            <input asp-for="@Model.NamaInstagram" type="text" class="form-control" />
                             <span asp-validation-for="@Model.NamaInstagram"></span>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="form-group">
                             <label asp-for="@Model.NoRekening"></label>
-                            <input asp-for="@Model.NoRekening" type="text" />
+                            <input asp-for="@Model.NoRekening" type="text" class="form-control" />
                             <span asp-validation-for="@Model.NoRekening"></span>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="form-group">
                             <label asp-for="@Model.DivisiId"></label>
-                            <select asp-for="@Model.DivisiId">
+                            <select asp-for="@Model.DivisiId" class="form-control">
                                 @foreach (var divisi in daftarDivisi)
                                 {
                                     <option value="@divisi.Id">@divisi.Nama</option>
@@ -143,9 +143,9 @@
                             <span asp-validation-for="@Model.DivisiId"></span>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="form-group">
                             <label asp-for="@Model.JabatanId"></label>
-                            <select asp-for="@Model.JabatanId">
+                            <select asp-for="@Model.JabatanId" class="form-control">
                                 @foreach (var jabatan in daftarJabatan)
                                 {
                                     <option value="@jabatan.Id">@jabatan.Nama</option>
@@ -154,13 +154,13 @@
                             <span asp-validation-for="@Model.JabatanId"></span>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="form-group">
                             <label asp-for="@Model.Password"></label>
-                            <input asp-for="@Model.Password" type="password" />
+                            <input asp-for="@Model.Password" type="password" class="form-control" />
                             <span asp-validation-for="@Model.Password"></span>
                         </div>
 
-                        <button type="submit">Simpan</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
 
                         @* <div class="form-group">
                             <label asp-for="@Model.IdAkun">Akun<span class="text-danger">*</span></label>
@@ -361,4 +361,5 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/forms-advanced-forms.js" asp-append-version="true"></script>
 }

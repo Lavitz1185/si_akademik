@@ -19,18 +19,18 @@
             <table class="table table-striped table-hover" id="table-akun-1">
                 <thead>
                     <tr>
-                        <th style="min-width: 90px !important">NIP</th>
-                        <th style="min-width: 180px !important">Nama Lengkap</th>
-                        <th style="min-width: 100px !important">Jenis Kelamin</th>
-                        <th>Agama</th>
-                        <th style="min-width: 130px !important">TTL</th>
-                        <th style="min-width: 120px !important">Status Kawin</th>
-                        <th style="min-width: 200px !important">Alamat (KTP)</th>
+                        <th style="min-width: 100px">NIP</th>
+                        <th style="min-width: 180px">Nama Lengkap</th>
+                        <th style="min-width: 150px">Jenis Kelamin</th>
+                        <th style="min-width: 150px">Agama</th>
+                        <th style="min-width: 150px">TTL</th>
+                        <th style="min-width: 120px">Status Kawin</th>
+                        <th style="min-width: 250px">Alamat (KTP)</th>
                         <th>No. HP</th>
-                        <th>Gol. Darah</th>
-                        <th>Tanggal Masuk</th>
+                        <th style="min-width: 100px">Gol. Darah</th>
+                        <th style="min-width: 130px">Tanggal Masuk</th>
                         <th>NIK</th>
-                        <th>Nama Instagram</th>
+                        <th style="min-width: 150px">Nama Instagram</th>
                         <th>No. Rekening</th>
                         <th>Divisi</th>
                         <th>Jabatan</th>
@@ -73,56 +73,3 @@
         </div>
     </div>
 </div>
-
-@* <a asp-action="Tambah">Tambah Pegawai</a>
-
-<table>
-    <thead>
-        <tr>
-            <th>NIP</th>
-            <th>Nama Lengkap</th>
-            <th>Jenis Kelamin</th>
-            <th>Agama</th>
-            <th>TTL</th>
-            <th>Status Kawin</th>
-            <th>Alamat (KTP)</th>
-            <th>No. HP</th>
-            <th>Gol. Darah</th>
-            <th>Tanggal Masuk</th>
-            <th>NIK</th>
-            <th>Nama Instagram</th>
-            <th>No. Rekening</th>
-            <th>Divisi</th>
-            <th>Jabatan</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var item in Model)
-        {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.Nama</td>
-                <td>@item.JenisKelamin.Humanize()</td>
-                <td>@item.Agama.Humanize()</td>
-                <td>@item.TTL</td>
-                <td>@item.StatusPerkawinan.Humanize()</td>
-                <td>@item.AlamatKTP</td>
-                <td>@item.NoHP.Value</td>
-                <td>@item.GolonganDarah.Humanize()</td>
-                <td>@item.TanggalMasuk.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td>
-                <td>@item.NIK</td>
-                <td>@item.NamaInstagram</td>
-                <td>@item.NoRekening</td>
-                <td>@item.Divisi.Nama</td>
-                <td>@item.Jabatan.Nama</td>
-                <td>
-                    <a asp-action="Edit" asp-route-nip="@item.Id">Edit</a>
-                    <form asp-action="Hapus" asp-route-nip="@item.Id">
-                        <button type="submit">Hapus</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table> *@
