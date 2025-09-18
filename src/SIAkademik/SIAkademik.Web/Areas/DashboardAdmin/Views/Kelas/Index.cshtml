@@ -68,10 +68,10 @@
                             <td>@kelas.TahunAjaran.Periode-@kelas.TahunAjaran.Semester.Humanize()</td>
                             <td>@kelas.DaftarRombel.Count</td>
                             <td>
-                                <a asp-action="Edit" asp-route-nip="@kelas.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit">
+                                <a asp-action="Edit" asp-route-id="@kelas.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                <form style="display:inline" asp-action="Hapus" asp-route-nip="@kelas.Id">
+                                <form style="display:inline" asp-action="Hapus" asp-route-id="@kelas.Id">
                                     <button type="submit" class="btn btn-danger btn-action" title="Hapus">
                                         <i class="fas fa-trash"></i>
                                     </button>
