@@ -37,7 +37,7 @@
                             <td>
                                 <div class="row">
                                     <a asp-action="Index" asp-controller="Kelas" asp-route-idTahunAjaran="@tahunAjaran.Id">Lihat Kelas</a>
-                                    <a asp-action="Edit" asp-route-nip="@tahunAjaran.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit">
+                                    <a asp-action="Edit" asp-route-id="@tahunAjaran.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
                                     @if (tahunAjaran.DaftarKelas.Count == 0)
@@ -46,7 +46,7 @@
                                             <button type="submit" class="btn btn-warning">Generate Kelas</button>
                                         </form>
                                     }
-                                    <form style="display:inline" asp-action="Hapus" asp-route-nip="@tahunAjaran.Id">
+                                    <form style="display:inline" asp-action="Hapus" asp-route-id="@tahunAjaran.Id">
                                         <button type="submit" class="btn btn-danger btn-action" title="Hapus">
                                             <i class="fas fa-trash"></i>
                                         </button>
