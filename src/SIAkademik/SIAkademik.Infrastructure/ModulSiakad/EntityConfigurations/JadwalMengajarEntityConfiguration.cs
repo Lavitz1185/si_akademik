@@ -8,10 +8,14 @@ internal class JadwalMengajarEntityConfiguration : IEntityTypeConfiguration<Jadw
 {
     public void Configure(EntityTypeBuilder<JadwalMengajar> builder)
     {
-        builder.HasKey(x => new { x.NIP, x.IdMataPelajaran, x.IdRombel });
-        builder.HasOne(x => x.Pegawai).WithMany(y => y.DaftarJadwalMengajar).HasForeignKey(x => x.NIP);
-        builder.HasOne(x => x.MataPelajaran).WithMany(y => y.DaftarJadwalMengajar).HasForeignKey(x => x.IdMataPelajaran);
-        builder.HasOne(x => x.Rombel).WithMany(y => y.DaftarJadwalMengajar).HasForeignKey(x => x.IdRombel);
+        builder.HasKey(x => x.Id);
+
+        builder.HasIndex("MataPelajaranId", "RombelId", "PegawaiId").IsUnique();
+
+        builder.HasOne(x => x.Pegawai).WithMany(y => y.DaftarJadwalMengajar);
+        builder.HasOne(x => x.MataPelajaran).WithMany(y => y.DaftarJadwalMengajar);
+        builder.HasOne(x => x.Rombel).WithMany(y => y.DaftarJadwalMengajar);
         builder.HasMany(x => x.DaftarNilai).WithOne(x => x.JadwalMengajar);
+        builder.HasMany(x => x.DaftarHariMengajar).WithOne(x => x.JadwalMengajar);
     }
 }

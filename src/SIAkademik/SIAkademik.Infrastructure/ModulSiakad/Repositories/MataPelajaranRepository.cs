@@ -22,11 +22,13 @@ internal class MataPelajaranRepository : IMataPelajaranRepository
         .TblMataPelajaran
         .Include(m => m.DaftarJadwalMengajar).ThenInclude(j => j.Pegawai)
         .Include(m => m.DaftarJadwalMengajar).ThenInclude(j => j.Rombel)
+        .Include(m => m.DaftarJadwalMengajar).ThenInclude(j => j.DaftarHariMengajar)
         .FirstOrDefaultAsync(m => m.Id == id);
 
     public async Task<List<MataPelajaran>> GetAll() => await _appDbContext
         .TblMataPelajaran
         .Include(m => m.DaftarJadwalMengajar).ThenInclude(j => j.Pegawai)
         .Include(m => m.DaftarJadwalMengajar).ThenInclude(j => j.Rombel)
+        .Include(m => m.DaftarJadwalMengajar).ThenInclude(j => j.DaftarHariMengajar)
         .ToListAsync();
 }

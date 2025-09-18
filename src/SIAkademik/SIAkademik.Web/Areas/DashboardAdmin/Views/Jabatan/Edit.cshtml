@@ -1,0 +1,35 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.JabatanModels
+@model EditVM
+
+<form asp-action="Edit" method="post" class="container">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div class="row">
+        <label asp-for="@Model.Id"></label>
+        <input asp-for="@Model.Id" readonly/>
+        <span asp-validation-for="@Model.Id"></span>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.Nama"></label>
+        <input asp-for="@Model.Nama"/>
+        <span asp-validation-for="@Model.Nama"></span>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.Jenis"></label>
+        <select asp-for="@Model.Jenis">
+            @foreach(var jenis in Enum.GetValues<JenisJabatan>())
+            {
+                <option value="@jenis">@jenis.Humanize()</option>
+            }
+        </select>
+        <span asp-validation-for="@Model.Jenis"></span>
+    </div>
+
+    <button type="submit">Simpan</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

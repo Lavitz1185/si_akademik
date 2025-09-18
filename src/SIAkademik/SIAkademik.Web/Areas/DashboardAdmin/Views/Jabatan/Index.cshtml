@@ -1,0 +1,32 @@
+﻿@model List<Jabatan>
+
+<a asp-action="Tambah">Tambah</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nama</th>
+            <th>Jenis</th>
+            <th>Jumlah Guru/Pegawai</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var jabatan in Model)
+        {
+            <tr>
+                <td>@jabatan.Id</td>
+                <td>@jabatan.Nama</td>
+                <td>@jabatan.Jenis.Humanize()</td>
+                <td>@jabatan.DaftarPegawai.Count</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@jabatan.Id">Edit</a>
+                    <form asp-action="Hapus" asp-route-id="@jabatan.Id">
+                        <button type="submit">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

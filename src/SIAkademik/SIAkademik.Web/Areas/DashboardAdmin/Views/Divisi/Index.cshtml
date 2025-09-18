@@ -1,0 +1,30 @@
+﻿@model List<Divisi>
+
+<a asp-action="Tambah">Tambah</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nama</th>
+            <th>Jumlah Guru/Pegawai</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var divisi in Model)
+        {
+            <tr>
+                <td>@divisi.Id</td>
+                <td>@divisi.Nama</td>
+                <td>@divisi.DaftarPegawai.Count</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@divisi.Id">Edit</a>
+                    <form asp-action="Hapus" asp-route-id="@divisi.Id">
+                        <button type="submit">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

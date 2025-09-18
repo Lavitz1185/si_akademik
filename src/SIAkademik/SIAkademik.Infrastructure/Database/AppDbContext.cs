@@ -30,6 +30,7 @@ internal class AppDbContext(DbContextOptions<AppDbContext> dbContextOptions) : D
     public DbSet<Absen> TblAbsen { get; set; }
     public DbSet<AnggotaRombel> TblAnggotaRombel { get; set; }
     public DbSet<Divisi> TblDivisi { get; set; }
+    public DbSet<HariMengajar> TblHariMengajar { get; set; }
     public DbSet<Jabatan> TblJabatan { get; set; }
     public DbSet<JadwalMengajar> TblJadwalMengajar { get; set; }
     public DbSet<Kelas> TblKelas { get; set; }

@@ -1,0 +1,18 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.DivisiModels
+@model TambahVM
+
+<form asp-action="Tambah" method="post" class="container">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div class="row">
+        <label asp-for="@Model.Nama"></label>
+        <input asp-for="@Model.Nama"/>
+        <span asp-validation-for="@Model.Nama"></span>
+    </div>
+
+    <button type="submit">Simpan</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

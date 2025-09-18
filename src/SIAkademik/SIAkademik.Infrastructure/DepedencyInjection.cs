@@ -28,6 +28,7 @@ public static class DepedencyInjection
         services.AddScoped<IAbsenRepository, AbsenRepository>();
         services.AddScoped<IAnggotaRombelRepository, AnggotaRombelRepository>();
         services.AddScoped<IDivisiRepository, DivisiRepository>();
+        services.AddScoped<IHariMengajarRepository, HariMengajarRepository>();
         services.AddScoped<IJabatanRepository, JabatanRepository>();
         services.AddScoped<IJadwalMengajarRepository, JadwalMengajarRepository>();
         services.AddScoped<IKelasRepository, KelasRepository>();

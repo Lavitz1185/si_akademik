@@ -27,4 +27,7 @@ internal class DivisiRepository : IDivisiRepository
         .TblDivisi
         .Include(d => d.DaftarPegawai)
         .ToListAsync();
+
+    public async Task<bool> IsExistByNama(string nama, int? id = null) => await _appDbContext.TblDivisi
+        .AnyAsync(d => d.Id != id && d.Nama.ToLower() == nama.ToLower());
 }

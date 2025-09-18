@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SIAkademik.Infrastructure.Database;
@@ -12,9 +13,11 @@ using SIAkademik.Infrastructure.Database;
 namespace SIAkademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250917065942_TambahHariMengajar")]
+    partial class TambahHariMengajar
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,8 +160,15 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Property<int>("Hari")
                         .HasColumnType("integer");
 
-                    b.Property<int>("JadwalMengajarId")
+                    b.Property<int>("JadwalMengajarIdMataPelajaran")
                         .HasColumnType("integer");
+
+                    b.Property<int>("JadwalMengajarIdRombel")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("JadwalMengajarNIP")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<TimeOnly>("JamAkhir")
                         .HasColumnType("time without time zone");
@@ -168,7 +178,7 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("JadwalMengajarId");
+                    b.HasIndex("JadwalMengajarNIP", "JadwalMengajarIdMataPelajaran", "JadwalMengajarIdRombel");
 
                     b.ToTable("TblHariMengajar");
                 });
@@ -203,30 +213,20 @@ namespace SIAkademik.Infrastructure.Migrations
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.JadwalMengajar", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("MataPelajaranId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("PegawaiId")
-                        .IsRequired()
+                    b.Property<string>("NIP")
                         .HasColumnType("text");
 
-                    b.Property<int>("RombelId")
+                    b.Property<int>("IdMataPelajaran")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id");
+                    b.Property<int>("IdRombel")
+                        .HasColumnType("integer");
 
-                    b.HasIndex("PegawaiId");
+                    b.HasKey("NIP", "IdMataPelajaran", "IdRombel");
 
-                    b.HasIndex("RombelId");
+                    b.HasIndex("IdMataPelajaran");
 
-                    b.HasIndex("MataPelajaranId", "RombelId", "PegawaiId")
-                        .IsUnique();
+                    b.HasIndex("IdRombel");
 
                     b.ToTable("TblJadwalMengajar");
                 });
@@ -305,8 +305,15 @@ namespace SIAkademik.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("JadwalMengajarId")
+                    b.Property<int>("JadwalMengajarIdMataPelajaran")
                         .HasColumnType("integer");
+
+                    b.Property<int>("JadwalMengajarIdRombel")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("JadwalMengajarNIP")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("Jenis")
                         .HasColumnType("integer");
@@ -316,9 +323,9 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("JadwalMengajarId");
-
                     b.HasIndex("AnggotaRombelIdSiswa", "AnggotaRombelIdRombel");
+
+                    b.HasIndex("JadwalMengajarNIP", "JadwalMengajarIdMataPelajaran", "JadwalMengajarIdRombel");
 
                     b.ToTable("TblNilai");
                 });
@@ -771,7 +778,7 @@ namespace SIAkademik.Infrastructure.Migrations
                 {
                     b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.JadwalMengajar", "JadwalMengajar")
                         .WithMany("DaftarHariMengajar")
-                        .HasForeignKey("JadwalMengajarId")
+                        .HasForeignKey("JadwalMengajarNIP", "JadwalMengajarIdMataPelajaran", "JadwalMengajarIdRombel")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -782,19 +789,19 @@ namespace SIAkademik.Infrastructure.Migrations
                 {
                     b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.MataPelajaran", "MataPelajaran")
                         .WithMany("DaftarJadwalMengajar")
-                        .HasForeignKey("MataPelajaranId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.Pegawai", "Pegawai")
-                        .WithMany("DaftarJadwalMengajar")
-                        .HasForeignKey("PegawaiId")
+                        .HasForeignKey("IdMataPelajaran")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.Rombel", "Rombel")
                         .WithMany("DaftarJadwalMengajar")
-                        .HasForeignKey("RombelId")
+                        .HasForeignKey("IdRombel")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.Pegawai", "Pegawai")
+                        .WithMany("DaftarJadwalMengajar")
+                        .HasForeignKey("NIP")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -818,15 +825,15 @@ namespace SIAkademik.Infrastructure.Migrations
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Nilai", b =>
                 {
-                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.JadwalMengajar", "JadwalMengajar")
-                        .WithMany("DaftarNilai")
-                        .HasForeignKey("JadwalMengajarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.AnggotaRombel", "AnggotaRombel")
                         .WithMany("DaftarNilai")
                         .HasForeignKey("AnggotaRombelIdSiswa", "AnggotaRombelIdRombel")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.JadwalMengajar", "JadwalMengajar")
+                        .WithMany("DaftarNilai")
+                        .HasForeignKey("JadwalMengajarNIP", "JadwalMengajarIdMataPelajaran", "JadwalMengajarIdRombel")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

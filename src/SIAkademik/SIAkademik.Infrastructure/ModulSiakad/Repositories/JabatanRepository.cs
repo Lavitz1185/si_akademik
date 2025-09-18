@@ -27,4 +27,8 @@ internal class JabatanRepository : IJabatanRepository
         .TblJabatan
         .Include(j => j.DaftarPegawai)
         .ToListAsync();
+
+    public async Task<bool> IsExistByNama(string nama, int? id = null) => await _appDbContext
+        .TblJabatan
+        .AnyAsync(j => j.Id != id && j.Nama.ToLower() == nama.ToLower());
 }
