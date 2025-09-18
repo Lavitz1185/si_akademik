@@ -35,10 +35,10 @@
                             <td>@mataPelajaran.Jenjang</td>
                             <td>@mataPelajaran.Peminatan</td>
                             <td>
-                                <a asp-action="Edit" asp-route-nip="@mataPelajaran.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit">
+                                <a asp-action="Edit" asp-route-id="@mataPelajaran.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                <form style="display:inline" asp-action="Hapus" asp-route-nip="@mataPelajaran.Id">
+                                <form style="display:inline" asp-action="Hapus" asp-route-id="@mataPelajaran.Id">
                                     <button type="submit" class="btn btn-danger btn-action" title="Hapus">
                                         <i class="fas fa-trash"></i>
                                     </button>
