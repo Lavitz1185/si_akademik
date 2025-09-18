@@ -12,38 +12,38 @@
         <h4>Data Kelas</h4>
     </div>
     <div class="padding-20">
-        <div class="d-flex justify-content-start ml-auto mb-2">
-            <form method="get" asp-action="Index" id="form">
-                <select id="idTahunAjaran" name="idTahunAjaran" required>
-                    @if (Model.TahunAjaran is null)
-                    {
-                        <option selected value="@null">--</option>
-                    }
-                    else
-                    {
-                        <option value="@null">--</option>
-                    }
-                    @foreach (var tahunAjaran in daftarTahunAjaran)
-                    {
-                        @if (tahunAjaran == Model.TahunAjaran)
+        <div class="d-flex justify-content-between mb-3 align-items-center">
+            <a class="btn btn-primary" asp-action="Tambah"
+               data-bs-toggle="tooltip" title="Tambah Kelas">
+                <i class="fas fa-plus me-1"></i> Tambah Kelas
+            </a>
+
+            <form method="get" asp-action="Index" id="form" class="d-flex ms-3">
+                <div class="input-group">
+                    <select id="idTahunAjaran" name="idTahunAjaran" class="form-select mr-1" required>
+                        @if (Model.TahunAjaran is null)
                         {
-                            <option selected value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+                            <option selected value="@null">-- Pilih Tahun Ajaran --</option>
                         }
                         else
                         {
-                            <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+                            <option value="@null">-- Pilih Tahun Ajaran --</option>
                         }
-                    }
-                </select>
-
-                <button type="submit">Filter</button>
+                        @foreach (var tahunAjaran in daftarTahunAjaran)
+                        {
+                            @if (tahunAjaran == Model.TahunAjaran)
+                            {
+                                <option selected value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+                            }
+                            else
+                            {
+                                <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+                            }
+                        }
+                    </select>
+                    <button type="submit" class="btn btn-secondary">Filter</button>
+                </div>
             </form>
-            <div class="mb-0">
-                <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah"
-                   data-toggle="tooltip" title="Tambah Kelas">
-                    <i class="fas fa-plus"></i> Tambah Kelas
-                </a>
-            </div>
         </div>
 
         <div class="table-responsive">

@@ -14,15 +14,15 @@
                     <div class="card-body">
                         <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
 
-                        <div class="row">
+                        <div class="form-group">
                             <label asp-for="@Model.Periode"></label>
-                            <input asp-for="@Model.Periode" type="text" />
+                            <input asp-for="@Model.Periode" type="text" class="form-control"/>
                             <span asp-validation-for="@Model.Periode"></span>
                         </div>
 
-                        <div class="row">
+                        <div class="form-group">
                             <label asp-for="@Model.Semester"></label>
-                            <select asp-for="@Model.Semester">
+                            <select asp-for="@Model.Semester" class="form-control">
                                 @foreach (var semester in Enum.GetValues<Semester>())
                                 {
                                     <option value="@semester">@semester.Humanize()</option>
@@ -31,84 +31,18 @@
                             <span asp-validation-for="@Model.Semester"></span>
                         </div>
 
-                        <button type="submit">Simpan</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
 
-                        @* <div class="form-group">
-                            <label asp-for="@Model.IdAkun">Akun<span class="text-danger">*</span></label>
-                            <select asp-for="@Model.IdAkun" class="form-control select2">
-                                <option value="@null">Pilih Akun...</option>
-                                @foreach (var akun in daftarAkun)
-                                {
-                                    @if (!rapbj!.DaftarDetailRAPBJ.Any(d => d.Akun == akun))
-                                    {
-                                        <option value="@akun.Id">@akun.KodeAkun @akun.Uraian</option>
-                                    }
-                                }
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for="@Model.Satuan">Satuan<span class="text-danger">*</span></label>
-                            <input asp-for="@Model.Satuan" type="text" class="form-control" autofocus placeholder="Satuan...">
-                            <span asp-validation-for="@Model.Satuan" class="form-text text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for="@Model.Volume">Volume<span class="text-danger">*</span></label>
-                            <input asp-for="@Model.Volume" type="number" class="form-control" autofocus placeholder="Volume...">
-                            <span asp-validation-for="@Model.Volume" class="form-text text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for="@Model.HargaSatuan">Harga Satuan<span class="text-danger">*</span></label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        Rp
-                                    </div>
-                                </div>
-                                <input asp-for="@Model.HargaSatuan" type="text" class="form-control" autofocus placeholder="Harga Satuan...">
-                            </div>
-                            <span asp-validation-for="@Model.HargaSatuan" class="form-text text-danger"></span>
-                        </div>
-
-                        <input asp-for="@Model.Tahun" hidden />
-                        <input asp-for="@Model.Jenis" hidden /> *@
+                        
 
                     </div>
 
-                   @*  <div class="card-footer text-right">
-                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
-                        <a class="btn btn-danger" asp-action="Index" asp-route-jenis="@Model.Jenis" asp-route-tahun="@Model.Tahun">Batal</a>
-                    </div> *@
+                  
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-@* <form asp-action="Tambah" class="container">
-    <div asp-validation-summary="ModelOnly"></div>
-
-    <div class="row">
-        <label asp-for="@Model.Periode"></label>
-        <input asp-for="@Model.Periode" type="text"/>
-        <span asp-validation-for="@Model.Periode"></span>
-    </div>
-
-    <div class="row">
-        <label asp-for="@Model.Semester"></label>
-        <select asp-for="@Model.Semester">
-            @foreach(var semester in Enum.GetValues<Semester>())
-            {
-                <option value="@semester">@semester.Humanize()</option>
-            }
-        </select>
-        <span asp-validation-for="@Model.Semester"></span>
-    </div>
-
-    <button type="submit">Simpan</button>
-</form> *@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

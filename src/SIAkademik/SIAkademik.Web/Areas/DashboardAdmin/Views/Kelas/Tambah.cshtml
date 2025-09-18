@@ -18,9 +18,9 @@
                     <div class="card-body">
                         <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
 
-                        <div class="row">
+                        <div class="form-group">
                             <label asp-for="@Model.Jenjang"></label>
-                            <select asp-for="@Model.Jenjang">
+                            <select asp-for="@Model.Jenjang" class="form-control">
                                 @foreach (var jenjang in Enum.GetValues<Jenjang>())
                                 {
                                     <option value="@jenjang">@jenjang.Humanize()</option>
@@ -29,9 +29,9 @@
                             <span asp-validation-for="@Model.Jenjang"></span>
                         </div>
 
-                        <div class="row">
+                        <div class="form-group">
                             <label asp-for="@Model.Peminatan"></label>
-                            <select asp-for="@Model.Peminatan">
+                            <select asp-for="@Model.Peminatan" class="form-control">
                                 @foreach (var peminatan in Enum.GetValues<Peminatan>())
                                 {
                                     <option value="@peminatan">@peminatan.Humanize()</option>
@@ -40,9 +40,9 @@
                             <span asp-validation-for="@Model.Peminatan"></span>
                         </div>
 
-                        <div class="row">
+                        <div class="form-group">
                             <label asp-for="@Model.IdTahunAjaran"></label>
-                            <select asp-for="@Model.IdTahunAjaran">
+                            <select asp-for="@Model.IdTahunAjaran" class="form-control">
                                 @foreach (var tahunAjaran in daftarTahunAjaran)
                                 {
                                     <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
@@ -51,7 +51,7 @@
                             <span asp-validation-for="@Model.IdTahunAjaran"></span>
                         </div>
 
-                        <button type="submit">Simpan</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
 
                        @*  <div class="form-group">
                             <label asp-for="@Model.IdAkun">Akun<span class="text-danger">*</span></label>
