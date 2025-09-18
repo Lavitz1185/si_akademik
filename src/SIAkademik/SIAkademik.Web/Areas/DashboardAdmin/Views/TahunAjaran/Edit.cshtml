@@ -14,21 +14,21 @@
                     <div class="card-body">
                         <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
 
-                        <div class="row">
+                        <div class="form-group">
                             <label asp-for="@Model.Id"></label>
-                            <input asp-for="@Model.Id" type="text" readonly />
+                            <input asp-for="@Model.Id" type="text" class="form-control" readonly />
                             <span asp-validation-for="@Model.Id"></span>
                         </div>
 
-                        <div class="row">
+                        <div class="form-group">
                             <label asp-for="@Model.Periode"></label>
-                            <input asp-for="@Model.Periode" type="text" />
+                            <input asp-for="@Model.Periode" type="text" class="form-control" />
                             <span asp-validation-for="@Model.Periode"></span>
                         </div>
 
-                        <div class="row">
+                        <div class="form-group">
                             <label asp-for="@Model.Semester"></label>
-                            <select asp-for="@Model.Semester">
+                            <select asp-for="@Model.Semester" class="form-control">
                                 @foreach (var semester in Enum.GetValues<Semester>())
                                 {
                                     <option value="@semester">@semester.Humanize()</option>
@@ -37,7 +37,7 @@
                             <span asp-validation-for="@Model.Semester"></span>
                         </div>
 
-                        <button type="submit">Simpan</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
 
                         @* <div class="form-group">
                         <label asp-for="@Model.IdAkun">Akun<span class="text-danger">*</span></label>

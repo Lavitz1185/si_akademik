@@ -57,7 +57,7 @@
                                 <a asp-action="Edit" asp-route-nip="@siswa.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                <form style="display:inline" asp-action="Hapus" asp-route-nip="@siswa.Id">
+                                <form asp-action="Hapus" asp-route-nip="@siswa.Id" style="display:inline">
                                     <button type="submit" class="btn btn-danger btn-action" title="Hapus">
                                         <i class="fas fa-trash"></i>
                                     </button>

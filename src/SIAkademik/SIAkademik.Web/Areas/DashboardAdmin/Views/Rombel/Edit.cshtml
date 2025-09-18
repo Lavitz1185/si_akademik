@@ -10,71 +10,87 @@
     var daftarKelas = await KelasRepository.GetAllByTahunAjaran(Model.IdTahunAjaran);
 }
 
-<form asp-action="Edit" method="post" class="container">
-    <div asp-validation-summary="ModelOnly"></div>
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-6">
+            <div class="card card-warning">
 
-    <div class="row">
-        <label asp-for="@Model.Id"></label>
-        <input asp-for="@Model.Id" type="text" readonly/>
-        <span asp-validation-for="@Model.Id"></span>
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Edit Data Divisi</h4>
+                </div>
+
+                <form asp-action="Edit" method="post">
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly"></div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Id"></label>
+                            <input asp-for="@Model.Id" type="text" readonly class="form-control"/>
+                            <span asp-validation-for="@Model.Id"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.IdTahunAjaran">Tahun Ajaran</label>
+                            <select asp-for="@Model.IdTahunAjaran" class="form-control">
+                                <option value="@null">--</option>
+
+                                @foreach (var tahunAjaran in daftarTahunAjaran)
+                                {
+                                    <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.IdKelas"></label>
+                            <select asp-for="@Model.IdKelas" class="form-control">
+                                <option value="@null">--</option>
+
+                                @foreach (var kelas in daftarKelas)
+                                {
+                                    <option value="@kelas.Id">@kelas.Jenjang.Humanize() @kelas.Peminatan.Humanize()</option>
+                                }
+                            </select>
+                            <span asp-validation-for="@Model.IdKelas"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Nama"></label>
+                            <input asp-for="@Model.Nama" type="text" class="form-control" />
+                            <span asp-validation-for="@Model.Nama"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.NIPWali"></label>
+                            <select asp-for="@Model.NIPWali" class="form-control">
+                                <option value="@null">--</option>
+
+                                @foreach (var pegawai in daftarPegawai)
+                                {
+                                    <option value="@pegawai.Id">@pegawai.Nama - @pegawai.Jabatan.Nama</option>
+                                }
+                            </select>
+                            <span asp-validation-for="@Model.NIPWali"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
     </div>
-
-    <div class="row">
-        <label asp-for="@Model.IdTahunAjaran">Tahun Ajaran</label>
-        <select asp-for="@Model.IdTahunAjaran">
-            <option value="@null">--</option>
-
-            @foreach (var tahunAjaran in daftarTahunAjaran)
-            {
-                <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
-            }
-        </select>
-    </div>
-
-    <div class="row">
-        <label asp-for="@Model.IdKelas"></label>
-        <select asp-for="@Model.IdKelas">
-            <option value="@null">--</option>
-
-            @foreach (var kelas in daftarKelas)
-            {
-                <option value="@kelas.Id">@kelas.Jenjang.Humanize() @kelas.Peminatan.Humanize()</option>
-            }
-        </select>
-        <span asp-validation-for="@Model.IdKelas"></span>
-    </div>
-
-    <div class="row">
-        <label asp-for="@Model.Nama"></label>
-        <input asp-for="@Model.Nama" type="text" />
-        <span asp-validation-for="@Model.Nama"></span>
-    </div>
-
-    <div class="row">
-        <label asp-for="@Model.NIPWali"></label>
-        <select asp-for="@Model.NIPWali">
-            <option value="@null">--</option>
-
-            @foreach (var pegawai in daftarPegawai)
-            {
-                <option value="@pegawai.Id">@pegawai.Nama - @pegawai.Jabatan.Nama</option>
-            }
-        </select>
-        <span asp-validation-for="@Model.NIPWali"></span>
-    </div>
-
-    <button type="submit">Simpan</button>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 
     <script type="text/javascript">
         $(
-            $('form select#IdTahunAjaran').on('change', async function() {
+            $('form select#IdTahunAjaran').on('change', async function () {
                 const idTahunAjaran = $(this).val()
 
-                if(idTahunAjaran == "") {
+                if (idTahunAjaran == "") {
                     $('form select#IdKelas').html('<option value="">--</option>');
                 } else {
                     const response = await fetch(`/Dashboard/Admin/Kelas/DaftarKelas?idTahunAjaran=${idTahunAjaran}`)
@@ -82,7 +98,7 @@
 
                     $('form select#IdKelas').html('<option value="">--</option>');
 
-                    for(let kelas of daftarKelas) {
+                    for (let kelas of daftarKelas) {
                         $('form select#IdKelas')
                             .append(`<option value="${kelas.id}">${kelas.jenjang} ${kelas.peminatan}</option>`);
                     }

@@ -13,27 +13,27 @@
                     <div class="card-body">
                         <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
 
-                        <div class="row">
+                        <div class="form-group">
                             <label asp-for="@Model.NISN"></label>
-                            <input asp-for="@Model.NISN" type="text" />
+                            <input asp-for="@Model.NISN" type="text" class="form-control"/>
                             <span asp-validation-for="@Model.NISN"></span>
                         </div>
 
-                        <div class="row">
+                        <div class="form-group">
                             <label asp-for="@Model.NIS"></label>
-                            <input asp-for="@Model.NIS" type="text" />
+                            <input asp-for="@Model.NIS" type="text" class="form-control" />
                             <span asp-validation-for="@Model.NIS"></span>
                         </div>
 
-                        <div class="row">
+                        <div class="form-group">
                             <label asp-for="@Model.Nama"></label>
-                            <input asp-for="@Model.Nama" type="text" />
+                            <input asp-for="@Model.Nama" type="text" class="form-control" />
                             <span asp-validation-for="@Model.Nama"></span>
                         </div>
 
-                        <div class="row">
+                        <div class="form-group">
                             <label asp-for="@Model.Agama"></label>
-                            <select asp-for="@Model.Agama">
+                            <select asp-for="@Model.Agama" class="form-control">
                                 @foreach (var agama in Enum.GetValues<Agama>())
                                 {
                                     <option value="@agama">@agama.Humanize()</option>
@@ -42,9 +42,9 @@
                             <span asp-validation-for="@Model.Agama"></span>
                         </div>
 
-                        <div class="row">
+                        <div class="form-group">
                             <label asp-for="@Model.JenisKelamin"></label>
-                            <select asp-for="@Model.JenisKelamin">
+                            <select asp-for="@Model.JenisKelamin" class="form-control">
                                 @foreach (var jenisKelamin in Enum.GetValues<JenisKelamin>())
                                 {
                                     <option value="@jenisKelamin">@jenisKelamin.Humanize()</option>
@@ -53,25 +53,25 @@
                             <span asp-validation-for="@Model.JenisKelamin"></span>
                         </div>
 
-                        <div class="row">
+                        <div class="form-group">
                             <label asp-for="@Model.TempatLahir"></label>
-                            <input asp-for="@Model.TempatLahir" type="text" />
+                            <input asp-for="@Model.TempatLahir" type="text" class="form-control" />
                             <span asp-validation-for="@Model.TempatLahir"></span>
                         </div>
 
-                        <div class="row">
+                        <div class="form-group">
                             <label asp-for="@Model.TanggalLahir"></label>
-                            <input asp-for="@Model.TanggalLahir" type="date" />
+                            <input asp-for="@Model.TanggalLahir" type="date" class="form-control datepicker" />
                             <span asp-validation-for="@Model.TanggalLahir"></span>
                         </div>
 
-                        <div class="row">
+                        <div class="form-group">
                             <label asp-for="@Model.TanggalMasuk"></label>
-                            <input asp-for="@Model.TanggalMasuk" type="date" />
+                            <input asp-for="@Model.TanggalMasuk" type="date" class="form-control datepicker" />
                             <span asp-validation-for="@Model.TanggalMasuk"></span>
                         </div>
 
-                        <button type="submit">Simpan</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
 
                         @* <div class="form-group">
                             <label asp-for="@Model.IdAkun">Akun<span class="text-danger">*</span></label>
