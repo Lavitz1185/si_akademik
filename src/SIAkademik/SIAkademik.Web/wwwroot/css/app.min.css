@@ -2065,6 +2065,14 @@ pre {
         border: 0
     }
 
+/*.dataTables_filter,
+.dataTables_length,
+.dataTables_info,
+.dataTables_paginate {
+    overflow: visible !important;
+    position: relative;*/ /* biar tidak ikut scroll */
+/*}*/
+
 .form-control {
     display: block;
     width: 100%;
