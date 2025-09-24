@@ -1,0 +1,22 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.JadwalMengajarModels
+@model TambahVM
+
+@inject ITahunAjaranRepository TahunAjaranRepository
+@inject IKelasRepository KelasRepository
+@inject IRombelRepository RombelRepository
+@inject IMataPelajaranRepository MataPelajaranRepository
+@inject IPegawaiRepository PegawaiRepository
+
+@{
+    var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
+    var daftarKelas = await KelasRepository.GetAllByTahunAjaran(Model.IdTahunAjaran);
+    var daftarRombel = daftarKelas.SelectMany(k => k.DaftarRombel);
+    var daftarMataPelajaran = await MataPelajaranRepository.GetAll();
+    var daftarPegawai = await PegawaiRepository.GetAll();
+}
+
+@section Scripts {
+    <script type="text/javascript">
+
+    </script>
+}

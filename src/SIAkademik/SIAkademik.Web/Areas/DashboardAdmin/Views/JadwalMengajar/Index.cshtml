@@ -1,0 +1,81 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.JadwalMengajarModels
+@model IndexVM
+
+@inject ITahunAjaranRepository TahunAjaranRepository
+
+@{
+    var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
+}
+
+@if (Model.TahunAjaran is not null)
+{
+    <a asp-action="Tambah" asp-route-idTahunAjaran="@Model.TahunAjaran.Id">Tambah</a>
+}
+
+<form asp-action="Index" , method="get" id="idTahunAjaran">
+    <select name="idTahunAjaran" id="idTahunAjaran">
+        @foreach (var tahunAjaran in daftarTahunAjaran)
+        {
+            @if (tahunAjaran == Model.TahunAjaran)
+            {
+                <option selected value="@tahunAjaran.Id">@tahunAjaran.Periode - @tahunAjaran.Semester.Humanize()</option>
+            }
+            else
+            {
+                <option value="@tahunAjaran.Id">@tahunAjaran.Periode - @tahunAjaran.Semester.Humanize()</option>
+            }
+        }
+    </select>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Mata Pelajaran</th>
+            <th>Rombel</th>
+            <th>Guru</th>
+            <th>Hari</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var jadwalMengajar in Model.DaftarJadwalMengajar)
+        {
+            <tr>
+                <td>@jadwalMengajar.Id</td>
+                <td>@jadwalMengajar.MataPelajaran.Nama</td>
+                <td>@jadwalMengajar.Rombel.Kelas.Jenjang.Humanize() @jadwalMengajar.Rombel.Kelas.Peminatan.Humanize() @jadwalMengajar.Rombel.Nama</td>
+                <td>@jadwalMengajar.Pegawai.Nama</td>
+                <td>
+                    @foreach (var hari in jadwalMengajar.DaftarHariMengajar)
+                    {
+                        <span>
+                            @hari.Hari.Humanize() @hari.JamMulai.ToString(CultureInfos.CI.DateTimeFormat.ShortTimePattern, CultureInfos.CI)
+                            - @hari.JamAkhir.ToString(CultureInfos.CI.DateTimeFormat.ShortTimePattern, CultureInfos.CI)
+                            <a asp-action="EditHari" asp-route-id="@hari.Id">Edit</a>
+                            <form asp-action="HapusHari" asp-route-id="@hari.Id">
+                                <button type="submit">Hapus</button>
+                            </form>
+                        </span>
+                    }
+                    <a asp-action="TambahHari" asp-route-id="@jadwalMengajar.Id">Tambah</a>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@jadwalMengajar.Id">Edit</a>
+                    <form asp-action="Hapus" asp-route-id="@jadwalMengajar.Id">
+                        <button type="submit">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(
+            $('select#idTahunAjaran').on('change', () => $('form#idTahunAjaran').submit())
+        )
+    </script>
+}

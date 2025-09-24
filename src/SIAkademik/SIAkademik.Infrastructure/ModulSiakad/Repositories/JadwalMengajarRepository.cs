@@ -42,4 +42,12 @@ internal class JadwalMengajarRepository : IJadwalMengajarRepository
         .Include(j => j.DaftarHariMengajar)
         .Where(j => j.Rombel.Kelas.TahunAjaran.Id == idTahunAjaran)
         .ToListAsync();
+
+    public async Task<bool> IsExist(int idMataPelajaran, int idRombel, string nipPegawai, int? id = null) => await _appDbContext
+        .TblJadwalMengajar
+        .Include(j => j.MataPelajaran)
+        .Include(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(j => j.Pegawai)
+        .Include(j => j.DaftarHariMengajar)
+        .AnyAsync(j => j.Id != id && j.MataPelajaran.Id == idMataPelajaran && j.Rombel.Id == idRombel && j.Pegawai.Id == nipPegawai);
 }
