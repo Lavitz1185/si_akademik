@@ -54,4 +54,17 @@ internal class RombelRepository : IRombelRepository
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
         .Where(r => r.Kelas.Id == idKelas)
         .ToListAsync();
+
+    public async Task<List<Rombel>> GetAllByTahunAjaran(int idTahunAjaran) => await _appDbContext
+        .TblRombel
+        .Include(r => r.Kelas).ThenInclude(r => r.TahunAjaran)
+        .Include(r => r.Wali)
+        .Include(r => r.DaftarJadwalMengajar).ThenInclude(j => j.Pegawai)
+        .Include(r => r.DaftarJadwalMengajar).ThenInclude(j => j.MataPelajaran)
+        .Include(r => r.DaftarJadwalMengajar).ThenInclude(j => j.DaftarNilai)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.Siswa)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
+        .Where(r => r.Kelas.TahunAjaran.Id == idTahunAjaran)
+        .ToListAsync();
 }

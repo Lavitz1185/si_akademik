@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SIAkademik.Domain.Abstracts;
 using SIAkademik.Domain.Authentication;
+using SIAkademik.Domain.Enums;
 using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Web.Areas.DashboardAdmin.Models.RombelModels;
@@ -275,5 +276,18 @@ public class RombelController : Controller
             _toastrNotificationService.AddSuccess("Siswa berhasil dihapus dari rombel");
 
         return RedirectToAction(nameof(Detail), new { id });
+    }
+
+    [HttpGet()]
+    public async Task<IActionResult> DaftarRombel(int idTahunAjaran)
+    {
+        var daftarRombel = await _rombelRepository.GetAllByTahunAjaran(idTahunAjaran);
+
+        return Json(daftarRombel.Select(r => new
+        {
+            r.Id,
+            r.Nama,
+            Kelas = new { Jenjang = r.Kelas.Jenjang.Humanize(), Peminatan = r.Kelas.Peminatan.Humanize() }
+        }));
     }
 }

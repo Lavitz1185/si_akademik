@@ -48,13 +48,13 @@
                 <td>@jadwalMengajar.Rombel.Kelas.Jenjang.Humanize() @jadwalMengajar.Rombel.Kelas.Peminatan.Humanize() @jadwalMengajar.Rombel.Nama</td>
                 <td>@jadwalMengajar.Pegawai.Nama</td>
                 <td>
-                    @foreach (var hari in jadwalMengajar.DaftarHariMengajar)
+                    @foreach (var hari in jadwalMengajar.DaftarHariMengajar.OrderBy(h => h.Hari))
                     {
                         <span>
                             @hari.Hari.Humanize() @hari.JamMulai.ToString(CultureInfos.CI.DateTimeFormat.ShortTimePattern, CultureInfos.CI)
                             - @hari.JamAkhir.ToString(CultureInfos.CI.DateTimeFormat.ShortTimePattern, CultureInfos.CI)
-                            <a asp-action="EditHari" asp-route-id="@hari.Id">Edit</a>
-                            <form asp-action="HapusHari" asp-route-id="@hari.Id">
+                            <a asp-action="EditHari" asp-route-id="@jadwalMengajar.Id" asp-route-idHariMengajar="@hari.Id">Edit</a>
+                            <form asp-action="HapusHari" asp-route-id="@jadwalMengajar.Id" asp-route-idHariMengajar="@hari.Id">
                                 <button type="submit">Hapus</button>
                             </form>
                         </span>

@@ -1,0 +1,39 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.JadwalMengajarModels
+@model EditHariVM
+
+<form asp-action="EditHari" method="post" class="container">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <input asp-for="@Model.IdJadwalMengajar" readonly />
+    <input asp-for="@Model.IdHariMengajar" readonly />
+
+    <div class="row">
+        <label asp-for="@Model.Hari"></label>
+        <select asp-for="@Model.Hari">
+            <option value="@null">-- Pilih Hari --</option>
+            @foreach (var hari in Enum.GetValues<Hari>())
+            {
+                <option value="@hari">@hari.Humanize()</option>
+            }
+        </select>
+        <span asp-validation-for="@Model.Hari"></span>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.JamMulai"></label>
+        <input asp-for="@Model.JamMulai" type="time" />
+        <span asp-validation-for="@Model.JamMulai"></span>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.JamAkhir"></label>
+        <input asp-for="@Model.JamAkhir" type="time" />
+        <span asp-validation-for="@Model.JamAkhir"></span>
+    </div>
+
+    <button type="submit">Simpan</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

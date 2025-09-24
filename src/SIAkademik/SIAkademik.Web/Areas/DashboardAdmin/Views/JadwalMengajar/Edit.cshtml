@@ -1,5 +1,5 @@
 ﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.JadwalMengajarModels
-@model TambahVM
+@model EditVM
 
 @inject ITahunAjaranRepository TahunAjaranRepository
 @inject IKelasRepository KelasRepository
@@ -15,8 +15,14 @@
     var daftarPegawai = await PegawaiRepository.GetAll();
 }
 
-<form asp-action="Tambah" method="post" class="container">
+<form asp-action="Edit" method="post" class="container">
     <div asp-validation-summary="ModelOnly"></div>
+
+    <div class="row">
+        <label asp-for="@Model.Id"></label>
+        <input asp-for="@Model.Id" type="text" readonly/>
+        <span asp-validation-for="@Model.Id"></span>
+    </div>
 
     <div class="row">
         <label asp-for="@Model.IdTahunAjaran"></label>
