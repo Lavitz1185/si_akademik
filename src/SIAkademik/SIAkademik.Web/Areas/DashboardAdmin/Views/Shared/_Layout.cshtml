@@ -4,8 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SIAkademik.Web</title>
-    <link rel="stylesheet" href="~/css/app.min.css" />
+    <link rel="stylesheet" href="~/css/app.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/datatables/datatables.min.css" asp-append-version="true" />
+@*     <link rel="stylesheet" href="~/lib/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css" asp-append-version="true" /> *@
     <link rel="stylesheet" href="~/css/components.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/theme.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -30,9 +32,17 @@
     </div>
 
     @* JAVASCRIPT *@
-    <script src="~/js/app.min.js" asp-append-version="true"></script>
-    <script src="~/js/datatables.js" asp-append-version="true"></script>
+    <script src="~/js/app.min.js" asp-append-version="true"></script>    
     <script src="~/js/dashboard.js" asp-append-version="true"></script>
+    <script src="~/lib/datatables/datatables.min.js" asp-append-version="true"></script>
+    <script src="~/lib/datatables/export-tables/dataTables.buttons.min.js" asp-append-version="true"></script>
+    <script src="~/lib/datatables/export-tables/buttons.flash.min.js" asp-append-version="true"></script>
+    <script src="~/lib/datatables/export-tables/buttons.print.min.js" asp-append-version="true"></script>
+    <script src="~/lib/datatables/export-tables/jszip.min.js" asp-append-version="true"></script>
+    <script src="~/lib/datatables/export-tables/pdfmake.min.js" asp-append-version="true"></script>
+    <script src="~/lib/datatables/export-tables/vfs_fonts.js" asp-append-version="true"></script>
+    <script src="~/js/datatables.js" asp-append-version="true"></script>
+@*     <script src="~/lib/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js" asp-append-version="true"></script> *@
 
     @{
         var globalOptions = new ToastrOptions
