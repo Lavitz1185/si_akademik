@@ -9,6 +9,16 @@
     var daftarKelas = Model.TahunAjaran?.DaftarKelas ?? [];
 }
 
+<!-- Breadcrumb -->
+<div class="row">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Manajemen Akademik</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Rombel" asp-action="Index"></a>Rombel</li>
+        </ol>
+    </nav>
+</div>
+
 <div class="card card-primary">
     <div class="card-header">
         <h4>Data Rombel</h4>

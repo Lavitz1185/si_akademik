@@ -7,6 +7,16 @@
     var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
 }
 
+<!-- Breadcrumb -->
+<div class="row">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Manajemen Akademik</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="JadwalMengajar" asp-action="Index"></a>Jadwal Mengajar</li>
+        </ol>
+    </nav>
+</div>
+
 <div class="card card-primary">
     <div class="card-header">
         <h4>Data Jadwal Mengajar</h4>
