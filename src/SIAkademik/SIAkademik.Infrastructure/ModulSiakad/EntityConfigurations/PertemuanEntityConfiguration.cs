@@ -9,7 +9,19 @@ internal class PertemuanEntityConfiguration : IEntityTypeConfiguration<Pertemuan
     public void Configure(EntityTypeBuilder<Pertemuan> builder)
     {
         builder.HasKey(x => x.Id);
+        builder.Property(x => x.TanggalPelaksanaan).HasColumnType("timestamp without time zone");
         builder.HasOne(x => x.JadwalMengajar).WithMany(y => y.DaftarPertemuan);
         builder.HasMany(x => x.DaftarAbsen).WithOne(y => y.Pertemuan);
+
+        var daftarPertemuan = Enumerable.Range(1, 10).Select(i => new
+        {
+            Id = i,
+            Keterangan = string.Empty,
+            Nomor = i,
+            StatusPertemuan = StatusPertemuan.BelumMulai,
+            JadwalMengajarId = 1
+        }).ToArray();
+
+        builder.HasData(daftarPertemuan);
     }
 }
