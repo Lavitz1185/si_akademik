@@ -15,7 +15,100 @@
     var daftarPegawai = await PegawaiRepository.GetAll();
 }
 
-<form asp-action="Edit" method="post" class="container">
+<!-- Breadcrumb -->
+<div class="row" style="justify-content: center;">
+    <div class="col-12 col-md-6 col-lg-6" style="padding: 0;">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Manajemen Akademik</a></li>
+                <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="JadwalMengajar" asp-action="Index">JadwalMengajar</a></li>
+                <li class="breadcrumb-item" aria-current="page">Edit Data</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-6">
+            <div class="card card-danger">
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Tambah Jadwal Mengajar</h4>
+                </div>
+
+                <form asp-action="Edit" method="post">
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly"></div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Id"></label>
+                            <input asp-for="@Model.Id" readonly class="form-control" />
+                            <span asp-validation-for="@Model.Id"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.IdTahunAjaran"></label>
+                            <select asp-for="@Model.IdTahunAjaran" class="form-control">
+                                <option value="@null">-- Pilih Tahun Ajaran --</option>
+                                @foreach (var tahunAjaran in daftarTahunAjaran)
+                                {
+                                    <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+                                }
+                            </select>
+                            <span asp-validation-for="@Model.IdTahunAjaran"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.IdRombel"></label>
+                            <select asp-for="@Model.IdRombel" class="form-control">
+                                <option value="@null">-- Pilih Rombel --</option>
+                                @foreach (var rombel in daftarRombel)
+                                {
+                                    <option value="@rombel.Id">
+                                        @rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Humanize() @rombel.Nama
+                                    </option>
+                                }
+                            </select>
+                            <span asp-validation-for="@Model.IdRombel"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.IdMataPelajaran"></label>
+                            <select asp-for="@Model.IdMataPelajaran" class="form-control">
+                                <option value="@null">-- Pilih Mata Pelajaran --</option>
+                                @foreach (var mataPelajaran in daftarMataPelajaran)
+                                {
+                                    <option value="@mataPelajaran.Id">
+                                        @mataPelajaran.Nama @mataPelajaran.Jenjang @mataPelajaran.Peminatan
+                                    </option>
+                                }
+                            </select>
+                            <span asp-validation-for="@Model.IdMataPelajaran"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.NIPPegawai"></label>
+                            <select asp-for="@Model.NIPPegawai" class="form-control">
+                                <option value="@null">-- Pilih Mata Pelajaran --</option>
+                                @foreach (var pegawai in daftarPegawai)
+                                {
+                                    <option value="@pegawai.Id">
+                                        @pegawai.Nama
+                                    </option>
+                                }
+                            </select>
+                            <span asp-validation-for="@Model.NIPPegawai"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* <form asp-action="Edit" method="post" class="container">
     <div asp-validation-summary="ModelOnly"></div>
 
     <div class="row">
@@ -79,7 +172,7 @@
     </div>
 
     <button type="submit">Simpan</button>
-</form>
+</form> *@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

@@ -1,5 +1,15 @@
 ﻿@model List<Jabatan>
 
+<!-- Breadcrumb -->
+<div class="row">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Manajemen SDM</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Jabatan" asp-action="Index"></a>Jabatan</li>
+        </ol>
+    </nav>
+</div>
+
 <div class="card card-primary">
     <div class="card-header">
         <h4>Data Jabatan</h4>
