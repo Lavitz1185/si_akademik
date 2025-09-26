@@ -10,4 +10,5 @@ public class Absen : Entity<int>
     public string? Keterangan { get; set; }
 
     public AnggotaRombel AnggotaRombel { get; set; }
+    public Pertemuan Pertemuan { get; set; }
 }

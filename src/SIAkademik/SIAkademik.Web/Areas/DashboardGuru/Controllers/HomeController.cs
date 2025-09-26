@@ -21,6 +21,9 @@ public class HomeController : Controller
     private readonly IPegawaiRepository _pegawaiRepository;
     private readonly IDivisiRepository _divisiRepository;
     private readonly IJabatanRepository _jabatanRepository;
+    private readonly IJadwalMengajarRepository _jadwalMengajarRepository;
+    private readonly IRombelRepository _rombelRepository;
+    private readonly ITahunAjaranRepository _tahunAjaranRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IToastrNotificationService _toastrNotificationService;
 
@@ -30,7 +33,10 @@ public class HomeController : Controller
         IUnitOfWork unitOfWork,
         IDivisiRepository divisiRepository,
         IJabatanRepository jabatanRepository,
-        IToastrNotificationService toastrNotificationService)
+        IToastrNotificationService toastrNotificationService,
+        IJadwalMengajarRepository jadwalMengajarRepository,
+        IRombelRepository rombelRepository,
+        ITahunAjaranRepository tahunAjaranRepository)
     {
         _signInManager = signInManager;
         _pegawaiRepository = pegawaiRepository;
@@ -38,11 +44,41 @@ public class HomeController : Controller
         _divisiRepository = divisiRepository;
         _jabatanRepository = jabatanRepository;
         _toastrNotificationService = toastrNotificationService;
+        _jadwalMengajarRepository = jadwalMengajarRepository;
+        _rombelRepository = rombelRepository;
+        _tahunAjaranRepository = tahunAjaranRepository;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var appUser = await _signInManager.GetUser();
+        var guru = appUser?.Guru;
+
+        if (guru is null) return Forbid();
+
+        guru = (await _pegawaiRepository.Get(guru.Id))!;
+
+        var tahunAjaran = (await _tahunAjaranRepository.GetAll()).LastOrDefault();
+
+        if (tahunAjaran is null) return View(new IndexVM());
+
+        var hari = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, CultureInfos.TimeZoneInfo).DayOfWeek;
+        var jadwalHariIni = guru.DaftarJadwalMengajar
+            .Where(j => j.Rombel.Kelas.TahunAjaran == tahunAjaran)
+            .SelectMany(j => j.DaftarHariMengajar)
+            .Where(h => HariExtension.FromHari(h.Hari) == hari)
+            .ToList();
+
+        var rombelWali = guru.DaftarRombelWali
+            .Where(j => j.Kelas.TahunAjaran == tahunAjaran)
+            .ToList();
+
+        return View(new IndexVM
+        {
+            TahunAjaran = tahunAjaran,
+            JadwalHariIni = jadwalHariIni,
+            RombelWali = rombelWali
+        });
     }
 
     public async Task<IActionResult> Logout()

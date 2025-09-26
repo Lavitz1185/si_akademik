@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SIAkademik.Infrastructure.Database;
@@ -12,9 +13,11 @@ using SIAkademik.Infrastructure.Database;
 namespace SIAkademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250926064503_SeedingSedikit")]
+    partial class SeedingSedikit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,15 +94,10 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Property<string>("Keterangan")
                         .HasColumnType("text");
 
-                    b.Property<int>("PertemuanId")
-                        .HasColumnType("integer");
-
                     b.Property<DateOnly>("Tanggal")
                         .HasColumnType("date");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PertemuanId");
 
                     b.HasIndex("AnggotaRombelIdSiswa", "AnggotaRombelIdRombel");
 
@@ -340,7 +338,7 @@ namespace SIAkademik.Infrastructure.Migrations
                             Id = 1,
                             Jenjang = 0,
                             Peminatan = 0,
-                            TahunAjaranId = 2
+                            TahunAjaranId = 1
                         });
                 });
 
@@ -539,37 +537,6 @@ namespace SIAkademik.Infrastructure.Migrations
                             TanggalMasuk = new DateOnly(2024, 7, 1),
                             TempatLahir = "Noelbaki"
                         });
-                });
-
-            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Pertemuan", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("JadwalMengajarId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Keterangan")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Nomor")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("StatusPertemuan")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("Tanggal")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("JadwalMengajarId");
-
-                    b.ToTable("TblPertemuan");
                 });
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Rombel", b =>
@@ -864,12 +831,6 @@ namespace SIAkademik.Infrastructure.Migrations
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Absen", b =>
                 {
-                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.Pertemuan", "Pertemuan")
-                        .WithMany("DaftarAbsen")
-                        .HasForeignKey("PertemuanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.AnggotaRombel", "AnggotaRombel")
                         .WithMany("DaftarAbsen")
                         .HasForeignKey("AnggotaRombelIdSiswa", "AnggotaRombelIdRombel")
@@ -877,8 +838,6 @@ namespace SIAkademik.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("AnggotaRombel");
-
-                    b.Navigation("Pertemuan");
                 });
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.AnggotaRombel", b =>
@@ -993,17 +952,6 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Navigation("Jabatan");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Pertemuan", b =>
-                {
-                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.JadwalMengajar", "JadwalMengajar")
-                        .WithMany("DaftarPertemuan")
-                        .HasForeignKey("JadwalMengajarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("JadwalMengajar");
-                });
-
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Rombel", b =>
                 {
                     b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.Kelas", "Kelas")
@@ -1063,8 +1011,6 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Navigation("DaftarHariMengajar");
 
                     b.Navigation("DaftarNilai");
-
-                    b.Navigation("DaftarPertemuan");
                 });
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Kelas", b =>
@@ -1082,11 +1028,6 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Navigation("DaftarJadwalMengajar");
 
                     b.Navigation("DaftarRombelWali");
-                });
-
-            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Pertemuan", b =>
-                {
-                    b.Navigation("DaftarAbsen");
                 });
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Rombel", b =>

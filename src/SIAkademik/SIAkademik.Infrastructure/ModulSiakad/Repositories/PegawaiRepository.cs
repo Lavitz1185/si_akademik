@@ -20,9 +20,10 @@ internal class PegawaiRepository : IPegawaiRepository
 
     public async Task<Pegawai?> Get(string nip) => await _appDbContext
         .TblPegawai
-        .Include(p => p.DaftarRombelWali)
+        .Include(p => p.DaftarRombelWali).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
         .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.MataPelajaran)
-        .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.Rombel)
+        .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.DaftarHariMengajar)
+        .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
         .Include(p => p.Account)
         .Include(p => p.Jabatan)
         .Include(p => p.Divisi)
@@ -30,9 +31,10 @@ internal class PegawaiRepository : IPegawaiRepository
 
     public async Task<List<Pegawai>> GetAll() => await _appDbContext
         .TblPegawai
-        .Include(p => p.DaftarRombelWali)
+        .Include(p => p.DaftarRombelWali).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
         .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.MataPelajaran)
-        .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.Rombel)
+        .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.DaftarHariMengajar)
+        .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
         .Include(p => p.Account)
         .Include(p => p.Jabatan)
         .Include(p => p.Divisi)

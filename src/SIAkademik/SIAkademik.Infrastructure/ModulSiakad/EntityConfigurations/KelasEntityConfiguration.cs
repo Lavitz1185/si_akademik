@@ -20,7 +20,7 @@ internal class KelasEntityConfiguration : IEntityTypeConfiguration<Kelas>
                 Id = 1,
                 Jenjang = Jenjang.X,
                 Peminatan = Peminatan.Umum,
-                TahunAjaranId = 1,
+                TahunAjaranId = 2,
             }
         );
     }

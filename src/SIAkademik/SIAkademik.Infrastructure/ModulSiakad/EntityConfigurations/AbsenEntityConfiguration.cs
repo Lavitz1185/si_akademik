@@ -10,5 +10,6 @@ internal class AbsenEntityConfiguration : IEntityTypeConfiguration<Absen>
     {
         builder.HasKey(a => a.Id);
         builder.HasOne(a => a.AnggotaRombel).WithMany(x => x.DaftarAbsen);
+        builder.HasOne(a => a.Pertemuan).WithMany(x => x.DaftarAbsen);
     }
 }
