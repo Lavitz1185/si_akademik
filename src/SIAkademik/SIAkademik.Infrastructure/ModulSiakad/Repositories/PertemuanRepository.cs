@@ -22,6 +22,7 @@ internal class PertemuanRepository : IPertemuanRepository
         .Include(p => p.JadwalMengajar).ThenInclude(j => j.Pegawai)
         .Include(p => p.JadwalMengajar).ThenInclude(j => j.MataPelajaran)
         .Include(p => p.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(p => p.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.DaftarAnggotaRombel).ThenInclude(a => a.Siswa)
         .Include(p => p.DaftarAbsen).ThenInclude(a => a.AnggotaRombel).ThenInclude(a => a.Siswa)
         .Include(p => p.DaftarAbsen).ThenInclude(a => a.AnggotaRombel).ThenInclude(a => a.Rombel)
         .FirstOrDefaultAsync(p => p.Id == id);
@@ -30,6 +31,7 @@ internal class PertemuanRepository : IPertemuanRepository
         .Include(p => p.JadwalMengajar).ThenInclude(j => j.Pegawai)
         .Include(p => p.JadwalMengajar).ThenInclude(j => j.MataPelajaran)
         .Include(p => p.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(p => p.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.DaftarAnggotaRombel).ThenInclude(a => a.Siswa)
         .Include(p => p.DaftarAbsen).ThenInclude(a => a.AnggotaRombel).ThenInclude(a => a.Siswa)
         .Include(p => p.DaftarAbsen).ThenInclude(a => a.AnggotaRombel).ThenInclude(a => a.Rombel)
         .ToListAsync();
@@ -38,6 +40,7 @@ internal class PertemuanRepository : IPertemuanRepository
         .Include(p => p.JadwalMengajar).ThenInclude(j => j.Pegawai)
         .Include(p => p.JadwalMengajar).ThenInclude(j => j.MataPelajaran)
         .Include(p => p.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(p => p.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.DaftarAnggotaRombel).ThenInclude(a => a.Siswa)
         .Include(p => p.DaftarAbsen).ThenInclude(a => a.AnggotaRombel).ThenInclude(a => a.Siswa)
         .Include(p => p.DaftarAbsen).ThenInclude(a => a.AnggotaRombel).ThenInclude(a => a.Rombel)
         .Where(p => p.JadwalMengajar.Id == idJadwalMengajar)

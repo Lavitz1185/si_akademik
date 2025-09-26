@@ -1,0 +1,26 @@
+﻿@model Pertemuan
+
+<a asp-action="Detail" asp-controller="JadwalMengajar" asp-route-id="@Model.JadwalMengajar.Id">Kembali Ke Jadwal</a>
+
+<form asp-action="Edit" asp-route-id="@Model.Id" class="row">
+    <label for="keterangan">Keterangan</label>
+    <textarea name="keterangan" id="keterangan">
+    </textarea>
+</form>
+<p>Nomor : @Model.Nomor</p>
+<p>Status : @Model.StatusPertemuan.Humanize()</p>
+@if(Model.StatusPertemuan == StatusPertemuan.BelumMulai)
+{
+    <form asp-action="Mulai" asp-route-id="@Model.Id">
+        <button type="submit">Mulai</button>
+    </form>
+}
+
+@if(Model.StatusPertemuan == StatusPertemuan.Berjalan)
+{
+    <form asp-action="Akhiri" asp-route-id="@Model.Id">
+        <button type="submit">Akhiri</button>
+    </form>
+}
+
+<h1>Absensi</h1>

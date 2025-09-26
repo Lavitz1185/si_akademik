@@ -21,6 +21,7 @@ internal class PegawaiRepository : IPegawaiRepository
     public async Task<Pegawai?> Get(string nip) => await _appDbContext
         .TblPegawai
         .Include(p => p.DaftarRombelWali).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(p => p.DaftarRombelWali).ThenInclude(r => r.DaftarAnggotaRombel)
         .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.MataPelajaran)
         .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.DaftarHariMengajar)
         .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)

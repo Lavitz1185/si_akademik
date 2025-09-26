@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using SIAkademik.Domain.Authentication;
+using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.Shared;
 using System.Security.Claims;
 
@@ -25,6 +26,8 @@ public class SignInManager : ISignInManager
         _logger = logger;
         _contextAccessor = contextAccessor;
     }
+
+    public async Task<Pegawai?> GetPegawai() => (await GetUser())?.Guru;
 
     public async Task<AppUser?> GetUser()
     {

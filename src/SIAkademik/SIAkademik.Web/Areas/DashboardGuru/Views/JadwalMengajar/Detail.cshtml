@@ -1,0 +1,58 @@
+﻿@model JadwalMengajar
+
+<h1>Daftar Siswa</h1>
+<table>
+    <thead>
+        <tr>
+            <th>NIS</th>
+            <th>NISN</th>
+            <th>Nama</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var anggotaRombel in Model.Rombel.DaftarAnggotaRombel)
+        {
+            <tr>
+                <td>@anggotaRombel.Siswa.NIS</td>
+                <td>@anggotaRombel.Siswa.NISN</td>
+                <td>@anggotaRombel.Siswa.Nama</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h1>Daftar Pertemuan</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Nomor</th>
+            <th>Tanggal Pelaksanaan</th>
+            <th>Status</th>
+            <th>Keterangan</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var pertemuan in Model.DaftarPertemuan.OrderBy(p => p.Nomor))
+        {
+            <tr>
+                <td>@pertemuan.Nomor</td>
+                <td>
+                    @if(pertemuan.TanggalPelaksanaan is null)
+                    {
+                        <p>Belum Dimulai</p>
+                    }
+                    else
+                    {
+                        @pertemuan.TanggalPelaksanaan.Value.ToString(CultureInfos.CI.DateTimeFormat.LongDatePattern, CultureInfos.CI)
+                    }
+                </td>
+                <td>@pertemuan.StatusPertemuan.Humanize()</td>
+                <td>@pertemuan.Keterangan</td>
+                <td>
+                    <a asp-action="Detail" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id">Detail</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

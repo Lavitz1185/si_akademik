@@ -22,6 +22,7 @@ internal class JadwalMengajarRepository : IJadwalMengajarRepository
         .TblJadwalMengajar
         .Include(j => j.MataPelajaran)
         .Include(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(j => j.Rombel).ThenInclude(r => r.DaftarAnggotaRombel).ThenInclude(a => a.Siswa)
         .Include(j => j.Pegawai)
         .Include(j => j.DaftarHariMengajar)
         .Include(j => j.DaftarPertemuan)
@@ -31,6 +32,7 @@ internal class JadwalMengajarRepository : IJadwalMengajarRepository
         .TblJadwalMengajar
         .Include(j => j.MataPelajaran)
         .Include(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(j => j.Rombel).ThenInclude(r => r.DaftarAnggotaRombel).ThenInclude(a => a.Siswa)
         .Include(j => j.Pegawai)
         .Include(j => j.DaftarHariMengajar)
         .Include(j => j.DaftarPertemuan)
@@ -40,6 +42,7 @@ internal class JadwalMengajarRepository : IJadwalMengajarRepository
         .TblJadwalMengajar
         .Include(j => j.MataPelajaran)
         .Include(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(j => j.Rombel).ThenInclude(r => r.DaftarAnggotaRombel).ThenInclude(a => a.Siswa)
         .Include(j => j.Pegawai)
         .Include(j => j.DaftarHariMengajar)
         .Include(j => j.DaftarPertemuan)
@@ -49,9 +52,6 @@ internal class JadwalMengajarRepository : IJadwalMengajarRepository
     public async Task<bool> IsExist(int idMataPelajaran, int idRombel, string nipPegawai, int? id = null) => await _appDbContext
         .TblJadwalMengajar
         .Include(j => j.MataPelajaran)
-        .Include(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
         .Include(j => j.Pegawai)
-        .Include(j => j.DaftarPertemuan)
-        .Include(j => j.DaftarHariMengajar)
         .AnyAsync(j => j.Id != id && j.MataPelajaran.Id == idMataPelajaran && j.Rombel.Id == idRombel && j.Pegawai.Id == nipPegawai);
 }

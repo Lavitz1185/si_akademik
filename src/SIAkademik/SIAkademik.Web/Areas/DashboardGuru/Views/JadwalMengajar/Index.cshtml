@@ -1,0 +1,74 @@
+﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.JadwalMengajarModels
+@model IndexVM
+
+@inject ITahunAjaranRepository TahunAjaranRepository
+
+@{
+    var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
+}
+
+<form id="tahunAjaran" method="get">
+    <select id="idTahunAjaran" name="idTahunAjaran">
+        @if (Model.TahunAjaran is null)
+        {
+            <option selected value="@null">-- Pilih Tahun Ajaran --</option>
+        }
+        else
+        {
+            <option value="@null">-- Pilih Tahun Ajaran --</option>
+        }
+
+        @foreach (var tahunAjaran in daftarTahunAjaran)
+        {
+            @if (tahunAjaran == Model.TahunAjaran)
+            {
+                <option selected value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+            }
+            else
+            {
+                <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+            }
+        }
+    </select>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Kelas</th>
+            <th>Mata Pelajaran</th>
+            <th>Hari (Jam)</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var jadwal in Model.DaftarJadwalMengajar)
+        {
+            <tr>
+                <td>@jadwal.Rombel.Kelas.Jenjang.Humanize() @jadwal.Rombel.Kelas.Peminatan.Humanize() @jadwal.Rombel.Nama</td>
+                <td>@jadwal.MataPelajaran.Nama</td>
+                <td>
+                    @foreach(var hari in jadwal.DaftarHariMengajar)
+                    {
+                        <p>@hari.Hari (@hari.JamMulai.ToShortTimeString() - @hari.JamAkhir.ToShortTimeString())</p>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Detail" asp-route-id="@jadwal.Id">Detail</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script type="text/javascript">
+        $(function() {
+            $('select#idTahunAjaran').on('change', () => {
+                $('form#tahunAjaran').submit()
+            })
+        });
+    </script>
+}
