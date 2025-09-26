@@ -23,7 +23,7 @@
     </div>
     <div class="padding-20">
         <div class="d-flex justify-content-between mb-3 align-items-center">
-            <a class="btn btn-primary" asp-action="Tambah"
+            <a class="btn btn-primary" asp-action="Tambah" asp-route-idTahunAjaran="@Model.TahunAjaran?.Id"
                data-bs-toggle="tooltip" title="Tambah Kelas">
                 <i class="fas fa-plus me-1"></i> Tambah Kelas
             </a>

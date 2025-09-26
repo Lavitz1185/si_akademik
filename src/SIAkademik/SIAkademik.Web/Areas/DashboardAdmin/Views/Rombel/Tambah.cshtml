@@ -1,10 +1,12 @@
 ﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.RombelModels
 @model TambahVM
 @inject ITahunAjaranRepository TahunAjaranRepository
+@inject IKelasRepository KelasRepository
 @inject IPegawaiRepository PegawaiRepository
 
 @{
     var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
+    var daftarKelas = await KelasRepository.GetAllByTahunAjaran(Model.IdTahunAjaran);
     var daftarPegawai = await PegawaiRepository.GetAll();
 }
 
@@ -34,8 +36,8 @@
                         <div asp-validation-summary="ModelOnly"></div>
 
                         <div class="form-group">
-                            <label for="tahunAjaran">Tahun Ajaran</label>
-                            <select id="tahunAjaran" name="tahunAjaran" class="form-control">
+                            <label asp-for="@Model.IdTahunAjaran"></label>
+                            <select asp-for="@Model.IdTahunAjaran" class="form-control">
                                 <option value="@null">--</option>
 
                                 @foreach (var tahunAjaran in daftarTahunAjaran)
@@ -49,6 +51,11 @@
                             <label asp-for="@Model.IdKelas"></label>
                             <select asp-for="@Model.IdKelas" class="form-control">
                                 <option value="@null">--</option>
+
+                                @foreach (var kelas in daftarKelas)
+                                {
+                                    <option value="@kelas.Id">@kelas.Jenjang.Humanize() @kelas.Peminatan.Humanize()</option>
+                                }
                             </select>
                             <span asp-validation-for="@Model.IdKelas"></span>
                         </div>
@@ -86,7 +93,7 @@
 
     <script type="text/javascript">
         $(
-            $('form select#tahunAjaran').on('change', async function () {
+            $('form select#IdTahunAjaran').on('change', async function () {
                 const idTahunAjaran = $(this).val()
                 console.log(idTahunAjaran)
 

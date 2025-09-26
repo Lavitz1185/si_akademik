@@ -20,7 +20,7 @@ internal class RombelRepository : IRombelRepository
 
     public async Task<Rombel?> Get(int id) => await _appDbContext
         .TblRombel
-        .Include(r => r.Kelas)
+        .Include(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
         .Include(r => r.Wali)
         .Include(r => r.DaftarJadwalMengajar).ThenInclude(j => j.Pegawai)
         .Include(r => r.DaftarJadwalMengajar).ThenInclude(j => j.MataPelajaran)
@@ -32,7 +32,7 @@ internal class RombelRepository : IRombelRepository
 
     public async Task<List<Rombel>> GetAll() => await _appDbContext
         .TblRombel
-        .Include(r => r.Kelas)
+        .Include(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
         .Include(r => r.Wali)
         .Include(r => r.DaftarJadwalMengajar).ThenInclude(j => j.Pegawai)
         .Include(r => r.DaftarJadwalMengajar).ThenInclude(j => j.MataPelajaran)
@@ -44,7 +44,7 @@ internal class RombelRepository : IRombelRepository
 
     public async Task<List<Rombel>> GetAllByKelas(int idKelas) => await _appDbContext
         .TblRombel
-        .Include(r => r.Kelas)
+        .Include(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
         .Include(r => r.Wali)
         .Include(r => r.DaftarJadwalMengajar).ThenInclude(j => j.Pegawai)
         .Include(r => r.DaftarJadwalMengajar).ThenInclude(j => j.MataPelajaran)

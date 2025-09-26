@@ -47,7 +47,7 @@ public class JadwalMengajarController : Controller
     {
         var tahunAjaran = idTahunAjaran is not null ?
             await _tahunAjaranRepository.Get(idTahunAjaran.Value) :
-            (await _tahunAjaranRepository.GetAll()).OrderBy(t => t.Id).FirstOrDefault();
+            (await _tahunAjaranRepository.GetAll()).LastOrDefault();
 
         if (tahunAjaran is null) return View(new IndexVM());
 

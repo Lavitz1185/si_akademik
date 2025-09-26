@@ -34,6 +34,12 @@
                         </div>
 
                         <div class="form-group">
+                            <label asp-for="@Model.TahunPelaksanaan"></label>
+                            <input asp-for="@Model.TahunPelaksanaan" type="number" class="form-control" />
+                            <span asp-validation-for="@Model.TahunPelaksanaan"></span>
+                        </div>
+
+                        <div class="form-group">
                             <label asp-for="@Model.Semester"></label>
                             <select asp-for="@Model.Semester" class="form-control">
                                 @foreach (var semester in Enum.GetValues<Semester>())
@@ -45,11 +51,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary">Simpan</button>
-
-                        
-
                     </div>
-
                   
                 </form>
             </div>

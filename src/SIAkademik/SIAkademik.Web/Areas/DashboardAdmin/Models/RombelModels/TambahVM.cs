@@ -8,6 +8,10 @@ public class TambahVM
     [Required(ErrorMessage = "{0} harus diisi")]
     public string Nama { get; set; } = string.Empty;
 
+    [Display(Name = "Tahun Ajaran")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public int IdTahunAjaran { get; set; }
+
     [Display(Name = "Kelas")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public int IdKelas { get; set; }

@@ -11,7 +11,11 @@ public class EditVM
 
     [Display(Name = "Periode")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public required string Periode { get; set; } = string.Empty;
+    public required string Periode { get; set; }
+
+    [Display(Name = "Tahun Pelaksanaan")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public required int TahunPelaksanaan { get; set; }
 
     [Display(Name = "Periode")]
     [Required(ErrorMessage = "{0} harus diisi")]

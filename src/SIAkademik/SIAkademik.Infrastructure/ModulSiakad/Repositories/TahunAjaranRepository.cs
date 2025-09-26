@@ -26,5 +26,6 @@ internal class TahunAjaranRepository : ITahunAjaranRepository
     public async Task<List<TahunAjaran>> GetAll() => await _appDbContext
         .TblTahunAjaran
         .Include(t => t.DaftarKelas).ThenInclude(k => k.DaftarRombel)
+        .OrderBy(t => t.TahunPelaksaan).ThenBy(t => t.Semester)
         .ToListAsync();
 }

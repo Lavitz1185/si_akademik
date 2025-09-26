@@ -7,6 +7,7 @@ public class TahunAjaran : Entity<int>
 {
     public required string Periode { get;set; }
     public required Semester Semester { get;set; }
+    public required int TahunPelaksaan { get; set; }
 
     public List<Kelas> DaftarKelas { get; set; } = [];
 }

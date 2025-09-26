@@ -26,7 +26,8 @@
     <div class="padding-20">
         <div class="d-flex justify-content-between mb-3 align-items-center">
 
-            <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah"
+            <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah" asp-route-idTahunAjaran="@Model.TahunAjaran?.Id"
+               asp-route-idKelas="@Model.Kelas?.Id"
                data-toggle="tooltip" title="Tambah Rombel">
                 <i class="fas fa-plus"></i> Tambah Rombel
             </a>

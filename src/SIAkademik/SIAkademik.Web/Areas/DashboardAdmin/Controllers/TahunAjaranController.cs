@@ -6,7 +6,6 @@ using SIAkademik.Domain.Authentication;
 using SIAkademik.Domain.Enums;
 using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.ModulSiakad.Repositories;
-using SIAkademik.Domain.Shared;
 using SIAkademik.Web.Areas.DashboardAdmin.Models.TahunAjaranModels;
 using SIAkademik.Web.Services.Toastr;
 
@@ -53,7 +52,8 @@ public class TahunAjaranController : Controller
         var tahunAjaran = new TahunAjaran
         {
             Periode = vm.Periode,
-            Semester = vm.Semester
+            TahunPelaksaan = vm.TahunPelaksanaan,
+            Semester = vm.Semester,
         };
 
         _tahunAjaranRepository.Add(tahunAjaran);
@@ -75,7 +75,13 @@ public class TahunAjaranController : Controller
         var tahunAjaran = await _tahunAjaranRepository.Get(id);
         if (tahunAjaran is null) return NotFound();
 
-        return View(new EditVM { Id = id,  Periode = tahunAjaran.Periode, Semester = tahunAjaran.Semester });
+        return View(new EditVM
+        {
+            Id = id,
+            Periode = tahunAjaran.Periode,
+            TahunPelaksanaan = tahunAjaran.TahunPelaksaan,
+            Semester = tahunAjaran.Semester
+        });
     }
 
     [HttpPost]
@@ -87,6 +93,7 @@ public class TahunAjaranController : Controller
         if (tahunAjaran is null) return View(vm);
 
         tahunAjaran.Periode = vm.Periode;
+        tahunAjaran.TahunPelaksaan = vm.TahunPelaksanaan;
         tahunAjaran.Semester = vm.Semester;
 
         var result = await _unitOfWork.SaveChangesAsync();

@@ -46,7 +46,7 @@ public class KelasController : Controller
         });
     }
 
-    public IActionResult Tambah() => View(new TambahVM());
+    public IActionResult Tambah(int? idTahunAjaran = null) => View(new TambahVM() { IdTahunAjaran = idTahunAjaran ?? default });
 
     [HttpPost]
     public async Task<IActionResult> Tambah(TambahVM vm)
@@ -77,7 +77,7 @@ public class KelasController : Controller
 
         _toastrNotificationService.AddSuccess("Berhasil menambahkan kelas baru!");
 
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction(nameof(Index), new { idTahunAjaran = vm.IdTahunAjaran });
     }
 
     public async Task<IActionResult> Edit(int id)
@@ -122,7 +122,7 @@ public class KelasController : Controller
 
         _toastrNotificationService.AddSuccess($"Berhasil mengubah data kelas dengan Id '{kelas.Id}'!");
 
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction(nameof(Index), new { idTahunAjaran = kelas.TahunAjaran.Id });
     }
 
     [HttpPost]
@@ -131,6 +131,8 @@ public class KelasController : Controller
         var kelas = await _kelasRepository.Get(id);
         if (kelas is null) return NotFound();
 
+        var idTahunAjaran = kelas.TahunAjaran.Id;
+
         _kelasRepository.Delete(kelas);
         var result = await _unitOfWork.SaveChangesAsync();
         if (result.IsFailure)
@@ -138,7 +140,7 @@ public class KelasController : Controller
         else
             _toastrNotificationService.AddSuccess("Sukses menghapus kelas!");
 
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction(nameof(Index), new { idTahunAjaran });
     }
 
     [HttpGet]

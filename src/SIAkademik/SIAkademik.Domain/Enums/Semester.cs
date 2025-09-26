@@ -2,5 +2,5 @@
 
 public enum Semester
 {
-    Genap, Ganjil
+    Ganjil, Genap
 }

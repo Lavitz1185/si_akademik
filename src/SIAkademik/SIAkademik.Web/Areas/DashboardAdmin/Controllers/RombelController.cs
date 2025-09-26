@@ -75,7 +75,8 @@ public class RombelController : Controller
         });
     }
 
-    public IActionResult Tambah() => View(new TambahVM());
+    public IActionResult Tambah(int? idKelas = null, int? idTahunAjaran = null) => 
+        View(new TambahVM { IdKelas = idKelas ?? default, IdTahunAjaran = idTahunAjaran ?? default });
 
     [HttpPost]
     public async Task<IActionResult> Tambah(TambahVM vm)
@@ -120,7 +121,7 @@ public class RombelController : Controller
 
         _toastrNotificationService.AddSuccess("Simpan data rombel baru berhasil!");
 
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction(nameof(Index), new { idKelas = vm.IdKelas, idTahunAjaran = kelas.TahunAjaran.Id });
     }
 
     public async Task<IActionResult> Edit(int id)
@@ -182,7 +183,7 @@ public class RombelController : Controller
 
         _toastrNotificationService.AddSuccess("Ubah data rombel berhasil!");
 
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction(nameof(Index), new { idTahunAjaran = kelas.TahunAjaran.Id, idKelas = kelas.Id });
     }
 
     [HttpPost]
@@ -191,6 +192,9 @@ public class RombelController : Controller
         var rombel = await _rombelRepository.Get(id);
         if (rombel is null) return NotFound();
 
+        var idKelas = rombel.Kelas.Id;
+        var idTahunAjaran = rombel.Kelas.TahunAjaran.Id;
+
         _rombelRepository.Delete(rombel);
 
         var result = await _unitOfWork.SaveChangesAsync();
@@ -198,7 +202,7 @@ public class RombelController : Controller
         if (result.IsFailure) _toastrNotificationService.AddError("Hapus data rombel gagal!");
         else _toastrNotificationService.AddSuccess("Hapus data rombel berhasil!");
 
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction(nameof(Index), new { idKelas, idTahunAjaran });
     }
 
     public async Task<IActionResult> Detail(int id)

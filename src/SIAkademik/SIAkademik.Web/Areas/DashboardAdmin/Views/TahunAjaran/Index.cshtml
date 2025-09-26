@@ -31,6 +31,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Periode</th>
+                        <th>Tahun Pelaksanaan</th>
                         <th>Semester</th>
                         <th>Jumlah Kelas</th>
                         <th>Aksi</th>
@@ -42,6 +43,7 @@
                         <tr>
                             <td>@tahunAjaran.Id</td>
                             <td>@tahunAjaran.Periode</td>
+                            <td>@tahunAjaran.TahunPelaksaan</td>
                             <td>@tahunAjaran.Semester.Humanize()</td>
                             <td>@tahunAjaran.DaftarKelas.Count</td>
                             <td>
@@ -70,41 +72,3 @@
         </div>
     </div>
 </div>
-
-@* <a asp-action="Tambah">Tambah Tahun Ajaran</a>
-
-<table>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Periode</th>
-            <th>Semester</th>
-            <th>Jumlah Kelas</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var tahunAjaran in Model)
-        {
-            <tr>
-                <td>@tahunAjaran.Id</td>
-                <td>@tahunAjaran.Periode</td>
-                <td>@tahunAjaran.Semester.Humanize()</td>
-                <td>@tahunAjaran.DaftarKelas.Count</td>
-                <td>
-                    <a asp-action="Index" asp-controller="Kelas" asp-route-idTahunAjaran="@tahunAjaran.Id">Lihat Kelas</a>
-                    <a asp-action="Edit" asp-route-id="@tahunAjaran.Id">Edit</a>
-                    @if(tahunAjaran.DaftarKelas.Count == 0)
-                    {
-                        <form asp-action="GenerateKelas" asp-route-id="@tahunAjaran.Id">
-                            <button type="submit">Generate Kelas</button>
-                        </form>
-                    }
-                    <form asp-action="Hapus" asp-route-id="@tahunAjaran.Id">
-                        <button type="submit">Hapus</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table> *@
