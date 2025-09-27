@@ -148,4 +148,111 @@ public class PertemuanController : Controller
 
         return RedirectToAction(nameof(JadwalMengajarController.Detail), "JadwalMengajar", new { id = pertemuan.JadwalMengajar.Id });
     }
+
+    public async Task<IActionResult> Tambah(int idJadwalMengajar)
+    {
+        var jadwalMengajar = await _jadwalMengajarRepository.Get(idJadwalMengajar);
+        if (jadwalMengajar is null) return NotFound();
+
+        return View(new TambahVM { IdJadwalMengajar = jadwalMengajar.Id });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Tambah(TambahVM vm)
+    {
+        var jadwalMengajar = await _jadwalMengajarRepository.Get(vm.IdJadwalMengajar);
+        if (jadwalMengajar is null) return NotFound();
+
+        if (jadwalMengajar.DaftarPertemuan.Any(p => p.Nomor == vm.Nomor))
+        {
+            ModelState.AddModelError(nameof(TambahVM.Nomor), $"Nomor '{vm.Nomor}' sudah digunakan pertemuan lain");
+            return View(vm);
+        }
+
+        var pertemuan = new Pertemuan
+        {
+            Nomor = vm.Nomor,
+            JadwalMengajar = jadwalMengajar,
+            StatusPertemuan = StatusPertemuan.BelumMulai
+        };
+
+        _pertemuanRepository.Add(pertemuan);
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsFailure)
+        {
+            ModelState.AddModelError(string.Empty, "Simpan Gagal!");
+            return View(vm);
+        }
+
+        _toastrNotificationService.AddSuccess("Tambah pertemuan sukses!");
+
+        return RedirectToAction(nameof(JadwalMengajarController.Detail), "JadwalMengajar", new { id = jadwalMengajar.Id });
+    }
+
+    public async Task<IActionResult> Edit(int id)
+    {
+        var pertemuan = await _pertemuanRepository.Get(id);
+        if (pertemuan is null) return NotFound();
+
+        if (pertemuan.StatusPertemuan == StatusPertemuan.BelumMulai)
+        {
+            _toastrNotificationService.AddError("Mulai pertemuan sebelum mengeditnya!");
+            return RedirectToAction(nameof(JadwalMengajarController.Detail), "JadwalMengajar", new { id = pertemuan.JadwalMengajar.Id });
+        }
+
+        return View(new EditVM
+        {
+            Id = id,
+            Keterangan = pertemuan.Keterangan!,
+            Nomor = pertemuan.Nomor,
+            TanggalPelaksanaan = pertemuan.TanggalPelaksanaan!.Value
+        });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(EditVM vm)
+    {
+        var pertemuan = await _pertemuanRepository.Get(vm.Id);
+        if (pertemuan is null) return NotFound();
+
+        var jadwalMengajar = await _jadwalMengajarRepository.Get(pertemuan.JadwalMengajar.Id);
+        if (jadwalMengajar!.DaftarPertemuan.Any(p => p.Id != pertemuan.Id && p.Nomor == vm.Nomor))
+        {
+            ModelState.AddModelError(nameof(EditVM.Nomor), $"Nomor '{vm.Nomor}' sudah digunakan!");
+            return View(vm);
+        }
+
+        pertemuan.Nomor = vm.Nomor;
+        pertemuan.TanggalPelaksanaan = vm.TanggalPelaksanaan;
+        pertemuan.Keterangan = vm.Keterangan;
+
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsFailure)
+        {
+            ModelState.AddModelError(string.Empty, "Simpan Gagal!");
+            return View(vm);
+        }
+
+        _toastrNotificationService.AddSuccess("Edit pertemuan sukses!");
+
+        return RedirectToAction(nameof(JadwalMengajarController.Detail), "JadwalMengajar", new { id = jadwalMengajar.Id });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Hapus(int id)
+    {
+        var pertemuan = await _pertemuanRepository.Get(id);
+        if (pertemuan is null) return NotFound();
+
+        var idJadwalMengajar = pertemuan.JadwalMengajar.Id;
+
+        _pertemuanRepository.Delete(pertemuan);
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsFailure)
+            _toastrNotificationService.AddError("Hapus pertemuan gagal!");
+        else
+            _toastrNotificationService.AddSuccess("Hapus pertemuan sukses!");
+
+        return RedirectToAction(nameof(JadwalMengajarController.Detail), "JadwalMengajar", new { id = idJadwalMengajar });
+    }
 }

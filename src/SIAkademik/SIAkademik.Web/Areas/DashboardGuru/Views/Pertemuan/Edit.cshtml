@@ -1,0 +1,34 @@
+﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.PertemuanModels
+
+@model EditVM
+
+<form asp-action="Edit" method="post" class="container">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <input asp-for="@Model.Id" readonly hidden/>
+
+    <div class="row">
+        <label asp-for="@Model.Nomor"></label>
+        <input asp-for="@Model.Nomor"/>
+        <span asp-validation-for="@Model.Nomor"></span>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.TanggalPelaksanaan"></label>
+        <input asp-for="@Model.TanggalPelaksanaan" type="date" />
+        <span asp-validation-for="@Model.TanggalPelaksanaan"></span>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.Keterangan"></label>
+        <textarea asp-for="@Model.Keterangan">
+        </textarea>
+        <span asp-validation-for="@Model.Keterangan"></span>
+    </div>
+
+    <button type="submit">Simpan</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
