@@ -20,6 +20,7 @@ public class JadwalMengajarController : Controller
     private readonly IRombelRepository _rombelRepository;
     private readonly IPegawaiRepository _pegawaiRepository;
     private readonly IHariMengajarRepository _hariMengajarRepository;
+    private readonly IPertemuanRepository _pertemuanRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IToastrNotificationService _toastrNotificationService;
 
@@ -31,7 +32,8 @@ public class JadwalMengajarController : Controller
         IUnitOfWork unitOfWork,
         IToastrNotificationService toastrNotificationService,
         IRombelRepository rombelRepository,
-        IHariMengajarRepository hariMengajarRepository)
+        IHariMengajarRepository hariMengajarRepository,
+        IPertemuanRepository pertemuanRepository)
     {
         _jadwalMengajarRepository = jadwalMengajarRepository;
         _tahunAjaranRepository = tahunAjaranRepository;
@@ -41,6 +43,7 @@ public class JadwalMengajarController : Controller
         _toastrNotificationService = toastrNotificationService;
         _rombelRepository = rombelRepository;
         _hariMengajarRepository = hariMengajarRepository;
+        _pertemuanRepository = pertemuanRepository;
     }
 
     public async Task<IActionResult> Index(int? idTahunAjaran = null)
@@ -105,11 +108,20 @@ public class JadwalMengajarController : Controller
             Rombel = rombel
         };
 
-        mataPelajaran.DaftarJadwalMengajar.Add(jadwalMengajar);
-        pegawai.DaftarJadwalMengajar.Add(jadwalMengajar);
-        rombel.DaftarJadwalMengajar.Add(jadwalMengajar);
+        var daftarPertemuan = Enumerable.Range(1, vm.JumlahPertemuan)
+            .Select(i => new Pertemuan
+            {
+                Nomor = i,
+                JadwalMengajar = jadwalMengajar,
+                StatusPertemuan = StatusPertemuan.BelumMulai
+            }).ToList();
+
+        jadwalMengajar.DaftarPertemuan = daftarPertemuan;
 
         _jadwalMengajarRepository.Add(jadwalMengajar);
+
+        foreach (var pertemuan in daftarPertemuan) _pertemuanRepository.Add(pertemuan);
+
         var result = await _unitOfWork.SaveChangesAsync();
         if (result.IsFailure)
         {

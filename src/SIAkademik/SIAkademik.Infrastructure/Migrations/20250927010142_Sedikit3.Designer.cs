@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SIAkademik.Infrastructure.Database;
@@ -12,9 +13,11 @@ using SIAkademik.Infrastructure.Database;
 namespace SIAkademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250927010142_Sedikit3")]
+    partial class Sedikit3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -245,7 +248,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 8,
-                            Hari = 0,
+                            Hari = 8,
                             JadwalMengajarId = 2,
                             JamAkhir = new TimeOnly(16, 0, 0),
                             JamMulai = new TimeOnly(13, 0, 0)
@@ -253,7 +256,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 9,
-                            Hari = 1,
+                            Hari = 9,
                             JadwalMengajarId = 2,
                             JamAkhir = new TimeOnly(16, 0, 0),
                             JamMulai = new TimeOnly(13, 0, 0)
@@ -261,7 +264,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 10,
-                            Hari = 2,
+                            Hari = 10,
                             JadwalMengajarId = 2,
                             JamAkhir = new TimeOnly(16, 0, 0),
                             JamMulai = new TimeOnly(13, 0, 0)
@@ -269,7 +272,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 11,
-                            Hari = 3,
+                            Hari = 11,
                             JadwalMengajarId = 2,
                             JamAkhir = new TimeOnly(16, 0, 0),
                             JamMulai = new TimeOnly(13, 0, 0)
@@ -277,7 +280,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 12,
-                            Hari = 4,
+                            Hari = 12,
                             JadwalMengajarId = 2,
                             JamAkhir = new TimeOnly(16, 0, 0),
                             JamMulai = new TimeOnly(13, 0, 0)
@@ -285,7 +288,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 13,
-                            Hari = 5,
+                            Hari = 13,
                             JadwalMengajarId = 2,
                             JamAkhir = new TimeOnly(16, 0, 0),
                             JamMulai = new TimeOnly(13, 0, 0)
@@ -293,7 +296,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 14,
-                            Hari = 6,
+                            Hari = 14,
                             JadwalMengajarId = 2,
                             JamAkhir = new TimeOnly(16, 0, 0),
                             JamMulai = new TimeOnly(13, 0, 0)

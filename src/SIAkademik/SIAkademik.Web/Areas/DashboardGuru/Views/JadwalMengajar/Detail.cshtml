@@ -50,7 +50,20 @@
                 <td>@pertemuan.StatusPertemuan.Humanize()</td>
                 <td>@pertemuan.Keterangan</td>
                 <td>
-                    <a asp-action="Detail" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id">Detail</a>
+                    @if(pertemuan.StatusPertemuan == StatusPertemuan.BelumMulai)
+                    {
+                        <a asp-action="Mulai" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id">Mulai</a>
+                    }
+
+                    @if(pertemuan.StatusPertemuan == StatusPertemuan.Berjalan)
+                    {
+                        <a asp-action="Akhiri" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id">Akhiri</a>
+                    }
+
+                    @if(pertemuan.StatusPertemuan != StatusPertemuan.BelumMulai)
+                    {
+                        <a asp-action="Index" asp-controller="Absen" asp-route-idPertemuan="@pertemuan.Id"></a>
+                    }
                 </td>
             </tr>
         }
