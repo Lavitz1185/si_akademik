@@ -1778,13 +1778,10 @@ pre {
     }
 }
 
-.table-scroll {
-    display: block;
-}
-
 .table {
     margin-bottom: 1rem;
     color: #212529;
+    display: block;
     width: 100%; /* tetap penuh */
     overflow-x: auto; /* aktifkan scroll horizontal */
     white-space: nowrap; /* cegah teks pecah baris */
