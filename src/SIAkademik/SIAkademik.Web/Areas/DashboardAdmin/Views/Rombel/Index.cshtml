@@ -29,7 +29,7 @@
             <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah" asp-route-idTahunAjaran="@Model.TahunAjaran?.Id"
                asp-route-idKelas="@Model.Kelas?.Id"
                data-toggle="tooltip" title="Tambah Rombel">
-                <i class="fas fa-plus"></i> Tambah Rombel
+                <i class="fas fa-plus"></i> Tambah Rombel<a href="d:\documents\sia\si_akademik\src\siakademik\siakademik.web\areas\dashboardadmin\views\rombel\index.cshtml">d:\documents\sia\si_akademik\src\siakademik\siakademik.web\areas\dashboardadmin\views\rombel\index.cshtml</a>
             </a>
 
             <form asp-action="Index" method="get">
@@ -111,8 +111,8 @@
                             <td>
                                 <a asp-action="Detail" asp-route-id="@rombel.Id" class="btn btn-warning">Detail</a>
                                 <a asp-action="Edit" asp-route-id="@rombel.Id" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
-                                <form asp-action="Hapus" asp-route-id="@rombel.Id" style="display:inline">
-                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                <form asp-action="Hapus" asp-route-id="@rombel.Id" style="display:inline" method="post">
+                                    <button type="button" class="btn btn-danger swal-confirm"><i class="fas fa-trash"></i></button>
                                 </form>
                             </td>
                         </tr>

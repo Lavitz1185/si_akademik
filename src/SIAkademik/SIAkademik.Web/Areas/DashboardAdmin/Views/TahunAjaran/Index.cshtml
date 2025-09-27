@@ -64,6 +64,19 @@
                                     </button>
                                 </form>
 
+                                <form style="display:inline" asp-action="Hapus" asp-route-id="@tahunAjaran.Id">
+                                    <button type="button" class="btn btn-danger btn-action" id="swal-9"
+                                            data-url="@Url.Action("Hapus", new { id = tahunAjaran.Id })"
+                                            title="Hapus">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+
+                                <form asp-action="Hapus" asp-route-id="@tahunAjaran.Id" method="post" style="display:inline">
+                                    <button type="button" class="btn btn-danger btn-action swal-confirm" title="Hapus">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     }
@@ -72,3 +85,4 @@
         </div>
     </div>
 </div>
+
