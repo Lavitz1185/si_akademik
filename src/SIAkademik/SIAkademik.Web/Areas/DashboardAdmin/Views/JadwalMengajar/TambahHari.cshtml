@@ -1,37 +1,68 @@
 ﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.JadwalMengajarModels
 @model TambahHariVM
 
-<form asp-action="TambahHari" method="post" class="container">
-    <div asp-validation-summary="ModelOnly"></div>
 
-    <input asp-for="@Model.IdJadwalMengajar" readonly hidden />
 
-    <div class="row">
-        <label asp-for="@Model.Hari"></label>
-        <select asp-for="@Model.Hari">
-            <option value="@null">-- Pilih Hari --</option>
-            @foreach (var hari in Enum.GetValues<Hari>())
-            {
-                <option value="@hari">@hari.Humanize()</option>
-            }
-        </select>
-        <span asp-validation-for="@Model.Hari"></span>
+<!-- Breadcrumb -->
+<div class="row" style="justify-content: center;">
+    <div class="col-12 col-md-6 col-lg-6" style="padding: 0;">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Manajemen Akademik</a></li>
+                <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="JadwalMengajar" asp-action="Index">Jadwal Mengajar</a></li>
+                <li class="breadcrumb-item" aria-current="page">Tambah Data</li>
+            </ol>
+        </nav>
     </div>
+</div>
 
-    <div class="row">
-        <label asp-for="@Model.JamMulai"></label>
-        <input asp-for="@Model.JamMulai" type="time" />
-        <span asp-validation-for="@Model.JamMulai"></span>
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-6">
+            <div class="card card-warning">
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Tambah Hari Jadwal Mengajar</h4>
+                </div>
+
+                <form asp-action="TambahHari" method="post" class="container">
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly"></div>
+
+                        <input asp-for="@Model.IdJadwalMengajar" readonly hidden />
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Hari"></label>
+                            <select asp-for="@Model.Hari" class="form-control">
+                                <option value="@null">-- Pilih Hari --</option>
+                                @foreach (var hari in Enum.GetValues<Hari>())
+                                {
+                                    <option value="@hari">@hari.Humanize()</option>
+                                }
+                            </select>
+                            <span asp-validation-for="@Model.Hari"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.JamMulai"></label>
+                            <input asp-for="@Model.JamMulai" type="time" class="form-control" />
+                            <span asp-validation-for="@Model.JamMulai"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.JamAkhir"></label>
+                            <input asp-for="@Model.JamAkhir" type="time" class="form-control"/>
+                            <span asp-validation-for="@Model.JamAkhir"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+</div>
 
-    <div class="row">
-        <label asp-for="@Model.JamAkhir"></label>
-        <input asp-for="@Model.JamAkhir" type="time" />
-        <span asp-validation-for="@Model.JamAkhir"></span>
-    </div>
 
-    <button type="submit">Simpan</button>
-</form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

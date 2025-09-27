@@ -1,10 +1,24 @@
-﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.JadwalMengajarModels
+﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.PertemuanModels
 @model MulaiVM
 
 <form asp-action="Mulai" class="container">
     <div asp-validation-summary="ModelOnly"></div>
 
-    <input />
+    <input asp-for="@Model.Id" hidden readonly/>
+
+    <div class="row">
+        <label asp-for="@Model.Keterangan"></label>
+        <textarea asp-for="@Model.Keterangan"></textarea>
+        <span asp-validation-for="@Model.Keterangan"></span>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.TanggalPelaksanaan"></label>
+        <input asp-for="@Model.TanggalPelaksanaan" type="date"/>
+        <span asp-validation-for="@Model.TanggalPelaksanaan"></span>
+    </div>
+
+    <button type="submit">Simpan</button>
 </form>
 
 @section Scripts {

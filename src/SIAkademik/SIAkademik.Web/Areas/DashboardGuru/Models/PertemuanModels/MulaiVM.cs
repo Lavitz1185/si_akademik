@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SIAkademik.Web.Areas.DashboardGuru.Models.JadwalMengajarModels;
+namespace SIAkademik.Web.Areas.DashboardGuru.Models.PertemuanModels;
 
 public class MulaiVM
 {
