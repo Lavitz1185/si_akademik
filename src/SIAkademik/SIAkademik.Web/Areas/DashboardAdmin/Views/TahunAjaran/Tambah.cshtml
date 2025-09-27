@@ -54,11 +54,13 @@
                                 }
                             </select>
                             <span asp-validation-for="@Model.Semester"></span>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>                        
                     </div>
                   
+                    <div class="card-footer text-right">
+                        <a href="javascript:void(0)" class="btn btn-danger swal-cancel">Batal</a>
+                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                    </div>
                 </form>
             </div>
         </div>

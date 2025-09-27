@@ -44,11 +44,18 @@ $('#save-stage').DataTable({
     "scrollX": true,
     stateSave: true
 });
-$('#table-akun').DataTable({
+$('#table-akun0').DataTable({
     columnDefs: [
         { "sortable": false, "targets": [2] } 
     ],
 });
+
+$('#table-akun').DataTable({
+    columnDefs: [
+        { "sortable": false, "targets": [2] }
+    ],
+});
+
 $('#table-akun-1').DataTable({
     dom: '<"row justify-content-between"lf><"row"B>rt<"bottom-wrapper"ip>', // Atur posisi elemen
     buttons: [

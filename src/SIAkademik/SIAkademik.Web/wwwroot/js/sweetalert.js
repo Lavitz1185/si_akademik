@@ -117,3 +117,22 @@ $(document).on("click", ".swal-confirm", function (e) {
         }
     });
 });
+
+$(document).on("click", ".swal-cancel", function (e) {
+    e.preventDefault();
+
+    swal({
+        title: 'Yakin batal?',
+        text: 'Perubahan tidak akan disimpan!',
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+    }).then((willCancel) => {
+        if (willCancel) {
+            history.back(); // kembali ke halaman sebelumnya
+            // atau kalau mau ke Index:
+            // window.location.href = '/Divisi/Index';
+        }
+    });
+});
+                   
