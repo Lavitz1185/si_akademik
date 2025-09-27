@@ -11,8 +11,8 @@
 <div class="row">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Manajemen Akademik</a></li>
-            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="JadwalMengajar" asp-action="Index"></a>Jadwal Mengajar</li>
+            <li class="breadcrumb-item"><a href="#">Jadwal</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="JadwalMengajar" asp-action="Index"></a>Jadwal Mengajar</li>
         </ol>
     </nav>
 </div>
@@ -73,7 +73,7 @@
                                 }
                             </td>
                             <td>
-                                <a asp-action="Detail" asp-route-id="@jadwal.Id"><i class="fas fa-eye"></i></a>
+                                <a asp-action="Detail" asp-route-id="@jadwal.Id" class="btn btn-primary">Detail</a>
                             </td>
                         </tr>
                     }
