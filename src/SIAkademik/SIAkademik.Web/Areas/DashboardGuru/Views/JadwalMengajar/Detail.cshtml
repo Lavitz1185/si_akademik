@@ -57,12 +57,14 @@
 
                     @if(pertemuan.StatusPertemuan == StatusPertemuan.Berjalan)
                     {
-                        <a asp-action="Akhiri" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id">Akhiri</a>
+                        <form asp-action="Akhiri" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id">
+                            <button type="submit">Akhiri</button>
+                        </form>
                     }
 
                     @if(pertemuan.StatusPertemuan != StatusPertemuan.BelumMulai)
                     {
-                        <a asp-action="Index" asp-controller="Absen" asp-route-idPertemuan="@pertemuan.Id"></a>
+                        <a asp-action="Absen" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id">Absen</a>
                     }
                 </td>
             </tr>

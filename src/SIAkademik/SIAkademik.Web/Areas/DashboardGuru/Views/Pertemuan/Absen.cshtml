@@ -1,0 +1,44 @@
+﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.PertemuanModels
+
+@model AbsenVM
+
+<form asp-action="Absen" method="post">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <input asp-for="@Model.IdPertemuan" readonly hidden/>
+
+    <button type="submit">Simpan</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>Absen</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(int i = 0; i < Model.DaftarAbsen.Count; i++)
+            {
+                <input asp-for="@Model.DaftarAbsen[@i].IdSiswa" hidden readonly/>
+                <input asp-for="@Model.DaftarAbsen[@i].NamaSiswa" hidden readonly/>
+
+                <tr>
+                    <td>@Model.DaftarAbsen[@i].NamaSiswa</td>
+                    <td>
+                        <select asp-for="@Model.DaftarAbsen[@i].Absensi">
+                            @foreach(var absensi in Enum.GetValues<Absensi>())
+                            {
+                                <option value="@absensi">@absensi.Humanize()</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
