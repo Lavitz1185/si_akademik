@@ -70,8 +70,8 @@
                                 <a asp-action="Edit" asp-route-nip="@item.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                <form style="display:inline" asp-action="Hapus" asp-route-nip="@item.Id">
-                                    <button type="submit" class="btn btn-danger btn-action" title="Hapus">
+                                <form style="display:inline" asp-action="Hapus" asp-route-nip="@item.Id" method="post">
+                                    <button type="button" class="btn btn-danger btn-action swal-confirm" title="Hapus">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
