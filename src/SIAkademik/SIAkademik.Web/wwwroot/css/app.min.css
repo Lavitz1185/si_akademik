@@ -1781,7 +1781,7 @@ pre {
 .table {
     margin-bottom: 1rem;
     color: #212529;
-    display: block; /* supaya overflow-x jalan */
+    display: block;
     width: 100%; /* tetap penuh */
     overflow-x: auto; /* aktifkan scroll horizontal */
     white-space: nowrap; /* cegah teks pecah baris */
