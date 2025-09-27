@@ -35,8 +35,12 @@
 
                         <div class="form-group">
                             <label asp-for="@Model.Tahun1"></label>
-                            <input asp-for="@Model.Tahun1" type="number" class="form-control" />
-                            <input asp-for="@Model.Tahun2" type="number" class="form-control" />
+                            <div class="d-flex">
+                                <input asp-for="@Model.Tahun1" type="number" class="form-control" />
+                                <div style="font-size: 18px;" class="mr-3 ml-3 align-content-center">/</div>
+                                <input asp-for="@Model.Tahun2" type="number" class="form-control" />
+                            </div>
+                            
                             <span asp-validation-for="@Model.Tahun1"></span>
                             <span asp-validation-for="@Model.Tahun2"></span>
                         </div>
