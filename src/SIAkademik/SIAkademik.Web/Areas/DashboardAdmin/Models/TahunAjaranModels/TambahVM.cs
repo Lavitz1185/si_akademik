@@ -7,13 +7,17 @@ public class TambahVM
 {
     [Display(Name = "Periode")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public string Periode { get; set; } = string.Empty;
+    public int Tahun1 { get; set; }
+
+    [Display(Name = "Periode")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public int Tahun2 { get; set; }
 
     [Display(Name = "Tahun Pelaksanaan")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public int TahunPelaksanaan { get; set; }
 
-    [Display(Name = "Periode")]
+    [Display(Name = "Semester")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public Semester Semester { get; set; }
 }

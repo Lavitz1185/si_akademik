@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\DashboardGuru\Views\Pertemuan\" />
     <Folder Include="Areas\DashboardSiswa\Models\" />
     <Folder Include="Areas\Pendaftaran\Models\" />
   </ItemGroup>

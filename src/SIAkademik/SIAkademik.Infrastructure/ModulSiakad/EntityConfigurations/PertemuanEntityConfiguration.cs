@@ -13,13 +13,12 @@ internal class PertemuanEntityConfiguration : IEntityTypeConfiguration<Pertemuan
         builder.HasOne(x => x.JadwalMengajar).WithMany(y => y.DaftarPertemuan);
         builder.HasMany(x => x.DaftarAbsen).WithOne(y => y.Pertemuan);
 
-        var daftarPertemuan = Enumerable.Range(1, 10).Select(i => new
+        var daftarPertemuan = Enumerable.Range(1, 20).Select(i => new
         {
             Id = i,
-            Keterangan = string.Empty,
-            Nomor = i,
+            Nomor = (i - 1) % 10 + 1,
             StatusPertemuan = StatusPertemuan.BelumMulai,
-            JadwalMengajarId = 1
+            JadwalMengajarId = i <= 10 ? 1: 2
         }).ToArray();
 
         builder.HasData(daftarPertemuan);

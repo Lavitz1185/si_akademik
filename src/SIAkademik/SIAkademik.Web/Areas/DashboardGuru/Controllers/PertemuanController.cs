@@ -15,12 +15,4 @@ public class PertemuanController : Controller
     {
         _pertemuanRepository = pertemuanRepository;
     }
-
-    public async Task<IActionResult> Detail(int id)
-    {
-        var pertemuan = await _pertemuanRepository.Get(id);
-        if (pertemuan is null) return NotFound();
-
-        return View(pertemuan);
-    }
 }

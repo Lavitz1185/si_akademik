@@ -11,13 +11,17 @@ public class EditVM
 
     [Display(Name = "Periode")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public required string Periode { get; set; }
+    public required int Tahun1 { get; set; }
+
+    [Display(Name = "Periode")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public required int Tahun2 { get; set; }
 
     [Display(Name = "Tahun Pelaksanaan")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public required int TahunPelaksanaan { get; set; }
 
-    [Display(Name = "Periode")]
+    [Display(Name = "Semetser")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public required Semester Semester { get; set; }
 }

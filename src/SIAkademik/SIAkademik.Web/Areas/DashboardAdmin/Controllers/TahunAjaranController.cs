@@ -51,7 +51,7 @@ public class TahunAjaranController : Controller
 
         var tahunAjaran = new TahunAjaran
         {
-            Periode = vm.Periode,
+            Periode = $"{vm.Tahun1}/{vm.Tahun2}",
             TahunPelaksaan = vm.TahunPelaksanaan,
             Semester = vm.Semester,
         };
@@ -78,7 +78,8 @@ public class TahunAjaranController : Controller
         return View(new EditVM
         {
             Id = id,
-            Periode = tahunAjaran.Periode,
+            Tahun1 = int.Parse(tahunAjaran.Periode.Split("/")[0]),
+            Tahun2 = int.Parse(tahunAjaran.Periode.Split("/")[1]),
             TahunPelaksanaan = tahunAjaran.TahunPelaksaan,
             Semester = tahunAjaran.Semester
         });
@@ -92,7 +93,7 @@ public class TahunAjaranController : Controller
         var tahunAjaran = await _tahunAjaranRepository.Get(vm.Id);
         if (tahunAjaran is null) return View(vm);
 
-        tahunAjaran.Periode = vm.Periode;
+        tahunAjaran.Periode = $"{vm.Tahun1}/{vm.Tahun2}";
         tahunAjaran.TahunPelaksaan = vm.TahunPelaksanaan;
         tahunAjaran.Semester = vm.Semester;
 

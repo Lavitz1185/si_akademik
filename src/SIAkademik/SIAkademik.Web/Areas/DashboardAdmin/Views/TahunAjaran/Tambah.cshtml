@@ -28,9 +28,11 @@
                         <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
 
                         <div class="form-group">
-                            <label asp-for="@Model.Periode"></label>
-                            <input asp-for="@Model.Periode" type="text" class="form-control"/>
-                            <span asp-validation-for="@Model.Periode"></span>
+                            <label asp-for="@Model.Tahun1"></label>
+                            <input asp-for="@Model.Tahun1" type="number" class="form-control" />
+                            <input asp-for="@Model.Tahun2" type="number" class="form-control" />
+                            <span asp-validation-for="@Model.Tahun1"></span>
+                            <span asp-validation-for="@Model.Tahun2"></span>
                         </div>
 
                         <div class="form-group">
