@@ -193,13 +193,14 @@
                                 <input asp-for="@Model.Password" type="password" class="form-control" />
                                 <span asp-validation-for="@Model.Password"></span>
                             </div>
-
-                            <div class="d-flex justify-content-end">
-                                <button class="btn btn-danger mr-2">Batal</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                            </div>
+                           
 
                         </div>
+                    </div>
+
+                    <div class="card-footer text-right">
+                        <a href="javascript:void(0)" class="btn btn-danger swal-cancel">Batal</a>
+                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
                     </div>
                 </form>
             </div>

@@ -30,7 +30,7 @@
 
             <form method="get" asp-action="Index" id="form" class="d-flex ms-3">
                 <div class="input-group">
-                    <select id="idTahunAjaran" name="idTahunAjaran" class="form-select mr-1" required>
+                    <select id="idTahunAjaran" name="idTahunAjaran" class="form-control mr-1" required>
                         @if (Model.TahunAjaran is null)
                         {
                             <option selected value="@null">-- Pilih Tahun Ajaran --</option>
@@ -81,8 +81,8 @@
                                 <a asp-action="Edit" asp-route-id="@kelas.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                <form style="display:inline" asp-action="Hapus" asp-route-id="@kelas.Id">
-                                    <button type="submit" class="btn btn-danger btn-action" title="Hapus">
+                                <form style="display:inline" asp-action="Hapus" method="post" asp-route-id="@kelas.Id">
+                                    <button type="button" class="btn btn-danger btn-action swal-confirm" title="Hapus">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/css/app.min.css" />
     <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/components.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/datatables/datatables.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/theme.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
@@ -32,28 +33,63 @@
 
     @* JAVASCRIPT *@
     <script src="~/js/app.min.js" asp-append-version="true"></script>
-    <script src="~/js/datatables.js" asp-append-version="true"></script>
     <script src="~/js/dashboard.js" asp-append-version="true"></script>
+    <script src="~/lib/datatables/datatables.min.js" asp-append-version="true"></script>
+    @*     <script src="~/js/toastr.js" asp-append-version="true"></script>
+    <script src="~/lib/izitoast/js/iziToast.min.js" asp-append-version="true"></script> *@
+    <script src="~/lib/datatables/export-tables/dataTables.buttons.min.js" asp-append-version="true"></script>
+    <script src="~/lib/datatables/export-tables/buttons.flash.min.js" asp-append-version="true"></script>
+    <script src="~/lib/datatables/export-tables/buttons.print.min.js" asp-append-version="true"></script>
+    <script src="~/lib/datatables/export-tables/jszip.min.js" asp-append-version="true"></script>
+    <script src="~/lib/datatables/export-tables/pdfmake.min.js" asp-append-version="true"></script>
+    <script src="~/lib/datatables/export-tables/vfs_fonts.js" asp-append-version="true"></script>
+    <script src="~/js/datatables.js" asp-append-version="true"></script>
 
     @* @{
-    var globalOptions = new ToastrOptions
-    {
-    closeButton = true,
-    progressBar = true,
-    newestOnTop = true,
-    preventDuplicates = false,
-    timeOut = (int)TimeSpan.FromSeconds(5).TotalMilliseconds,
-    extendedTimeOut = (int)TimeSpan.FromSeconds(5).TotalMilliseconds,
-    showDuration = (int)TimeSpan.FromSeconds(0.5).TotalMilliseconds,
-    hideDuration = (int)TimeSpan.FromSeconds(0.5).TotalMilliseconds,
-    showEasing = Easings.Swing,
-    hideEasing = Easings.Swing,
-    showMethod = AnimationMethods.FadeIn,
-    hideMethod = AnimationMethods.FadeOut,
-    positionClass = PositionClasses.TopRight,
-    };
+        var globalOptions = new ToastrOptions
+        {
+            closeButton = true,
+            progressBar = true,
+            newestOnTop = true,
+            preventDuplicates = false,
+            timeOut = (int)TimeSpan.FromSeconds(5).TotalMilliseconds,
+            extendedTimeOut = (int)TimeSpan.FromSeconds(5).TotalMilliseconds,
+            showDuration = (int)TimeSpan.FromSeconds(0.5).TotalMilliseconds,
+            hideDuration = (int)TimeSpan.FromSeconds(0.5).TotalMilliseconds,
+            showEasing = Easings.Swing,
+            hideEasing = Easings.Swing,
+            showMethod = AnimationMethods.FadeIn,
+            hideMethod = AnimationMethods.FadeOut,
+            positionClass = PositionClasses.TopRight,
+        };
     }
 
     <vc:toastr global-options=globalOptions></vc:toastr> *@
+
+    <script type="text/javascript">
+        const matchLink = (linkHref, currentUrl, match) => {
+            if (match === "partial") {
+                return currentUrl.startsWith(linkHref);
+            } else {
+                return currentUrl === linkHref
+            }
+        }
+
+        // LINK SIDEBAR ACTIVE
+        document.addEventListener('DOMContentLoaded', () => {
+            const links = document.querySelectorAll('.nav-link');
+
+            const currentUrl = window.location.href;
+
+            links.forEach(link => {
+                if (matchLink(link.href, currentUrl, link.dataset.match)) {
+                    link.parentNode.classList.add('active');
+                } else {
+                    link.parentNode.classList.remove('active');
+                }
+            });
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

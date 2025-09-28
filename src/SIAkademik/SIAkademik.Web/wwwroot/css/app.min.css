@@ -1779,23 +1779,26 @@ pre {
 }
 
 .table {
+    width: 100%;
     margin-bottom: 1rem;
+    color: #212529
+    /*margin-bottom: 1rem;
     color: #212529;
     display: block;
-    width: 100%; /* tetap penuh */
-    overflow-x: auto; /* aktifkan scroll horizontal */
-    white-space: nowrap; /* cegah teks pecah baris */
-    border-collapse: collapse;
-    table-layout: fixed !important; /* biar kolom sinkron */
+    width: 100%;*/ /* tetap penuh */
+    /*overflow-x: auto;*/ /* aktifkan scroll horizontal */
+    /*white-space: nowrap;*/ /* cegah teks pecah baris */
+    /*border-collapse: collapse;
+    table-layout: fixed !important;*/ /* biar kolom sinkron */
 }
 
     .table td, .table th {
         padding: .75rem;
         vertical-align: top;
         border-top: 1px solid #dee2e6;
-        width: 150px; /* kasih lebar minimum biar sejajar */
-        text-overflow: ellipsis;
-        overflow: hidden;
+        /*width: 150px;*/ /* kasih lebar minimum biar sejajar */
+        /*text-overflow: ellipsis;
+        overflow: hidden;*/
     }
 
     .table thead th {
@@ -2014,6 +2017,7 @@ pre {
     .table-responsive-sm {
         display: block;
         width: 100%;
+        overflow-x: auto;
         -webkit-overflow-scrolling: touch
     }
 
@@ -2026,6 +2030,7 @@ pre {
     .table-responsive-md {
         display: block;
         width: 100%;
+        overflow-x: auto;
         -webkit-overflow-scrolling: touch
     }
 
@@ -2038,6 +2043,7 @@ pre {
     .table-responsive-lg {
         display: block;
         width: 100%;
+        overflow-x: auto;
         -webkit-overflow-scrolling: touch
     }
 
@@ -2050,6 +2056,7 @@ pre {
     .table-responsive-xl {
         display: block;
         width: 100%;
+        overflow-x: auto;
         -webkit-overflow-scrolling: touch
     }
 
@@ -2061,6 +2068,7 @@ pre {
 .table-responsive {
     display: block;
     width: 100%;
+    overflow-x: auto;
     -webkit-overflow-scrolling: touch
 }
 

@@ -90,16 +90,16 @@
                                                        asp-route-id="@jadwalMengajar.Id"
                                                        asp-route-idHariMengajar="@hari.Id"
                                                        class="btn btn-sm border-0 bg-transparent"
-                                                       style="box-shadow: none;">
+                                                       style="box-shadow: none;" title="Edit">
                                                         <i class="fas fa-pencil-alt"></i>
                                                     </a>
                                                     <form asp-action="HapusHari"
                                                           asp-route-id="@jadwalMengajar.Id"
                                                           asp-route-idHariMengajar="@hari.Id"
                                                           class="d-inline">
-                                                        <button type="submit"
-                                                                class="btn btn-sm text-danger border-0 bg-transparent"
-                                                                style="box-shadow: none;">
+                                                        <button type="button"
+                                                                class="btn btn-sm text-danger border-0 bg-transparent swal-confirm"
+                                                                style="box-shadow: none;" title="Hapus">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
                                                     </form>
@@ -112,14 +112,14 @@
 
                                 <a asp-action="TambahHari"
                                    asp-route-id="@jadwalMengajar.Id"
-                                   class="btn btn-success btn-sm">
+                                   class="btn btn-success btn-sm" title="Tambah Hari">
                                     <i class="fas fa-plus"></i> Tambah
                                 </a>
                             </td>
                             <td>
                                 <a asp-action="Edit" asp-route-id="@jadwalMengajar.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                <form asp-action="Hapus" asp-route-id="@jadwalMengajar.Id" style="display:inline">
-                                    <button type="submit" class="btn btn-danger btn-action" title="Hapus"><i class="fas fa-trash"></i></button>
+                                <form asp-action="Hapus" asp-route-id="@jadwalMengajar.Id" method="post" style="display:inline">
+                                    <button type="button" class="btn btn-danger btn-action swal-confirm" title="Hapus"><i class="fas fa-trash"></i></button>
                                 </form>
                             </td>                            
                         </tr>

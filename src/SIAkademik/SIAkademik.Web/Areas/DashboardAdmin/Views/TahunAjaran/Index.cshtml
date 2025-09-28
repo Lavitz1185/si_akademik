@@ -58,12 +58,11 @@
                                         <button type="submit" class="btn btn-success">Generate Kelas</button>
                                     </form>
                                 }
-                                <form style="display:inline" asp-action="Hapus" asp-route-id="@tahunAjaran.Id" style="display:inline">
-                                    <button type="submit" class="btn btn-danger btn-action" title="Hapus">
+                                <form asp-action="Hapus" asp-route-id="@tahunAjaran.Id" method="post" style="display:inline">
+                                    <button type="button" class="btn btn-danger btn-action swal-confirm" title="Hapus">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
-
                             </td>
                         </tr>
                     }
@@ -72,3 +71,4 @@
         </div>
     </div>
 </div>
+

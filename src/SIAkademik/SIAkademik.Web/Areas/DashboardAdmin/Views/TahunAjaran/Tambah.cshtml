@@ -29,8 +29,12 @@
 
                         <div class="form-group">
                             <label asp-for="@Model.Tahun1"></label>
-                            <input asp-for="@Model.Tahun1" type="number" class="form-control" />
-                            <input asp-for="@Model.Tahun2" type="number" class="form-control" />
+                            <div class="d-flex">
+                                <input asp-for="@Model.Tahun1" type="number" class="form-control" placeholder="Contoh: 2024"/>
+                                <div style="font-size: 18px;" class="mr-3 ml-3 align-content-center">/</div>
+                                <input asp-for="@Model.Tahun2" type="number" class="form-control" placeholder="Contoh: 2025" />
+                            </div>
+                            
                             <span asp-validation-for="@Model.Tahun1"></span>
                             <span asp-validation-for="@Model.Tahun2"></span>
                         </div>
@@ -50,11 +54,13 @@
                                 }
                             </select>
                             <span asp-validation-for="@Model.Semester"></span>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>                        
                     </div>
                   
+                    <div class="card-footer text-right">
+                        <a href="javascript:void(0)" class="btn btn-danger swal-cancel">Batal</a>
+                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                    </div>
                 </form>
             </div>
         </div>

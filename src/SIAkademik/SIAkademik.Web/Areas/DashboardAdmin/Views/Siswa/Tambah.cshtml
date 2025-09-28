@@ -82,9 +82,7 @@
                             <label asp-for="@Model.TanggalMasuk"></label>
                             <input asp-for="@Model.TanggalMasuk" type="date" class="form-control datepicker" />
                             <span asp-validation-for="@Model.TanggalMasuk"></span>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>                        
 
                         @* <div class="form-group">
                             <label asp-for="@Model.IdAkun">Akun<span class="text-danger">*</span></label>
@@ -130,10 +128,10 @@
 
                     </div>
 
-                    @* <div class="card-footer text-right">
+                    <div class="card-footer text-right">
+                        <a href="javascript:void(0)" class="btn btn-danger swal-cancel">Batal</a>
                         <button class="btn btn-primary mr-1" type="submit">Submit</button>
-                        <a class="btn btn-danger" asp-action="Index" asp-route-jenis="@Model.Jenis" asp-route-tahun="@Model.Tahun">Batal</a>
-                    </div> *@
+                    </div>
                 </form>
             </div>
         </div>
