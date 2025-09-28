@@ -1,0 +1,52 @@
+﻿@model Rombel
+
+<h1>Daftar Siswa</h1>
+<table>
+    <thead>
+        <tr>
+            <th>NIS</th>
+            <th>NISN</th>
+            <th>Nama</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var anggotaRombel in Model.DaftarAnggotaRombel)
+        {
+            <tr>
+                <td>@anggotaRombel.Siswa.NIS</td>
+                <td>@anggotaRombel.Siswa.NISN</td>
+                <td>@anggotaRombel.Siswa.Nama</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h1>Jadwal</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Mata Pelajaran</th>
+            <th>Guru</th>
+            <th>Hari</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var jadwal in Model.DaftarJadwalMengajar)
+        {
+            <tr>
+                <td>@jadwal.MataPelajaran.Nama</td>
+                <td>@jadwal.Pegawai.Nama</td>
+                <td>
+                    @foreach(var hari in jadwal.DaftarHariMengajar.OrderBy(h => h.Hari).ThenBy(h => h.JamMulai))
+                    {
+                        <p>@hari.Hari.Humanize() (@hari.JamMulai.ToString("HH:mm") - @hari.JamAkhir.ToString("HH:mm"))</p>
+                    }
+                </td>
+                <td>
+                    <a asp-action="DetailJadwal" asp-route-id="@Model.Id" asp-route-idJadwal="@jadwal.Id">Detail</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

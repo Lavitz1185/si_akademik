@@ -1,0 +1,66 @@
+﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.KelasWaliModels
+@model AbsenVM
+
+<form asp-action="Absen" asp-route-id="@Model.Id" method="get">
+    <input id="tanggal" name="tanggal" value="@Model.Tanggal.ToString("yyyy-MM-dd")" type="date" />
+</form>
+
+@if (Model.DaftarAbsenEntry.Count == 0)
+{
+    <form asp-action="BuatAbsen" asp-route-id="@Model.Id" asp-route-tanggal="@Model.Tanggal.ToString("yyyy-MM-dd")">
+        <button>Buat Absen</button>
+    </form>
+}
+
+<form asp-action="Absen" asp-route-id="@Model.Id" asp-route-tanggal="@Model.Tanggal.ToString("yyyy-MM-dd")" method="post">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <button type="submit">Simpan</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>NIS</th>
+                <th>NISN</th>
+                <th>Nama</th>
+                <th>Absensi</th>
+                <th>Catatan</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.DaftarAbsenEntry.Count; i++)
+            {
+                <tr>
+                    <input asp-for="@Model.DaftarAbsenEntry[@i].IdAbsen" readonly hidden />
+                    <input asp-for="@Model.DaftarAbsenEntry[@i].NISSiswa" readonly hidden />
+                    <input asp-for="@Model.DaftarAbsenEntry[@i].NISNSiswa" readonly hidden />
+                    <input asp-for="@Model.DaftarAbsenEntry[@i].NamaSiswa" readonly hidden />
+                    <td>@Model.DaftarAbsenEntry[i].NISSiswa</td>
+                    <td>@Model.DaftarAbsenEntry[i].NISNSiswa</td>
+                    <td>@Model.DaftarAbsenEntry[i].NamaSiswa</td>
+                    <td>
+                        <select asp-for="@Model.DaftarAbsenEntry[@i].Absensi">
+                            @foreach (var absensi in Enum.GetValues<Absensi>())
+                            {
+                                <option value="@absensi">@absensi.Humanize()</option>
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <textarea asp-for="@Model.DaftarAbsenEntry[@i].Catatan"></textarea>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function() {
+            $('input#tanggal').on('change', function() {
+                $(this).closest('form').trigger('submit')
+            })
+        })
+    </script>
+}
