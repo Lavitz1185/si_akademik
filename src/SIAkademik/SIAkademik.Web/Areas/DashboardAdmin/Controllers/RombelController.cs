@@ -282,7 +282,7 @@ public class RombelController : Controller
         return RedirectToAction(nameof(Detail), new { id });
     }
 
-    [HttpGet()]
+    [HttpGet]
     public async Task<IActionResult> DaftarRombel(int idTahunAjaran)
     {
         var daftarRombel = await _rombelRepository.GetAllByTahunAjaran(idTahunAjaran);

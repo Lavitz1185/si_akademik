@@ -36,4 +36,8 @@ public class TambahVM
     [Display(Name = "Tanggal Masuk")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public DateOnly TanggalMasuk { get; set; }
+
+    [Display(Name = "Status Aktif")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public StatusAktifMahasiswa StatusAktif { get; set; }
 }

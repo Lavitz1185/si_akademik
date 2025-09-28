@@ -71,6 +71,7 @@ public class SiswaController : Controller
             TanggalMasuk = vm.TanggalMasuk,
             JenisKelamin = vm.JenisKelamin,
             TempatLahir = vm.TempatLahir,
+            StatusAktif = vm.StatusAktif
         };
 
         var appUser = new AppUser
@@ -111,7 +112,8 @@ public class SiswaController : Controller
             TanggalLahir = siswa.TanggalLahir,
             Nama = siswa.Nama,
             TanggalMasuk = siswa.TanggalMasuk,
-            TempatLahir = siswa.TempatLahir
+            TempatLahir = siswa.TempatLahir,
+            StatusAktif = siswa.StatusAktif
         });
     }
 
@@ -152,6 +154,7 @@ public class SiswaController : Controller
         siswa.TempatLahir = vm.TempatLahir;
         siswa.TanggalLahir = vm.TanggalLahir;
         siswa.TanggalMasuk = vm.TanggalMasuk;
+        siswa.StatusAktif = vm.StatusAktif;
 
         var result = await _unitOfWork.SaveChangesAsync();
         if (result.IsFailure)

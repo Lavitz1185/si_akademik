@@ -43,6 +43,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
                 TanggalMasuk = new DateOnly(2025, 01, 01),
                 TempatLahir = "Makassar",
                 Agama = Agama.Katolik,
+                StatusAktif = StatusAktifMahasiswa.Aktif,
                 AppUserId = 3
             }
         );

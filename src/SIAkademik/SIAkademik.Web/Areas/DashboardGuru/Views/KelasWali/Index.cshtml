@@ -1,0 +1,64 @@
+﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.KelasWaliModels
+
+@model IndexVM
+
+@inject ITahunAjaranRepository TahunAjaranRepository
+
+@{
+    var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
+}
+
+<form asp-action="Index" id="formTahunAjaran" method="get">
+    <select id="idTahunAjaran" name="idTahunAjaran">
+        @if(Model.TahunAjaran is null)
+        {
+            <option selected value="@null">-- Pilih Tahun Ajaran --</option>
+        }
+
+        @foreach(var tahunAjaran in daftarTahunAjaran)
+        {
+            @if(tahunAjaran == Model.TahunAjaran)
+            {
+                <option selected value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+            }
+            else
+            {
+                <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+            }
+        }
+    </select>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Kelas</th>
+            <th>Jumlah Siswa</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var rombel in Model.DaftarRombelWali)
+        {
+            <tr>
+                <td>@rombel.Id</td>
+                <td>@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Humanize() - @rombel.Nama</td>
+                <td>@rombel.DaftarAnggotaRombel.Count</td>
+                <td>
+                    <a asp-action="Detail" asp-route-id="@rombel.Id">Detail</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function() {
+            $('select#idTahunAjaran').on('change', function() {
+                $(this).closest('form').trigger('submit')
+            });
+        })
+    </script>
+}

@@ -40,4 +40,8 @@ public class EditVM
     [Display(Name = "Tanggal Masuk")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public required DateOnly TanggalMasuk { get; set; }
+
+    [Display(Name = "Status Aktif")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public required StatusAktifMahasiswa StatusAktif { get; set; }
 }

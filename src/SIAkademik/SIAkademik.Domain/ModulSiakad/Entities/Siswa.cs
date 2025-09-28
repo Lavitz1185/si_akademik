@@ -69,6 +69,7 @@ public class Siswa : Entity<int>
     public required string TempatLahir { get; set; }
     public required Agama Agama { get; set; }
     public required DateOnly TanggalMasuk { get; set; }
+    public required StatusAktifMahasiswa StatusAktif { get; set; }
 
     // Biodata Siswa
     public string? Suku { get; set; }

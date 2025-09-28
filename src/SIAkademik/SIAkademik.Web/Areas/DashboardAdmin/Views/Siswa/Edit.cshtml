@@ -88,7 +88,18 @@
                             <label asp-for="@Model.TanggalMasuk"></label>
                             <input asp-for="@Model.TanggalMasuk" type="date" />
                             <span asp-validation-for="@Model.TanggalMasuk"></span>
-                        </div>                        
+                        </div>           
+                        
+                        <div class="form-group">
+                            <label asp-for="@Model.StatusAktif"></label>
+                            <select asp-for="@Model.StatusAktif" class="form-control">
+                                @foreach (var statusAktif in Enum.GetValues<StatusAktifMahasiswa>())
+                                {
+                                    <option value="@statusAktif">@statusAktif.Humanize()</option>
+                                }
+                            </select>
+                            <span asp-validation-for="@Model.StatusAktif"></span>
+                        </div>
 
                         @* <div class="form-group">
                         <label asp-for="@Model.IdAkun">Akun<span class="text-danger">*</span></label>
