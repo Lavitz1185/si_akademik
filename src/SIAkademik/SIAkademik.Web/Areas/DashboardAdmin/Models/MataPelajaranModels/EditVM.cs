@@ -11,7 +11,7 @@ public class EditVM
 
     [Display(Name = "Nama")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public required string Nama { get; set; } = string.Empty;
+    public required string Nama { get; set; }
 
     [Display(Name = "Jenjang")]
     [Required(ErrorMessage = "{0} harus diisi")]
@@ -20,4 +20,8 @@ public class EditVM
     [Display(Name = "Peminatan")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public required Peminatan Peminatan { get; set; }
+
+    [Display(Name = "KKM")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public required double KKM { get; set; }
 }

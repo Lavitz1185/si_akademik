@@ -17,6 +17,7 @@
 {
     <p>
         @rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Humanize() @rombel.Nama<br />
-        Jumlah Siswa : @rombel.DaftarAnggotaRombel.Count
+        Jumlah Siswa : @rombel.DaftarAnggotaRombel.Count<br />
+        <a asp-action="Detail" asp-controller="KelasWali" asp-route-id="@rombel.Id">Lihat</a>
     </p>
 }

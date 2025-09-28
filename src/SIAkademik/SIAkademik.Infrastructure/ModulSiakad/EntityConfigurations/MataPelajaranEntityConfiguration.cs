@@ -18,14 +18,16 @@ internal class MataPelajaranEntityConfiguration : IEntityTypeConfiguration<MataP
                 Id = 1,
                 Nama = "Matematika",
                 Peminatan = Peminatan.Umum,
-                Jenjang = Jenjang.X
+                Jenjang = Jenjang.X,
+                KKM = 70
             },
             new MataPelajaran
             {
                 Id = 2,
                 Nama = "Bahasa Indonesia",
                 Peminatan = Peminatan.Umum,
-                Jenjang = Jenjang.X
+                Jenjang = Jenjang.X,
+                KKM = 80
             }
         );
     }

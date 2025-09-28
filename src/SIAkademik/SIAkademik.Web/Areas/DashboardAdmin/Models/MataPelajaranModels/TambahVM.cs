@@ -16,4 +16,8 @@ public class TambahVM
     [Display(Name = "Peminatan")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public Peminatan Peminatan { get; set; }
+
+    [Display(Name = "KKM")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public double KKM { get; set; }
 }

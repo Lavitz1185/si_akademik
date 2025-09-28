@@ -33,6 +33,7 @@
                         <th>Nama</th>
                         <th>Jenjang</th>
                         <th>Peminatan</th>
+                        <th>KKM</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -44,6 +45,7 @@
                             <td>@mataPelajaran.Nama</td>
                             <td>@mataPelajaran.Jenjang</td>
                             <td>@mataPelajaran.Peminatan</td>
+                            <td>@mataPelajaran.KKM.ToString("F2")</td>
                             <td>
                                 <a asp-action="Edit" asp-route-id="@mataPelajaran.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit">
                                     <i class="fas fa-pencil-alt"></i>

@@ -54,7 +54,8 @@ public class MataPelajaranController : Controller
         {
             Nama = vm.Nama,
             Jenjang = vm.Jenjang,
-            Peminatan = vm.Peminatan
+            Peminatan = vm.Peminatan,
+            KKM = vm.KKM
         };
 
         _mataPelajaranRepository.Add(mataPelajaran);
@@ -80,7 +81,8 @@ public class MataPelajaranController : Controller
             Id = id,
             Nama = mataPelajaran.Nama,
             Jenjang = mataPelajaran.Jenjang,
-            Peminatan = mataPelajaran.Peminatan
+            Peminatan = mataPelajaran.Peminatan,
+            KKM = mataPelajaran.KKM
         });
     }
 
@@ -95,6 +97,7 @@ public class MataPelajaranController : Controller
         mataPelajaran.Nama = vm.Nama;
         mataPelajaran.Jenjang = vm.Jenjang;
         mataPelajaran.Peminatan = vm.Peminatan;
+        mataPelajaran.KKM = vm.KKM;
 
         var result = await _unitOfWork.SaveChangesAsync();
         if (result.IsFailure)

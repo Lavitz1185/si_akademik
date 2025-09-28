@@ -58,7 +58,13 @@
                                 }
                             </select>
                             <span asp-validation-for="@Model.Peminatan"></span>
-                        </div>                       
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.KKM"></label>
+                            <input asp-for="@Model.KKM" class="form-control" />
+                            <span asp-validation-for="@Model.KKM"></span>
+                        </div>
 
                         @* <div class="form-group">
                         <label asp-for="@Model.IdAkun">Akun<span class="text-danger">*</span></label>
