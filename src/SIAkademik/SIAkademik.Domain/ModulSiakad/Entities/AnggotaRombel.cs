@@ -13,6 +13,7 @@ public class AnggotaRombel : IEquatable<AnggotaRombel>
     public Siswa Siswa { get; set; }
     public List<Nilai> DaftarNilai { get; set; } = [];
     public List<Absen> DaftarAbsen { get; set; } = [];
+    public List<AbsenKelas> DaftarAbsenKelas { get; set; } = [];
 
     public bool Equals(AnggotaRombel? other) =>
         other is not null &&

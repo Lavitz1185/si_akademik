@@ -24,4 +24,12 @@ public class EditVM
     [Display(Name = "Semetser")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public required Semester Semester { get; set; }
+
+    [Display(Name = "Tanggal Mulai")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public required DateOnly TanggalMulai { get; set; }
+
+    [Display(Name = "Tanggal Selesai")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public required DateOnly TanggalSelesai { get; set; }
 }

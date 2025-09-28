@@ -20,4 +20,12 @@ public class TambahVM
     [Display(Name = "Semester")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public Semester Semester { get; set; }
+
+    [Display(Name = "Tanggal Mulai")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public DateOnly TanggalMulai { get; set; }
+
+    [Display(Name = "Tanggal Selesai")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public DateOnly TanggalSelesai { get; set; }
 }

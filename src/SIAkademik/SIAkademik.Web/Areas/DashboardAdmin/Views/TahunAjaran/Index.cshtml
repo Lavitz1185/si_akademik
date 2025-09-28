@@ -33,6 +33,8 @@
                         <th>Periode</th>
                         <th>Tahun Pelaksanaan</th>
                         <th>Semester</th>
+                        <th>Tanggal Mulai</th>
+                        <th>Tanggal Selesai</th>
                         <th>Jumlah Kelas</th>
                         <th>Aksi</th>
                     </tr>
@@ -45,6 +47,8 @@
                             <td>@tahunAjaran.Periode</td>
                             <td>@tahunAjaran.TahunPelaksaan</td>
                             <td>@tahunAjaran.Semester.Humanize()</td>
+                            <td>@tahunAjaran.TanggalMulai.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td>
+                            <td>@tahunAjaran.TanggalSelesai.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td>
                             <td>@tahunAjaran.DaftarKelas.Count</td>
                             <td>
 

@@ -24,6 +24,7 @@ internal class SiswaRepository : ISiswaRepository
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Wali)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
         .Include(s => s.Account)
         .FirstOrDefaultAsync(s => s.Id == id);
 
@@ -32,6 +33,7 @@ internal class SiswaRepository : ISiswaRepository
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Wali)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
         .Include(s => s.Account)
         .FirstOrDefaultAsync(s => s.NISN == nisn);
 
@@ -40,6 +42,7 @@ internal class SiswaRepository : ISiswaRepository
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Wali)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
         .Include(s => s.Account)
         .FirstOrDefaultAsync(s => s.NIS == nis);
 
@@ -49,6 +52,7 @@ internal class SiswaRepository : ISiswaRepository
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
         .Include(s => s.Account)
         .ToListAsync();
 }

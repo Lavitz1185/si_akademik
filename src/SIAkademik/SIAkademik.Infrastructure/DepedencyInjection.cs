@@ -26,6 +26,7 @@ public static class DepedencyInjection
 
         services.AddScoped<IAppUserRepository, AppUserRepository>();
         services.AddScoped<IAbsenRepository, AbsenRepository>();
+        services.AddScoped<IAbsenKelasRepository, AbsenKelasRepository>();
         services.AddScoped<IAnggotaRombelRepository, AnggotaRombelRepository>();
         services.AddScoped<IDivisiRepository, DivisiRepository>();
         services.AddScoped<IHariMengajarRepository, HariMengajarRepository>();

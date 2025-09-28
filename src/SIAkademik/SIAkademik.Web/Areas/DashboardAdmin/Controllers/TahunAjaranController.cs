@@ -54,6 +54,8 @@ public class TahunAjaranController : Controller
             Periode = $"{vm.Tahun1}/{vm.Tahun2}",
             TahunPelaksaan = vm.TahunPelaksanaan,
             Semester = vm.Semester,
+            TanggalMulai = vm.TanggalMulai,
+            TanggalSelesai = vm.TanggalSelesai
         };
 
         _tahunAjaranRepository.Add(tahunAjaran);
@@ -81,7 +83,9 @@ public class TahunAjaranController : Controller
             Tahun1 = int.Parse(tahunAjaran.Periode.Split("/")[0]),
             Tahun2 = int.Parse(tahunAjaran.Periode.Split("/")[1]),
             TahunPelaksanaan = tahunAjaran.TahunPelaksaan,
-            Semester = tahunAjaran.Semester
+            Semester = tahunAjaran.Semester,
+            TanggalMulai = tahunAjaran.TanggalMulai,
+            TanggalSelesai = tahunAjaran.TanggalSelesai
         });
     }
 
@@ -96,6 +100,8 @@ public class TahunAjaranController : Controller
         tahunAjaran.Periode = $"{vm.Tahun1}/{vm.Tahun2}";
         tahunAjaran.TahunPelaksaan = vm.TahunPelaksanaan;
         tahunAjaran.Semester = vm.Semester;
+        tahunAjaran.TanggalMulai = vm.TanggalMulai;
+        tahunAjaran.TanggalSelesai = vm.TanggalSelesai;
 
         var result = await _unitOfWork.SaveChangesAsync();
         if (result.IsFailure)

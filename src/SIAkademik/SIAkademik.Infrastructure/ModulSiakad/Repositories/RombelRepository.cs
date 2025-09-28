@@ -28,6 +28,7 @@ internal class RombelRepository : IRombelRepository
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.Siswa)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
         .FirstOrDefaultAsync(r => r.Id == id);
 
     public async Task<List<Rombel>> GetAll() => await _appDbContext
@@ -40,6 +41,7 @@ internal class RombelRepository : IRombelRepository
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.Siswa)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
         .ToListAsync();
 
     public async Task<List<Rombel>> GetAllByKelas(int idKelas) => await _appDbContext
@@ -52,6 +54,7 @@ internal class RombelRepository : IRombelRepository
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.Siswa)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
         .Where(r => r.Kelas.Id == idKelas)
         .ToListAsync();
 
@@ -65,6 +68,7 @@ internal class RombelRepository : IRombelRepository
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.Siswa)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
         .Where(r => r.Kelas.TahunAjaran.Id == idTahunAjaran)
         .ToListAsync();
 }

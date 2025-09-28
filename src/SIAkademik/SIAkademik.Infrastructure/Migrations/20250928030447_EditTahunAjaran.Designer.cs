@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SIAkademik.Infrastructure.Database;
@@ -12,9 +13,11 @@ using SIAkademik.Infrastructure.Database;
 namespace SIAkademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250928030447_EditTahunAjaran")]
+    partial class EditTahunAjaran
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,37 +107,6 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.HasIndex("AnggotaRombelIdSiswa", "AnggotaRombelIdRombel");
 
                     b.ToTable("TblAbsen");
-                });
-
-            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.AbsenKelas", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Absensi")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("AnggotaRombelIdRombel")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("AnggotaRombelIdSiswa")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Catatan")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateOnly>("Tanggal")
-                        .HasColumnType("date");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AnggotaRombelIdSiswa", "AnggotaRombelIdRombel");
-
-                    b.ToTable("TblAbsenKelas");
                 });
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.AnggotaRombel", b =>
@@ -1133,17 +1105,6 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Navigation("Pertemuan");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.AbsenKelas", b =>
-                {
-                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.AnggotaRombel", "AnggotaRombel")
-                        .WithMany("DaftarAbsenKelas")
-                        .HasForeignKey("AnggotaRombelIdSiswa", "AnggotaRombelIdRombel")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AnggotaRombel");
-                });
-
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.AnggotaRombel", b =>
                 {
                     b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.Rombel", "Rombel")
@@ -1307,8 +1268,6 @@ namespace SIAkademik.Infrastructure.Migrations
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.AnggotaRombel", b =>
                 {
                     b.Navigation("DaftarAbsen");
-
-                    b.Navigation("DaftarAbsenKelas");
 
                     b.Navigation("DaftarNilai");
                 });
