@@ -1,0 +1,127 @@
+﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.NilaiModels
+
+@model IndexVM
+
+@inject ITahunAjaranRepository TahunAjaranRepository
+
+@{
+    var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
+}
+
+<form asp-action="Index" method="get">
+    <select id="idTahunAjaran" name="idTahunAjaran">
+        @if(Model.TahunAjaran is null)
+        {
+            <option selected value="@null">-- Pilih Tahun Ajaran --</option>
+        }
+        else
+        {
+            <option value="@null">-- Pilih Tahun Ajaran --</option>
+        }
+
+        @foreach(var tahunAjaran in daftarTahunAjaran)
+        {
+            @if(tahunAjaran == Model.TahunAjaran)
+            {
+                <option selected value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+            }
+            else
+            {
+                <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+            }
+        }
+    </select>
+
+    <select id="idJadwalMengajar" name="idJadwalMengajar">
+        @if (Model.JadwalMengajar is null)
+        {
+            <option selected value="@null">-- Pilih Jadwal Mengajar --</option>
+        }
+        else
+        {
+            <option value="@null">-- Pilih Jadwal Mengajar --</option>
+        }
+
+        @foreach (var jadwalMengajar in Model.DaftarJadwalMengajar)
+        {
+            @if (jadwalMengajar == Model.JadwalMengajar)
+            {
+                <option selected value="@jadwalMengajar.Id">
+                    @jadwalMengajar.Rombel.Kelas.Jenjang.Humanize() @jadwalMengajar.Rombel.Kelas.Peminatan.Humanize() @jadwalMengajar.Rombel.Nama - 
+                    @jadwalMengajar.MataPelajaran.Nama
+                </option>
+            }
+            else
+            {
+                <option value="@jadwalMengajar.Id">
+                    @jadwalMengajar.Rombel.Kelas.Jenjang.Humanize() @jadwalMengajar.Rombel.Kelas.Peminatan.Humanize() @jadwalMengajar.Rombel.Nama -
+                    @jadwalMengajar.MataPelajaran.Nama
+                </option>
+            }
+        }
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>NIS</th>
+            <th>NISN</th>
+            <th>Nama</th>
+            <th>Jumlah Nilai Tugas</th>
+            <th>Jumlah Nilai UH</th>
+            <th>Jumlah Nilai UTS</th>
+            <th>Jumlah Nilai UAS</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.JadwalMengajar is not null)
+        {
+            @foreach (var anggota in Model.JadwalMengajar.Rombel.DaftarAnggotaRombel)
+            {
+                <tr>
+                    <td>@anggota.Siswa.NIS</td>
+                    <td>@anggota.Siswa.NISN</td>
+                    <td>@anggota.Siswa.Nama</td>
+                    <td>@anggota.DaftarNilai.Where(n => n.JadwalMengajar == Model.JadwalMengajar && n.Jenis == JenisNilai.Tugas).Count()</td>
+                    <td>@anggota.DaftarNilai.Where(n => n.JadwalMengajar == Model.JadwalMengajar && n.Jenis == JenisNilai.UH).Count()</td>
+                    <td>@anggota.DaftarNilai.Where(n => n.JadwalMengajar == Model.JadwalMengajar && n.Jenis == JenisNilai.UTS).Count()</td>
+                    <td>@anggota.DaftarNilai.Where(n => n.JadwalMengajar == Model.JadwalMengajar && n.Jenis == JenisNilai.UAS).Count()</td>
+                    <td>
+                        <a asp-action="Detail" asp-route-idSiswa="@anggota.Siswa.Id" asp-route-idJadwalMengajar="@Model.JadwalMengajar.Id">Detail</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function() {
+            $('select#idTahunAjaran').on('change', async function() {
+                const idTahunAjaran = $(this).val()
+
+                if (idTahunAjaran == "") {
+                    $('select#idJadwalMengajar').html('<option selected value="">-- Pilih Jadwal Mengajar --</option>')
+                } else {
+                    const response = await fetch(`/Dashboard/Guru/JadwalMengajar/DaftarJadwalMengajar?idTahunAjaran=${idTahunAjaran}`)
+                    if (response.ok) {
+                        const daftarJadwal = await response.json()
+
+                        $('select#idJadwalMengajar').html('<option value="">-- Pilih Jadwal Mengajar --</option>')
+
+                        for(let jadwal of daftarJadwal) {
+                            $('select#idJadwalMengajar').append(`<option value="${jadwal.id}">${jadwal.rombel.kelas.jenjang} ${jadwal.rombel.kelas.peminatan} ${jadwal.rombel.nama} - ${jadwal.mataPelajaran.nama}</option>`)
+                        }
+                    } else {
+                        $('select#idJadwalMengajar').html('<option selected value="">-- Pilih Jadwal Mengajar --</option>')
+                    }
+                }
+            });
+        });
+    </script>
+}

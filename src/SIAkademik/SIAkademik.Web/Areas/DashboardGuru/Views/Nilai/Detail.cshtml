@@ -1,0 +1,45 @@
+﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.NilaiModels
+@model DetailVM
+
+<h1>Siswa</h1>
+<p>NIS : @Model.Siswa.NIS</p>
+<p>NISN : @Model.Siswa.NISN</p>
+<p>Nama : @Model.Siswa.Nama</p>
+
+<h1>Jadwal Mengajar</h1>
+<p>
+    Rombel : @Model.JadwalMengajar.Rombel.Kelas.Jenjang.Humanize() @Model.JadwalMengajar.Rombel.Kelas.Peminatan.Humanize()
+    @Model.JadwalMengajar.Rombel.Nama
+</p>
+<p>Mata Pelajaran : @Model.JadwalMengajar.MataPelajaran.Nama</p>
+
+<a asp-action="Tambah" asp-route-idSiswa="@Model.Siswa.Id" asp-route-idJadwalMengajar="@Model.JadwalMengajar.Id">Tambah</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Dekripsi</th>
+            <th>Jenis</th>
+            <th>Skor</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var nilai in Model.DaftarNilai)
+        {
+            <tr>
+                <td>@nilai.Id</td>
+                <td>@nilai.Deskripsi</td>
+                <td>@nilai.Jenis.Humanize()</td>
+                <td>@nilai.Skor.ToString("F3")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@nilai.Id">Edit</a>
+                    <form asp-action="Hapus" asp-route-id="@nilai.Id">
+                        <button type="submit">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

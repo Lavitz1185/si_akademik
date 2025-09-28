@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Humanizer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SIAkademik.Domain.Abstracts;
 using SIAkademik.Domain.Authentication;
+using SIAkademik.Domain.Enums;
+using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Web.Areas.DashboardGuru.Models.JadwalMengajarModels;
 using SIAkademik.Web.Authentication;
@@ -68,5 +71,33 @@ public class JadwalMengajarController : Controller
         if (jadwalMengajar is null) return NotFound();
 
         return View(jadwalMengajar);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> DaftarJadwalMengajar(int idTahunAjaran)
+    {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+        pegawai = (await _pegawaiRepository.Get(pegawai.Id))!;
+
+        var tahunAjaran = await _tahunAjaranRepository.Get(idTahunAjaran);
+        if (tahunAjaran is null) return NotFound();
+
+        var daftarJadwal = pegawai.DaftarJadwalMengajar
+            .Where(j => j.Rombel.Kelas.TahunAjaran == tahunAjaran)
+            .Select(j => new
+            {
+                j.Id,
+                Pegawai = new { j.Pegawai.Id, j.Pegawai.Nama },
+                MataPelajaran = new { j.MataPelajaran.Id, j.MataPelajaran.Nama },
+                Rombel = new 
+                { 
+                    j.Rombel.Id, 
+                    j.Rombel.Nama, 
+                    Kelas = new { Jenjang = j.Rombel.Kelas.Jenjang.Humanize(), Peminatan = j.Rombel.Kelas.Peminatan.Humanize() } 
+                }
+            }).ToList();
+
+        return Json(daftarJadwal);
     }
 }

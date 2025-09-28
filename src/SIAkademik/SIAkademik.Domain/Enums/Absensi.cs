@@ -2,5 +2,5 @@
 
 public enum Absensi
 {
-    Hadir, Absen, Sakit, Ijin
+    Hadir, Alpa, Sakit, Ijin
 }

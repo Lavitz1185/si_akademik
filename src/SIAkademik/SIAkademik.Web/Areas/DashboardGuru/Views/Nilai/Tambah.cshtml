@@ -1,0 +1,38 @@
+﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.NilaiModels
+@model TambahVM
+
+<form asp-action="Tambah" method="post" class="container">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <input asp-for="@Model.IdSiswa" readonly hidden/>
+    <input asp-for="@Model.IdJadwalMengajar" readonly hidden/>
+
+    <div class="row">
+        <label asp-for="@Model.Deskripsi"></label>
+        <input asp-for="@Model.Deskripsi" />
+        <span asp-validation-for="@Model.Deskripsi"></span>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.Jenis"></label>
+        <select asp-for="@Model.Jenis">
+            @foreach(var jenis in Enum.GetValues<JenisNilai>())
+            {
+                <option value="@jenis">@jenis.Humanize()</option>
+            }
+        </select>
+        <span asp-validation-for="@Model.Jenis"></span>
+    </div>
+
+    <div class="row">
+        <label asp-for="@Model.Skor"></label>
+        <input asp-for="@Model.Skor" />
+        <span asp-validation-for="@Model.Skor"></span>
+    </div>
+
+    <button type="submit">Simpan</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
