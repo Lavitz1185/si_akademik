@@ -1,4 +1,161 @@
 ﻿<section class="section">
+
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="card" style="height: 355px;">
+                <div class="card-header">
+                    <h4>Siswa</h4> <hr>
+                    <h4 class="text-muted font-12" style="font-weight: 500">2025/2026 Genap</h4>
+                </div>
+                <div class="card-body pt-0">
+                    <canvas id="genderChart"></canvas>
+                    <div class="justify-content-center media p-t-10 p-b-20">
+                        <div class="media-items">
+                            <div class="media-item">
+                                <div class="media-value font-24" style="color: #000">1230</div>
+                                <div class="media-label">Total</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="justify-content-center media p-t-3">
+                        <div class="media-items">
+                            <div class="media-item">
+                                <div class="media-value" style="color: #000">210</div>
+                                <div class="media-label"><span><i class="fa fa-circle m-r-5 col-pink"></i></span>Perempuan</div>
+                            </div>
+                        </div>
+                        <div class="media-items">
+                            <div class="media-item">
+                                <div class="media-value" style="color: #000">120</div>
+                                <div class="media-label"><span><i class="fa fa-circle m-r-5 col-blue"></i></span>Laki-Laki</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <a asp-area="@AreaNames.DashboardAdmin" asp-controller="Siswa" asp-action="Index" class="card-link text-right pb-3 pr-3">
+                    Lihat Detail
+                </a>
+            </div>
+        </div>
+        <!-- Card 1 -->
+        <!-- Card 2 -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="card" style="height: 355px;">
+                <div class="card-header">
+                    <div class="col p-0">
+                        <div class="row">
+                            <h4>Rombel</h4>
+                        </div>
+                        <div class="row">
+                            <h4 class="text-muted font-12" style="font-weight: 500">2025/2026 Genap</h4>
+                        </div>
+                        
+                    </div>
+                    <div class="col p-1">
+                        <div class="row justify-content-end">
+                            <h4 class="font-40">20</h4>
+                        </div>
+                        <div class="row justify-content-end">
+                            <h4 class="text-muted font-12" style="font-weight: 500">Total Rombel</h4>
+                        </div>
+                    </div>
+                                      
+                </div>
+                <div class="card-body pt-0">
+
+                    <ul class="list-unstyled list-unstyled-border">
+                        <li class="media mb-0">
+                            <div class="btn btn-icon icon-left btn-danger" >
+                                <i class="fas fa-chalkboard mr-0"></i>
+                            </div>
+                            <div class="media-body pt-2">
+                                <div class="float-right">
+                                    <div class="font-weight-600 text-muted text-small">24 Org</div>
+                                </div>
+                                <div class="media-title font-12 pl-2">Matematika X Umum A</div>                                
+                            </div>
+                        </li>
+
+                        <li class="media mb-0">
+                            <div class="btn btn-icon icon-left btn-warning">
+                                <i class="fas fa-chalkboard mr-0"></i>
+                            </div>
+                            <div class="media-body pt-2">
+                                <div class="float-right">
+                                    <div class="font-weight-600 text-muted text-small">27 Org</div>
+                                </div>
+                                <div class="media-title font-12 pl-2">Sosiologi XI </div>
+                            </div>
+                        </li>
+
+                        <li class="media mb-0">
+                            <div class="btn btn-icon icon-left btn-primary">
+                                <i class="fas fa-chalkboard mr-0"></i>
+                            </div>
+                            <div class="media-body pt-2">
+                                <div class="float-right">
+                                    <div class="font-weight-600 text-muted text-small">25 Org</div>
+                                </div>
+                                <div class="media-title font-12 pl-2">Sejarah XII IPS</div>
+                            </div>
+                        </li>
+
+                        <li class="media mb-0">
+                            <div class="btn btn-icon icon-left btn-success">
+                                <i class="fas fa-chalkboard mr-0"></i>
+                            </div>
+                            <div class="media-body pt-2">
+                                <div class="float-right">
+                                    <div class="font-weight-600 text-muted text-small">30 Org</div>
+                                </div>
+                                <div class="media-title font-12 pl-2">Fisika XII MIPA</div>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </div>
+                <a asp-area="@AreaNames.DashboardAdmin" asp-controller="Rombel" asp-action="Index" data-match="partial" class="card-link text-right pb-3 pr-3">
+                    Lihat Detail
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="card" style="height: 355px;">
+                <div class="card-header">
+                    <h4>Unknown</h4> <hr>
+                    <h4 class="text-muted font-12" style="font-weight: 500">2025/2026 Genap</h4>
+                </div>
+                <div class="card-body pt-0">
+                    <canvas id="radar-chart" width="200" height="200"></canvas>
+
+                </div>
+                <a href="#" class="card-link text-right pb-3 pr-3">
+                    Lihat Detail
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="card" style="height: 355px;">
+                <div class="card-header">
+                    <h4>Unknown</h4> <hr>
+                    <h4 class="text-muted font-12" style="font-weight: 500">2025/2026 Genap</h4>
+                </div>
+                <div class="card-body pt-0">
+                    <canvas id="polar-chart" width="200" height="200"></canvas>
+
+                </div>
+                <a href="#" class="card-link text-right pb-3 pr-3">
+                    Lihat Detail
+                </a>
+            </div>
+        </div>
+        
+    </div>
+   
     <div class="row ">
         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div class="card">
@@ -44,8 +201,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <div class="card">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="card" style="height: 157px;">
                 <div class="card-statistic-4">
                     <div class="align-items-center justify-content-between">
                         <div class="row ">
@@ -68,28 +225,66 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <div class="card">
-                <div class="card-statistic-4">
-                    <div class="align-items-center justify-content-between">
-                        <div class="row ">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
-                                <div class="card-content">
-                                    <h5 class="font-15">Total Kelas</h5>
-                                    <h2 class="mb-3 font-18">20</h2>
-                                    <p class="mb-0"><span class="col-green"></span> </p>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
-                                <div class="banner-img">
-                                    <img src="~/images/dashboard/kelas.png" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        </div>        
+    </div>
+
+    <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="card" style="height: 355px;">
+                <div class="card-header">
+                    <h4>Unknown</h4> <hr>
+                    <h4 class="text-muted font-12" style="font-weight: 500">2025/2026 Genap</h4>
                 </div>
+                <div class="card-body pt-0">
+                    <canvas id="myChart"></canvas>                    
+
+                </div>
+                <a href="#" class="card-link text-right pb-3 pr-3">
+                    Lihat Detail
+                </a>
             </div>
         </div>
+        <!-- Card 1 -->
+        <!-- Card 2 -->        
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="card" style="height: 355px;">
+                <div class="card-header">
+                    <h4>Unknown</h4> <hr>
+                    <h4 class="text-muted font-12" style="font-weight: 500">2025/2026 Genap</h4>
+                </div>
+                <div class="card-body pt-0">
+                    <canvas id="myChart3" width="200" height="200"></canvas>
+
+                </div>
+                <a href="#" class="card-link text-right pb-3 pr-3">
+                    Lihat Detail
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="card" style="height: 355px;">
+                <div class="card-header">
+                    <h4>Unknown</h4> <hr>
+                    <h4 class="text-muted font-12" style="font-weight: 500">2025/2026 Genap</h4>
+                </div>
+                <div class="card-body pt-0">
+                    <canvas id="myChart2" width="200" height="200"></canvas>
+
+                </div>
+                <a href="#" class="card-link text-right pb-3 pr-3">
+                    Lihat Detail
+                </a>
+            </div>
+        </div>
+        
     </div>
+
+
 </section>
+
+
+<script type="text/javascript">
+    
+</script>
