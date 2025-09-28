@@ -66,10 +66,10 @@
                                 }
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-route-nip="@siswa.Id" class="btn btn-primary btn-action" data-toggle="tooltip" title="Edit Data Siswa">
+                                <a asp-action="Edit" asp-route-id="@siswa.Id" class="btn btn-primary btn-action" data-toggle="tooltip" title="Edit Data Siswa">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                <form asp-action="Hapus" asp-route-nip="@siswa.Id" style="display:inline" method="post">
+                                <form asp-action="Hapus" asp-route-id="@siswa.Id" style="display:inline" method="post">
                                     <button type="button" class="btn btn-danger btn-action swal-confirm" data-toggle="tooltip" title="Hapus Data Siswa">
                                         <i class="fas fa-trash"></i>
                                     </button>
