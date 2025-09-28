@@ -13,10 +13,6 @@ public class EditVM
     [Required(ErrorMessage = "{0} harus diisi")]
     public required string Deskripsi { get; set; }
 
-    [Display(Name = "Jenis")]
-    [Required(ErrorMessage = "{0} harus diisi")]
-    public required JenisNilai Jenis { get; set; }
-
     [Display(Name = "Skor")]
     [Required(ErrorMessage = "{0} harus diisi")]
     [Range(0d, double.MaxValue, ErrorMessage = "{0} harus antara {1} dan {2}")]

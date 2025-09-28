@@ -70,10 +70,10 @@
             <th>NIS</th>
             <th>NISN</th>
             <th>Nama</th>
-            <th>Jumlah Nilai Tugas</th>
-            <th>Jumlah Nilai UH</th>
-            <th>Jumlah Nilai UTS</th>
-            <th>Jumlah Nilai UAS</th>
+            <th>Tugas</th>
+            <th>UH</th>
+            <th>UTS</th>
+            <th>UAS</th>
             <th>Aksi</th>
         </tr>
     </thead>
@@ -86,10 +86,10 @@
                     <td>@anggota.Siswa.NIS</td>
                     <td>@anggota.Siswa.NISN</td>
                     <td>@anggota.Siswa.Nama</td>
-                    <td>@anggota.DaftarNilai.Where(n => n.JadwalMengajar == Model.JadwalMengajar && n.Jenis == JenisNilai.Tugas).Count()</td>
-                    <td>@anggota.DaftarNilai.Where(n => n.JadwalMengajar == Model.JadwalMengajar && n.Jenis == JenisNilai.UH).Count()</td>
-                    <td>@anggota.DaftarNilai.Where(n => n.JadwalMengajar == Model.JadwalMengajar && n.Jenis == JenisNilai.UTS).Count()</td>
-                    <td>@anggota.DaftarNilai.Where(n => n.JadwalMengajar == Model.JadwalMengajar && n.Jenis == JenisNilai.UAS).Count()</td>
+                    <td>@anggota.RataTugas(Model.JadwalMengajar) (@anggota.DaftarNilai.Where(n => n.JadwalMengajar == Model.JadwalMengajar && n.Jenis == JenisNilai.Tugas).Count())</td>
+                    <td>@anggota.RataUH(Model.JadwalMengajar) (@anggota.DaftarNilai.Where(n => n.JadwalMengajar == Model.JadwalMengajar && n.Jenis == JenisNilai.UH).Count())</td>
+                    <td>@(anggota.DaftarNilai.Where(n => n.JadwalMengajar == Model.JadwalMengajar && n.Jenis == JenisNilai.UTS).FirstOrDefault()?.Skor ?? 0) (@anggota.DaftarNilai.Where(n => n.JadwalMengajar == Model.JadwalMengajar && n.Jenis == JenisNilai.UTS).Count())</td>
+                    <td>@(anggota.DaftarNilai.Where(n => n.JadwalMengajar == Model.JadwalMengajar && n.Jenis == JenisNilai.UAS).FirstOrDefault()?.Skor ?? 0) (@anggota.DaftarNilai.Where(n => n.JadwalMengajar == Model.JadwalMengajar && n.Jenis == JenisNilai.UAS).Count())</td>
                     <td>
                         <a asp-action="Detail" asp-route-idSiswa="@anggota.Siswa.Id" asp-route-idJadwalMengajar="@Model.JadwalMengajar.Id">Detail</a>
                     </td>

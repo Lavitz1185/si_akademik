@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Humanizer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SIAkademik.Domain.Abstracts;
 using SIAkademik.Domain.Authentication;
+using SIAkademik.Domain.Enums;
 using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Web.Areas.DashboardGuru.Models.NilaiModels;
@@ -93,7 +95,7 @@ public class NilaiController : Controller
         });
     }
 
-    public async Task<IActionResult> Tambah(int idSiswa, int idJadwalMengajar)
+    public async Task<IActionResult> Tambah(int idSiswa, int idJadwalMengajar, JenisNilai jenisNilai)
     {
         var pegawai = await _signInManager.GetPegawai();
         if (pegawai is null) return Forbid();
@@ -106,13 +108,25 @@ public class NilaiController : Controller
 
         var siswa = await _siswaRepository.Get(idSiswa);
         if (siswa is null) return NotFound();
-        if (!siswa.DaftarAnggotaRombel.Any(a => a.Rombel == jadwalMengajar.Rombel))
+
+        var anggotaRombel = siswa.DaftarAnggotaRombel.FirstOrDefault(a => a.Rombel == jadwalMengajar.Rombel);
+        if (anggotaRombel is null)
             return BadRequest();
+
+        if (jenisNilai == JenisNilai.UTS || jenisNilai == JenisNilai.UAS)
+        {
+            if(anggotaRombel.DaftarNilai.Any(n => n.JadwalMengajar == jadwalMengajar && n.Jenis == JenisNilai.UAS))
+            {
+                _toastrNotificationService.AddError($"Nilai {jenisNilai.Humanize()} sudah ada!");
+                return RedirectToAction(nameof(Detail), new { idJadwalMengajar, idSiswa });
+            }    
+        }
 
         return View(new TambahVM
         {
             IdSiswa = idSiswa,
-            IdJadwalMengajar = idJadwalMengajar
+            IdJadwalMengajar = idJadwalMengajar,
+            Jenis = jenisNilai
         });
     }
 
@@ -173,7 +187,6 @@ public class NilaiController : Controller
         {
             Id = nilai.Id,
             Deskripsi = nilai.Deskripsi,
-            Jenis = nilai.Jenis,
             Skor = nilai.Skor
         });
     }
@@ -194,7 +207,6 @@ public class NilaiController : Controller
             return Forbid();
 
         nilai.Deskripsi = vm.Deskripsi;
-        nilai.Jenis = vm.Jenis;
         nilai.Skor = vm.Skor;
 
         var result = await _unitOfWork.SaveChangesAsync();

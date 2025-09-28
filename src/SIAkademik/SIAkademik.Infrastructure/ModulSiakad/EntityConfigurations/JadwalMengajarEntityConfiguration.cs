@@ -18,6 +18,7 @@ internal class JadwalMengajarEntityConfiguration : IEntityTypeConfiguration<Jadw
         builder.HasMany(x => x.DaftarNilai).WithOne(x => x.JadwalMengajar);
         builder.HasMany(x => x.DaftarHariMengajar).WithOne(x => x.JadwalMengajar);
         builder.HasMany(x => x.DaftarPertemuan).WithOne(x => x.JadwalMengajar);
+        builder.HasMany(x => x.DaftarRaport).WithOne(x => x.JadwalMengajar);
 
         builder.HasData(
             new

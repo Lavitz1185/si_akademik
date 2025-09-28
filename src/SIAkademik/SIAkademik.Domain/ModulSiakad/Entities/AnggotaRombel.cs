@@ -1,4 +1,5 @@
 ﻿using SIAkademik.Domain.Abstracts;
+using System.Linq;
 
 namespace SIAkademik.Domain.ModulSiakad.Entities;
 
@@ -14,17 +15,43 @@ public class AnggotaRombel : IEquatable<AnggotaRombel>
     public List<Nilai> DaftarNilai { get; set; } = [];
     public List<Absen> DaftarAbsen { get; set; } = [];
     public List<AbsenKelas> DaftarAbsenKelas { get; set; } = [];
+    public List<Raport> DaftarRaport { get; set; } = [];
 
     public bool Equals(AnggotaRombel? other) =>
         other is not null &&
         other.IdSiswa == IdSiswa &&
         other.IdRombel == IdRombel;
 
+    public double RataTugas(JadwalMengajar jadwalMengajar)
+    {
+        var daftarNilai = DaftarNilai.Where(n => n.JadwalMengajar == jadwalMengajar && n.Jenis == Enums.JenisNilai.Tugas);
+
+        if (daftarNilai.Count() == 0) return 0;
+        else return daftarNilai.Average(n => n.Skor);
+    }
+
+    public double RataUH(JadwalMengajar jadwalMengajar)
+    {
+        var daftarNilai = DaftarNilai.Where(n => n.JadwalMengajar == jadwalMengajar && n.Jenis == Enums.JenisNilai.UH);
+
+        if (daftarNilai.Count() == 0) return 0;
+        else return daftarNilai.Average(n => n.Skor);
+    }
+
+    public double NilaiAkhir(JadwalMengajar jadwalMengajar) =>
+        (
+            RataTugas(jadwalMengajar) +
+            RataUH(jadwalMengajar) +
+            DaftarNilai.Where(n => n.JadwalMengajar == jadwalMengajar && n.Jenis == Enums.JenisNilai.UTS).FirstOrDefault()?.Skor ?? 0 +
+            DaftarNilai.Where(n => n.JadwalMengajar == jadwalMengajar && n.Jenis == Enums.JenisNilai.UAS).FirstOrDefault()?.Skor ?? 0
+        ) / 4d;
+
+
     public override bool Equals(object? obj) => obj is AnggotaRombel a && Equals(a);
 
     public override int GetHashCode() => HashCode.Combine(IdSiswa, IdRombel);
 
-    public static bool operator==(AnggotaRombel? left, AnggotaRombel? right) => left is not null && left.Equals(right);
+    public static bool operator ==(AnggotaRombel? left, AnggotaRombel? right) => left is not null && left.Equals(right);
 
-    public static bool operator!=(AnggotaRombel? left, AnggotaRombel? right) => !(left == right);
+    public static bool operator !=(AnggotaRombel? left, AnggotaRombel? right) => !(left == right);
 }

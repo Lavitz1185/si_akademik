@@ -29,6 +29,7 @@ internal class RombelRepository : IRombelRepository
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarRaport).ThenInclude(r => r.JadwalMengajar)
         .FirstOrDefaultAsync(r => r.Id == id);
 
     public async Task<List<Rombel>> GetAll() => await _appDbContext
@@ -42,6 +43,7 @@ internal class RombelRepository : IRombelRepository
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarRaport).ThenInclude(r => r.JadwalMengajar)
         .ToListAsync();
 
     public async Task<List<Rombel>> GetAllByKelas(int idKelas) => await _appDbContext
@@ -55,6 +57,7 @@ internal class RombelRepository : IRombelRepository
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarRaport).ThenInclude(r => r.JadwalMengajar)
         .Where(r => r.Kelas.Id == idKelas)
         .ToListAsync();
 
@@ -69,6 +72,7 @@ internal class RombelRepository : IRombelRepository
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarRaport).ThenInclude(r => r.JadwalMengajar)
         .Where(r => r.Kelas.TahunAjaran.Id == idTahunAjaran)
         .ToListAsync();
 }

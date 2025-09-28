@@ -13,33 +13,37 @@
 </p>
 <p>Mata Pelajaran : @Model.JadwalMengajar.MataPelajaran.Nama</p>
 
-<a asp-action="Tambah" asp-route-idSiswa="@Model.Siswa.Id" asp-route-idJadwalMengajar="@Model.JadwalMengajar.Id">Tambah</a>
 
-<table>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Dekripsi</th>
-            <th>Jenis</th>
-            <th>Skor</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var nilai in Model.DaftarNilai)
-        {
+
+@foreach (var jenisNilai in Enum.GetValues<JenisNilai>())
+{
+    <h1>Nilai @jenisNilai.Humanize()</h1>
+    <a asp-action="Tambah" asp-route-idSiswa="@Model.Siswa.Id" asp-route-idJadwalMengajar="@Model.JadwalMengajar.Id" asp-route-jenisNilai="@jenisNilai">Tambah</a>
+    <table>
+        <thead>
             <tr>
-                <td>@nilai.Id</td>
-                <td>@nilai.Deskripsi</td>
-                <td>@nilai.Jenis.Humanize()</td>
-                <td>@nilai.Skor.ToString("F3")</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@nilai.Id">Edit</a>
-                    <form asp-action="Hapus" asp-route-id="@nilai.Id" class="btn btn-danger btn-action swal-confirm" title="Hapus">
-                        <button type="submit">Hapus</button>
-                    </form>
-                </td>
+                <th>Id</th>
+                <th>Dekripsi</th>
+                <th>Skor</th>
+                <th>Aksi</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var nilai in Model.DaftarNilai.Where(n => n.Jenis == jenisNilai))
+            {
+                <tr>
+                    <td>@nilai.Id</td>
+                    <td>@nilai.Deskripsi</td>
+                    <td>@nilai.Skor.ToString("F3")</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@nilai.Id">Edit</a>
+                        <form asp-action="Hapus" asp-route-id="@nilai.Id" class="btn btn-danger btn-action swal-confirm" title="Hapus">
+                            <button type="submit">Hapus</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}

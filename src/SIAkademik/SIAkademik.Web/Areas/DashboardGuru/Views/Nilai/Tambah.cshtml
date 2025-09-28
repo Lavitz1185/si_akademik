@@ -13,16 +13,7 @@
         <span asp-validation-for="@Model.Deskripsi"></span>
     </div>
 
-    <div class="row">
-        <label asp-for="@Model.Jenis"></label>
-        <select asp-for="@Model.Jenis">
-            @foreach(var jenis in Enum.GetValues<JenisNilai>())
-            {
-                <option value="@jenis">@jenis.Humanize()</option>
-            }
-        </select>
-        <span asp-validation-for="@Model.Jenis"></span>
-    </div>
+    <input asp-for="@Model.Jenis" readonly hidden/>
 
     <div class="row">
         <label asp-for="@Model.Skor"></label>

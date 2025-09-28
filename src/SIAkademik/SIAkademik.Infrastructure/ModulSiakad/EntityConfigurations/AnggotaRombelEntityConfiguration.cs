@@ -13,6 +13,7 @@ internal class AnggotaRombelEntityConfiguration : IEntityTypeConfiguration<Anggo
         builder.HasOne(x => x.Rombel).WithMany(s => s.DaftarAnggotaRombel).HasForeignKey(x => x.IdRombel);
         builder.HasMany(x => x.DaftarNilai).WithOne(s => s.AnggotaRombel);
         builder.HasMany(x => x.DaftarAbsen).WithOne(s => s.AnggotaRombel);
+        builder.HasMany(x => x.DaftarRaport).WithOne(s => s.AnggotaRombel);
 
         builder.HasData(
             new AnggotaRombel
