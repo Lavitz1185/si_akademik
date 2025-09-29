@@ -1,0 +1,154 @@
+﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.RaportModels
+@model DetailVM
+
+@{
+    var daftarSikap = Model.DaftarRaport.Where(r => r.KategoriNilai == KategoriNilaiRaport.Sikap);
+    var daftarPengetahuan = Model.DaftarRaport.Where(r => r.KategoriNilai == KategoriNilaiRaport.Pengetahuan);
+    var daftarKeterampilan = Model.DaftarRaport.Where(r => r.KategoriNilai == KategoriNilaiRaport.Keterampilan);
+    var daftarEkstrakulikuler = Model.DaftarRaport.Where(r => r.KategoriNilai == KategoriNilaiRaport.Ekstrakulikuler);
+}
+
+<h1>Sikap</h1>
+<a asp-action="Tambah" asp-route-idSiswa="@Model.AnggotaRombel.IdSiswa" asp-route-idRombel="@Model.AnggotaRombel.IdRombel" 
+    asp-route-kategori="@KategoriNilaiRaport.Sikap">
+    Tambah
+</a>
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Sikap</th>
+            <th>Predikat</th>
+            <th>Dekripsi</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var sikap in daftarSikap)
+        {
+            <tr>
+                <td>@sikap.Id</td>
+                <td>@sikap.Nama</td>
+                <td>@sikap.Predikat</td>
+                <td>@sikap.Deskripsi</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@sikap.Id">Edit</a>
+                    <form asp-action="Hapus" asp-route-id="@sikap.Id" class="btn btn-danger btn-action swal-confirm" title="Hapus">
+                        <button type="submit">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h1>Pengetahuan</h1>
+<a asp-action="Tambah" asp-route-idSiswa="@Model.AnggotaRombel.IdSiswa" asp-route-idRombel="@Model.AnggotaRombel.IdRombel"
+   asp-route-kategori="@KategoriNilaiRaport.Pengetahuan">
+    Tambah
+</a>
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Mata Pelajaran</th>
+            <th>KKM</th>
+            <th>Nilai</th>
+            <th>Predikat</th>
+            <th>Dekripsi</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pengetahuan in daftarPengetahuan)
+        {
+            <tr>
+                <td>@pengetahuan.Id</td>
+                <td>@pengetahuan.Nama</td>
+                <td>@pengetahuan.JadwalMengajar!.MataPelajaran.KKM</td>
+                <td>@pengetahuan.AnggotaRombel.NilaiAkhir(pengetahuan.JadwalMengajar!)</td>
+                <td>@pengetahuan.Predikat</td>
+                <td>@pengetahuan.Deskripsi</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@pengetahuan.Id">Edit</a>
+                    <form asp-action="Hapus" asp-route-id="@pengetahuan.Id" class="btn btn-danger btn-action swal-confirm" title="Hapus">
+                        <button type="submit">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h1>Keterampilan</h1>
+<a asp-action="Tambah" asp-route-idSiswa="@Model.AnggotaRombel.IdSiswa" asp-route-idRombel="@Model.AnggotaRombel.IdRombel"
+   asp-route-kategori="@KategoriNilaiRaport.Keterampilan">
+    Tambah
+</a>
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Mata Pelajaran</th>
+            <th>KKM</th>
+            <th>Nilai</th>
+            <th>Predikat</th>
+            <th>Dekripsi</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var keterampilan in daftarKeterampilan)
+        {
+
+            <tr>
+                <td>@keterampilan.Id</td>
+                <td>@keterampilan.Nama</td>
+                <td>@keterampilan.JadwalMengajar!.MataPelajaran.KKM</td>
+                <td>@keterampilan.AnggotaRombel.NilaiAkhir(keterampilan.JadwalMengajar!)</td>
+                <td>@keterampilan.Predikat</td>
+                <td>@keterampilan.Deskripsi</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@keterampilan.Id">Edit</a>
+                    <form asp-action="Hapus" asp-route-id="@keterampilan.Id" class="btn btn-danger btn-action swal-confirm" title="Hapus">
+                        <button type="submit">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h1>Ektrakulikuler</h1>
+<a asp-action="Tambah" asp-route-idSiswa="@Model.AnggotaRombel.IdSiswa" asp-route-idRombel="@Model.AnggotaRombel.IdRombel"
+   asp-route-kategori="@KategoriNilaiRaport.Ekstrakulikuler">
+    Tambah
+</a>
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Sikap</th>
+            <th>Predikat</th>
+            <th>Dekripsi</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ekstrakulikuler in daftarEkstrakulikuler)
+        {
+            <tr>
+                <td>@ekstrakulikuler.Id</td>
+                <td>@ekstrakulikuler.Nama</td>
+                <td>@ekstrakulikuler.Predikat</td>
+                <td>@ekstrakulikuler.Deskripsi</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@ekstrakulikuler.Id">Edit</a>
+                    <form asp-action="Hapus" asp-route-id="@ekstrakulikuler.Id" class="btn btn-danger btn-action swal-confirm" title="Hapus">
+                        <button type="submit">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

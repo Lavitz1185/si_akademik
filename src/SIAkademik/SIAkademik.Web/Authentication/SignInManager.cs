@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using SIAkademik.Domain.Authentication;
 using SIAkademik.Domain.ModulSiakad.Entities;
+using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Domain.Shared;
 using System.Security.Claims;
 
@@ -12,6 +13,7 @@ public class SignInManager : ISignInManager
 {
     private readonly IAppUserRepository _appUserRepository;
     private readonly IPasswordHasher<AppUser> _passwordHasher;
+    private readonly IPegawaiRepository _pegawaiRepository;
     private readonly ILogger<SignInManager> _logger;
     private readonly IHttpContextAccessor _contextAccessor;
 
@@ -19,15 +21,25 @@ public class SignInManager : ISignInManager
         IAppUserRepository appUserRepository,
         IPasswordHasher<AppUser> passwordHasher,
         ILogger<SignInManager> logger,
-        IHttpContextAccessor contextAccessor)
+        IHttpContextAccessor contextAccessor,
+        IPegawaiRepository pegawaiRepository)
     {
         _appUserRepository = appUserRepository;
         _passwordHasher = passwordHasher;
         _logger = logger;
         _contextAccessor = contextAccessor;
+        _pegawaiRepository = pegawaiRepository;
     }
 
-    public async Task<Pegawai?> GetPegawai() => (await GetUser())?.Guru;
+    public async Task<Pegawai?> GetPegawai()
+    {
+        var guru = (await GetUser())?.Guru;
+
+        if (guru is null) return null;
+
+        guru = await _pegawaiRepository.Get(guru.Id);
+        return guru;
+    }
 
     public async Task<AppUser?> GetUser()
     {

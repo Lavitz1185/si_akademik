@@ -1,0 +1,113 @@
+﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.RaportModels
+@model IndexVM
+
+@inject ITahunAjaranRepository TahunAjaranRepository
+@inject IRombelRepository RombelRepository
+
+@{
+    var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
+}
+
+<form asp-action="Index" method="get">
+
+    <select id="idTahunAjaran" name="idTahunAjaran">
+        @if (Model.TahunAjaran is null)
+        {
+            <option selected value="@null">-- Pilih Tahun Ajaran --</option>
+        }
+
+        @foreach (var tahunAjaran in daftarTahunAjaran)
+        {
+            @if (Model.TahunAjaran == tahunAjaran)
+            {
+                <option selected value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+            }
+            else
+            {
+                <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+            }
+        }
+    </select>
+
+    <select id="idRombel" name="idRombel">
+        @if (Model.Rombel is null)
+        {
+            <option selected value="@null">-- Pilih Kelas --</option>
+        }
+        else
+        {
+            <option value="@null">-- Pilih Kelas --</option>
+        }
+
+        @if (Model.TahunAjaran is not null)
+        {
+            var daftarRombel = await RombelRepository.GetAllByTahunAjaran(Model.TahunAjaran.Id);
+
+            @foreach (var rombel in daftarRombel)
+            {
+                @if (Model.Rombel == rombel)
+                {
+                    <option selected value="@rombel.Id">@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Humanize() @rombel.Nama</option>
+                }
+                else
+                {
+                    <option value="@rombel.Id">@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Humanize() @rombel.Nama</option>
+                }
+            }
+        }
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>NIS</th>
+            <th>NISN</th>
+            <th>Nama</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model.Rombel is not null)
+        {
+            @foreach(var anggota in Model.Rombel.DaftarAnggotaRombel)
+            {
+                <tr>
+                    <td>@anggota.Siswa.NIS</td>
+                    <td>@anggota.Siswa.NISN</td>
+                    <td>@anggota.Siswa.Nama</td>
+                    <td>
+                        <a asp-action="Detail" asp-route-idSiswa="@anggota.Siswa.Id" asp-route-idRombel="@anggota.Rombel.Id">Detail</a>
+                        <a asp-action="Cetak" asp-route-idSiswa="@anggota.Siswa.Id" asp-route-idRombel="@anggota.Rombel.Id">Cetak</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function() {
+            $('select#idTahunAjaran').on('change', async function() {
+                const idTahunAjaran = $(this).val()
+
+                if (idTahunAjaran == '') {
+                    $('select#idRombel').html('<option selected value="">-- Pilih Kelas --</option>')
+                } else {
+                    const response = await fetch(`/Dashboard/Guru/Rombel/DaftarRombel?idTahunAjaran=${idTahunAjaran}`)
+                    if (response.ok) {
+                        const daftarRombel = await response.json()
+                        $('select#idRombel').html('<option value="">-- Pilih Kelas --</option>')
+
+                        for(let rombel of daftarRombel) {
+                            $('select#idRombel').append(`<option value="${rombel.id}">${rombel.kelas.jenjang} ${rombel.kelas.peminatan} ${rombel.nama}</option>`);
+                        }
+                    }
+                }
+            })
+        })
+    </script>
+}

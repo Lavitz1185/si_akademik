@@ -5,6 +5,7 @@ namespace SIAkademik.Domain.ModulSiakad.Entities;
 public class Raport : Entity<int>
 {
     public required string Predikat { get; set; }
+    public required string Nama { get; set; }
     public required string Deskripsi { get; set; }
     public required KategoriNilaiRaport KategoriNilai { get; set; }
 
