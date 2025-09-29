@@ -1,6 +1,75 @@
 ﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.Home
 @model IndexVM
 
+<div class="row">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="card" style="height: 355px;">
+            <div class="card-header">
+                <div class="col  ">
+                    <div class="row">
+                        <h4>Jadwal Mengajar</h4>
+                    </div>
+                    <div class="row">
+                        <h4 class="text-muted font-12" style="font-weight: 400">Tidak ada aktivitas mengajar saat ini</h4>
+                    </div>
+
+                </div>               
+            </div>
+            <div class="card-body pt-0">
+                <div class="card">
+                    <div class="card-header">
+                        
+                    </div>
+                    <div class="card-body pt-0">
+                       
+
+                    </div>
+                    
+                </div>
+
+            </div>
+            <a href="#" class="card-link text-right pb-3 pr-3">
+                Lihat Detail
+            </a>
+        </div>
+    </div>
+    <!-- Card 1 -->
+    <!-- Card 2 -->
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="card" style="height: 355px;">
+            <div class="card-header">
+                <h4>Unknown</h4> <hr>
+                <h4 class="text-muted font-12" style="font-weight: 500">2025/2026 Genap</h4>
+            </div>
+            <div class="card-body pt-0">
+                <canvas id="myChart3" width="200" height="200"></canvas>
+
+            </div>
+            <a href="#" class="card-link text-right pb-3 pr-3">
+                Lihat Detail
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="card" style="height: 355px;">
+            <div class="card-header">
+                <h4>Unknown</h4> <hr>
+                <h4 class="text-muted font-12" style="font-weight: 500">2025/2026 Genap</h4>
+            </div>
+            <div class="card-body pt-0">
+                <canvas id="myChart2" width="200" height="200"></canvas>
+
+            </div>
+            <a href="#" class="card-link text-right pb-3 pr-3">
+                Lihat Detail
+            </a>
+        </div>
+    </div>
+
+</div>
+
 <h1>Jadwal Hari Ini</h1>
 @foreach (var hariMengajar in Model.JadwalHariIni)
 {
