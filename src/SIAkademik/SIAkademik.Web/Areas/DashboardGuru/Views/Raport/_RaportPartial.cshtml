@@ -1,0 +1,258 @@
+﻿@model AnggotaRombel
+
+@inject IPegawaiRepository PegawaiRepository;
+
+@{
+    Layout = null;
+
+    var daftarSikap = Model.DaftarRaport.Where(r => r.KategoriNilai == KategoriNilaiRaport.Sikap).ToList();
+
+    var daftarPengetahuan = Model.DaftarRaport
+        .Where(r => r.KategoriNilai == KategoriNilaiRaport.Pengetahuan)
+        .OrderBy(r => r.JadwalMengajar!.MataPelajaran.Peminatan)
+        .ToList();
+
+    var daftarKeterampilan = Model.DaftarRaport
+        .Where(r => r.KategoriNilai == KategoriNilaiRaport.Keterampilan)
+        .OrderBy(r => r.JadwalMengajar!.MataPelajaran.Peminatan)
+        .ToList();
+
+    var daftarEktrakulikuler = Model.DaftarRaport
+        .Where(r => r.KategoriNilai == KategoriNilaiRaport.Ekstrakulikuler)
+        .ToList();
+
+    var kepalaSekolah = (await PegawaiRepository.GetAll()).FirstOrDefault(p => p.Jabatan.Nama.ToLower() == "kepala sekolah");
+}
+
+<style>
+    table {
+        width: 100%;
+        font-size: 11px !important;
+        font-family: 'Times New Roman' !important;
+    }
+
+    table, th, tr, td {
+        border: 2px solid black;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+</style>
+
+<div style="display:grid;font-size:11px !important;grid-template-rows: auto auto auto auto;grid-auto-flow:column;justify-content:space-around;grid-row-gap:10px">
+    <span>Nama Sekolah <span style="display:inline-block;margin-left:73px"></span>: SMA Kristen Pandhega Jaya</span>
+    <span>Alamat <span style="display:inline-block;margin-left:105px"></span>: Jl.Tilong Dam Km.5, Desa Oenlasi</span>
+    <span>Nama <span style="display:inline-block;margin-left:111px"></span>: @Model.Siswa.Nama</span>
+    <span>Nomor Induk Siswa/NISN <span style="display:inline-block;margin-left:20px"></span>: @Model.Siswa.NIS/@Model.Siswa.NISN</span>
+    <span>Kelas <span style="display:inline-block;margin-left:49px"></span>: @Model.Rombel.Kelas.Jenjang.Humanize()-@Model.Rombel.Kelas.Peminatan.Humanize()</span>
+    <span>Semester <span style="display:inline-block;margin-left:34px"></span>: @Model.Rombel.Kelas.TahunAjaran.Semester.Humanize()</span>
+    <span>Tahun Ajaran <span style="display:inline-block;margin-left:15px"></span>: @Model.Rombel.Kelas.TahunAjaran.Periode</span>
+</div>
+
+<h1 style="font-size:16px !important; text-align:center; margin-top:20px">CAPAIAN HASIL BELAJAR</h1>
+
+<h2 style="font-size:11px !important; margin-top:20px">A. Sikap</h2>
+
+@for (int i = 0; i < daftarSikap.Count; i++)
+{
+    var sikap = daftarSikap[i];
+    <h3 style="font-size:11px !important;">@(i + 1). @sikap.Nama</h3>
+    <table>
+        <tr>
+            <td style="text-align:center;" width="20%">@sikap.Predikat</td>
+            <td width="80%">@sikap.Deskripsi</td>
+        </tr>
+    </table>
+}
+
+<h2 style="font-size:11px !important; margin-top:20px">B. Pengetahuan dan Keterampilan</h2>
+<b style="font-size:11px !important">Ketuntasan Belajar Minimal : @daftarPengetahuan.Average(p => p.JadwalMengajar?.MataPelajaran.KKM)?.ToString("F0")</b>
+<table style="margin-top:5px">
+    <thead>
+        <tr>
+            <th style="text-align:center;" colspan="2" rowspan="2" width="25%">Mata Pelajaran</th>
+            <th style="text-align:center;" colspan="3" width="80%">Pengetahuan</th>
+        </tr>
+        <tr>
+            <th width="10%">Nilai</th>
+            <th width="10%">Predi</th>
+            <th width="80%">Dekripsi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (daftarPengetahuan.Any(r => r.JadwalMengajar!.MataPelajaran.Peminatan == Peminatan.Umum))
+        {
+            var daftarPengetahuanUmum = daftarPengetahuan.Where(r => r.JadwalMengajar!.MataPelajaran.Peminatan == Peminatan.Umum).ToList();
+
+            <tr>
+                <td colspan="5"><b>Kelompok A (Umum)</b></td>
+            </tr>
+
+            @for (int i = 0; i < daftarPengetahuanUmum.Count; i++)
+            {
+                var pengetahuan = daftarPengetahuanUmum[i];
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>@pengetahuan.JadwalMengajar!.MataPelajaran.Nama</td>
+                    <td style="text-align:center">@Model.NilaiAkhir(pengetahuan.JadwalMengajar).ToString("F0")</td>
+                    <td style="text-align:center">@pengetahuan.Predikat</td>
+                    <td>@pengetahuan.Deskripsi</td>
+                </tr>
+            }
+        }
+
+        @if (daftarPengetahuan.Any(r => r.JadwalMengajar!.MataPelajaran.Peminatan != Peminatan.Umum))
+        {
+            var daftarPengetahuanPeminatan = daftarPengetahuan.Where(r => r.JadwalMengajar!.MataPelajaran.Peminatan != Peminatan.Umum).ToList();
+
+            <tr>
+                <td colspan="5"><b>Kelompok B (Peminatan)</b></td>
+            </tr>
+
+            @for (int i = 0; i < daftarPengetahuanPeminatan.Count; i++)
+            {
+                var pengetahuan = daftarPengetahuanPeminatan[i];
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>@pengetahuan.JadwalMengajar!.MataPelajaran.Nama</td>
+                    <td style="text-align:center">@Model.NilaiAkhir(pengetahuan.JadwalMengajar).ToString("F0")</td>
+                    <td style="text-align:center">@pengetahuan.Predikat</td>
+                    <td>@pengetahuan.Deskripsi</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<p style="font-size:11px !important; margin-top:60px; margin-bottom: 0px"><b>Ketuntasan Belajar Minimal : @daftarKeterampilan.Average(p => p.JadwalMengajar?.MataPelajaran.KKM)?.ToString("F0")</b></p>
+<table style="margin-top:5px">
+    <thead>
+        <tr>
+            <th style="text-align:center;" colspan="2" rowspan="2" width="25%">Mata Pelajaran</th>
+            <th style="text-align:center;" colspan="3" width="80%">Keterampilan</th>
+        </tr>
+        <tr>
+            <th width="10%">Nilai</th>
+            <th width="10%">Predi</th>
+            <th width="80%">Dekripsi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (daftarKeterampilan.Any(r => r.JadwalMengajar!.MataPelajaran.Peminatan == Peminatan.Umum))
+        {
+            var daftarKeterampilanUmum = daftarKeterampilan.Where(r => r.JadwalMengajar!.MataPelajaran.Peminatan == Peminatan.Umum).ToList();
+
+            <tr>
+                <td colspan="5"><b>Kelompok A (Umum)</b></td>
+            </tr>
+
+            @for (int i = 0; i < daftarKeterampilanUmum.Count; i++)
+            {
+                var pengetahuan = daftarKeterampilanUmum[i];
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>@pengetahuan.JadwalMengajar!.MataPelajaran.Nama</td>
+                    <td style="text-align:center">@Model.NilaiAkhir(pengetahuan.JadwalMengajar).ToString("F0")</td>
+                    <td style="text-align:center">@pengetahuan.Predikat</td>
+                    <td>@pengetahuan.Deskripsi</td>
+                </tr>
+            }
+        }
+
+        @if (daftarKeterampilan.Any(r => r.JadwalMengajar!.MataPelajaran.Peminatan != Peminatan.Umum))
+        {
+            var daftarKeterampilanPeminatan = daftarKeterampilan.Where(r => r.JadwalMengajar!.MataPelajaran.Peminatan != Peminatan.Umum).ToList();
+
+            <tr>
+                <td colspan="5"><b>Kelompok B (Peminatan)</b></td>
+            </tr>
+
+            @for (int i = 0; i < daftarKeterampilanPeminatan.Count; i++)
+            {
+                var pengetahuan = daftarKeterampilanPeminatan[i];
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>@pengetahuan.JadwalMengajar!.MataPelajaran.Nama</td>
+                    <td style="text-align:center">@Model.NilaiAkhir(pengetahuan.JadwalMengajar).ToString("F0")</td>
+                    <td style="text-align:center">@pengetahuan.Predikat</td>
+                    <td>@pengetahuan.Deskripsi</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<h2 style="font-size:11px !important; margin-top:60px">C. Ekstrakulikuler</h2>
+<table>
+    <thead>
+        <tr>
+            <th width="25%">Kegiatan Ektrakulikuler</th>
+            <th>Keterangan</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < daftarEktrakulikuler.Count; i++)
+        {
+            var ektrakulikuler = daftarEktrakulikuler[i];
+            <tr>
+                <td>@(i + 1). @ektrakulikuler.Nama</td>
+                <td>@ektrakulikuler.Deskripsi</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2 style="font-size:11px !important; margin-top:60px">D. Ketidakhadiran</h2>
+<table style="width: 40% !important">
+    <thead>
+        <tr>
+            <th>Ketidakhadiran</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var jumlahSakit = @Model.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Sakit).Count();
+            var jumlahIjin  = @Model.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Ijin).Count();
+            var jumlahTanpaKeterangan = @Model.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Alpa).Count();
+        }
+        <tr>
+            <td style="padding-left:40px !important">Sakit <span style="display:inline-block;margin-left:138px"></span>: @(jumlahSakit == 0 ? "-" : jumlahSakit) hari</td>
+        </tr>
+        <tr>
+            <td style="padding-left:40px !important">Ijin <span style="display:inline-block;margin-left:145px"></span>: @(jumlahIjin == 0 ? "-" : jumlahIjin) hari</td>
+        </tr>
+        <tr>
+            <td style="padding-left:40px !important">Tanpa Keterangan <span style="display:inline-block;margin-left:80px"></span>: @(jumlahTanpaKeterangan == 0 ? "-" : jumlahTanpaKeterangan) hari</td>
+        </tr>
+    </tbody>
+</table>
+
+<div style="display:flex;justify-content:center;align-content:end;width:100%;font-size:11px;">
+    <div style="margin-right:auto">
+        <p>Mengetahui:</p>
+        <p>Orang Tua/Wali</p>
+        <p style="color:transparent">A</p>
+        <p style="color:transparent">A</p>
+        <p style="color:transparent">A</p>
+        <p style="color:transparent">A</p>
+        <hr style="color:black !important;border-width:0.5px;border-style:solid;width:110%" />
+    </div>
+    <div>
+        <p style="color:transparent">A</p>
+        <p>Wali Kelas</p>
+        <p style="color:transparent">A</p>
+        <p style="color:transparent">A</p>
+        <p style="color:transparent">A</p>
+        <p>@Model.Rombel.Wali.Nama</p>
+    </div>
+    <div style="margin-left:auto">
+        <p>Kupang, @TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, CultureInfos.TimeZoneInfo).ToString("d MMMM yyyy", CultureInfos.CI)</p>
+        <p>Kepala Sekolah</p>
+        <p style="color:transparent">A</p>
+        <p style="color:transparent">A</p>
+        <p style="color:transparent">A</p>
+        <p>@(kepalaSekolah?.Nama ?? "-")</p>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿@inject IWebHostEnvironment WebHostEnvironment
+
+@{
+    var logoFilePath = $"{WebHostEnvironment.WebRootPath}/images/logo_sekolah_transparent.png";
+    var base64String = $"data:image/png;base64,{Convert.ToBase64String(File.ReadAllBytes(logoFilePath))}";
+    Layout = null;
+}
+
+<style>
+    #headerLaporan {    
+        width:100%;
+        display:flex;
+        flex-direction:row;
+        justify-content:center;
+    }
+
+    #headerLaporan > img {
+        margin-right:10px
+    }
+
+    #skop {
+        font-family: 'Times New Roman' !important;
+        font-size: 11px !important;
+        text-align: center;
+        color: black !important;
+        margin-right:100px;
+    }
+</style>
+
+<div id="headerLaporan">
+    <img height="100" src="@base64String" />
+    <div id="skop">
+        <h2>YAYASAN PENYELENGGARA PENDIDIKAN PANDHEGA JAYA</h2>
+        <h1>SMA KRISTEN PANDHEGA JAYA</h1>
+        <p><i>Jln. Raya Tilong Dam Km 5, Desa Oelamasi, Kecamatan Kupang Tengah, Kabupaten Kupang</i></p>
+        <p><i>Tlp. 081238007377, Email : admin@@pandhegajaya.sch.id</i></p>
+        <hr style="color:black !important;border-width:1px;border-style:solid;"/>
+    </div>
+</div>

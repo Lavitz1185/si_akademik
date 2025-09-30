@@ -4,6 +4,7 @@ using SIAkademik.Domain.Authentication;
 using SIAkademik.Infrastructure;
 using SIAkademik.Web.Areas;
 using SIAkademik.Web.Authentication;
+using SIAkademik.Web.Services.PDFGenerator;
 using SIAkademik.Web.Services.Toastr;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +26,8 @@ builder.Services.AddScoped<IPasswordHasher<AppUser>, PasswordHasher<AppUser>>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<ISignInManager, SignInManager>();
 builder.Services.AddScoped<IToastrNotificationService, ToastrNotificationService>();
+builder.Services.AddRazorTemplating();
+builder.Services.AddSingleton<IPDFGeneratorService, PDFGeneratorService>();
 
 var app = builder.Build();
 

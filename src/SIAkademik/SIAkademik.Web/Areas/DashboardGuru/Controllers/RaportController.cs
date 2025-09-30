@@ -1,12 +1,14 @@
 ﻿using Humanizer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Razor.Templating.Core;
 using SIAkademik.Domain.Abstracts;
 using SIAkademik.Domain.Authentication;
 using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Web.Areas.DashboardGuru.Models.RaportModels;
 using SIAkademik.Web.Authentication;
+using SIAkademik.Web.Services.PDFGenerator;
 using SIAkademik.Web.Services.Toastr;
 
 namespace SIAkademik.Web.Areas.DashboardGuru.Controllers;
@@ -23,6 +25,8 @@ public class RaportController : Controller
     private readonly IJadwalMengajarRepository _jadwalMengajarRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IToastrNotificationService _toastrNotificationService;
+    private readonly IPDFGeneratorService _pDFGeneratorService;
+    private readonly IRazorTemplateEngine _razorTemplateEngine;
 
     public RaportController(
         IRombelRepository rombelRepository,
@@ -32,7 +36,9 @@ public class RaportController : Controller
         IRaportRepository raportRepository,
         IUnitOfWork unitOfWork,
         IJadwalMengajarRepository jadwalMengajarRepository,
-        IToastrNotificationService toastrNotificationService)
+        IToastrNotificationService toastrNotificationService,
+        IPDFGeneratorService pDFGeneratorService,
+        IRazorTemplateEngine razorTemplateEngine)
     {
         _rombelRepository = rombelRepository;
         _signInManager = signInManager;
@@ -42,6 +48,8 @@ public class RaportController : Controller
         _unitOfWork = unitOfWork;
         _jadwalMengajarRepository = jadwalMengajarRepository;
         _toastrNotificationService = toastrNotificationService;
+        _pDFGeneratorService = pDFGeneratorService;
+        _razorTemplateEngine = razorTemplateEngine;
     }
 
     public async Task<IActionResult> Index(int? idTahunAjaran = null, int? idRombel = null)
@@ -77,7 +85,7 @@ public class RaportController : Controller
         var siswa = await _siswaRepository.Get(idSiswa);
         if (siswa is null) return NotFound();
 
-        var anggotaRombel = rombel.DaftarAnggotaRombel.Where(a => a.Siswa == siswa).FirstOrDefault();
+        var anggotaRombel = rombel.DaftarAnggotaRombel.FirstOrDefault(a => a.Siswa == siswa);
         if (anggotaRombel is null) return BadRequest();
 
         var daftarRaport = await _raportRepository.GetAllBy(siswa.Id, rombel.Id);
@@ -131,7 +139,7 @@ public class RaportController : Controller
 
         if (rombel.Wali != pegawai) return BadRequest();
 
-        var anggotaRombel = rombel.DaftarAnggotaRombel.Where(a => a.Siswa == siswa);
+        var anggotaRombel = rombel.DaftarAnggotaRombel.FirstOrDefault(a => a.Siswa == siswa);
         if (anggotaRombel is null) return NotFound();
 
         return View(new TambahVM
@@ -364,5 +372,54 @@ public class RaportController : Controller
             _toastrNotificationService.AddSuccess("Hapus Berhasil!");
 
         return RedirectToAction(nameof(Detail), new { idSiswa, idRombel });
+    }
+
+    public async Task<IActionResult> Cetak(int idSiswa, int idRombel)
+    {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        var siswa = await _siswaRepository.Get(idSiswa);
+        if (siswa is null) return NotFound();
+
+        var rombel = await _rombelRepository.Get(idRombel);
+        if (rombel is null) return NotFound();
+
+        if (rombel.Wali != pegawai) return BadRequest();
+
+        var anggotaRombel = rombel.DaftarAnggotaRombel.FirstOrDefault(a => a.Siswa == siswa);
+        if (anggotaRombel is null) return NotFound();
+
+        return View(anggotaRombel);
+    }
+
+    public async Task<IActionResult> RaportPDF(int idSiswa, int idRombel, bool download = false)
+    {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        var siswa = await _siswaRepository.Get(idSiswa);
+        if (siswa is null) return NotFound();
+
+        var rombel = await _rombelRepository.Get(idRombel);
+        if (rombel is null) return NotFound();
+
+        if (rombel.Wali != pegawai) return BadRequest();
+
+        var anggotaRombel = rombel.DaftarAnggotaRombel.FirstOrDefault(a => a.Siswa == siswa);
+        if (anggotaRombel is null) return NotFound();
+
+        var html = await _razorTemplateEngine.RenderAsync("Areas/DashboardGuru/Views/Raport/_RaportPartial.cshtml", anggotaRombel);
+
+        var fileName = $"Raport_{siswa.Nama}({siswa.NISN})_{rombel.Kelas.Jenjang.Humanize()}" +
+            $"_{rombel.Kelas.TahunAjaran.Periode.Replace("/", "-")}" +
+            $"_{rombel.Kelas.TahunAjaran.Semester.Humanize()}";
+
+        var pdfBinary = await _pDFGeneratorService.GeneratePDF(html, fileName);
+
+        if (download)
+            return File(pdfBinary, "application/pdf", fileDownloadName: fileName);
+
+        return File(pdfBinary, "application/pdf");
     }
 }
