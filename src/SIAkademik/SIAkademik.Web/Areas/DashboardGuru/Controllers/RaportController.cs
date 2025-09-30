@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Humanizer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SIAkademik.Domain.Abstracts;
 using SIAkademik.Domain.Authentication;
@@ -6,6 +7,7 @@ using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Web.Areas.DashboardGuru.Models.RaportModels;
 using SIAkademik.Web.Authentication;
+using SIAkademik.Web.Services.Toastr;
 
 namespace SIAkademik.Web.Areas.DashboardGuru.Controllers;
 
@@ -18,7 +20,9 @@ public class RaportController : Controller
     private readonly ITahunAjaranRepository _tahunAjaranRepository;
     private readonly ISiswaRepository _siswaRepository;
     private readonly IRaportRepository _raportRepository;
+    private readonly IJadwalMengajarRepository _jadwalMengajarRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IToastrNotificationService _toastrNotificationService;
 
     public RaportController(
         IRombelRepository rombelRepository,
@@ -26,7 +30,9 @@ public class RaportController : Controller
         ITahunAjaranRepository tahunAjaranRepository,
         ISiswaRepository siswaRepository,
         IRaportRepository raportRepository,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        IJadwalMengajarRepository jadwalMengajarRepository,
+        IToastrNotificationService toastrNotificationService)
     {
         _rombelRepository = rombelRepository;
         _signInManager = signInManager;
@@ -34,6 +40,8 @@ public class RaportController : Controller
         _siswaRepository = siswaRepository;
         _raportRepository = raportRepository;
         _unitOfWork = unitOfWork;
+        _jadwalMengajarRepository = jadwalMengajarRepository;
+        _toastrNotificationService = toastrNotificationService;
     }
 
     public async Task<IActionResult> Index(int? idTahunAjaran = null, int? idRombel = null)
@@ -76,7 +84,7 @@ public class RaportController : Controller
 
         foreach (var jadwal in rombel.DaftarJadwalMengajar)
         {
-            if(!daftarRaport.Any(r => r.JadwalMengajar == jadwal))
+            if (!daftarRaport.Any(r => r.JadwalMengajar == jadwal))
             {
                 var raportPengetahuan = new Raport
                 {
@@ -107,6 +115,254 @@ public class RaportController : Controller
 
         daftarRaport = await _raportRepository.GetAllBy(siswa.Id, rombel.Id);
 
-        return View(new DetailVM { AnggotaRombel = anggotaRombel, DaftarRaport = daftarRaport});
+        return View(new DetailVM { AnggotaRombel = anggotaRombel, DaftarRaport = daftarRaport });
+    }
+
+    public async Task<IActionResult> Tambah(int idSiswa, int idRombel, KategoriNilaiRaport kategori)
+    {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        var siswa = await _siswaRepository.Get(idSiswa);
+        if (siswa is null) return NotFound();
+
+        var rombel = await _rombelRepository.Get(idRombel);
+        if (rombel is null) return NotFound();
+
+        if (rombel.Wali != pegawai) return BadRequest();
+
+        var anggotaRombel = rombel.DaftarAnggotaRombel.Where(a => a.Siswa == siswa);
+        if (anggotaRombel is null) return NotFound();
+
+        return View(new TambahVM
+        {
+            IdRombel = rombel.Id,
+            IdSiswa = siswa.Id,
+            Kategori = kategori,
+        });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Tambah(TambahVM vm)
+    {
+        if (!ModelState.IsValid) return View(vm);
+
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        var siswa = await _siswaRepository.Get(vm.IdSiswa);
+        if (siswa is null) return NotFound();
+
+        var rombel = await _rombelRepository.Get(vm.IdRombel);
+        if (rombel is null) return NotFound();
+
+        if (rombel.Wali != pegawai) return BadRequest();
+
+        var anggotaRombel = rombel.DaftarAnggotaRombel.FirstOrDefault(a => a.Siswa == siswa);
+        if (anggotaRombel is null) return NotFound();
+
+        if (vm.Kategori == KategoriNilaiRaport.Pengetahuan || vm.Kategori == KategoriNilaiRaport.Keterampilan)
+        {
+            if (vm.IdJadwalMengajar is null)
+            {
+                ModelState.AddModelError(nameof(TambahVM.IdJadwalMengajar), "Jadwal Mengajar harus diisi");
+                return View(vm);
+            }
+
+            var jadwalMengajar = await _jadwalMengajarRepository.Get(vm.IdJadwalMengajar.Value);
+            if (jadwalMengajar is null)
+            {
+                ModelState.AddModelError(nameof(TambahVM.IdJadwalMengajar), $"Jadwal dengan Id '{vm.IdJadwalMengajar}' tidak ditemukan!");
+                return View(vm);
+            }
+
+            if (jadwalMengajar.Rombel != anggotaRombel.Rombel)
+            {
+                ModelState.AddModelError(nameof(TambahVM.IdJadwalMengajar), "Jadwal salah!");
+                return View(vm);
+            }
+
+            if (anggotaRombel.DaftarRaport.Any(r => r.KategoriNilai == vm.Kategori && r.JadwalMengajar == jadwalMengajar))
+            {
+                ModelState.AddModelError(nameof(TambahVM.IdJadwalMengajar),
+                    $"Data Raport kategori {vm.Kategori.Humanize()} dengan mata pelajaran {jadwalMengajar.MataPelajaran.Nama} sudah ada!");
+
+                return View(vm);
+            }
+
+            var raport = new Raport
+            {
+                Nama = jadwalMengajar.MataPelajaran.Nama,
+                Deskripsi = vm.Dekripsi,
+                KategoriNilai = vm.Kategori,
+                Predikat = vm.Predikat,
+                JadwalMengajar = jadwalMengajar,
+                AnggotaRombel = anggotaRombel
+            };
+
+            _raportRepository.Add(raport);
+        }
+        else
+        {
+            if (vm.Nama is null)
+            {
+                ModelState.AddModelError(nameof(TambahVM.Nama), "Nama harus diisi!");
+                return View(vm);
+            }
+
+            if (anggotaRombel.DaftarRaport.Any(r => r.Nama.ToLower() == vm.Nama.ToLower()))
+            {
+                ModelState.AddModelError(nameof(TambahVM.Nama), $"Data raport dengan nama '{vm.Nama}' sudah ada");
+                return View(vm);
+            }
+
+            var raport = new Raport
+            {
+                Nama = vm.Nama,
+                Deskripsi = vm.Dekripsi,
+                AnggotaRombel = anggotaRombel,
+                KategoriNilai = vm.Kategori,
+                Predikat = vm.Predikat
+            };
+
+            _raportRepository.Add(raport);
+        }
+
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsFailure)
+        {
+            ModelState.AddModelError(string.Empty, "Simpan Gagal!");
+            return View(vm);
+        }
+
+        _toastrNotificationService.AddSuccess("Simpan Berhasil!");
+
+        return RedirectToAction(nameof(Detail), new { idSiswa = vm.IdSiswa, idRombel = vm.IdRombel });
+    }
+
+    public async Task<IActionResult> Edit(int id)
+    {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        var raport = await _raportRepository.Get(id);
+        if (raport is null) return NotFound();
+
+        if (!pegawai.DaftarRombelWali.Contains(raport.AnggotaRombel.Rombel))
+            return BadRequest();
+
+        return View(new EditVM
+        {
+            Id = raport.Id,
+            Nama = raport.Nama,
+            Kategori = raport.KategoriNilai,
+            Dekripsi = raport.Deskripsi,
+            Predikat = raport.Predikat,
+            IdJadwalMengajar = raport.JadwalMengajar?.Id
+        });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(EditVM vm)
+    {
+        if (!ModelState.IsValid) return View(vm);
+
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        var raport = await _raportRepository.Get(vm.Id);
+        if (raport is null) return NotFound();
+
+        if (!pegawai.DaftarRombelWali.Contains(raport.AnggotaRombel.Rombel))
+            return BadRequest();
+
+        if (vm.Kategori == KategoriNilaiRaport.Pengetahuan || vm.Kategori == KategoriNilaiRaport.Keterampilan)
+        {
+            if (vm.IdJadwalMengajar is null)
+            {
+                ModelState.AddModelError(nameof(EditVM.IdJadwalMengajar), "JadwalMengajar Harus Diisi!");
+                return View(vm);
+            }
+
+            var jadwalMengajar = await _jadwalMengajarRepository.Get(vm.IdJadwalMengajar.Value);
+            if (jadwalMengajar is null)
+            {
+                ModelState.AddModelError(nameof(EditVM.IdJadwalMengajar), $"Jadwal dengan Id '{vm.IdJadwalMengajar}' tidak ditemukan");
+                return View(vm);
+            }
+
+            if (jadwalMengajar.Rombel != raport.AnggotaRombel.Rombel)
+            {
+                ModelState.AddModelError(nameof(EditVM.IdJadwalMengajar), "Jadwal tidak benar");
+                return View(vm);
+            }
+
+            if (raport.AnggotaRombel.DaftarRaport.Any(r => r != raport && r.JadwalMengajar == jadwalMengajar)) 
+            {
+                ModelState.AddModelError(nameof(TambahVM.IdJadwalMengajar),
+                    $"Data Raport kategori {vm.Kategori.Humanize()} dengan mata pelajaran {jadwalMengajar.MataPelajaran.Nama} sudah ada!");
+
+                return View(vm);
+            }
+
+            raport.Nama = jadwalMengajar.MataPelajaran.Nama;
+            raport.JadwalMengajar = jadwalMengajar;
+            raport.Deskripsi = vm.Dekripsi;
+            raport.Predikat = vm.Predikat;
+        }
+        else
+        {
+            if (vm.Nama is null)
+            {
+                ModelState.AddModelError(nameof(TambahVM.Nama), "Nama harus diisi!");
+                return View(vm);
+            }
+
+            if (raport.AnggotaRombel.DaftarRaport.Any(r => r != raport && r.Nama.ToLower() == vm.Nama.ToLower()))
+            {
+                ModelState.AddModelError(nameof(TambahVM.Nama), $"Data raport dengan nama '{vm.Nama}' sudah ada");
+                return View(vm);
+            }
+
+            raport.Nama = vm.Nama;
+            raport.Deskripsi = vm.Dekripsi;
+            raport.Predikat = vm.Predikat;
+        }
+
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsFailure)
+        {
+            ModelState.AddModelError(string.Empty, "Simpan Gagal!");
+            return View(vm);
+        }
+
+        _toastrNotificationService.AddSuccess("Simpan Berhasil!");
+
+        return RedirectToAction(nameof(Detail), new { idSiswa = raport.AnggotaRombel.Siswa.Id, idRombel = raport.AnggotaRombel.Rombel.Id });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Hapus(int id)
+    {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        var raport = await _raportRepository.Get(id);
+        if (raport is null) return NotFound();
+
+        if (!pegawai.DaftarRombelWali.Contains(raport.AnggotaRombel.Rombel))
+            return BadRequest();
+
+        var idSiswa = raport.AnggotaRombel.Siswa.Id;
+        var idRombel = raport.AnggotaRombel.Rombel.Id;
+
+        _raportRepository.Delete(raport);
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsFailure)
+            _toastrNotificationService.AddError("Hapus Gagal!");
+        else
+            _toastrNotificationService.AddSuccess("Hapus Berhasil!");
+
+        return RedirectToAction(nameof(Detail), new { idSiswa, idRombel });
     }
 }

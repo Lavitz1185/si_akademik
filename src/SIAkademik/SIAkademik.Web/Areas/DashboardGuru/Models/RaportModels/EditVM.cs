@@ -3,15 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SIAkademik.Web.Areas.DashboardGuru.Models.RaportModels;
 
-public class TambahVM
+public class EditVM
 {
-    [Display(Name = "Siswa")]
+    [Display(Name = "Id")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public required int IdSiswa { get; set; }
-
-    [Display(Name = "Rombel")]
-    [Required(ErrorMessage = "{0} harus diisi")]
-    public required int IdRombel { get; set; }
+    public required int Id { get; set; }
 
     [Display(Name = "Kategori")]
     [Required(ErrorMessage = "{0} harus diisi")]
@@ -19,14 +15,14 @@ public class TambahVM
 
     [Display(Name = "Predikat")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public string Predikat { get; set; } = string.Empty;
+    public required string Predikat { get; set; }
 
     [Display(Name = "Keterangan")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public string Dekripsi { get; set; } = string.Empty;
+    public required string Dekripsi { get; set; }
 
     [Display(Name = "Nama")]
-    public string? Nama { get; set; }
+    public required string Nama { get; set; }
 
     [Display(Name = "Jadwal Mengajar")]
     public int? IdJadwalMengajar { get; set; }
