@@ -28,13 +28,13 @@ internal class TahunAjaranRepository : ITahunAjaranRepository
         .TblTahunAjaran
         .Include(t => t.DaftarKelas).ThenInclude(k => k.DaftarRombel)
         .Include(t => t.DaftarKelas).ThenInclude(k => k.Peminatan)
-        .OrderBy(t => t.TahunPelaksaan).ThenBy(t => t.Semester)
+        .OrderBy(t => t.Tahun).ThenBy(t => t.Semester)
         .ToListAsync();
 
     public async Task<TahunAjaran?> GetNewest() => await _appDbContext
         .TblTahunAjaran
         .Include(t => t.DaftarKelas).ThenInclude(k => k.DaftarRombel).ThenInclude(r => r.DaftarAnggotaRombel)
         .Include(t => t.DaftarKelas).ThenInclude(k => k.Peminatan)
-        .OrderBy(t => t.TahunPelaksaan).ThenBy(t => t.Semester)
+        .OrderBy(t => t.Tahun).ThenBy(t => t.Semester)
         .LastOrDefaultAsync();
 }

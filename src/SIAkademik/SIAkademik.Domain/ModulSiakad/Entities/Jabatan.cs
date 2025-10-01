@@ -10,3 +10,8 @@ public class Jabatan : Entity<int>
 
     public List<Pegawai> DaftarPegawai { get; set; } = [];
 }
+
+public static class JabatanKhusus
+{
+    public const string KepalaSekolah = "Kepala Sekolah";
+}

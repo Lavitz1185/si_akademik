@@ -2,7 +2,7 @@
 
 public enum Hari
 {
-    Senin, Selasa, Rabu, Kamis, Jumat, Sabtu, Minggu
+    Senin, Selasa, Rabu, Kamis, Jumat
 }
 
 public static class HariExtension
@@ -16,8 +16,6 @@ public static class HariExtension
             case Hari.Rabu: return DayOfWeek.Wednesday;
             case Hari.Kamis: return DayOfWeek.Thursday;
             case Hari.Jumat: return DayOfWeek.Friday;
-            case Hari.Sabtu: return DayOfWeek.Saturday;
-            case Hari.Minggu: return DayOfWeek.Sunday;
             default: throw new Exception("Invalid hari");
         }
     }

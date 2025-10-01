@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SIAkademik.Infrastructure.Database;
@@ -12,9 +13,11 @@ using SIAkademik.Infrastructure.Database;
 namespace SIAkademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251001060222_UbahTahunAjaran")]
+    partial class UbahTahunAjaran
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,76 +71,6 @@ namespace SIAkademik.Infrastructure.Migrations
                             PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
                             Role = "Siswa",
                             UserName = "0044710570"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
-                            Role = "GURU",
-                            UserName = "johanis@pandhegajaya.sch.id"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
-                            Role = "GURU",
-                            UserName = "jeheskia@pandhegajaya.sch.id"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
-                            Role = "GURU",
-                            UserName = "umbujonas22@gmail.com"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
-                            Role = "GURU",
-                            UserName = "nerlanemu@pandhegajaya.sch.id"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
-                            Role = "GURU",
-                            UserName = "yefrykuafeu@gmail.com"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
-                            Role = "GURU",
-                            UserName = "landoseran99@gmail.com"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
-                            Role = "GURU",
-                            UserName = "ellapandie@gmail.com"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
-                            Role = "GURU",
-                            UserName = "lindajanitaa@gmail.com"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
-                            Role = "GURU",
-                            UserName = "sofiablegur14@gmail.com"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
-                            Role = "GURU",
-                            UserName = "putrolas@gmail.com"
                         });
                 });
 
@@ -330,6 +263,22 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 6,
+                            Hari = 5,
+                            JadwalMengajarId = 1,
+                            JamAkhir = new TimeOnly(12, 0, 0),
+                            JamMulai = new TimeOnly(7, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Hari = 6,
+                            JadwalMengajarId = 1,
+                            JamAkhir = new TimeOnly(12, 0, 0),
+                            JamMulai = new TimeOnly(7, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 8,
                             Hari = 0,
                             JadwalMengajarId = 2,
                             JamAkhir = new TimeOnly(16, 0, 0),
@@ -337,7 +286,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = 7,
+                            Id = 9,
                             Hari = 1,
                             JadwalMengajarId = 2,
                             JamAkhir = new TimeOnly(16, 0, 0),
@@ -345,7 +294,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = 8,
+                            Id = 10,
                             Hari = 2,
                             JadwalMengajarId = 2,
                             JamAkhir = new TimeOnly(16, 0, 0),
@@ -353,7 +302,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = 9,
+                            Id = 11,
                             Hari = 3,
                             JadwalMengajarId = 2,
                             JamAkhir = new TimeOnly(16, 0, 0),
@@ -361,8 +310,24 @@ namespace SIAkademik.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = 10,
+                            Id = 12,
                             Hari = 4,
+                            JadwalMengajarId = 2,
+                            JamAkhir = new TimeOnly(16, 0, 0),
+                            JamMulai = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Hari = 5,
+                            JadwalMengajarId = 2,
+                            JamAkhir = new TimeOnly(16, 0, 0),
+                            JamMulai = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Hari = 6,
                             JadwalMengajarId = 2,
                             JamAkhir = new TimeOnly(16, 0, 0),
                             JamMulai = new TimeOnly(13, 0, 0)
@@ -394,84 +359,6 @@ namespace SIAkademik.Infrastructure.Migrations
                             Id = 1,
                             Jenis = 0,
                             Nama = "Guru Matematika"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Jenis = 0,
-                            Nama = "Kepala Sekolah"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Jenis = 0,
-                            Nama = "Wakil Kepala Bidang Kesiswaan"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Jenis = 1,
-                            Nama = "Kepala Asrama"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Jenis = 0,
-                            Nama = "Guru Honor Olahraga"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Jenis = 0,
-                            Nama = "Wakil Kepala Bidang Kurikulum"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Jenis = 1,
-                            Nama = "Pembina OSIS"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Jenis = 0,
-                            Nama = "Guru Honor Geografi"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Jenis = 1,
-                            Nama = "Karyawan Pengadaan dan Keuangan"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Jenis = 0,
-                            Nama = "Guru Honor Fisika"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Jenis = 0,
-                            Nama = "Guru Honor Bahasa Indonesia"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Jenis = 0,
-                            Nama = "Guru English Center"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Jenis = 0,
-                            Nama = "Guru PPKN"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            Jenis = 0,
-                            Nama = "Guru Biologi"
                         });
                 });
 
@@ -764,244 +651,6 @@ namespace SIAkademik.Infrastructure.Migrations
                             TanggalLahir = new DateOnly(2001, 7, 27),
                             TanggalMasuk = new DateOnly(2024, 7, 1),
                             TempatLahir = "Noelbaki"
-                        },
-                        new
-                        {
-                            Id = "PJ14-004",
-                            Agama = 0,
-                            AppUserId = 4,
-                            DivisiId = 1,
-                            Email = "johanis@pandhegajaya.sch.id",
-                            GolonganDarah = 0,
-                            JabatanId = 2,
-                            JenisKelamin = 0,
-                            NIK = "5371041807900001",
-                            Nama = "Johanis Oenunu, S.Si., M.M",
-                            NamaInstagram = "jo_oenunu1807",
-                            NoHP = "081353624462",
-                            NoRekening = "3140785155 (BCA)",
-                            StatusPerkawinan = 1,
-                            TanggalLahir = new DateOnly(1990, 7, 18),
-                            TanggalMasuk = new DateOnly(2014, 7, 1),
-                            TempatLahir = "Naikliu"
-                        },
-                        new
-                        {
-                            Id = "PJ14-005",
-                            Agama = 0,
-                            AppUserId = 5,
-                            DivisiId = 1,
-                            Email = "jeheskia@pandhegajaya.sch.id",
-                            GolonganDarah = 0,
-                            JabatanId = 3,
-                            JenisKelamin = 0,
-                            NIK = "5301081205780003",
-                            Nama = "Jeheskia Ngadirun, S.Th",
-                            NamaInstagram = "",
-                            NoHP = "082341108745",
-                            NoRekening = "7830-01-008243-53-7 (BRI)",
-                            StatusPerkawinan = 1,
-                            TanggalLahir = new DateOnly(1978, 5, 12),
-                            TanggalMasuk = new DateOnly(2014, 7, 1),
-                            TempatLahir = "Lampung"
-                        },
-                        new
-                        {
-                            Id = "PJ18-012",
-                            Agama = 0,
-                            DivisiId = 1,
-                            Email = "etymissa0703@gmail.com",
-                            GolonganDarah = 0,
-                            JabatanId = 4,
-                            JenisKelamin = 1,
-                            NIK = "5371044703890005",
-                            Nama = "Ety Jelly Missa, S.Pd",
-                            NamaInstagram = "etyjelly",
-                            NoHP = "085238664779",
-                            NoRekening = "2502791721 (BANK NTT)",
-                            StatusPerkawinan = 1,
-                            TanggalLahir = new DateOnly(1989, 3, 7),
-                            TanggalMasuk = new DateOnly(2018, 7, 1),
-                            TempatLahir = "Kimadale"
-                        },
-                        new
-                        {
-                            Id = "PJ18-013",
-                            Agama = 0,
-                            AppUserId = 6,
-                            DivisiId = 1,
-                            Email = "umbujonas22@gmail.com",
-                            GolonganDarah = 0,
-                            JabatanId = 5,
-                            JenisKelamin = 0,
-                            NIK = "5311042206910004",
-                            Nama = "Yonas Jangga Ratu, S.Pd., Gr",
-                            NamaInstagram = "umbu_joven",
-                            NoHP = "082339282852",
-                            NoRekening = "783001012234538 (BRI)",
-                            StatusPerkawinan = 1,
-                            TanggalLahir = new DateOnly(1991, 6, 22),
-                            TanggalMasuk = new DateOnly(2018, 7, 1),
-                            TempatLahir = "Makamenggit"
-                        },
-                        new
-                        {
-                            Id = "PJ19-016",
-                            Agama = 0,
-                            AppUserId = 7,
-                            DivisiId = 1,
-                            Email = "nerlanemu@pandhegajaya.sch.id",
-                            GolonganDarah = 0,
-                            JabatanId = 6,
-                            JenisKelamin = 1,
-                            NIK = "5311046311990001",
-                            Nama = "Nerlan Konga Emu, S.Pd",
-                            NamaInstagram = "nerlanemu",
-                            NoHP = "085338387302",
-                            NoRekening = "2176-01-013590-50-0 (BRI)",
-                            StatusPerkawinan = 1,
-                            TanggalLahir = new DateOnly(1999, 11, 19),
-                            TanggalMasuk = new DateOnly(2019, 7, 1),
-                            TempatLahir = "Barakaraha"
-                        },
-                        new
-                        {
-                            Id = "PJ19-017",
-                            Agama = 0,
-                            AppUserId = 8,
-                            DivisiId = 1,
-                            Email = "yefrykuafeu@gmail.com",
-                            GolonganDarah = 0,
-                            JabatanId = 8,
-                            JenisKelamin = 0,
-                            NIK = "5302271707910002",
-                            Nama = "Yefry O. M. Kuafeu, S.Pd., M.Sc., Gr",
-                            NamaInstagram = "Yefry_kuafeu",
-                            NoHP = "081220042511",
-                            NoRekening = "0245-01-087347-50-8 (BRI)",
-                            StatusPerkawinan = 1,
-                            TanggalLahir = new DateOnly(1991, 7, 17),
-                            TanggalMasuk = new DateOnly(2022, 7, 1),
-                            TempatLahir = "Oeleu"
-                        },
-                        new
-                        {
-                            Id = "PJ22-026",
-                            Agama = 0,
-                            DivisiId = 1,
-                            Email = "sndymeha55@gmail.com",
-                            GolonganDarah = 0,
-                            JabatanId = 9,
-                            JenisKelamin = 1,
-                            NIK = "5311034607030002",
-                            Nama = "Sindi Pala Meha",
-                            NamaInstagram = "sndy_meha",
-                            NoHP = "083147694407",
-                            NoRekening = "0245-01-087347-50-8 (BRI)",
-                            StatusPerkawinan = 1,
-                            TanggalLahir = new DateOnly(2003, 7, 6),
-                            TanggalMasuk = new DateOnly(2022, 7, 1),
-                            TempatLahir = "Lewa"
-                        },
-                        new
-                        {
-                            Id = "PJ23-030",
-                            Agama = 0,
-                            AppUserId = 9,
-                            DivisiId = 1,
-                            Email = "landoseran99@gmail.com",
-                            GolonganDarah = 0,
-                            JabatanId = 10,
-                            JenisKelamin = 0,
-                            NIK = "5301081804990001",
-                            Nama = "Aprilando Mindeas Dibara Seran, S.Si",
-                            NamaInstagram = "landoseran04",
-                            NoHP = "082117516199",
-                            NoRekening = "783001019682538",
-                            StatusPerkawinan = 1,
-                            TanggalLahir = new DateOnly(1999, 4, 18),
-                            TanggalMasuk = new DateOnly(2023, 7, 1),
-                            TempatLahir = "Kupang"
-                        },
-                        new
-                        {
-                            Id = "PJ23-031",
-                            Agama = 0,
-                            AppUserId = 10,
-                            DivisiId = 1,
-                            Email = "ellapandie@gmail.com",
-                            GolonganDarah = 0,
-                            JabatanId = 11,
-                            JenisKelamin = 1,
-                            NIK = "5371036009980003",
-                            Nama = "Erika Vera Pandie, S.Pd",
-                            NamaInstagram = "ellaapandie",
-                            NoHP = "081339600327",
-                            NoRekening = "348801040709538",
-                            StatusPerkawinan = 1,
-                            TanggalLahir = new DateOnly(1998, 9, 20),
-                            TanggalMasuk = new DateOnly(2023, 7, 1),
-                            TempatLahir = "Kupang"
-                        },
-                        new
-                        {
-                            Id = "PJ24-002",
-                            Agama = 0,
-                            AppUserId = 11,
-                            DivisiId = 1,
-                            Email = "lindajanitaa@gmail.com",
-                            GolonganDarah = 0,
-                            JabatanId = 12,
-                            JenisKelamin = 1,
-                            NIK = "5314034401010002",
-                            Nama = "Linda Janita Thine, S.Pd",
-                            NamaInstagram = "lnd8jnt",
-                            NoHP = "082132253251",
-                            NoRekening = "361801040770534 (BRI)",
-                            StatusPerkawinan = 1,
-                            TanggalLahir = new DateOnly(2001, 1, 20),
-                            TanggalMasuk = new DateOnly(2024, 7, 1),
-                            TempatLahir = "Oebelo"
-                        },
-                        new
-                        {
-                            Id = "PJ24-004",
-                            Agama = 0,
-                            AppUserId = 12,
-                            DivisiId = 1,
-                            Email = "sofiablegur14@gmail.com",
-                            GolonganDarah = 0,
-                            JabatanId = 13,
-                            JenisKelamin = 1,
-                            NIK = "5305015406990001",
-                            Nama = "Sofia Blegur, S.H",
-                            NamaInstagram = "sofia_blegur",
-                            NoHP = "081239270571",
-                            NoRekening = "786201008576539 (BRI)",
-                            StatusPerkawinan = 1,
-                            TanggalLahir = new DateOnly(1999, 6, 14),
-                            TanggalMasuk = new DateOnly(2024, 7, 1),
-                            TempatLahir = "Lospalos"
-                        },
-                        new
-                        {
-                            Id = "PJ24-005",
-                            Agama = 1,
-                            AppUserId = 13,
-                            DivisiId = 1,
-                            Email = "putrolas@gmail.com",
-                            GolonganDarah = 0,
-                            JabatanId = 14,
-                            JenisKelamin = 0,
-                            NIK = "5310130609950001",
-                            Nama = "Paulinus Ferino, S.Pd",
-                            NamaInstagram = "",
-                            NoHP = "082235773372",
-                            NoRekening = "467701038760536 (BRI)",
-                            StatusPerkawinan = 1,
-                            TanggalLahir = new DateOnly(1995, 8, 31),
-                            TanggalMasuk = new DateOnly(2024, 11, 6),
-                            TempatLahir = "Watu Wogel"
                         });
                 });
 

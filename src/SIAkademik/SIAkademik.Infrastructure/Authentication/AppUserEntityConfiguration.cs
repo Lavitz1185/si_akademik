@@ -36,6 +36,76 @@ internal class AppUserEntityConfiguration : IEntityTypeConfiguration<AppUser>
                 UserName = "0044710570",
                 PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
                 Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 4,
+                UserName = "johanis@pandhegajaya.sch.id",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Guru
+            },
+            new
+            {
+                Id = 5,
+                UserName = "jeheskia@pandhegajaya.sch.id",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Guru
+            },
+            new
+            {
+                Id = 6,
+                UserName = "umbujonas22@gmail.com",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Guru
+            },
+            new
+            {
+                Id = 7,
+                UserName = "nerlanemu@pandhegajaya.sch.id",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Guru
+            },
+            new
+            {
+                Id = 8,
+                UserName = "yefrykuafeu@gmail.com",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Guru
+            },
+            new
+            {
+                Id = 9,
+                UserName = "landoseran99@gmail.com",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Guru
+            },
+            new
+            {
+                Id = 10,
+                UserName = "ellapandie@gmail.com",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Guru
+            },
+            new
+            {
+                Id = 11,
+                UserName = "lindajanitaa@gmail.com",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Guru
+            },
+            new
+            {
+                Id = 12,
+                UserName = "sofiablegur14@gmail.com",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Guru
+            },
+            new
+            {
+                Id = 13,
+                UserName = "putrolas@gmail.com",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Guru
             }
         );
     }

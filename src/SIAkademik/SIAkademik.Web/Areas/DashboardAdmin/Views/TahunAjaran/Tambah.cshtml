@@ -28,21 +28,9 @@
                         <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
 
                         <div class="form-group">
-                            <label asp-for="@Model.Tahun1"></label>
-                            <div class="d-flex">
-                                <input asp-for="@Model.Tahun1" type="number" class="form-control" placeholder="Contoh: 2024"/>
-                                <div style="font-size: 18px;" class="mr-3 ml-3 align-content-center">/</div>
-                                <input asp-for="@Model.Tahun2" type="number" class="form-control" placeholder="Contoh: 2025" />
-                            </div>
-                            
-                            <span asp-validation-for="@Model.Tahun1"></span>
-                            <span asp-validation-for="@Model.Tahun2"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for="@Model.TahunPelaksanaan"></label>
-                            <input asp-for="@Model.TahunPelaksanaan" type="number" class="form-control" />
-                            <span asp-validation-for="@Model.TahunPelaksanaan"></span>
+                            <label asp-for="@Model.Tahun"></label>
+                            <input asp-for="@Model.Tahun" type="number" class="form-control" />
+                            <span asp-validation-for="@Model.Tahun"></span>
                         </div>
 
                         <div class="form-group">

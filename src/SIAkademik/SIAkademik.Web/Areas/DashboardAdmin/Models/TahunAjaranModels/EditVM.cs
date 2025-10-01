@@ -9,17 +9,9 @@ public class EditVM
     [Required(ErrorMessage = "{0} harus diisi")]
     public required int Id { get; init; }
 
-    [Display(Name = "Periode")]
+    [Display(Name = "Tahun")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public required int Tahun1 { get; set; }
-
-    [Display(Name = "Periode")]
-    [Required(ErrorMessage = "{0} harus diisi")]
-    public required int Tahun2 { get; set; }
-
-    [Display(Name = "Tahun Pelaksanaan")]
-    [Required(ErrorMessage = "{0} harus diisi")]
-    public required int TahunPelaksanaan { get; set; }
+    public required int Tahun { get; set; }
 
     [Display(Name = "Semetser")]
     [Required(ErrorMessage = "{0} harus diisi")]

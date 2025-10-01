@@ -21,7 +21,7 @@
         .Where(r => r.KategoriNilai == KategoriNilaiRaport.Ekstrakulikuler)
         .ToList();
 
-    var kepalaSekolah = (await PegawaiRepository.GetAll()).FirstOrDefault(p => p.Jabatan.Nama.ToLower() == "kepala sekolah");
+    var kepalaSekolah = (await PegawaiRepository.GetAll()).FirstOrDefault(p => p.Jabatan.Nama.ToLower() == JabatanKhusus.KepalaSekolah.ToLower());
 }
 
 <style>

@@ -6,6 +6,7 @@ public interface IPegawaiRepository
 {
     Task<Pegawai?> Get(string nip);
     Task<List<Pegawai>> GetAll();
+    Task<bool> IsExistByEmail(string email, string? nip = null);
 
     void Add(Pegawai pegawai);
     void Delete(Pegawai pegawai);

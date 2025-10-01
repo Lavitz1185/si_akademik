@@ -39,10 +39,7 @@ public class TahunAjaranController : Controller
         return View(daftarTahunAjaran);
     }
 
-    public IActionResult Tambah()
-    {
-        return View(new TambahVM());
-    }
+    public IActionResult Tambah() => View(new TambahVM());
 
     [HttpPost]
     public async Task<IActionResult> Tambah(TambahVM vm)
@@ -51,8 +48,7 @@ public class TahunAjaranController : Controller
 
         var tahunAjaran = new TahunAjaran
         {
-            Periode = $"{vm.Tahun1}/{vm.Tahun2}",
-            TahunPelaksaan = vm.TahunPelaksanaan,
+            Tahun = vm.Tahun,
             Semester = vm.Semester,
             TanggalMulai = vm.TanggalMulai,
             TanggalSelesai = vm.TanggalSelesai
@@ -80,9 +76,7 @@ public class TahunAjaranController : Controller
         return View(new EditVM
         {
             Id = id,
-            Tahun1 = int.Parse(tahunAjaran.Periode.Split("/")[0]),
-            Tahun2 = int.Parse(tahunAjaran.Periode.Split("/")[1]),
-            TahunPelaksanaan = tahunAjaran.TahunPelaksaan,
+            Tahun = tahunAjaran.Tahun,
             Semester = tahunAjaran.Semester,
             TanggalMulai = tahunAjaran.TanggalMulai,
             TanggalSelesai = tahunAjaran.TanggalSelesai
@@ -97,8 +91,7 @@ public class TahunAjaranController : Controller
         var tahunAjaran = await _tahunAjaranRepository.Get(vm.Id);
         if (tahunAjaran is null) return View(vm);
 
-        tahunAjaran.Periode = $"{vm.Tahun1}/{vm.Tahun2}";
-        tahunAjaran.TahunPelaksaan = vm.TahunPelaksanaan;
+        tahunAjaran.Tahun = vm.Tahun;
         tahunAjaran.Semester = vm.Semester;
         tahunAjaran.TanggalMulai = vm.TanggalMulai;
         tahunAjaran.TanggalSelesai = vm.TanggalSelesai;

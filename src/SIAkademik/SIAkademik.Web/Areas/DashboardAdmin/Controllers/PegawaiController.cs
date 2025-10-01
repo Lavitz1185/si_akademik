@@ -59,10 +59,7 @@ public class PegawaiController : Controller
         return View(pegawai);
     }
 
-    public IActionResult Tambah()
-    {
-        return View(new TambahVM());
-    }
+    public IActionResult Tambah() => View(new TambahVM());
 
     [HttpPost]
     public async Task<IActionResult> Tambah(TambahVM vm)
@@ -83,7 +80,7 @@ public class PegawaiController : Controller
             return View(vm);
         }
 
-        if((await _appUserRepository.GetByUserName(vm.Email)) is not null)
+        if(await _pegawaiRepository.IsExistByEmail(vm.Email))
         {
             ModelState.AddModelError(nameof(TambahVM.Email), $"Email '{vm.Email}' sudah digunakan! Gunakan email lain.");
             return View(vm);
@@ -221,34 +218,33 @@ public class PegawaiController : Controller
         var noHP = NoHP.Create(vm.NoHP);
         if (noHP.IsFailure)
         {
-            ModelState.AddModelError(nameof(TambahVM.NoHP), noHP.Error.Message);
+            ModelState.AddModelError(nameof(EditVM.NoHP), noHP.Error.Message);
             return View(vm);
         }
 
-        var duplicateEmail = await _appUserRepository.GetByUserName(vm.Email);
-        if (duplicateEmail is not null && duplicateEmail.Id != pegawai.Account.Id)
+        if (await _pegawaiRepository.IsExistByEmail(vm.Email, pegawai.Id))
         {
-            ModelState.AddModelError(nameof(TambahVM.Email), $"Email '{vm.Email}' sudah digunakan! Gunakan email lain.");
+            ModelState.AddModelError(nameof(EditVM.Email), $"Email '{vm.Email}' sudah digunakan! Gunakan email lain.");
             return View(vm);
         }
 
         var jabatan = await _jabatanRepository.Get(vm.JabatanId);
         if (jabatan is null)
         {
-            ModelState.AddModelError(nameof(TambahVM.JabatanId), $"Jabatan dengan Id '{vm.JabatanId}' tidak ditemukan");
+            ModelState.AddModelError(nameof(EditVM.JabatanId), $"Jabatan dengan Id '{vm.JabatanId}' tidak ditemukan");
             return View(vm);
         }
 
         if (jabatan.Jenis != JenisJabatan.Guru && vm.Password is not null)
         {
-            ModelState.AddModelError(nameof(TambahVM.Password), $"Password hanya untuk Guru");
+            ModelState.AddModelError(nameof(EditVM.Password), $"Password hanya untuk Guru");
             return View(vm);
         }
 
         var divisi = await _divisiRepository.Get(vm.DivisiId);
         if (divisi is null)
         {
-            ModelState.AddModelError(nameof(TambahVM.DivisiId), $"Divisi dengan Id '{vm.DivisiId}' tidak ditemukan");
+            ModelState.AddModelError(nameof(EditVM.DivisiId), $"Divisi dengan Id '{vm.DivisiId}' tidak ditemukan");
             return View(vm);
         }
 

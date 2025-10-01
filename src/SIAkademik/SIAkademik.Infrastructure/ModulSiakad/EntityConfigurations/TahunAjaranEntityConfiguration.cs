@@ -15,18 +15,16 @@ internal class TahunAjaranEntityConfiguration : IEntityTypeConfiguration<TahunAj
             new TahunAjaran
             {
                 Id = 1,
-                Periode = "2024/2025",
-                Semester = Semester.Ganjil,
-                TahunPelaksaan = 2025,
+                Semester = Semester.Genap,
+                Tahun = 2024,
                 TanggalMulai = new DateOnly(2025, 01, 01),
                 TanggalSelesai = new DateOnly(2025, 07, 31)
             },
             new TahunAjaran
             {
                 Id = 2,
-                Periode = "2024/2025",
-                Semester = Semester.Genap,
-                TahunPelaksaan = 2025,
+                Semester = Semester.Ganjil,
+                Tahun = 2025,
                 TanggalMulai = new DateOnly(2025, 08, 01),
                 TanggalSelesai = new DateOnly(2025, 12, 31)
             }

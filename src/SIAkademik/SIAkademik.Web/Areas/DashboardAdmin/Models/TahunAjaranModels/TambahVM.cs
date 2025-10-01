@@ -5,17 +5,9 @@ namespace SIAkademik.Web.Areas.DashboardAdmin.Models.TahunAjaranModels;
 
 public class TambahVM
 {
-    [Display(Name = "Periode")]
+    [Display(Name = "Tahun")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public int Tahun1 { get; set; }
-
-    [Display(Name = "Periode")]
-    [Required(ErrorMessage = "{0} harus diisi")]
-    public int Tahun2 { get; set; }
-
-    [Display(Name = "Tahun Pelaksanaan")]
-    [Required(ErrorMessage = "{0} harus diisi")]
-    public int TahunPelaksanaan { get; set; }
+    public int Tahun { get; set; }
 
     [Display(Name = "Semester")]
     [Required(ErrorMessage = "{0} harus diisi")]

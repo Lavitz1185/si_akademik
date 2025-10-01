@@ -56,22 +56,6 @@ internal class HariMengajarEntityTypeConfiguration : IEntityTypeConfiguration<Ha
             new
             {
                 Id = 6,
-                Hari = Hari.Sabtu,
-                JamMulai = new TimeOnly(7, 00),
-                JamAkhir = new TimeOnly(12, 00),
-                JadwalMengajarId = 1
-            },
-            new
-            {
-                Id = 7,
-                Hari = Hari.Minggu,
-                JamMulai = new TimeOnly(7, 00),
-                JamAkhir = new TimeOnly(12, 00),
-                JadwalMengajarId = 1
-            },
-            new
-            {
-                Id = 8,
                 Hari = Hari.Senin,
                 JamMulai = new TimeOnly(13, 00),
                 JamAkhir = new TimeOnly(16, 00),
@@ -79,7 +63,7 @@ internal class HariMengajarEntityTypeConfiguration : IEntityTypeConfiguration<Ha
             },
             new
             {
-                Id = 9,
+                Id = 7,
                 Hari = Hari.Selasa,
                 JamMulai = new TimeOnly(13, 00),
                 JamAkhir = new TimeOnly(16, 00),
@@ -87,7 +71,7 @@ internal class HariMengajarEntityTypeConfiguration : IEntityTypeConfiguration<Ha
             },
             new
             {
-                Id = 10,
+                Id = 8,
                 Hari = Hari.Rabu,
                 JamMulai = new TimeOnly(13, 00),
                 JamAkhir = new TimeOnly(16, 00),
@@ -95,7 +79,7 @@ internal class HariMengajarEntityTypeConfiguration : IEntityTypeConfiguration<Ha
             },
             new
             {
-                Id = 11,
+                Id = 9,
                 Hari = Hari.Kamis,
                 JamMulai = new TimeOnly(13, 00),
                 JamAkhir = new TimeOnly(16, 00),
@@ -103,24 +87,8 @@ internal class HariMengajarEntityTypeConfiguration : IEntityTypeConfiguration<Ha
             },
             new
             {
-                Id = 12,
+                Id = 10,
                 Hari = Hari.Jumat,
-                JamMulai = new TimeOnly(13, 00),
-                JamAkhir = new TimeOnly(16, 00),
-                JadwalMengajarId = 2
-            },
-            new
-            {
-                Id = 13,
-                Hari = Hari.Sabtu,
-                JamMulai = new TimeOnly(13, 00),
-                JamAkhir = new TimeOnly(16, 00),
-                JadwalMengajarId = 2
-            },
-            new
-            {
-                Id = 14,
-                Hari = Hari.Minggu,
                 JamMulai = new TimeOnly(13, 00),
                 JamAkhir = new TimeOnly(16, 00),
                 JadwalMengajarId = 2
