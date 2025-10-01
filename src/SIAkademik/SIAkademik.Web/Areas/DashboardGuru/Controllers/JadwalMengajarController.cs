@@ -94,7 +94,7 @@ public class JadwalMengajarController : Controller
                 { 
                     j.Rombel.Id, 
                     j.Rombel.Nama, 
-                    Kelas = new { Jenjang = j.Rombel.Kelas.Jenjang.Humanize(), Peminatan = j.Rombel.Kelas.Peminatan.Humanize() } 
+                    Kelas = new { Jenjang = j.Rombel.Kelas.Jenjang.Humanize(), Peminatan = j.Rombel.Kelas.Peminatan.Nama } 
                 }
             }).ToList();
 

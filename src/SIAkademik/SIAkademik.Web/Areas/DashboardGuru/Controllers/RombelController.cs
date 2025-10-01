@@ -34,7 +34,7 @@ public class RombelController : Controller
         {
             r.Id,
             r.Nama,
-            Kelas = new { Jenjang = r.Kelas.Jenjang.Humanize(), Peminatan = r.Kelas.Peminatan.Humanize() }
+            Kelas = new { Jenjang = r.Kelas.Jenjang.Humanize(), Peminatan = r.Kelas.Peminatan.Nama }
         }));
     }
 }

@@ -56,12 +56,6 @@
                                 <a asp-action="Edit" asp-route-id="@tahunAjaran.Id" class="btn btn-primary btn-action" data-toggle="tooltip" title="Edit">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                @if (tahunAjaran.DaftarKelas.Count == 0)
-                                {
-                                    <form asp-action="GenerateKelas" asp-route-id="@tahunAjaran.Id" style="display:inline">
-                                        <button type="submit" class="btn btn-success">Generate Kelas</button>
-                                    </form>
-                                }
                                 <form asp-action="Hapus" asp-route-id="@tahunAjaran.Id" method="post" style="display:inline">
                                     <button type="button" class="btn btn-danger btn-action swal-confirm" title="Hapus">
                                         <i class="fas fa-trash"></i>

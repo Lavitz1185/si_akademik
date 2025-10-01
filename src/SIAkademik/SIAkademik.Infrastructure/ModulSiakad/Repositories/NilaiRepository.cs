@@ -22,8 +22,9 @@ internal class NilaiRepository : INilaiRepository
         .TblNilai
         .Include(a => a.AnggotaRombel).ThenInclude(r => r.Rombel)
         .Include(a => a.AnggotaRombel).ThenInclude(r => r.Siswa)
-        .Include(a => a.JadwalMengajar).ThenInclude(j => j.Rombel)
-        .Include(a => a.JadwalMengajar).ThenInclude(j => j.MataPelajaran)
+        .Include(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
+        .Include(a => a.JadwalMengajar).ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
         .Include(a => a.JadwalMengajar).ThenInclude(j => j.Pegawai)
         .FirstOrDefaultAsync(a => a.Id == id);
 
@@ -31,8 +32,9 @@ internal class NilaiRepository : INilaiRepository
         .TblNilai
         .Include(a => a.AnggotaRombel).ThenInclude(r => r.Rombel)
         .Include(a => a.AnggotaRombel).ThenInclude(r => r.Siswa)
-        .Include(a => a.JadwalMengajar).ThenInclude(j => j.Rombel)
-        .Include(a => a.JadwalMengajar).ThenInclude(j => j.MataPelajaran)
+        .Include(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
+        .Include(a => a.JadwalMengajar).ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
         .Include(a => a.JadwalMengajar).ThenInclude(j => j.Pegawai)
         .ToListAsync();
 }

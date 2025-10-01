@@ -17,6 +17,7 @@ public class MataPelajaranController : Controller
     private readonly IRombelRepository _rombelRepository;
     private readonly IPegawaiRepository _pegawaiRepository;
     private readonly IJadwalMengajarRepository _jadwalMengajarRepository;
+    private readonly IPeminatanRepository _peminatanRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IToastrNotificationService _toastrNotificationService;
 
@@ -26,7 +27,8 @@ public class MataPelajaranController : Controller
         IPegawaiRepository pegawaiRepository,
         IJadwalMengajarRepository jadwalMengajarRepository,
         IUnitOfWork unitOfWork,
-        IToastrNotificationService toastrNotificationService)
+        IToastrNotificationService toastrNotificationService,
+        IPeminatanRepository peminatanRepository)
     {
         _mataPelajaranRepository = mataPelajaranRepository;
         _rombelRepository = rombelRepository;
@@ -34,6 +36,7 @@ public class MataPelajaranController : Controller
         _jadwalMengajarRepository = jadwalMengajarRepository;
         _unitOfWork = unitOfWork;
         _toastrNotificationService = toastrNotificationService;
+        _peminatanRepository = peminatanRepository;
     }
 
     public async Task<IActionResult> Index()
@@ -50,11 +53,18 @@ public class MataPelajaranController : Controller
     {
         if (!ModelState.IsValid) return View(vm);
 
+        var peminatan = await _peminatanRepository.Get(vm.PeminatanId);
+        if (peminatan is null)
+        {
+            ModelState.AddModelError(nameof(TambahVM.PeminatanId), $"Peminatan dengan Id '{vm.PeminatanId}' tidak ditemukan");
+            return View(vm);
+        }
+
         var mataPelajaran = new MataPelajaran
         {
             Nama = vm.Nama,
             Jenjang = vm.Jenjang,
-            Peminatan = vm.Peminatan,
+            Peminatan = peminatan,
             KKM = vm.KKM
         };
 
@@ -81,7 +91,7 @@ public class MataPelajaranController : Controller
             Id = id,
             Nama = mataPelajaran.Nama,
             Jenjang = mataPelajaran.Jenjang,
-            Peminatan = mataPelajaran.Peminatan,
+            PeminatanId = mataPelajaran.Peminatan.Id,
             KKM = mataPelajaran.KKM
         });
     }
@@ -94,9 +104,16 @@ public class MataPelajaranController : Controller
         var mataPelajaran = await _mataPelajaranRepository.Get(vm.Id);
         if (mataPelajaran is null) return NotFound();
 
+        var peminatan = await _peminatanRepository.Get(vm.PeminatanId);
+        if (peminatan is null)
+        {
+            ModelState.AddModelError(nameof(EditVM.PeminatanId), $"Peminatan dengan Id '{vm.PeminatanId}' tidak ditemukan");
+            return View(vm);
+        }
+
         mataPelajaran.Nama = vm.Nama;
         mataPelajaran.Jenjang = vm.Jenjang;
-        mataPelajaran.Peminatan = vm.Peminatan;
+        mataPelajaran.Peminatan = peminatan;
         mataPelajaran.KKM = vm.KKM;
 
         var result = await _unitOfWork.SaveChangesAsync();

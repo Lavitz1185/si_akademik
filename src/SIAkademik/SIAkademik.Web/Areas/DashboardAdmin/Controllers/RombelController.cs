@@ -1,5 +1,4 @@
-﻿
-using Humanizer;
+﻿using Humanizer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SIAkademik.Domain.Abstracts;
@@ -236,7 +235,7 @@ public class RombelController : Controller
 
         if (kelas!.DaftarRombel.Any(r => r != rombel && r.DaftarAnggotaRombel.Any(a => a.Siswa == siswa)))
         {
-            _toastrNotificationService.AddError($"Siswa dengan Id '{idSiswa}' sudah ada dalam rombel di kelas {kelas.Peminatan.Humanize()}" +
+            _toastrNotificationService.AddError($"Siswa dengan Id '{idSiswa}' sudah ada dalam rombel di kelas {kelas.Peminatan.Nama}" +
                 $" {kelas.Jenjang.Humanize()} - {kelas.TahunAjaran.Periode} {kelas.TahunAjaran.Semester.Humanize()}");
             return RedirectToAction(nameof(Detail), new { id });
         }
@@ -291,7 +290,7 @@ public class RombelController : Controller
         {
             r.Id,
             r.Nama,
-            Kelas = new { Jenjang = r.Kelas.Jenjang.Humanize(), Peminatan = r.Kelas.Peminatan.Humanize() }
+            Kelas = new { Jenjang = r.Kelas.Jenjang.Humanize(), Peminatan = r.Kelas.Peminatan.Nama }
         }));
     }
 }

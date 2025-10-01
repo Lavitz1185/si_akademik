@@ -47,11 +47,11 @@
             {
                 @if (Model.Rombel == rombel)
                 {
-                    <option selected value="@rombel.Id">@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Humanize() @rombel.Nama</option>
+                    <option selected value="@rombel.Id">@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Nama @rombel.Nama</option>
                 }
                 else
                 {
-                    <option value="@rombel.Id">@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Humanize() @rombel.Nama</option>
+                    <option value="@rombel.Id">@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Nama @rombel.Nama</option>
                 }
             }
         }

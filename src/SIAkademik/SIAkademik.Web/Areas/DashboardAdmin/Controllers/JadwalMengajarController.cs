@@ -96,7 +96,7 @@ public class JadwalMengajarController : Controller
         if (await _jadwalMengajarRepository.IsExist(mataPelajaran.Id, rombel.Id, pegawai.Id))
         {
             ModelState.AddModelError(string.Empty, $"Jadwal mata pelajaran {mataPelajaran.Nama} untuk rombel {rombel.Kelas.Jenjang.Humanize()}" +
-                $" {rombel.Kelas.Peminatan.Humanize()} {rombel.Nama} dengan guru {pegawai.Nama} sudah ada!");
+                $" {rombel.Kelas.Peminatan.Nama} {rombel.Nama} dengan guru {pegawai.Nama} sudah ada!");
 
             return View(vm);
         }
@@ -180,7 +180,7 @@ public class JadwalMengajarController : Controller
         if (await _jadwalMengajarRepository.IsExist(mataPelajaran.Id, rombel.Id, pegawai.Id, jadwalMengajar.Id))
         {
             ModelState.AddModelError(string.Empty, $"Jadwal mata pelajaran {mataPelajaran.Nama} untuk rombel {rombel.Kelas.Jenjang.Humanize()}" +
-                $" {rombel.Kelas.Peminatan.Humanize()} {rombel.Nama} dengan guru {pegawai.Nama} sudah ada!");
+                $" {rombel.Kelas.Peminatan.Nama} {rombel.Nama} dengan guru {pegawai.Nama} sudah ada!");
 
             return View(vm);
         }

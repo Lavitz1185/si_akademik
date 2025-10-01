@@ -19,7 +19,7 @@ public class EditVM
 
     [Display(Name = "Peminatan")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public required Peminatan Peminatan { get; set; }
+    public required int PeminatanId { get; set; }
 
     [Display(Name = "KKM")]
     [Required(ErrorMessage = "{0} harus diisi")]

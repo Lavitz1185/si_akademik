@@ -116,41 +116,6 @@ public class TahunAjaranController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> GenerateKelas(int id)
-    {
-        var tahunAjaran = await _tahunAjaranRepository.Get(id);
-        if (tahunAjaran is null) return NotFound();
-
-        if (tahunAjaran.DaftarKelas.Count != 0)
-        {
-            _toastrNotificationService.AddWarning($"Tahun ajaran {tahunAjaran.Periode} {tahunAjaran.Semester.Humanize()} sudah memiliki kelas");
-            return RedirectToAction(nameof(Index));
-        }
-
-
-        //Kelas 10
-        tahunAjaran.DaftarKelas.Add(new Kelas { Jenjang = Jenjang.X, Peminatan = Peminatan.Umum, TahunAjaran = tahunAjaran });
-
-        //Kelas 11-12
-        foreach (var jenjang in Enum.GetValues<Jenjang>().SkipWhile(j => j == Jenjang.X))
-            foreach (var peminatan in Enum.GetValues<Peminatan>().SkipWhile(p => p == Peminatan.Umum))
-                tahunAjaran.DaftarKelas.Add(new Kelas { Jenjang = jenjang, Peminatan = peminatan, TahunAjaran = tahunAjaran });
-
-        foreach(var kelas in tahunAjaran.DaftarKelas)
-            _kelasRepository.Add(kelas);
-
-        var result = await _unitOfWork.SaveChangesAsync();
-        if(result.IsFailure)
-            _toastrNotificationService
-                .AddError($"Gagal generate kelas untuk tahun ajaran {tahunAjaran.Periode} {tahunAjaran.Semester.Humanize()}");
-        else
-            _toastrNotificationService
-                .AddSuccess($"Sukses generate kelas untuk tahun ajaran {tahunAjaran.Periode} {tahunAjaran.Semester.Humanize()}");
-
-        return RedirectToAction(nameof(Index));
-    }
-
-    [HttpPost]
     public async Task<IActionResult> Hapus(int id)
     {
         var tahunAjaran = await _tahunAjaranRepository.Get(id);

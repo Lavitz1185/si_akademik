@@ -20,6 +20,7 @@ internal class MataPelajaranRepository : IMataPelajaranRepository
 
     public async Task<MataPelajaran?> Get(int id) => await _appDbContext
         .TblMataPelajaran
+        .Include(m => m.Peminatan)
         .Include(m => m.DaftarJadwalMengajar).ThenInclude(j => j.Pegawai)
         .Include(m => m.DaftarJadwalMengajar).ThenInclude(j => j.Rombel)
         .Include(m => m.DaftarJadwalMengajar).ThenInclude(j => j.DaftarHariMengajar)
@@ -27,6 +28,7 @@ internal class MataPelajaranRepository : IMataPelajaranRepository
 
     public async Task<List<MataPelajaran>> GetAll() => await _appDbContext
         .TblMataPelajaran
+        .Include(m => m.Peminatan)
         .Include(m => m.DaftarJadwalMengajar).ThenInclude(j => j.Pegawai)
         .Include(m => m.DaftarJadwalMengajar).ThenInclude(j => j.Rombel)
         .Include(m => m.DaftarJadwalMengajar).ThenInclude(j => j.DaftarHariMengajar)

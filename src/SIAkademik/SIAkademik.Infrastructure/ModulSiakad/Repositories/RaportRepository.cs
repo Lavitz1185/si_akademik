@@ -22,8 +22,9 @@ internal class RaportRepository : IRaportRepository
         .TblRaport
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.Siswa)
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.DaftarJadwalMengajar)
-            .ThenInclude(j => j.MataPelajaran)
+            .ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.DaftarJadwalMengajar)
             .ThenInclude(j => j.Pegawai)
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.DaftarNilai).ThenInclude(n => n.JadwalMengajar)
@@ -36,8 +37,9 @@ internal class RaportRepository : IRaportRepository
         .TblRaport
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.Siswa)
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.DaftarJadwalMengajar)
-            .ThenInclude(j => j.MataPelajaran)
+            .ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.DaftarJadwalMengajar)
             .ThenInclude(j => j.Pegawai)
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.DaftarNilai).ThenInclude(n => n.JadwalMengajar)
@@ -49,8 +51,9 @@ internal class RaportRepository : IRaportRepository
         .TblRaport
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.Siswa)
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.DaftarJadwalMengajar)
-            .ThenInclude(j => j.MataPelajaran)
+            .ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.DaftarJadwalMengajar)
             .ThenInclude(j => j.Pegawai)
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.DaftarNilai).ThenInclude(n => n.JadwalMengajar)

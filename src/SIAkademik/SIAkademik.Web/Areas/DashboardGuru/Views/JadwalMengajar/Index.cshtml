@@ -64,7 +64,7 @@
                     @foreach (var jadwal in Model.DaftarJadwalMengajar)
                     {
                         <tr>
-                            <td>@jadwal.Rombel.Kelas.Jenjang.Humanize() @jadwal.Rombel.Kelas.Peminatan.Humanize() @jadwal.Rombel.Nama</td>
+                            <td>@jadwal.Rombel.Kelas.Jenjang.Humanize() @jadwal.Rombel.Kelas.Peminatan.Nama @jadwal.Rombel.Nama</td>
                             <td>@jadwal.MataPelajaran.Nama</td>
                             <td>
                                 @foreach (var hari in jadwal.DaftarHariMengajar)

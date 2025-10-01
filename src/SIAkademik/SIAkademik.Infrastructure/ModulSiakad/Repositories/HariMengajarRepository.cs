@@ -20,14 +20,14 @@ internal class HariMengajarRepository : IHariMengajarRepository
 
     public async Task<HariMengajar?> Get(int id) => await _appDbContext
         .TblHariMengajar
-        .Include(h => h.JadwalMengajar).ThenInclude(j => j.MataPelajaran)
+        .Include(h => h.JadwalMengajar).ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
         .Include(h => h.JadwalMengajar).ThenInclude(j => j.Rombel)
         .Include(h => h.JadwalMengajar).ThenInclude(j => j.Pegawai)
         .FirstOrDefaultAsync(h => h.Id == id);
 
     public async Task<List<HariMengajar>> GetAll() => await _appDbContext
         .TblHariMengajar
-        .Include(h => h.JadwalMengajar).ThenInclude(j => j.MataPelajaran)
+        .Include(h => h.JadwalMengajar).ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
         .Include(h => h.JadwalMengajar).ThenInclude(j => j.Rombel)
         .Include(h => h.JadwalMengajar).ThenInclude(j => j.Pegawai)
         .ToListAsync();

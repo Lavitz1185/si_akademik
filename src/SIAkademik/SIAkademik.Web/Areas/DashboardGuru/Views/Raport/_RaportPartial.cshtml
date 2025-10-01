@@ -46,7 +46,7 @@
     <span>Alamat <span style="display:inline-block;margin-left:105px"></span>: Jl.Tilong Dam Km.5, Desa Oenlasi</span>
     <span>Nama <span style="display:inline-block;margin-left:111px"></span>: @Model.Siswa.Nama</span>
     <span>Nomor Induk Siswa/NISN <span style="display:inline-block;margin-left:20px"></span>: @Model.Siswa.NIS/@Model.Siswa.NISN</span>
-    <span>Kelas <span style="display:inline-block;margin-left:49px"></span>: @Model.Rombel.Kelas.Jenjang.Humanize()-@Model.Rombel.Kelas.Peminatan.Humanize()</span>
+    <span>Kelas <span style="display:inline-block;margin-left:49px"></span>: @Model.Rombel.Kelas.Jenjang.Humanize()-@Model.Rombel.Kelas.Peminatan.Nama</span>
     <span>Semester <span style="display:inline-block;margin-left:34px"></span>: @Model.Rombel.Kelas.TahunAjaran.Semester.Humanize()</span>
     <span>Tahun Ajaran <span style="display:inline-block;margin-left:15px"></span>: @Model.Rombel.Kelas.TahunAjaran.Periode</span>
 </div>
@@ -82,9 +82,9 @@
         </tr>
     </thead>
     <tbody>
-        @if (daftarPengetahuan.Any(r => r.JadwalMengajar!.MataPelajaran.Peminatan == Peminatan.Umum))
+        @if (daftarPengetahuan.Any(r => r.JadwalMengajar!.MataPelajaran.Peminatan.Jenis == JenisPeminatan.Umum))
         {
-            var daftarPengetahuanUmum = daftarPengetahuan.Where(r => r.JadwalMengajar!.MataPelajaran.Peminatan == Peminatan.Umum).ToList();
+            var daftarPengetahuanUmum = daftarPengetahuan.Where(r => r.JadwalMengajar!.MataPelajaran.Peminatan.Jenis == JenisPeminatan.Umum).ToList();
 
             <tr>
                 <td colspan="5"><b>Kelompok A (Umum)</b></td>
@@ -103,9 +103,9 @@
             }
         }
 
-        @if (daftarPengetahuan.Any(r => r.JadwalMengajar!.MataPelajaran.Peminatan != Peminatan.Umum))
+        @if (daftarPengetahuan.Any(r => r.JadwalMengajar!.MataPelajaran.Peminatan.Jenis != JenisPeminatan.Umum))
         {
-            var daftarPengetahuanPeminatan = daftarPengetahuan.Where(r => r.JadwalMengajar!.MataPelajaran.Peminatan != Peminatan.Umum).ToList();
+            var daftarPengetahuanPeminatan = daftarPengetahuan.Where(r => r.JadwalMengajar!.MataPelajaran.Peminatan.Jenis != JenisPeminatan.Umum).ToList();
 
             <tr>
                 <td colspan="5"><b>Kelompok B (Peminatan)</b></td>
@@ -140,9 +140,9 @@
         </tr>
     </thead>
     <tbody>
-        @if (daftarKeterampilan.Any(r => r.JadwalMengajar!.MataPelajaran.Peminatan == Peminatan.Umum))
+        @if (daftarKeterampilan.Any(r => r.JadwalMengajar!.MataPelajaran.Peminatan.Jenis == JenisPeminatan.Umum))
         {
-            var daftarKeterampilanUmum = daftarKeterampilan.Where(r => r.JadwalMengajar!.MataPelajaran.Peminatan == Peminatan.Umum).ToList();
+            var daftarKeterampilanUmum = daftarKeterampilan.Where(r => r.JadwalMengajar!.MataPelajaran.Peminatan.Jenis == JenisPeminatan.Umum).ToList();
 
             <tr>
                 <td colspan="5"><b>Kelompok A (Umum)</b></td>
@@ -161,9 +161,9 @@
             }
         }
 
-        @if (daftarKeterampilan.Any(r => r.JadwalMengajar!.MataPelajaran.Peminatan != Peminatan.Umum))
+        @if (daftarKeterampilan.Any(r => r.JadwalMengajar!.MataPelajaran.Peminatan.Jenis != JenisPeminatan.Umum))
         {
-            var daftarKeterampilanPeminatan = daftarKeterampilan.Where(r => r.JadwalMengajar!.MataPelajaran.Peminatan != Peminatan.Umum).ToList();
+            var daftarKeterampilanPeminatan = daftarKeterampilan.Where(r => r.JadwalMengajar!.MataPelajaran.Peminatan.Jenis != JenisPeminatan.Umum).ToList();
 
             <tr>
                 <td colspan="5"><b>Kelompok B (Peminatan)</b></td>

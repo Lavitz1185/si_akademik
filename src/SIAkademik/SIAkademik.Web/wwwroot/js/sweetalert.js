@@ -96,24 +96,25 @@ $(document).on("click", ".swal-confirm", function (e) {
         dangerMode: true,
     }).then((willDelete) => {
         if (willDelete) {
-            $.post(url, data) // kirim POST ke action Hapus
-                .done(function () {
-                    swal({
-                        title: "Data berhasil dihapus",
-                        icon: "success",                       
-                        timer: 2000
-                    }).then(() => {
-                        location.reload(); // reload setelah swal selesai
-                    });
-                })
-                .fail(function () {
-                    swal({
-                        title: "Gagal menghapus data",
-                        icon: "error",
-                        buttons: false,
-                        timer: 3000
-                    });
-                });
+            $(form).trigger('submit');
+            //$.post(url, data) // kirim POST ke action Hapus
+            //    .done(function () {
+            //        swal({
+            //            title: "Data berhasil dihapus",
+            //            icon: "success",                       
+            //            timer: 2000
+            //        }).then(() => {
+            //            location.reload(); // reload setelah swal selesai
+            //        });
+            //    })
+            //    .fail(function () {
+            //        swal({
+            //            title: "Gagal menghapus data",
+            //            icon: "error",
+            //            buttons: false,
+            //            timer: 3000
+            //        });
+            //    });
         }
     });
 });

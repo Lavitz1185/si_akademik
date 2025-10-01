@@ -74,7 +74,7 @@
 @foreach (var hariMengajar in Model.JadwalHariIni)
 {
     <p>
-        @hariMengajar.JadwalMengajar.Rombel.Kelas.Jenjang.Humanize() @hariMengajar.JadwalMengajar.Rombel.Kelas.Peminatan.Humanize() @hariMengajar.JadwalMengajar.Rombel.Nama<br />
+        @hariMengajar.JadwalMengajar.Rombel.Kelas.Jenjang.Humanize() @hariMengajar.JadwalMengajar.Rombel.Kelas.Peminatan.Nama @hariMengajar.JadwalMengajar.Rombel.Nama<br />
         @hariMengajar.JadwalMengajar.MataPelajaran.Nama<br />
         @hariMengajar.Hari @hariMengajar.JamMulai.ToShortTimeString() - @hariMengajar.JamAkhir.ToShortTimeString()<br />
         <a asp-action="Detail" asp-controller="JadwalMengajar" asp-route-id="@hariMengajar.JadwalMengajar.Id">Lihat</a>
@@ -85,7 +85,7 @@
 @foreach (var rombel in Model.RombelWali)
 {
     <p>
-        @rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Humanize() @rombel.Nama<br />
+        @rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Nama @rombel.Nama<br />
         Jumlah Siswa : @rombel.DaftarAnggotaRombel.Count<br />
         <a asp-action="Detail" asp-controller="KelasWali" asp-route-id="@rombel.Id">Lihat</a>
     </p>

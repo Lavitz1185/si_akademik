@@ -22,6 +22,7 @@ internal class KelasRepository : IKelasRepository
     public async Task<Kelas?> Get(int id) => await _appDbContext
         .TblKelas
         .Include(k => k.TahunAjaran)
+        .Include(k => k.Peminatan)
         .Include(k => k.DaftarRombel).ThenInclude(r => r.DaftarAnggotaRombel)
         .Include(k => k.DaftarRombel).ThenInclude(r => r.DaftarJadwalMengajar)
         .Include(k => k.DaftarRombel).ThenInclude(r => r.Wali)
@@ -30,6 +31,7 @@ internal class KelasRepository : IKelasRepository
     public async Task<List<Kelas>> GetAll() => await _appDbContext
         .TblKelas
         .Include(k => k.TahunAjaran)
+        .Include(k => k.Peminatan)
         .Include(k => k.DaftarRombel).ThenInclude(r => r.DaftarAnggotaRombel)
         .Include(k => k.DaftarRombel).ThenInclude(r => r.DaftarJadwalMengajar)
         .Include(k => k.DaftarRombel).ThenInclude(r => r.Wali)
@@ -38,6 +40,7 @@ internal class KelasRepository : IKelasRepository
     public async Task<List<Kelas>> GetAllByPeminatan(int idTahunAjaran, Peminatan peminatan) => await _appDbContext
         .TblKelas
         .Include(k => k.TahunAjaran)
+        .Include(k => k.Peminatan)
         .Include(k => k.DaftarRombel).ThenInclude(r => r.DaftarAnggotaRombel)
         .Include(k => k.DaftarRombel).ThenInclude(r => r.DaftarJadwalMengajar)
         .Include(k => k.DaftarRombel).ThenInclude(r => r.Wali)
@@ -47,6 +50,7 @@ internal class KelasRepository : IKelasRepository
     public async Task<List<Kelas>> GetAllByTahunAjaran(int idTahunAjaran) => await _appDbContext
         .TblKelas
         .Include(k => k.TahunAjaran)
+        .Include(k => k.Peminatan)
         .Include(k => k.DaftarRombel).ThenInclude(r => r.DaftarAnggotaRombel)
         .Include(k => k.DaftarRombel).ThenInclude(r => r.DaftarJadwalMengajar)
         .Include(k => k.DaftarRombel).ThenInclude(r => r.Wali)

@@ -17,6 +17,7 @@ public class KelasController : Controller
 {
     private readonly IKelasRepository _kelasRepository;
     private readonly IRombelRepository _rombelRepository;
+    private readonly IPeminatanRepository _peminatanRepository;
     private readonly ITahunAjaranRepository _tahunAjaranRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IToastrNotificationService _toastrNotificationService;
@@ -26,13 +27,15 @@ public class KelasController : Controller
         IRombelRepository rombelRepository,
         IUnitOfWork unitOfWork,
         ITahunAjaranRepository tahunAjaranRepository,
-        IToastrNotificationService toastrNotificationService)
+        IToastrNotificationService toastrNotificationService,
+        IPeminatanRepository peminatanRepository)
     {
         _kelasRepository = kelasRepository;
         _rombelRepository = rombelRepository;
         _unitOfWork = unitOfWork;
         _tahunAjaranRepository = tahunAjaranRepository;
         _toastrNotificationService = toastrNotificationService;
+        _peminatanRepository = peminatanRepository;
     }
 
     public async Task<IActionResult> Index(int? idTahunAjaran = null)
@@ -60,10 +63,17 @@ public class KelasController : Controller
             return View(vm);
         }
 
+        var peminatan = await _peminatanRepository.Get(vm.PeminatanId);
+        if (peminatan is null)
+        {
+            ModelState.AddModelError(nameof(TambahVM.PeminatanId), $"Peminatan dengan Id '{vm.PeminatanId}' tidak dapat ditemukan");
+            return View(vm);
+        }
+
         var kelas = new Kelas
         {
             Jenjang = vm.Jenjang,
-            Peminatan = vm.Peminatan,
+            Peminatan = peminatan,
             TahunAjaran = tahunAjaran
         };
 
@@ -89,7 +99,7 @@ public class KelasController : Controller
         {
             Id = id,
             Jenjang = kelas.Jenjang,
-            Peminatan = kelas.Peminatan,
+            PeminatanId = kelas.Peminatan.Id,
             IdTahunAjaran = kelas.TahunAjaran.Id
         });
     }
@@ -109,8 +119,15 @@ public class KelasController : Controller
             return View(vm);
         }
 
+        var peminatan = await _peminatanRepository.Get(vm.PeminatanId);
+        if (peminatan is null)
+        {
+            ModelState.AddModelError(nameof(EditVM.PeminatanId), $"Peminatan dengan Id '{vm.PeminatanId}' tidak dapat ditemukan");
+            return View(vm);
+        }
+
         kelas.Jenjang = vm.Jenjang;
-        kelas.Peminatan = vm.Peminatan;
+        kelas.Peminatan = peminatan;
         kelas.TahunAjaran = tahunAjaran;
 
         var result = await _unitOfWork.SaveChangesAsync();
@@ -147,6 +164,6 @@ public class KelasController : Controller
     public async Task<IActionResult> DaftarKelas(int idTahunAjaran)
     {
         var daftarKelas = await _kelasRepository.GetAllByTahunAjaran(idTahunAjaran);
-        return Json(daftarKelas.Select(x => new { x.Id, Jenjang = x.Jenjang.Humanize(), Peminatan = x.Peminatan.Humanize() }));
+        return Json(daftarKelas.Select(x => new { x.Id, Jenjang = x.Jenjang.Humanize(), Peminatan = x.Peminatan.Nama }));
     }
 }

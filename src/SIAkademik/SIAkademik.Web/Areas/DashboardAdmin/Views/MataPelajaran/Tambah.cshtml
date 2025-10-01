@@ -1,5 +1,10 @@
 ﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.MataPelajaranModels
 @model TambahVM
+@inject IPeminatanRepository PeminatanRepository
+
+@{
+    var daftarPeminatan = await PeminatanRepository.GetAll();
+}
 
 <!-- Breadcrumb -->
 <div class="row" style="justify-content: center;">
@@ -44,14 +49,14 @@
                         </div>
 
                         <div class="form-group">
-                            <label asp-for="@Model.Peminatan"></label>
-                            <select asp-for="@Model.Peminatan" class="form-control">
-                                @foreach (var peminatan in Enum.GetValues<Peminatan>())
+                            <label asp-for="@Model.PeminatanId"></label>
+                            <select asp-for="@Model.PeminatanId" class="form-control">
+                                @foreach (var peminatan in daftarPeminatan)
                                 {
-                                    <option value="@peminatan">@peminatan.Humanize()</option>
+                                    <option value="@peminatan.Id">@peminatan.Nama</option>
                                 }
                             </select>
-                            <span asp-validation-for="@Model.Peminatan"></span>
+                            <span asp-validation-for="@Model.PeminatanId"></span>
                         </div>
                         
                         <div class="form-group">

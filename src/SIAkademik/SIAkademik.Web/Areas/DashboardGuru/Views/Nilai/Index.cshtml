@@ -47,14 +47,14 @@
             @if (jadwalMengajar == Model.JadwalMengajar)
             {
                 <option selected value="@jadwalMengajar.Id">
-                    @jadwalMengajar.Rombel.Kelas.Jenjang.Humanize() @jadwalMengajar.Rombel.Kelas.Peminatan.Humanize() @jadwalMengajar.Rombel.Nama - 
+                    @jadwalMengajar.Rombel.Kelas.Jenjang.Humanize() @jadwalMengajar.Rombel.Kelas.Peminatan.Nama @jadwalMengajar.Rombel.Nama - 
                     @jadwalMengajar.MataPelajaran.Nama
                 </option>
             }
             else
             {
                 <option value="@jadwalMengajar.Id">
-                    @jadwalMengajar.Rombel.Kelas.Jenjang.Humanize() @jadwalMengajar.Rombel.Kelas.Peminatan.Humanize() @jadwalMengajar.Rombel.Nama -
+                    @jadwalMengajar.Rombel.Kelas.Jenjang.Humanize() @jadwalMengajar.Rombel.Kelas.Peminatan.Nama @jadwalMengajar.Rombel.Nama -
                     @jadwalMengajar.MataPelajaran.Nama
                 </option>
             }

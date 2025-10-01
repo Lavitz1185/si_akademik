@@ -1,0 +1,15 @@
+﻿using SIAkademik.Domain.Enums;
+using System.ComponentModel.DataAnnotations;
+
+namespace SIAkademik.Web.Areas.DashboardAdmin.Models.PeminatanModels;
+
+public class TambahVM
+{
+    [Display(Name = "Nama")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public string Nama { get; set; } = string.Empty;
+
+    [Display(Name = "Jenis")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public JenisPeminatan Jenis { get; set; }
+}

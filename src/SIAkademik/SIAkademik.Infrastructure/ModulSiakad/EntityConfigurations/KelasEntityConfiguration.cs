@@ -10,6 +10,7 @@ internal class KelasEntityConfiguration : IEntityTypeConfiguration<Kelas>
     public void Configure(EntityTypeBuilder<Kelas> builder)
     {
         builder.HasKey(x => x.Id);
+        builder.HasOne(x => x.Peminatan).WithMany(y => y.DaftarKelas);
         builder.HasOne(x => x.TahunAjaran).WithMany(x => x.DaftarKelas);
         builder.HasMany(x => x.DaftarRombel).WithOne(x => x.Kelas);
 
@@ -19,7 +20,7 @@ internal class KelasEntityConfiguration : IEntityTypeConfiguration<Kelas>
             {
                 Id = 1,
                 Jenjang = Jenjang.X,
-                Peminatan = Peminatan.Umum,
+                PeminatanId = 1,
                 TahunAjaranId = 2,
             }
         );

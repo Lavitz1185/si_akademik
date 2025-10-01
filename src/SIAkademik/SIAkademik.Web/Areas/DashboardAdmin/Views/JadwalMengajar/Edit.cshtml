@@ -65,7 +65,7 @@
                                 @foreach (var rombel in daftarRombel)
                                 {
                                     <option value="@rombel.Id">
-                                        @rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Humanize() @rombel.Nama
+                                        @rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Nama @rombel.Nama
                                     </option>
                                 }
                             </select>
@@ -79,7 +79,7 @@
                                 @foreach (var mataPelajaran in daftarMataPelajaran)
                                 {
                                     <option value="@mataPelajaran.Id">
-                                        @mataPelajaran.Nama @mataPelajaran.Jenjang @mataPelajaran.Peminatan
+                                        @mataPelajaran.Nama @mataPelajaran.Jenjang @mataPelajaran.Nama
                                     </option>
                                 }
                             </select>

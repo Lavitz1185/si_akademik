@@ -44,7 +44,7 @@
             <select asp-for="@Model.IdJadwalMengajar">
                 @foreach(var jadwal in raport.AnggotaRombel.Rombel.DaftarJadwalMengajar)
                 {
-                    <option value="@jadwal.Id">@raport.AnggotaRombel.Rombel.Kelas.Jenjang.Humanize() @raport.AnggotaRombel.Rombel.Kelas.Peminatan.Humanize() @raport.AnggotaRombel.Rombel.Nama - @jadwal.MataPelajaran.Nama</option>
+                    <option value="@jadwal.Id">@raport.AnggotaRombel.Rombel.Kelas.Jenjang.Humanize() @raport.AnggotaRombel.Rombel.Kelas.Peminatan.Nama @raport.AnggotaRombel.Rombel.Nama - @jadwal.MataPelajaran.Nama</option>
                 }
             </select>
             <span asp-validation-for="@Model.IdJadwalMengajar"></span>

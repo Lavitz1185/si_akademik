@@ -1,0 +1,66 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.PeminatanModels
+@model EditVM
+
+<!-- Breadcrumb -->
+<div class="row" style="justify-content: center;">
+    <div class="col-12 col-md-6 col-lg-6" style="padding: 0;">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Manajemen Akademik</a></li>
+                <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Peminatan" asp-action="Index">Peminatan</a></li>
+                <li class="breadcrumb-item" aria-current="page">Edit Data</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-6">
+            <div class="card card-danger">
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Edit Peminatan
+                    </h4>
+                </div>
+
+                <form asp-action="Edit" method="post">
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly"></div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Id"></label>
+                            <input asp-for="@Model.Id" class="form-control" readonly />
+                            <span asp-validation-for="@Model.Id"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Nama"></label>
+                            <input asp-for="@Model.Nama" class="form-control"/>
+                            <span asp-validation-for="@Model.Nama"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Jenis"></label>
+                            <select asp-for="@Model.Jenis" class="form-control">
+                                @foreach (var jenis in Enum.GetValues<JenisPeminatan>())
+                                {
+                                    <option value="@jenis">@jenis.Humanize()</option>
+                                }
+                            </select>
+                            <span asp-validation-for="@Model.Jenis"></span>
+                        </div>                        
+                    </div>
+
+                    <div class="card-footer text-right">
+                        <a href="javascript:void(0)" class="btn btn-danger swal-cancel">Batal</a>
+                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

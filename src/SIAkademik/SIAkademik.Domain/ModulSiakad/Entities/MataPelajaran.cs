@@ -7,8 +7,8 @@ public class MataPelajaran : Entity<int>
 {
     public required string Nama { get; set; }
     public required Jenjang Jenjang { get; set; } 
-    public required Peminatan Peminatan { get; set; }
     public required double KKM { get; set; }
 
+    public Peminatan Peminatan { get; set; }
     public List<JadwalMengajar> DaftarJadwalMengajar { get; set; } = [];
 }

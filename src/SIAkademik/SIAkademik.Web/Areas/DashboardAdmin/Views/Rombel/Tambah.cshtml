@@ -54,7 +54,7 @@
 
                                 @foreach (var kelas in daftarKelas)
                                 {
-                                    <option value="@kelas.Id">@kelas.Jenjang.Humanize() @kelas.Peminatan.Humanize()</option>
+                                    <option value="@kelas.Id">@kelas.Jenjang.Humanize() @kelas.Peminatan.Nama</option>
                                 }
                             </select>
                             <span asp-validation-for="@Model.IdKelas"></span>

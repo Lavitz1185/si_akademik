@@ -71,11 +71,11 @@
                         {
                             @if (Model.Kelas == kelas)
                             {
-                                <option selected value="@kelas.Id">@kelas.Jenjang.Humanize() @kelas.Peminatan.Humanize()</option>
+                                <option selected value="@kelas.Id">@kelas.Jenjang.Humanize() @kelas.Peminatan.Nama</option>
                             }
                             else
                             {
-                                <option value="@kelas.Id">@kelas.Jenjang.Humanize() @kelas.Peminatan.Humanize()</option>
+                                <option value="@kelas.Id">@kelas.Jenjang.Humanize() @kelas.Peminatan.Nama</option>
                             }
                         }
                     </select>
@@ -104,7 +104,7 @@
                         <tr>
                             <td>@rombel.Id</td>
                             <td>@rombel.Nama</td>
-                            <td>@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Humanize()</td>
+                            <td>@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Nama</td>
                             <td>@rombel.Wali.Nama</td>
                             <td>@rombel.DaftarAnggotaRombel.Count</td>
                             <td>@rombel.Kelas.TahunAjaran.Periode @rombel.Kelas.TahunAjaran.Semester.Humanize()</td>

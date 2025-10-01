@@ -22,6 +22,8 @@ internal class SiswaRepository : ISiswaRepository
     public async Task<Siswa?> Get(int id) => await _appDbContext
         .TblSiswa
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Wali)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
@@ -32,6 +34,8 @@ internal class SiswaRepository : ISiswaRepository
     public async Task<Siswa?> GetByNISN(string nisn) => await _appDbContext
         .TblSiswa
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Wali)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
@@ -42,6 +46,8 @@ internal class SiswaRepository : ISiswaRepository
     public async Task<Siswa?> GetByNIS(string nis) => await _appDbContext
         .TblSiswa
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Wali)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
@@ -53,6 +59,7 @@ internal class SiswaRepository : ISiswaRepository
         .TblSiswa
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Wali)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
