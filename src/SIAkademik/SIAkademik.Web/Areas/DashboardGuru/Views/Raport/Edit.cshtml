@@ -9,7 +9,7 @@
 }
 
 <form asp-action="Edit" method="post" class="container">
-    <div asp-validation-summary="ModelOnly"></div>
+    <div asp-validation-summary="All"></div>
 
     <input asp-for="@Model.Id" readonly hidden/>
     <input asp-for="@Model.Kategori" readonly hidden/>
@@ -22,6 +22,10 @@
             <input asp-for="@Model.Nama" />
             <span asp-validation-for="@Model.Nama"></span>
         </div>
+    } 
+    else 
+    {
+        <input asp-for="@Model.Nama" readonly hidden/>
     }
 
     <div class="row">

@@ -393,6 +393,34 @@ internal class PegawaiEntityConfiguration : IEntityTypeConfiguration<Pegawai>
                 JabatanId = 14,
                 DivisiId = 1,
                 AppUserId = 13
+            },
+            new
+            {
+                Id = "PJ17-010",
+                Nama = "Paulina Yane Tupu, S.Pd",
+                TanggalMasuk = new DateOnly(2017, 2, 1),
+                JenisKelamin = JenisKelamin.Perempuan,
+                TempatLahir = "Waikabubak",
+                TanggalLahir = new DateOnly(1989, 2, 15),
+                NoHP = NoHP.Create("087765193550").Value,
+                Email = "tupuyane@gmail.com",
+                NIK = "5371035502890005",
+                AlamatKTP_KodePos = "",
+                AlamatKTP_Jalan = "Jln. Timor Raya",
+                AlamatKTP_RT = 15,
+                AlamatKTP_RW = 16,
+                AlamatKTP_KelurahanDesa = "Kelurahan Oesapa",
+                AlamatKTP_Kecamatan = "Kelapa Lima",
+                AlamatKTP_KotaKabupaten = "Kota Kupang",
+                AlamatKTP_Provinsi = "NTT",
+                Agama = Agama.KristenProtestan,
+                GolonganDarah = GolonganDarah.A,
+                StatusPerkawinan = StatusPerkawinan.TidakKawin,
+                NamaInstagram = "yane_tupu",
+                NoRekening = "3140924066 (BCA)",
+                JabatanId = 15,
+                DivisiId = 2,
+                AppUserId = 14
             }
         );
     }

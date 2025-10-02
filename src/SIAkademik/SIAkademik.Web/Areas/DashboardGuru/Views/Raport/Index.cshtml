@@ -1,11 +1,14 @@
 ﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.RaportModels
+@using SIAkademik.Web.Authentication
 @model IndexVM
 
 @inject ITahunAjaranRepository TahunAjaranRepository
 @inject IRombelRepository RombelRepository
+@inject ISignInManager SignInManager
 
 @{
     var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
+    var pegawai = (await SignInManager.GetPegawai())!;
 }
 
 <form asp-action="Index" method="get">
@@ -43,7 +46,7 @@
         {
             var daftarRombel = await RombelRepository.GetAllByTahunAjaran(Model.TahunAjaran.Id);
 
-            @foreach (var rombel in daftarRombel)
+            @foreach (var rombel in daftarRombel.Where(r => r.Wali == pegawai))
             {
                 @if (Model.Rombel == rombel)
                 {

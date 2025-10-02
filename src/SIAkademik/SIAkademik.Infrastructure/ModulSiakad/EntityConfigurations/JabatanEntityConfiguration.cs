@@ -96,6 +96,12 @@ internal class JabatanEntityConfiguration : IEntityTypeConfiguration<Jabatan>
                 Id = 14,
                 Nama = "Guru Biologi",
                 Jenis = JenisJabatan.Guru
+            },
+            new Jabatan
+            {
+                Id = 15,
+                Nama = "Kordinator Pengadaan dan Keuangan",
+                Jenis = JenisJabatan.Guru
             }
         );
     }

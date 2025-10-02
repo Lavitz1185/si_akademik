@@ -1,6 +1,7 @@
 ﻿@model AnggotaRombel
 
 @inject IPegawaiRepository PegawaiRepository;
+@inject INilaiRepository NilaiRepository;
 
 @{
     Layout = null;
@@ -9,12 +10,12 @@
 
     var daftarPengetahuan = Model.DaftarRaport
         .Where(r => r.KategoriNilai == KategoriNilaiRaport.Pengetahuan)
-        .OrderBy(r => r.JadwalMengajar!.MataPelajaran.Peminatan)
+        .OrderBy(r => r.JadwalMengajar!.MataPelajaran.Peminatan.Jenis)
         .ToList();
 
     var daftarKeterampilan = Model.DaftarRaport
         .Where(r => r.KategoriNilai == KategoriNilaiRaport.Keterampilan)
-        .OrderBy(r => r.JadwalMengajar!.MataPelajaran.Peminatan)
+        .OrderBy(r => r.JadwalMengajar!.MataPelajaran.Peminatan.Jenis)
         .ToList();
 
     var daftarEktrakulikuler = Model.DaftarRaport
@@ -32,7 +33,7 @@
     }
 
     table, th, tr, td {
-        border: 2px solid black;
+        border: 1px solid black;
         border-collapse: collapse;
     }
 
@@ -198,7 +199,7 @@
             var ektrakulikuler = daftarEktrakulikuler[i];
             <tr>
                 <td>@(i + 1). @ektrakulikuler.Nama</td>
-                <td>@ektrakulikuler.Deskripsi</td>
+                <td>@ektrakulikuler.Predikat. @ektrakulikuler.Deskripsi</td>
             </tr>
         }
     </tbody>

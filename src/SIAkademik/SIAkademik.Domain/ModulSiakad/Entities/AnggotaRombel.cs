@@ -1,4 +1,5 @@
 ﻿using SIAkademik.Domain.Abstracts;
+using SIAkademik.Domain.Enums;
 using System.Linq;
 
 namespace SIAkademik.Domain.ModulSiakad.Entities;
@@ -24,7 +25,7 @@ public class AnggotaRombel : IEquatable<AnggotaRombel>
 
     public double RataTugas(JadwalMengajar jadwalMengajar)
     {
-        var daftarNilai = DaftarNilai.Where(n => n.JadwalMengajar == jadwalMengajar && n.Jenis == Enums.JenisNilai.Tugas);
+        var daftarNilai = DaftarNilai.Where(n => n.JadwalMengajar == jadwalMengajar && n.Jenis == JenisNilai.Tugas);
 
         if (daftarNilai.Count() == 0) return 0;
         else return daftarNilai.Average(n => n.Skor);
@@ -32,19 +33,21 @@ public class AnggotaRombel : IEquatable<AnggotaRombel>
 
     public double RataUH(JadwalMengajar jadwalMengajar)
     {
-        var daftarNilai = DaftarNilai.Where(n => n.JadwalMengajar == jadwalMengajar && n.Jenis == Enums.JenisNilai.UH);
+        var daftarNilai = DaftarNilai.Where(n => n.JadwalMengajar == jadwalMengajar && n.Jenis == JenisNilai.UH);
 
         if (daftarNilai.Count() == 0) return 0;
         else return daftarNilai.Average(n => n.Skor);
     }
 
-    public double NilaiAkhir(JadwalMengajar jadwalMengajar) =>
-        (
-            RataTugas(jadwalMengajar) +
-            RataUH(jadwalMengajar) +
-            DaftarNilai.Where(n => n.JadwalMengajar == jadwalMengajar && n.Jenis == Enums.JenisNilai.UTS).FirstOrDefault()?.Skor ?? 0 +
-            DaftarNilai.Where(n => n.JadwalMengajar == jadwalMengajar && n.Jenis == Enums.JenisNilai.UAS).FirstOrDefault()?.Skor ?? 0
-        ) / 4d;
+    public double NilaiAkhir(JadwalMengajar jadwalMengajar)
+    {
+        var rataTugas = RataTugas(jadwalMengajar);
+        var rataUH = RataUH(jadwalMengajar);
+        var nilaiUTS = DaftarNilai.Where(n => n.JadwalMengajar == jadwalMengajar && n.Jenis == JenisNilai.UTS).FirstOrDefault()?.Skor ?? 0;
+        var nilaiUAS = DaftarNilai.Where(n => n.JadwalMengajar == jadwalMengajar && n.Jenis == JenisNilai.UAS).FirstOrDefault()?.Skor ?? 0;
+
+        return (rataTugas + rataUH + nilaiUTS + nilaiUAS) / 4;
+    }
 
 
     public override bool Equals(object? obj) => obj is AnggotaRombel a && Equals(a);

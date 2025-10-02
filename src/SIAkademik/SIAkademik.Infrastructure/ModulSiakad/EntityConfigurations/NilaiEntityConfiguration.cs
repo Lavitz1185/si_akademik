@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SIAkademik.Domain.Enums;
 using SIAkademik.Domain.ModulSiakad.Entities;
 
 namespace SIAkademik.Infrastructure.ModulSiakad.EntityConfigurations;

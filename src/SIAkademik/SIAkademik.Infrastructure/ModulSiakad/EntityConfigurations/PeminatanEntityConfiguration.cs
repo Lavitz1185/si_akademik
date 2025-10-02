@@ -37,6 +37,12 @@ internal class PeminatanEntityConfiguration : IEntityTypeConfiguration<Peminatan
                 Id = 4,
                 Nama = "Bahasa",
                 Jenis = JenisPeminatan.Peminatan
+            },
+            new Peminatan
+            {
+                Id = 5,
+                Nama = "IPA",
+                Jenis = JenisPeminatan.Peminatan
             }
         );
     }

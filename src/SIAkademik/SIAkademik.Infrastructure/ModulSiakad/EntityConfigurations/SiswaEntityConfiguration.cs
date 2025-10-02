@@ -45,6 +45,20 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
                 Agama = Agama.Katolik,
                 StatusAktif = StatusAktifMahasiswa.Aktif,
                 AppUserId = 3
+            },
+            new
+            {
+                Id = 2,
+                NISN = "0047892929",
+                Nama = "Anlidua Lua Hingmadi",
+                NIS = "192005",
+                JenisKelamin = JenisKelamin.Perempuan,
+                TanggalLahir = new DateOnly(2004, 10, 14),
+                TanggalMasuk = new DateOnly(2019, 08, 01),
+                TempatLahir = "Makassar",
+                Agama = Agama.KristenProtestan,
+                StatusAktif = StatusAktifMahasiswa.TidakAktif,
+                AppUserId = 15
             }
         );
     }

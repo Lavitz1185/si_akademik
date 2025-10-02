@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SIAkademik.Infrastructure.Database;
@@ -12,9 +13,11 @@ using SIAkademik.Infrastructure.Database;
 namespace SIAkademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251001121158_SeedPegawai5")]
+    partial class SeedPegawai5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,13 +148,6 @@ namespace SIAkademik.Infrastructure.Migrations
                             PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
                             Role = "GURU",
                             UserName = "tupuyane@gmail.com"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
-                            Role = "Siswa",
-                            UserName = "0047892929"
                         });
                 });
 
@@ -247,12 +243,6 @@ namespace SIAkademik.Infrastructure.Migrations
                             IdSiswa = 1,
                             IdRombel = 1,
                             TanggalMasuk = new DateOnly(2025, 7, 1)
-                        },
-                        new
-                        {
-                            IdSiswa = 2,
-                            IdRombel = 2,
-                            TanggalMasuk = new DateOnly(2021, 8, 1)
                         });
                 });
 
@@ -549,104 +539,6 @@ namespace SIAkademik.Infrastructure.Migrations
                             MataPelajaranId = 2,
                             PegawaiId = "PJ24-003",
                             RombelId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            MataPelajaranId = 3,
-                            PegawaiId = "PJ17-010",
-                            RombelId = 2
-                        },
-                        new
-                        {
-                            Id = 4,
-                            MataPelajaranId = 4,
-                            PegawaiId = "PJ17-010",
-                            RombelId = 2
-                        },
-                        new
-                        {
-                            Id = 5,
-                            MataPelajaranId = 5,
-                            PegawaiId = "PJ17-010",
-                            RombelId = 2
-                        },
-                        new
-                        {
-                            Id = 6,
-                            MataPelajaranId = 6,
-                            PegawaiId = "PJ17-010",
-                            RombelId = 2
-                        },
-                        new
-                        {
-                            Id = 7,
-                            MataPelajaranId = 7,
-                            PegawaiId = "PJ17-010",
-                            RombelId = 2
-                        },
-                        new
-                        {
-                            Id = 8,
-                            MataPelajaranId = 8,
-                            PegawaiId = "PJ17-010",
-                            RombelId = 2
-                        },
-                        new
-                        {
-                            Id = 9,
-                            MataPelajaranId = 9,
-                            PegawaiId = "PJ17-010",
-                            RombelId = 2
-                        },
-                        new
-                        {
-                            Id = 10,
-                            MataPelajaranId = 10,
-                            PegawaiId = "PJ17-010",
-                            RombelId = 2
-                        },
-                        new
-                        {
-                            Id = 11,
-                            MataPelajaranId = 11,
-                            PegawaiId = "PJ17-010",
-                            RombelId = 2
-                        },
-                        new
-                        {
-                            Id = 12,
-                            MataPelajaranId = 12,
-                            PegawaiId = "PJ17-010",
-                            RombelId = 2
-                        },
-                        new
-                        {
-                            Id = 13,
-                            MataPelajaranId = 13,
-                            PegawaiId = "PJ17-010",
-                            RombelId = 2
-                        },
-                        new
-                        {
-                            Id = 14,
-                            MataPelajaranId = 14,
-                            PegawaiId = "PJ17-010",
-                            RombelId = 2
-                        },
-                        new
-                        {
-                            Id = 15,
-                            MataPelajaranId = 15,
-                            PegawaiId = "PJ17-010",
-                            RombelId = 2
-                        },
-                        new
-                        {
-                            Id = 16,
-                            MataPelajaranId = 16,
-                            PegawaiId = "PJ17-010",
-                            RombelId = 2
                         });
                 });
 
@@ -682,13 +574,6 @@ namespace SIAkademik.Infrastructure.Migrations
                             Jenjang = 0,
                             PeminatanId = 1,
                             TahunAjaranId = 2
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Jenjang = 2,
-                            PeminatanId = 5,
-                            TahunAjaranId = 3
                         });
                 });
 
@@ -735,118 +620,6 @@ namespace SIAkademik.Infrastructure.Migrations
                             KKM = 80.0,
                             Nama = "Bahasa Indonesia",
                             PeminatanId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Jenjang = 2,
-                            KKM = 75.0,
-                            Nama = "Pendidikan Agama dan Budi Pekerti",
-                            PeminatanId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Jenjang = 2,
-                            KKM = 75.0,
-                            Nama = "Pendidikan Pancasila dan Kewarganegaraan",
-                            PeminatanId = 1
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Jenjang = 2,
-                            KKM = 75.0,
-                            Nama = "Bahasa Indonesia",
-                            PeminatanId = 1
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Jenjang = 2,
-                            KKM = 75.0,
-                            Nama = "Matematika",
-                            PeminatanId = 1
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Jenjang = 2,
-                            KKM = 75.0,
-                            Nama = "Sejarah Indonesia",
-                            PeminatanId = 1
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Jenjang = 2,
-                            KKM = 75.0,
-                            Nama = "Bahasa Inggris",
-                            PeminatanId = 1
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Jenjang = 2,
-                            KKM = 75.0,
-                            Nama = "Seni Budaya",
-                            PeminatanId = 1
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Jenjang = 2,
-                            KKM = 75.0,
-                            Nama = "Pendidikan Jasmani Olah Raga Kesehatan",
-                            PeminatanId = 1
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Jenjang = 2,
-                            KKM = 75.0,
-                            Nama = "Matematika",
-                            PeminatanId = 5
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Jenjang = 2,
-                            KKM = 75.0,
-                            Nama = "Fisika",
-                            PeminatanId = 5
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Jenjang = 2,
-                            KKM = 75.0,
-                            Nama = "Biologi",
-                            PeminatanId = 5
-                        },
-                        new
-                        {
-                            Id = 14,
-                            Jenjang = 2,
-                            KKM = 75.0,
-                            Nama = "Kimia",
-                            PeminatanId = 5
-                        },
-                        new
-                        {
-                            Id = 15,
-                            Jenjang = 2,
-                            KKM = 75.0,
-                            Nama = "Pendalaman Minat Matematika",
-                            PeminatanId = 5
-                        },
-                        new
-                        {
-                            Id = 16,
-                            Jenjang = 2,
-                            KKM = 75.0,
-                            Nama = "Pendalaman Minat Bahasa Inggris",
-                            PeminatanId = 5
                         });
                 });
 
@@ -1316,12 +1089,6 @@ namespace SIAkademik.Infrastructure.Migrations
                             Id = 4,
                             Jenis = 1,
                             Nama = "Bahasa"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Jenis = 1,
-                            Nama = "IPA"
                         });
                 });
 
@@ -1536,38 +1303,6 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.HasIndex("AnggotaRombelIdSiswa", "AnggotaRombelIdRombel");
 
                     b.ToTable("TblRaport");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AnggotaRombelIdRombel = 2,
-                            AnggotaRombelIdSiswa = 2,
-                            Deskripsi = "Anlidua Lua Hingmadi, baik dalam sikap berinisiatif berdoa sebelum-sesudah melakukan kegiatan, baik dalam sikap mengikuit jadwal kegiatan sekolah, baik dalam sikap menolong teman sebaya yang membutuhkan, baik dalam sikap disiplin dalam kelas, baik dalam bertanggung jawab menjaga lingkungan sekolah, baik dalam sikap menjaga hubungan dengan orang lain",
-                            KategoriNilai = 0,
-                            Nama = "Sikap Spiritual",
-                            Predikat = "Baik"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AnggotaRombelIdRombel = 2,
-                            AnggotaRombelIdSiswa = 2,
-                            Deskripsi = "Anlidua Lua Hingmadi, baik dalam sikap jujur, baik dalam sikap disiplin, baik dalam sikap tanggungjawab, baik dalam sikap toleransi, baik dalam sikap gotong royong, baik dalam sikap santun, selalu peduli, baik dalam sikap percaya diri, selalu memiliki rasa ingin tahu, baik dalam sikap ramah tamah",
-                            KategoriNilai = 0,
-                            Nama = "Sikap Sosial",
-                            Predikat = "Baik"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AnggotaRombelIdRombel = 2,
-                            AnggotaRombelIdSiswa = 2,
-                            Deskripsi = "Aktif dalam ekstrakulikuler Microsoft Word",
-                            KategoriNilai = 3,
-                            Nama = "Microsoft Word",
-                            Predikat = "Memuaskan"
-                        });
                 });
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Rombel", b =>
@@ -1604,13 +1339,6 @@ namespace SIAkademik.Infrastructure.Migrations
                             KelasId = 1,
                             Nama = "A",
                             WaliId = "PJ24-003"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            KelasId = 2,
-                            Nama = "A",
-                            WaliId = "PJ17-010"
                         });
                 });
 
@@ -1831,20 +1559,6 @@ namespace SIAkademik.Infrastructure.Migrations
                             TanggalLahir = new DateOnly(2004, 10, 14),
                             TanggalMasuk = new DateOnly(2025, 1, 1),
                             TempatLahir = "Makassar"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Agama = 0,
-                            AppUserId = 15,
-                            JenisKelamin = 1,
-                            NIS = "192005",
-                            NISN = "0047892929",
-                            Nama = "Anlidua Lua Hingmadi",
-                            StatusAktif = 1,
-                            TanggalLahir = new DateOnly(2004, 10, 14),
-                            TanggalMasuk = new DateOnly(2019, 8, 1),
-                            TempatLahir = "Makassar"
                         });
                 });
 
@@ -1888,14 +1602,6 @@ namespace SIAkademik.Infrastructure.Migrations
                             Tahun = 2025,
                             TanggalMulai = new DateOnly(2025, 8, 1),
                             TanggalSelesai = new DateOnly(2025, 12, 31)
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Semester = 0,
-                            Tahun = 2021,
-                            TanggalMulai = new DateOnly(2021, 8, 1),
-                            TanggalSelesai = new DateOnly(2021, 12, 31)
                         });
                 });
 

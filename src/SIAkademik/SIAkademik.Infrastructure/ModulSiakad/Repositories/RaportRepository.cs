@@ -30,7 +30,7 @@ internal class RaportRepository : IRaportRepository
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.DaftarNilai).ThenInclude(n => n.JadwalMengajar)
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.DaftarAbsen).ThenInclude(a => a.Pertemuan)
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
-        .Include(r => r.AnggotaRombel).ThenInclude(a => a.DaftarRaport)
+        .Include(r => r.AnggotaRombel).ThenInclude(a => a.DaftarRaport).ThenInclude(r => r.JadwalMengajar)
         .FirstOrDefaultAsync(r => r.Id == id);
 
     public async Task<List<Raport>> GetAll() => await _appDbContext

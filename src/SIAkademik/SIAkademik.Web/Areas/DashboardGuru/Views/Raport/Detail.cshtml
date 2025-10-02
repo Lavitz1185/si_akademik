@@ -8,6 +8,10 @@
     var daftarEkstrakulikuler = Model.DaftarRaport.Where(r => r.KategoriNilai == KategoriNilaiRaport.Ekstrakulikuler);
 }
 
+<form asp-action="IsiNilai" asp-route-idSiswa="@Model.AnggotaRombel.IdSiswa" asp-route-idRombel="@Model.AnggotaRombel.IdRombel">
+    <button type="submit">Isi Nilai</button>
+</form>
+
 <h1>Sikap</h1>
 <a asp-action="Tambah" asp-route-idSiswa="@Model.AnggotaRombel.IdSiswa" asp-route-idRombel="@Model.AnggotaRombel.IdRombel" 
     asp-route-kategori="@KategoriNilaiRaport.Sikap">

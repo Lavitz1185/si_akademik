@@ -22,7 +22,7 @@ public class EditVM
     public required string Dekripsi { get; set; }
 
     [Display(Name = "Nama")]
-    public required string Nama { get; set; }
+    public string? Nama { get; set; }
 
     [Display(Name = "Jadwal Mengajar")]
     public int? IdJadwalMengajar { get; set; }

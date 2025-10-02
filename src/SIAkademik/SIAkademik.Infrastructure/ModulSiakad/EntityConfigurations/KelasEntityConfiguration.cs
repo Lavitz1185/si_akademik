@@ -22,6 +22,13 @@ internal class KelasEntityConfiguration : IEntityTypeConfiguration<Kelas>
                 Jenjang = Jenjang.X,
                 PeminatanId = 1,
                 TahunAjaranId = 2,
+            },
+            new
+            {
+                Id = 2,
+                Jenjang = Jenjang.XII,
+                PeminatanId = 5,
+                TahunAjaranId = 3,
             }
         );
     }

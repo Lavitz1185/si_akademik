@@ -11,5 +11,43 @@ internal class RaportEntityConfiguration : IEntityTypeConfiguration<Raport>
         builder.HasKey(x => x.Id);
         builder.HasOne(x => x.AnggotaRombel).WithMany(y => y.DaftarRaport);
         builder.HasOne(x => x.JadwalMengajar).WithMany(y => y.DaftarRaport);
+
+        builder.HasData(
+            new
+            {
+                Id = 1,
+                Nama = "Sikap Spiritual",
+                Deskripsi = "Anlidua Lua Hingmadi, baik dalam sikap berinisiatif berdoa sebelum-sesudah melakukan kegiatan, baik dalam sikap" +
+                            " mengikuit jadwal kegiatan sekolah, baik dalam sikap menolong teman sebaya yang membutuhkan, baik dalam sikap disiplin" +
+                            " dalam kelas, baik dalam bertanggung jawab menjaga lingkungan sekolah, baik dalam sikap menjaga hubungan dengan orang" +
+                            " lain",
+                KategoriNilai = KategoriNilaiRaport.Sikap,
+                Predikat = "Baik",
+                AnggotaRombelIdSiswa = 2,
+                AnggotaRombelIdRombel = 2
+            },
+            new
+            {
+                Id = 2,
+                Nama = "Sikap Sosial",
+                Deskripsi = "Anlidua Lua Hingmadi, baik dalam sikap jujur, baik dalam sikap disiplin, baik dalam sikap tanggungjawab, baik dalam " +
+                            "sikap toleransi, baik dalam sikap gotong royong, baik dalam sikap santun, selalu peduli, baik dalam sikap percaya diri, " +
+                            "selalu memiliki rasa ingin tahu, baik dalam sikap ramah tamah",
+                KategoriNilai = KategoriNilaiRaport.Sikap,
+                Predikat = "Baik",
+                AnggotaRombelIdSiswa = 2,
+                AnggotaRombelIdRombel = 2
+            },
+            new
+            {
+                Id = 3,
+                Nama = "Microsoft Word",
+                Deskripsi = "Aktif dalam ekstrakulikuler Microsoft Word",
+                KategoriNilai = KategoriNilaiRaport.Ekstrakulikuler,
+                Predikat = "Memuaskan",
+                AnggotaRombelIdSiswa = 2,
+                AnggotaRombelIdRombel = 2
+            }
+        );
     }
 }

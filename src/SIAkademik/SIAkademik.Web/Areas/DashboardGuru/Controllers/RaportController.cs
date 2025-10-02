@@ -90,6 +90,27 @@ public class RaportController : Controller
 
         var daftarRaport = await _raportRepository.GetAllBy(siswa.Id, rombel.Id);
 
+        return View(new DetailVM { AnggotaRombel = anggotaRombel, DaftarRaport = daftarRaport });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> IsiNilai(int idSiswa, int idRombel)
+    {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        var rombel = await _rombelRepository.Get(idRombel);
+        if (rombel is null) return NotFound();
+        if (!pegawai.DaftarRombelWali.Contains(rombel)) return BadRequest();
+
+        var siswa = await _siswaRepository.Get(idSiswa);
+        if (siswa is null) return NotFound();
+
+        var anggotaRombel = rombel.DaftarAnggotaRombel.FirstOrDefault(a => a.Siswa == siswa);
+        if (anggotaRombel is null) return BadRequest();
+
+        var daftarRaport = await _raportRepository.GetAllBy(siswa.Id, rombel.Id);
+
         foreach (var jadwal in rombel.DaftarJadwalMengajar)
         {
             if (!daftarRaport.Any(r => r.JadwalMengajar == jadwal))
@@ -123,7 +144,7 @@ public class RaportController : Controller
 
         daftarRaport = await _raportRepository.GetAllBy(siswa.Id, rombel.Id);
 
-        return View(new DetailVM { AnggotaRombel = anggotaRombel, DaftarRaport = daftarRaport });
+        return RedirectToAction(nameof(Detail), new { idSiswa, idRombel });
     }
 
     public async Task<IActionResult> Tambah(int idSiswa, int idRombel, KategoriNilaiRaport kategori)
@@ -305,7 +326,9 @@ public class RaportController : Controller
                 return View(vm);
             }
 
-            if (raport.AnggotaRombel.DaftarRaport.Any(r => r != raport && r.JadwalMengajar == jadwalMengajar)) 
+            if (raport.AnggotaRombel.DaftarRaport.Any(r => r.KategoriNilai == raport.KategoriNilai && 
+                r != raport && 
+                r.JadwalMengajar == jadwalMengajar)) 
             {
                 ModelState.AddModelError(nameof(TambahVM.IdJadwalMengajar),
                     $"Data Raport kategori {vm.Kategori.Humanize()} dengan mata pelajaran {jadwalMengajar.MataPelajaran.Nama} sudah ada!");

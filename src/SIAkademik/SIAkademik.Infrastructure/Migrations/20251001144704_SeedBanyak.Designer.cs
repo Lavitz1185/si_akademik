@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SIAkademik.Infrastructure.Database;
@@ -12,9 +13,11 @@ using SIAkademik.Infrastructure.Database;
 namespace SIAkademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251001144704_SeedBanyak")]
+    partial class SeedBanyak
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1536,38 +1539,6 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.HasIndex("AnggotaRombelIdSiswa", "AnggotaRombelIdRombel");
 
                     b.ToTable("TblRaport");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AnggotaRombelIdRombel = 2,
-                            AnggotaRombelIdSiswa = 2,
-                            Deskripsi = "Anlidua Lua Hingmadi, baik dalam sikap berinisiatif berdoa sebelum-sesudah melakukan kegiatan, baik dalam sikap mengikuit jadwal kegiatan sekolah, baik dalam sikap menolong teman sebaya yang membutuhkan, baik dalam sikap disiplin dalam kelas, baik dalam bertanggung jawab menjaga lingkungan sekolah, baik dalam sikap menjaga hubungan dengan orang lain",
-                            KategoriNilai = 0,
-                            Nama = "Sikap Spiritual",
-                            Predikat = "Baik"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AnggotaRombelIdRombel = 2,
-                            AnggotaRombelIdSiswa = 2,
-                            Deskripsi = "Anlidua Lua Hingmadi, baik dalam sikap jujur, baik dalam sikap disiplin, baik dalam sikap tanggungjawab, baik dalam sikap toleransi, baik dalam sikap gotong royong, baik dalam sikap santun, selalu peduli, baik dalam sikap percaya diri, selalu memiliki rasa ingin tahu, baik dalam sikap ramah tamah",
-                            KategoriNilai = 0,
-                            Nama = "Sikap Sosial",
-                            Predikat = "Baik"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AnggotaRombelIdRombel = 2,
-                            AnggotaRombelIdSiswa = 2,
-                            Deskripsi = "Aktif dalam ekstrakulikuler Microsoft Word",
-                            KategoriNilai = 3,
-                            Nama = "Microsoft Word",
-                            Predikat = "Memuaskan"
-                        });
                 });
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Rombel", b =>
