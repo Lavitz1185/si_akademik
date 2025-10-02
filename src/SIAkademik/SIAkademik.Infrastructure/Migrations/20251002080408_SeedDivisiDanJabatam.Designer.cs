@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SIAkademik.Infrastructure.Database;
@@ -12,9 +13,11 @@ using SIAkademik.Infrastructure.Database;
 namespace SIAkademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251002080408_SeedDivisiDanJabatam")]
+    partial class SeedDivisiDanJabatam
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,6 +64,13 @@ namespace SIAkademik.Infrastructure.Migrations
                             PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
                             Role = "GURU",
                             UserName = "megalello99@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                            Role = "Siswa",
+                            UserName = "0044710570"
                         },
                         new
                         {
@@ -237,6 +247,12 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
+                            IdSiswa = 1,
+                            IdRombel = 1,
+                            TanggalMasuk = new DateOnly(2025, 7, 1)
+                        },
+                        new
+                        {
                             IdSiswa = 2,
                             IdRombel = 2,
                             TanggalMasuk = new DateOnly(2021, 8, 1)
@@ -317,6 +333,88 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.HasIndex("JadwalMengajarId");
 
                     b.ToTable("TblHariMengajar");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Hari = 0,
+                            JadwalMengajarId = 1,
+                            JamAkhir = new TimeOnly(12, 0, 0),
+                            JamMulai = new TimeOnly(7, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Hari = 1,
+                            JadwalMengajarId = 1,
+                            JamAkhir = new TimeOnly(12, 0, 0),
+                            JamMulai = new TimeOnly(7, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Hari = 2,
+                            JadwalMengajarId = 1,
+                            JamAkhir = new TimeOnly(12, 0, 0),
+                            JamMulai = new TimeOnly(7, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Hari = 3,
+                            JadwalMengajarId = 1,
+                            JamAkhir = new TimeOnly(12, 0, 0),
+                            JamMulai = new TimeOnly(7, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Hari = 4,
+                            JadwalMengajarId = 1,
+                            JamAkhir = new TimeOnly(12, 0, 0),
+                            JamMulai = new TimeOnly(7, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Hari = 0,
+                            JadwalMengajarId = 2,
+                            JamAkhir = new TimeOnly(16, 0, 0),
+                            JamMulai = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Hari = 1,
+                            JadwalMengajarId = 2,
+                            JamAkhir = new TimeOnly(16, 0, 0),
+                            JamMulai = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Hari = 2,
+                            JadwalMengajarId = 2,
+                            JamAkhir = new TimeOnly(16, 0, 0),
+                            JamMulai = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Hari = 3,
+                            JadwalMengajarId = 2,
+                            JamAkhir = new TimeOnly(16, 0, 0),
+                            JamMulai = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Hari = 4,
+                            JadwalMengajarId = 2,
+                            JamAkhir = new TimeOnly(16, 0, 0),
+                            JamMulai = new TimeOnly(13, 0, 0)
+                        });
                 });
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Jabatan", b =>
@@ -535,6 +633,20 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
+                            Id = 1,
+                            MataPelajaranId = 1,
+                            PegawaiId = "PJ24-003",
+                            RombelId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            MataPelajaranId = 2,
+                            PegawaiId = "PJ24-003",
+                            RombelId = 1
+                        },
+                        new
+                        {
                             Id = 3,
                             MataPelajaranId = 3,
                             PegawaiId = "PJ17-010",
@@ -661,6 +773,13 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
+                            Id = 1,
+                            Jenjang = 0,
+                            PeminatanId = 1,
+                            TahunAjaranId = 2
+                        },
+                        new
+                        {
                             Id = 2,
                             Jenjang = 2,
                             PeminatanId = 5,
@@ -696,6 +815,22 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.ToTable("TblMataPelajaran");
 
                     b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Jenjang = 0,
+                            KKM = 70.0,
+                            Nama = "Matematika",
+                            PeminatanId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Jenjang = 0,
+                            KKM = 80.0,
+                            Nama = "Bahasa Indonesia",
+                            PeminatanId = 1
+                        },
                         new
                         {
                             Id = 3,
@@ -1313,6 +1448,148 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.HasIndex("JadwalMengajarId");
 
                     b.ToTable("TblPertemuan");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            JadwalMengajarId = 1,
+                            Nomor = 1,
+                            StatusPertemuan = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            JadwalMengajarId = 1,
+                            Nomor = 2,
+                            StatusPertemuan = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            JadwalMengajarId = 1,
+                            Nomor = 3,
+                            StatusPertemuan = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            JadwalMengajarId = 1,
+                            Nomor = 4,
+                            StatusPertemuan = 0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            JadwalMengajarId = 1,
+                            Nomor = 5,
+                            StatusPertemuan = 0
+                        },
+                        new
+                        {
+                            Id = 6,
+                            JadwalMengajarId = 1,
+                            Nomor = 6,
+                            StatusPertemuan = 0
+                        },
+                        new
+                        {
+                            Id = 7,
+                            JadwalMengajarId = 1,
+                            Nomor = 7,
+                            StatusPertemuan = 0
+                        },
+                        new
+                        {
+                            Id = 8,
+                            JadwalMengajarId = 1,
+                            Nomor = 8,
+                            StatusPertemuan = 0
+                        },
+                        new
+                        {
+                            Id = 9,
+                            JadwalMengajarId = 1,
+                            Nomor = 9,
+                            StatusPertemuan = 0
+                        },
+                        new
+                        {
+                            Id = 10,
+                            JadwalMengajarId = 1,
+                            Nomor = 10,
+                            StatusPertemuan = 0
+                        },
+                        new
+                        {
+                            Id = 11,
+                            JadwalMengajarId = 2,
+                            Nomor = 1,
+                            StatusPertemuan = 0
+                        },
+                        new
+                        {
+                            Id = 12,
+                            JadwalMengajarId = 2,
+                            Nomor = 2,
+                            StatusPertemuan = 0
+                        },
+                        new
+                        {
+                            Id = 13,
+                            JadwalMengajarId = 2,
+                            Nomor = 3,
+                            StatusPertemuan = 0
+                        },
+                        new
+                        {
+                            Id = 14,
+                            JadwalMengajarId = 2,
+                            Nomor = 4,
+                            StatusPertemuan = 0
+                        },
+                        new
+                        {
+                            Id = 15,
+                            JadwalMengajarId = 2,
+                            Nomor = 5,
+                            StatusPertemuan = 0
+                        },
+                        new
+                        {
+                            Id = 16,
+                            JadwalMengajarId = 2,
+                            Nomor = 6,
+                            StatusPertemuan = 0
+                        },
+                        new
+                        {
+                            Id = 17,
+                            JadwalMengajarId = 2,
+                            Nomor = 7,
+                            StatusPertemuan = 0
+                        },
+                        new
+                        {
+                            Id = 18,
+                            JadwalMengajarId = 2,
+                            Nomor = 8,
+                            StatusPertemuan = 0
+                        },
+                        new
+                        {
+                            Id = 19,
+                            JadwalMengajarId = 2,
+                            Nomor = 9,
+                            StatusPertemuan = 0
+                        },
+                        new
+                        {
+                            Id = 20,
+                            JadwalMengajarId = 2,
+                            Nomor = 10,
+                            StatusPertemuan = 0
+                        });
                 });
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Raport", b =>
@@ -1416,6 +1693,13 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.ToTable("TblRombel");
 
                     b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            KelasId = 1,
+                            Nama = "A",
+                            WaliId = "PJ24-003"
+                        },
                         new
                         {
                             Id = 2,
@@ -1631,6 +1915,20 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
+                            Id = 1,
+                            Agama = 1,
+                            AppUserId = 3,
+                            JenisKelamin = 0,
+                            NIS = "123456",
+                            NISN = "0044710570",
+                            Nama = "OSWALDUS PUTRA FERNANDO",
+                            StatusAktif = 0,
+                            TanggalLahir = new DateOnly(2004, 10, 14),
+                            TanggalMasuk = new DateOnly(2025, 1, 1),
+                            TempatLahir = "Makassar"
+                        },
+                        new
+                        {
                             Id = 2,
                             Agama = 0,
                             AppUserId = 15,
@@ -1670,6 +1968,14 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.ToTable("TblTahunAjaran");
 
                     b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Semester = 1,
+                            Tahun = 2024,
+                            TanggalMulai = new DateOnly(2025, 1, 1),
+                            TanggalSelesai = new DateOnly(2025, 7, 31)
+                        },
                         new
                         {
                             Id = 2,

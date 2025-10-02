@@ -34,20 +34,6 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
         builder.HasData(
             new
             {
-                Id = 1,
-                NISN = "0044710570",
-                Nama = "OSWALDUS PUTRA FERNANDO",
-                NIS = "123456",
-                JenisKelamin = JenisKelamin.LakiLaki,
-                TanggalLahir = new DateOnly(2004, 10, 14),
-                TanggalMasuk = new DateOnly(2025, 01, 01),
-                TempatLahir = "Makassar",
-                Agama = Agama.Katolik,
-                StatusAktif = StatusAktifMahasiswa.Aktif,
-                AppUserId = 3
-            },
-            new
-            {
                 Id = 2,
                 NISN = "0047892929",
                 Nama = "Anlidua Lua Hingmadi",

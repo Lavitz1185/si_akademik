@@ -23,20 +23,6 @@ internal class JadwalMengajarEntityConfiguration : IEntityTypeConfiguration<Jadw
         builder.HasData(
             new
             {
-                Id = 1,
-                MataPelajaranId = 1,
-                RombelId = 1,
-                PegawaiId = "PJ24-003"
-            },
-            new
-            {
-                Id = 2,
-                MataPelajaranId = 2,
-                RombelId = 1,
-                PegawaiId = "PJ24-003"
-            },
-            new
-            {
                 Id = 3,
                 MataPelajaranId = 3,
                 RombelId = 2,

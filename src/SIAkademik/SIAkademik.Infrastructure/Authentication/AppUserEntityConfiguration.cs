@@ -32,13 +32,6 @@ internal class AppUserEntityConfiguration : IEntityTypeConfiguration<AppUser>
             },
             new
             {
-                Id = 3,
-                UserName = "0044710570",
-                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
-                Role = AppUserRoles.Siswa
-            },
-            new
-            {
                 Id = 4,
                 UserName = "johanis@pandhegajaya.sch.id",
                 PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",

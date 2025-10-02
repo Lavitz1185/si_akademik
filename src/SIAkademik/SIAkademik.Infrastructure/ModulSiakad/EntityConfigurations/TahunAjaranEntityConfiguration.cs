@@ -14,14 +14,6 @@ internal class TahunAjaranEntityConfiguration : IEntityTypeConfiguration<TahunAj
         builder.HasData(
             new TahunAjaran
             {
-                Id = 1,
-                Semester = Semester.Genap,
-                Tahun = 2024,
-                TanggalMulai = new DateOnly(2025, 01, 01),
-                TanggalSelesai = new DateOnly(2025, 07, 31)
-            },
-            new TahunAjaran
-            {
                 Id = 2,
                 Semester = Semester.Ganjil,
                 Tahun = 2025,

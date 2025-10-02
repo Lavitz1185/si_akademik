@@ -21,6 +21,26 @@ internal class DivisiEntityConfiguration : IEntityTypeConfiguration<Divisi>
             {
                 Id = 2,
                 Nama = "Pengadaan dan Keuangan"
+            },
+            new Divisi
+            {
+                Id = 3,
+                Nama = "DPU"
+            },
+            new Divisi
+            {
+                Id = 4,
+                Nama = "HRD"
+            },
+            new Divisi
+            {
+                Id = 5,
+                Nama = "R&D"
+            },
+            new Divisi
+            {
+                Id = 6,
+                Nama = "Yayasan"
             }
         );
     }

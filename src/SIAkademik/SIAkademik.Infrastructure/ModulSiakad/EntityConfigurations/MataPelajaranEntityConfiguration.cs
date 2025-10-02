@@ -16,22 +16,6 @@ internal class MataPelajaranEntityConfiguration : IEntityTypeConfiguration<MataP
         builder.HasData(
             new
             {
-                Id = 1,
-                Nama = "Matematika",
-                PeminatanId = 1,
-                Jenjang = Jenjang.X,
-                KKM = 70d
-            },
-            new
-            {
-                Id = 2,
-                Nama = "Bahasa Indonesia",
-                PeminatanId = 1,
-                Jenjang = Jenjang.X,
-                KKM = 80d
-            },
-            new
-            {
                 Id = 3,
                 Nama = "Pendidikan Agama dan Budi Pekerti",
                 PeminatanId = 1,
