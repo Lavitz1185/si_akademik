@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SIAkademik.Infrastructure.Database;
@@ -12,9 +13,11 @@ using SIAkademik.Infrastructure.Database;
 namespace SIAkademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251002085623_PerbaikiSeedSiswa")]
+    partial class PerbaikiSeedSiswa
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1675,7 +1678,7 @@ namespace SIAkademik.Infrastructure.Migrations
                             Id = 2,
                             Semester = 0,
                             Tahun = 2025,
-                            TanggalMulai = new DateOnly(2025, 7, 1),
+                            TanggalMulai = new DateOnly(2025, 8, 1),
                             TanggalSelesai = new DateOnly(2025, 12, 31)
                         },
                         new

@@ -17,7 +17,7 @@ internal class TahunAjaranEntityConfiguration : IEntityTypeConfiguration<TahunAj
                 Id = 2,
                 Semester = Semester.Ganjil,
                 Tahun = 2025,
-                TanggalMulai = new DateOnly(2025, 08, 01),
+                TanggalMulai = new DateOnly(2025, 07, 01),
                 TanggalSelesai = new DateOnly(2025, 12, 31)
             },
             new TahunAjaran

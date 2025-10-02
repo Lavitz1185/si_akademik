@@ -39,9 +39,9 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
                 Nama = "Anlidua Lua Hingmadi",
                 NIS = "192005",
                 JenisKelamin = JenisKelamin.Perempuan,
-                TanggalLahir = new DateOnly(2004, 10, 14),
+                TanggalLahir = new DateOnly(2004, 5, 10),
                 TanggalMasuk = new DateOnly(2019, 08, 01),
-                TempatLahir = "Makassar",
+                TempatLahir = "Kalabahi",
                 Agama = Agama.KristenProtestan,
                 StatusAktif = StatusAktifMahasiswa.TidakAktif,
                 AppUserId = 15
