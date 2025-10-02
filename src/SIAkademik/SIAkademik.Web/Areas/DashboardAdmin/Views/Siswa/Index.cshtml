@@ -1,5 +1,10 @@
 ﻿@model List<Siswa>
 
+@{
+    var showTidakAktif = ViewData["showTidakAktif"] as bool?;
+    showTidakAktif ??= false;
+}
+
 <!-- Breadcrumb -->
 <div class="row">
     <nav aria-label="breadcrumb">
@@ -22,6 +27,24 @@
                    data-toggle="tooltip" title="Tambah Data Siswa Baru">
                     <i class="fas fa-plus"></i> Tambah Siswa
                 </a>
+            </div>
+
+            <div class="ml-auto mr-3">
+                <form asp-action="Index" method="get" style="display:inline">
+                    <label for="showTidakAktif">Siswa Tidak Aktif</label>
+                    <select id="showTidakAktif" name="showTidakAktif">
+                        @if(showTidakAktif.Value)
+                        {
+                            <option value="@true" selected>Tampilkan</option>
+                            <option value="@false">Tidak Tampilkan</option>
+                        }
+                        else
+                        {
+                            <option value="@true">Tampilkan</option>
+                            <option value="@false" selected>Tidak Tampilkan</option>
+                        }
+                    </select>
+                </form>
             </div>
         </div>
 
@@ -83,3 +106,13 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function() {
+            $('select#showTidakAktif').on('change', function() {
+                $(this).closest('form').trigger('submit');
+            })
+        })
+    </script>
+}

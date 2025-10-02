@@ -15,7 +15,7 @@
                     <div class="justify-content-center media p-t-10 p-b-20">
                         <div class="media-items">
                             <div class="media-item">
-                                <div class="media-value font-24" style="color: #000">@Model.DaftarSiswa.Count</div>
+                                <div class="media-value font-24" style="color: #000">@Model.DaftarSiswa.Where(s => s.StatusAktif == StatusAktifMahasiswa.Aktif).Count()</div>
                                 <div class="media-label">Total</div>
                             </div>
                         </div>
@@ -23,13 +23,13 @@
                     <div class="justify-content-center media p-t-3">
                         <div class="media-items">
                             <div class="media-item">
-                                <div class="media-value" id="jumlahPerempuan" style="color: #000">@Model.DaftarSiswa.Where(s => s.JenisKelamin == JenisKelamin.Perempuan).Count()</div>
+                                <div class="media-value" id="jumlahPerempuan" style="color: #000">@Model.DaftarSiswa.Where(s => s.StatusAktif == StatusAktifMahasiswa.Aktif && s.JenisKelamin == JenisKelamin.Perempuan).Count()</div>
                                 <div class="media-label"><span><i class="fa fa-circle m-r-5 col-pink"></i></span>Perempuan</div>
                             </div>
                         </div>
                         <div class="media-items">
                             <div class="media-item">
-                                <div class="media-value" id="jumlahLakiLaki" style="color: #000">@Model.DaftarSiswa.Where(s => s.JenisKelamin == JenisKelamin.LakiLaki).Count()</div>
+                                <div class="media-value" id="jumlahLakiLaki" style="color: #000">@Model.DaftarSiswa.Where(s => s.StatusAktif == StatusAktifMahasiswa.Aktif && s.JenisKelamin == JenisKelamin.LakiLaki).Count()</div>
                                 <div class="media-label"><span><i class="fa fa-circle m-r-5 col-blue"></i></span>Laki-Laki</div>
                             </div>
                         </div>

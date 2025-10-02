@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SIAkademik.Domain.Abstracts;
 using SIAkademik.Domain.Authentication;
+using SIAkademik.Domain.Enums;
 using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Web.Areas.DashboardAdmin.Models.SiswaModels;
@@ -34,11 +35,16 @@ public class SiswaController : Controller
         _passwordHasher = passwordHasher;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(bool showTidakAktif = false)
     {
         var daftarSiswa = await _siswaRepository.GetAll();
 
-        return View(daftarSiswa);
+        ViewData[nameof(showTidakAktif)] = showTidakAktif;
+
+        if (showTidakAktif)
+            return View(daftarSiswa);
+
+        return View(daftarSiswa.Where(s => s.StatusAktif == StatusAktifMahasiswa.Aktif).ToList());
     }
 
     public IActionResult Tambah() => View(new TambahVM());
