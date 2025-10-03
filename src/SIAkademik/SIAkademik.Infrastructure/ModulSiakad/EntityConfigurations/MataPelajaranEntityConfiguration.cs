@@ -125,6 +125,134 @@ internal class MataPelajaranEntityConfiguration : IEntityTypeConfiguration<MataP
                 PeminatanId = 5,
                 Jenjang = Jenjang.XII,
                 KKM = 75d
+            },
+            new
+            {
+                Id = 17,
+                Nama = "Kimia",
+                PeminatanId = 1,
+                Jenjang = Jenjang.X,
+                KKM = 75d
+            },
+            new
+            {
+                Id = 18,
+                Nama = "Pendidikan Pancasila",
+                PeminatanId = 1,
+                Jenjang = Jenjang.X,
+                KKM = 75d
+            },
+            new
+            {
+                Id = 19,
+                Nama = "Biologi",
+                PeminatanId = 1,
+                Jenjang = Jenjang.X,
+                KKM = 75d
+            },
+            new
+            {
+                Id = 20,
+                Nama = "Coding",
+                PeminatanId = 1,
+                Jenjang = Jenjang.X,
+                KKM = 75d
+            },
+            new
+            {
+                Id = 21,
+                Nama = "Sejarah",
+                PeminatanId = 1,
+                Jenjang = Jenjang.X,
+                KKM = 75d
+            },
+            new
+            {
+                Id = 22,
+                Nama = "Sosiologi",
+                PeminatanId = 1,
+                Jenjang = Jenjang.X,
+                KKM = 75d
+            },
+            new
+            {
+                Id = 23,
+                Nama = "Pendidikan Jasmani, Olah Raga dan Kesehatan",
+                PeminatanId = 1,
+                Jenjang = Jenjang.X,
+                KKM = 75d
+            },
+            new
+            {
+                Id = 24,
+                Nama = "Bahasa Inggris",
+                PeminatanId = 1,
+                Jenjang = Jenjang.X,
+                KKM = 75d
+            },
+            new
+            {
+                Id = 25,
+                Nama = "Ekonomi",
+                PeminatanId = 1,
+                Jenjang = Jenjang.X,
+                KKM = 75d
+            },
+            new
+            {
+                Id = 26,
+                Nama = "Geografi",
+                PeminatanId = 1,
+                Jenjang = Jenjang.X,
+                KKM = 75d
+            },
+            new
+            {
+                Id = 27,
+                Nama = "Fisika",
+                PeminatanId = 1,
+                Jenjang = Jenjang.X,
+                KKM = 75d
+            },
+            new
+            {   
+                Id = 28,
+                Nama = "Bahasa Indonesia",
+                PeminatanId = 1,
+                Jenjang = Jenjang.X,
+                KKM = 75d
+            },
+            new
+            {
+                Id = 29,
+                Nama = "Pendidikan Agama dan Budi Pekerti",
+                PeminatanId = 1,
+                Jenjang = Jenjang.X,
+                KKM = 75d
+            },
+            new
+            {
+                Id = 30,
+                Nama = "Matematika (Umum)",
+                PeminatanId = 1,
+                Jenjang = Jenjang.X,
+                KKM = 75d
+            },
+            new
+            {
+                Id = 31,
+                Nama = "Seni Budaya",
+                PeminatanId = 1,
+                Jenjang = Jenjang.X,
+                KKM = 75d
+            },
+            new
+            {
+                Id = 32,
+                Nama = "Prakarya dan Kewirausahaan",
+                PeminatanId = 1,
+                Jenjang = Jenjang.X,
+                KKM = 75d
             }
         );
     }
