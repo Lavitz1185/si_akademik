@@ -40,4 +40,8 @@ public class TambahVM
     [Display(Name = "Status Aktif")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public StatusAktifMahasiswa StatusAktif { get; set; }
+
+    [Display(Name = "Jenjang")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public Jenjang Jenjang { get; set; }
 }

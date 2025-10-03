@@ -8,6 +8,7 @@ public interface ISiswaRepository
     Task<Siswa?> GetByNISN(string nisn);
     Task<Siswa?> GetByNIS(string nis);
     Task<List<Siswa>> GetAll();
+    Task<List<Siswa>> GetAllAktif();
 
     void Add(Siswa siswa);
     void Delete(Siswa siswa);

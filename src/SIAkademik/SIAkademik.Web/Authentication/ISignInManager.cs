@@ -10,4 +10,5 @@ public interface ISignInManager
     Task Logout();
     Task<AppUser?> GetUser();
     Task<Pegawai?> GetPegawai();
+    Task<Siswa?> GetSiswa();
 }

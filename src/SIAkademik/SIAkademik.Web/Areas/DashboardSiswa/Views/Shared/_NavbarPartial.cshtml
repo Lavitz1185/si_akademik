@@ -1,4 +1,10 @@
-﻿<div class="navbar-bg"></div>
+﻿@inject ISignInManager SignInManager
+
+@{
+    var siswa = (await SignInManager.GetSiswa())!;
+}
+
+<div class="navbar-bg"></div>
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg main-navbar sticky">
     <div class="form-inline mr-auto">
@@ -27,7 +33,7 @@
     </div>
     <ul class="navbar-nav navbar-right">
         <div class="text-right mr-auto justify-content-end">
-            <p class="mb-0 mt-1" style="line-height: normal">Hey, <b>Albert</b></p>
+            <p class="mb-0 mt-1" style="line-height: normal">Hey, <b>@siswa.Nama</b></p>
             <p class="mb-0" style="line-height: normal">Siswa</p>
         </div>
         <!-- MESSAGES -->

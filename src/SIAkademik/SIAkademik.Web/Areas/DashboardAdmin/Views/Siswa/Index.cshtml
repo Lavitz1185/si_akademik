@@ -61,6 +61,7 @@
                         <th style="min-width: 100px">TTL</th>
                         <th>Tanggal Masuk</th>
                         <th>Status Aktif</th>
+                        <th>Jenjang</th>
                         <th style="min-width: 100px">Biodata Lengkap?</th>
                         <th style="min-width: 80px">Aksi</th>
                     </tr>
@@ -78,6 +79,7 @@
                             <td>@siswa.TTL</td>
                             <td>@siswa.TanggalMasuk.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td>
                             <td>@siswa.StatusAktif.Humanize()</td>
+                            <td>@siswa.Jenjang.Humanize()</td>
                             <td>
                                 @if (siswa.IsBiodataComplete())
                                 {

@@ -14,6 +14,7 @@ public class SignInManager : ISignInManager
     private readonly IAppUserRepository _appUserRepository;
     private readonly IPasswordHasher<AppUser> _passwordHasher;
     private readonly IPegawaiRepository _pegawaiRepository;
+    private readonly ISiswaRepository _siswaRepository;
     private readonly ILogger<SignInManager> _logger;
     private readonly IHttpContextAccessor _contextAccessor;
 
@@ -22,13 +23,15 @@ public class SignInManager : ISignInManager
         IPasswordHasher<AppUser> passwordHasher,
         ILogger<SignInManager> logger,
         IHttpContextAccessor contextAccessor,
-        IPegawaiRepository pegawaiRepository)
+        IPegawaiRepository pegawaiRepository,
+        ISiswaRepository siswaRepository)
     {
         _appUserRepository = appUserRepository;
         _passwordHasher = passwordHasher;
         _logger = logger;
         _contextAccessor = contextAccessor;
         _pegawaiRepository = pegawaiRepository;
+        _siswaRepository = siswaRepository;
     }
 
     public async Task<Pegawai?> GetPegawai()
@@ -39,6 +42,14 @@ public class SignInManager : ISignInManager
 
         guru = await _pegawaiRepository.Get(guru.Id);
         return guru;
+    }
+
+    public async Task<Siswa?> GetSiswa()
+    {
+        var siswa = (await GetUser())?.Siswa;
+        if (siswa is null) return null;
+
+        return await _siswaRepository.Get(siswa.Id);
     }
 
     public async Task<AppUser?> GetUser()

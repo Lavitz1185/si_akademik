@@ -4,10 +4,10 @@
 @inject IKelasRepository KelasRepository
 
 @{
-    var daftarSiswa = await SiswaRepository.GetAll();
+    var daftarSiswa = await SiswaRepository.GetAllAktif();
     daftarSiswa = daftarSiswa
-        .Where(s => s.StatusAktif == StatusAktifMahasiswa.Aktif && 
-                    s.DaftarAnggotaRombel.All(a => a.Rombel.Kelas.TahunAjaran != Model.Kelas.TahunAjaran))
+        .Where(s => s.DaftarAnggotaRombel.All(a => a.Rombel.Kelas.TahunAjaran != Model.Kelas.TahunAjaran) &&
+                    s.Jenjang == Model.Kelas.Jenjang)
         .ToList();
 }
 

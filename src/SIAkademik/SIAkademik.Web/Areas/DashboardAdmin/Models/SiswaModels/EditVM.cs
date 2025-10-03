@@ -44,4 +44,8 @@ public class EditVM
     [Display(Name = "Status Aktif")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public required StatusAktifMahasiswa StatusAktif { get; set; }
+
+    [Display(Name = "Jenjang")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public required Jenjang Jenjang { get; set; }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SIAkademik.Domain.Enums;
 using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Infrastructure.Database;
@@ -65,5 +66,18 @@ internal class SiswaRepository : ISiswaRepository
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarRaport).ThenInclude(r => r.JadwalMengajar)
         .Include(s => s.Account)
+        .ToListAsync();
+
+    public async Task<List<Siswa>> GetAllAktif() => await _appDbContext
+        .TblSiswa
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Wali)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarRaport).ThenInclude(r => r.JadwalMengajar)
+        .Include(s => s.Account)
+        .Where(s => s.StatusAktif == StatusAktifMahasiswa.Aktif)
         .ToListAsync();
 }

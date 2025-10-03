@@ -95,6 +95,17 @@
                             <span asp-validation-for="@Model.StatusAktif"></span>
                         </div>
 
+                        <div class="form-group">
+                            <label asp-for="@Model.Jenjang"></label>
+                            <select asp-for="@Model.Jenjang" class="form-control">
+                                @foreach (var jenjang in Enum.GetValues<Jenjang>())
+                                {
+                                    <option value="@jenjang">@jenjang.Humanize()</option>
+                                }
+                            </select>
+                            <span asp-validation-for="@Model.Jenjang"></span>
+                        </div>
+
                         @* <div class="form-group">
                             <label asp-for="@Model.IdAkun">Akun<span class="text-danger">*</span></label>
                             <select asp-for="@Model.IdAkun" class="form-control select2">

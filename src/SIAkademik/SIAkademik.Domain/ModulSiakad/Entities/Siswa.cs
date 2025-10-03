@@ -58,7 +58,9 @@ public class Siswa : Entity<int>
         TanggalLahirWali is not null &&
         StatusHidupWali is not null &&
         PendidikanTerakhirWali is not null &&
-        HubunganDenganWali is not null;
+        HubunganDenganWali is not null &&
+        IjazahSMP is not null &&
+        FotoProfil is not null;
 
     //Data Penting
     public required string Nama { get; set; }
@@ -70,6 +72,7 @@ public class Siswa : Entity<int>
     public required Agama Agama { get; set; }
     public required DateOnly TanggalMasuk { get; set; }
     public required StatusAktifMahasiswa StatusAktif { get; set; }
+    public required Jenjang Jenjang { get; set; }
 
     // Biodata Siswa
     public string? Suku { get; set; }
@@ -86,8 +89,8 @@ public class Siswa : Entity<int>
     public string? NomorKartuPelajar { get; set; }
     public string? Email { get; set; }
     public string? AsalSekolah { get; set; }
-
-    public Peminatan? Peminatan { get; set; }
+    public Uri? IjazahSMP { get; set; }
+    public Uri? FotoProfil { get; set; }
 
     // Biodata Ayah
     public string? NamaAyah { get; set; }

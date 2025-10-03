@@ -20,7 +20,9 @@ public static class DepedencyInjection
         var connectionString = configuration.GetConnectionString("Default")
             ?? throw new NullReferenceException("connection string 'Default' is null");
 
-        services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString).EnableSensitiveDataLogging());
+        services.AddDbContext<AppDbContext>(options => options
+            .UseNpgsql(connectionString, o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery))
+            .EnableSensitiveDataLogging());
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 

@@ -17,6 +17,7 @@ public class SiswaController : Controller
 {
     private readonly ISiswaRepository _siswaRepository;
     private readonly IAppUserRepository _appUserRepository;
+    private readonly ITahunAjaranRepository _tahunAjaranRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IToastrNotificationService _toastrNotificationService;
     private readonly IPasswordHasher<AppUser> _passwordHasher;
@@ -26,25 +27,25 @@ public class SiswaController : Controller
         IAppUserRepository appUserRepository,
         IUnitOfWork unitOfWork,
         IToastrNotificationService toastrNotificationService,
-        IPasswordHasher<AppUser> passwordHasher)
+        IPasswordHasher<AppUser> passwordHasher,
+        ITahunAjaranRepository tahunAjaranRepository)
     {
         _siswaRepository = siswaRepository;
         _appUserRepository = appUserRepository;
         _unitOfWork = unitOfWork;
         _toastrNotificationService = toastrNotificationService;
         _passwordHasher = passwordHasher;
+        _tahunAjaranRepository = tahunAjaranRepository;
     }
 
     public async Task<IActionResult> Index(bool showTidakAktif = false)
     {
-        var daftarSiswa = await _siswaRepository.GetAll();
-
         ViewData[nameof(showTidakAktif)] = showTidakAktif;
 
         if (showTidakAktif)
-            return View(daftarSiswa);
+            return View(await _siswaRepository.GetAll());
 
-        return View(daftarSiswa.Where(s => s.StatusAktif == StatusAktifMahasiswa.Aktif).ToList());
+        return View(await _siswaRepository.GetAllAktif());
     }
 
     public IActionResult Tambah() => View(new TambahVM());
@@ -77,7 +78,8 @@ public class SiswaController : Controller
             TanggalMasuk = vm.TanggalMasuk,
             JenisKelamin = vm.JenisKelamin,
             TempatLahir = vm.TempatLahir,
-            StatusAktif = vm.StatusAktif
+            StatusAktif = vm.StatusAktif,
+            Jenjang = vm.Jenjang
         };
 
         var appUser = new AppUser
@@ -92,7 +94,7 @@ public class SiswaController : Controller
         _siswaRepository.Add(siswa);
         _appUserRepository.Add(appUser);
         var result = await _unitOfWork.SaveChangesAsync();
-        if(result.IsFailure)
+        if (result.IsFailure)
         {
             ModelState.AddModelError(string.Empty, "Simpan data siswa baru gagal!");
             return View(vm);
@@ -119,20 +121,21 @@ public class SiswaController : Controller
             Nama = siswa.Nama,
             TanggalMasuk = siswa.TanggalMasuk,
             TempatLahir = siswa.TempatLahir,
-            StatusAktif = siswa.StatusAktif
+            StatusAktif = siswa.StatusAktif,
+            Jenjang = siswa.Jenjang
         });
     }
 
     [HttpPost]
     public async Task<IActionResult> Edit(EditVM vm)
     {
-        if(!ModelState.IsValid) return View(vm);
+        if (!ModelState.IsValid) return View(vm);
 
         var siswa = await _siswaRepository.Get(vm.Id);
         if (siswa is null) return NotFound();
 
         var duplicateNISN = await _siswaRepository.GetByNISN(vm.NISN);
-        if(duplicateNISN is not null & duplicateNISN != siswa)
+        if (duplicateNISN is not null & duplicateNISN != siswa)
         {
             ModelState.AddModelError(nameof(TambahVM.NISN), $"NISN '{vm.NISN}' sudah digunakan!");
             return View(vm);
@@ -145,7 +148,7 @@ public class SiswaController : Controller
             return View(vm);
         }
 
-        if(siswa.NISN != vm.NISN && siswa.Account.UserName == siswa.NISN)
+        if (siswa.NISN != vm.NISN && siswa.Account.UserName == siswa.NISN)
         {
             var appUser = (await _appUserRepository.Get(siswa.Account.Id))!;
             appUser.UserName = vm.NISN;
@@ -161,6 +164,7 @@ public class SiswaController : Controller
         siswa.TanggalLahir = vm.TanggalLahir;
         siswa.TanggalMasuk = vm.TanggalMasuk;
         siswa.StatusAktif = vm.StatusAktif;
+        siswa.Jenjang = vm.Jenjang;
 
         var result = await _unitOfWork.SaveChangesAsync();
         if (result.IsFailure)
@@ -188,5 +192,54 @@ public class SiswaController : Controller
             _toastrNotificationService.AddSuccess("Hapus data siswa berhasil!");
 
         return RedirectToAction(nameof(Index));
+    }
+
+    [Route("[Area]/[Action]")]
+    public async Task<IActionResult> ProsesKelulusan(int? idTahunAjaran)
+    {
+        var tahunAjaran = idTahunAjaran is null ?
+            await _tahunAjaranRepository.GetNewest() :
+            await _tahunAjaranRepository.Get(idTahunAjaran.Value);
+
+        if (tahunAjaran is null) return View(new ProsesKelulusanVM());
+
+        var daftarSiswa = await _siswaRepository.GetAllAktif();
+        daftarSiswa = daftarSiswa.Where(s => s.Jenjang == Jenjang.XII).ToList();
+
+        return View(new ProsesKelulusanVM
+        {
+            IdTahunAjaran = tahunAjaran.Id,
+            DaftarEntry = [.. daftarSiswa.Select(s => new ProsesKelulusanEntryVM { IdSiswa = s.Id, Luluskan = false })],
+            DaftarSiswa = daftarSiswa
+        });
+    }
+
+    [HttpPost]
+    [Route("[Area]/[Action]")]
+    public async Task<IActionResult> ProsesKelulusan(ProsesKelulusanVM vm)
+    {
+        if (vm.IdTahunAjaran is null)
+        {
+            _toastrNotificationService.AddError("Tidak ada tahun ajaran aktif!");
+            return RedirectToAction(nameof(ProsesKelulusan));
+        }
+
+        var daftarSiswa = await _siswaRepository.GetAllAktif();
+        daftarSiswa = daftarSiswa.Where(s => s.Jenjang == Jenjang.XII).ToList();
+
+        foreach (var entry in vm.DaftarEntry.Where(e => e.Luluskan))
+        {
+            var siswa = daftarSiswa.FirstOrDefault(s => s.Id == entry.IdSiswa);
+            if (siswa is not null)
+                siswa.StatusAktif = StatusAktifMahasiswa.TidakAktif;
+        }
+
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsFailure)
+            _toastrNotificationService.AddError("Simpan gagal!");
+        else
+            _toastrNotificationService.AddSuccess("Simpan sukses!");
+
+        return RedirectToAction(nameof(ProsesKelulusan), new { idTahunAjaran = vm.IdTahunAjaran });
     }
 }
