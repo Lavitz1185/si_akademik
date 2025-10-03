@@ -242,4 +242,46 @@ public class SiswaController : Controller
 
         return RedirectToAction(nameof(ProsesKelulusan), new { idTahunAjaran = vm.IdTahunAjaran });
     }
+
+    [Route("[Area]/[Action]")]
+    public async Task<IActionResult> NaikKelas(Jenjang jenjang = Jenjang.X)
+    {
+        if (jenjang == Jenjang.XII) return BadRequest();
+
+        var daftarSiswa = await _siswaRepository.GetAllAktif();
+        daftarSiswa = daftarSiswa.Where(s => s.Jenjang == jenjang).ToList();
+
+        return View(new NaikKelasVM
+        {
+            DaftarSiswa = daftarSiswa,
+            jenjang = jenjang,
+            DaftarEntry = daftarSiswa.Select(s => new NaikKelasEntryVM { IdSiswa = s.Id }).ToList()
+        });
+    }
+
+    [Route("[Area]/[Action]")]
+    [HttpPost]
+    public async Task<IActionResult> NaikKelas(NaikKelasVM vm)
+    {
+        if (vm.jenjang == vm.JenjangTujuan)
+            return RedirectToAction(nameof(NaikKelas), new { jenjang = vm.jenjang });
+
+        var daftarSiswa = await _siswaRepository.GetAllAktif();
+        daftarSiswa = daftarSiswa.Where(s => s.Jenjang == vm.jenjang).ToList();
+
+        foreach (var entry in vm.DaftarEntry.Where(e => e.NaikKelas))
+        {
+            var siswa = daftarSiswa.FirstOrDefault(s => s.Id == entry.IdSiswa);
+            if (siswa is not null)
+                siswa.Jenjang = vm.JenjangTujuan;
+        }
+
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsFailure)
+            _toastrNotificationService.AddError("Simpan Gagal!");
+        else
+            _toastrNotificationService.AddSuccess("Simpan Berhasil!");
+
+        return RedirectToAction(nameof(NaikKelas), new { vm.jenjang });
+    }
 }
