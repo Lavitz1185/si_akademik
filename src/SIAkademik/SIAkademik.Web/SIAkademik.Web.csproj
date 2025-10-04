@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\DashboardSiswa\Models\" />
     <Folder Include="Areas\Pendaftaran\Models\" />
     <Folder Include="wwwroot\file\pdf\" />
   </ItemGroup>

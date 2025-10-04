@@ -76,7 +76,7 @@
                             <td>
                                 <table class="table align-middle mb-2">
                                     <tbody>
-                                        @foreach (var hari in jadwalMengajar.DaftarHariMengajar.OrderBy(h => h.Hari))
+                                        @foreach (var hari in jadwalMengajar.DaftarHariMengajar.OrderBy(h => h.Hari).ThenBy(h => h.JamMulai))
                                         {
                                             <tr>
                                                 <td>@hari.Hari.Humanize()</td>

@@ -118,6 +118,104 @@ internal class JadwalMengajarEntityConfiguration : IEntityTypeConfiguration<Jadw
                 MataPelajaranId = 16,
                 RombelId = 2,
                 PegawaiId = "PJ17-010"
+            },
+            new
+            {
+                Id = 17,
+                MataPelajaranId = 17,
+                RombelId = 1,
+                PegawaiId = "PJ14-003"
+            },
+            new
+            {
+                Id = 18,
+                MataPelajaranId = 18,
+                RombelId = 1,
+                PegawaiId = "PJ24-004"
+            },
+            new
+            {
+                Id = 19,
+                MataPelajaranId = 19,
+                RombelId = 1,
+                PegawaiId = "PJ18-012"
+            },
+            new
+            {
+                Id = 20,
+                MataPelajaranId = 21,
+                RombelId = 1,
+                PegawaiId = "PJ19-017"
+            },
+            new
+            {
+                Id = 21,
+                MataPelajaranId = 22,
+                RombelId = 1,
+                PegawaiId = "PJ14-005"
+            },
+            new
+            {
+                Id = 22,
+                MataPelajaranId = 23,
+                RombelId = 1,
+                PegawaiId = "PJ18-013"
+            },
+            new
+            {
+                Id = 23,
+                MataPelajaranId = 24,
+                RombelId = 1,
+                PegawaiId = "PJ19-016"
+            },
+            new
+            {
+                Id = 24,
+                MataPelajaranId = 25,
+                RombelId = 1,
+                PegawaiId = "PJ23-029"
+            },
+            new
+            {
+                Id = 25,
+                MataPelajaranId = 26,
+                RombelId = 1,
+                PegawaiId = "PJ19-017"
+            },
+            new
+            {
+                Id = 26,
+                MataPelajaranId = 27,
+                RombelId = 1,
+                PegawaiId = "PJ23-030"
+            },
+            new
+            {
+                Id = 27,
+                MataPelajaranId = 28,
+                RombelId = 1,
+                PegawaiId = "PJ23-031"
+            },
+            new
+            {
+                Id = 28,
+                MataPelajaranId = 29,
+                RombelId = 1,
+                PegawaiId = "PJ23-030"
+            },
+            new
+            {
+                Id = 29,
+                MataPelajaranId = 30,
+                RombelId = 1,
+                PegawaiId = "PJ24-005"
+            },
+            new
+            {
+                Id = 30,
+                MataPelajaranId = 31,
+                RombelId = 1,
+                PegawaiId = "PJ23-030"
             }
         );
     }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SIAkademik.Infrastructure.Database;
@@ -12,9 +13,11 @@ using SIAkademik.Infrastructure.Database;
 namespace SIAkademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251004065834_SeedData4")]
+    partial class SeedData4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -417,158 +420,6 @@ namespace SIAkademik.Infrastructure.Migrations
                             Id = 10,
                             Hari = 1,
                             JadwalMengajarId = 21,
-                            JamAkhir = new TimeOnly(12, 25, 0),
-                            JamMulai = new TimeOnly(11, 40, 0)
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Hari = 2,
-                            JadwalMengajarId = 22,
-                            JamAkhir = new TimeOnly(8, 15, 0),
-                            JamMulai = new TimeOnly(7, 30, 0)
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Hari = 2,
-                            JadwalMengajarId = 22,
-                            JamAkhir = new TimeOnly(9, 5, 0),
-                            JamMulai = new TimeOnly(8, 20, 0)
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Hari = 2,
-                            JadwalMengajarId = 22,
-                            JamAkhir = new TimeOnly(9, 55, 0),
-                            JamMulai = new TimeOnly(9, 10, 0)
-                        },
-                        new
-                        {
-                            Id = 14,
-                            Hari = 2,
-                            JadwalMengajarId = 23,
-                            JamAkhir = new TimeOnly(10, 45, 0),
-                            JamMulai = new TimeOnly(10, 0, 0)
-                        },
-                        new
-                        {
-                            Id = 15,
-                            Hari = 2,
-                            JadwalMengajarId = 23,
-                            JamAkhir = new TimeOnly(11, 35, 0),
-                            JamMulai = new TimeOnly(10, 50, 0)
-                        },
-                        new
-                        {
-                            Id = 16,
-                            Hari = 2,
-                            JadwalMengajarId = 23,
-                            JamAkhir = new TimeOnly(12, 25, 0),
-                            JamMulai = new TimeOnly(11, 45, 0)
-                        },
-                        new
-                        {
-                            Id = 17,
-                            Hari = 2,
-                            JadwalMengajarId = 24,
-                            JamAkhir = new TimeOnly(13, 45, 0),
-                            JamMulai = new TimeOnly(13, 0, 0)
-                        },
-                        new
-                        {
-                            Id = 18,
-                            Hari = 2,
-                            JadwalMengajarId = 24,
-                            JamAkhir = new TimeOnly(14, 35, 0),
-                            JamMulai = new TimeOnly(13, 50, 0)
-                        },
-                        new
-                        {
-                            Id = 19,
-                            Hari = 3,
-                            JadwalMengajarId = 25,
-                            JamAkhir = new TimeOnly(8, 15, 0),
-                            JamMulai = new TimeOnly(7, 30, 0)
-                        },
-                        new
-                        {
-                            Id = 20,
-                            Hari = 3,
-                            JadwalMengajarId = 25,
-                            JamAkhir = new TimeOnly(9, 5, 0),
-                            JamMulai = new TimeOnly(8, 20, 0)
-                        },
-                        new
-                        {
-                            Id = 21,
-                            Hari = 3,
-                            JadwalMengajarId = 26,
-                            JamAkhir = new TimeOnly(9, 55, 0),
-                            JamMulai = new TimeOnly(9, 10, 0)
-                        },
-                        new
-                        {
-                            Id = 22,
-                            Hari = 3,
-                            JadwalMengajarId = 26,
-                            JamAkhir = new TimeOnly(10, 45, 0),
-                            JamMulai = new TimeOnly(10, 0, 0)
-                        },
-                        new
-                        {
-                            Id = 23,
-                            Hari = 4,
-                            JadwalMengajarId = 27,
-                            JamAkhir = new TimeOnly(8, 15, 0),
-                            JamMulai = new TimeOnly(7, 30, 0)
-                        },
-                        new
-                        {
-                            Id = 24,
-                            Hari = 4,
-                            JadwalMengajarId = 27,
-                            JamAkhir = new TimeOnly(9, 5, 0),
-                            JamMulai = new TimeOnly(8, 20, 0)
-                        },
-                        new
-                        {
-                            Id = 25,
-                            Hari = 1,
-                            JadwalMengajarId = 28,
-                            JamAkhir = new TimeOnly(21, 0, 0),
-                            JamMulai = new TimeOnly(20, 0, 0)
-                        },
-                        new
-                        {
-                            Id = 26,
-                            Hari = 4,
-                            JadwalMengajarId = 29,
-                            JamAkhir = new TimeOnly(10, 45, 0),
-                            JamMulai = new TimeOnly(10, 0, 0)
-                        },
-                        new
-                        {
-                            Id = 27,
-                            Hari = 4,
-                            JadwalMengajarId = 29,
-                            JamAkhir = new TimeOnly(11, 35, 0),
-                            JamMulai = new TimeOnly(10, 50, 0)
-                        },
-                        new
-                        {
-                            Id = 28,
-                            Hari = 3,
-                            JadwalMengajarId = 30,
-                            JamAkhir = new TimeOnly(11, 35, 0),
-                            JamMulai = new TimeOnly(10, 50, 0)
-                        },
-                        new
-                        {
-                            Id = 29,
-                            Hari = 3,
-                            JadwalMengajarId = 30,
                             JamAkhir = new TimeOnly(12, 25, 0),
                             JamMulai = new TimeOnly(11, 40, 0)
                         });
@@ -981,6 +832,13 @@ namespace SIAkademik.Infrastructure.Migrations
                         {
                             Id = 30,
                             MataPelajaranId = 31,
+                            PegawaiId = "PJ23-030",
+                            RombelId = 1
+                        },
+                        new
+                        {
+                            Id = 31,
+                            MataPelajaranId = 32,
                             PegawaiId = "PJ23-030",
                             RombelId = 1
                         });

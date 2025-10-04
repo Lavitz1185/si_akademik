@@ -18,17 +18,17 @@ internal class KelasEntityConfiguration : IEntityTypeConfiguration<Kelas>
         (
             new
             {
-                Id = 2,
-                Jenjang = Jenjang.XII,
-                PeminatanId = 5,
-                TahunAjaranId = 3,
-            },
-            new
-            {
                 Id = 1,
                 Jenjang = Jenjang.X,
                 PeminatanId = 1,
                 TahunAjaranId = 2
+            },
+            new
+            {
+                Id = 2,
+                Jenjang = Jenjang.XII,
+                PeminatanId = 5,
+                TahunAjaranId = 3,
             },
             new
             {

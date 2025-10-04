@@ -17,6 +17,13 @@ internal class RombelEntityConfiguration : IEntityTypeConfiguration<Rombel>
         builder.HasData(
             new
             {
+                Id = 1,
+                Nama = "A",
+                KelasId = 1,
+                WaliId = "PJ23-030"
+            },
+            new
+            {
                 Id = 2,
                 Nama = "A",
                 KelasId = 2,

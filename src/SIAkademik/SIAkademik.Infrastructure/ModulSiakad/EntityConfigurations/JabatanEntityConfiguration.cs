@@ -53,7 +53,7 @@ internal class JabatanEntityConfiguration : IEntityTypeConfiguration<Jabatan>
             {
                 Id = 7,
                 Nama = "Pembina OSIS",
-                Jenis = JenisJabatan.Pegawai
+                Jenis = JenisJabatan.Guru
             },
             new Jabatan
             {

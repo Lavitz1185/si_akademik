@@ -1,5 +1,30 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@using SIAkademik.Web.Areas.DashboardSiswa.Models.Home
+@model IndexVM
+
+@if(Model.TahunAjaran is null)
+{
+    <p>Belum Ada Tahun Ajaran</p>
+}
+else
+{
+    <p>Tahun Ajaran : @Model.TahunAjaran.Periode @Model.TahunAjaran.Semester.Humanize()</p>
+    @if(Model.Tanggal < Model.TahunAjaran.TanggalMulai)
+    {
+        <p>Tahun Ajaran Belum Dimulai</p>
+    }
+    else if(Model.Tanggal > Model.TahunAjaran.TanggalSelesai)
+    {
+        <p>Tahun Ajaran Telah Berakhir</p>
+    }
+    else
+    {
+        @if(Model.AnggotaRombel is null)
+        {
+            <p>Anda Tidak Memiliki Kelas Di Tahun Ajaran Ini</p>
+        }
+        else
+        {
+            <h1>Jadwal Tanggal : @Model.Tanggal.ToString("dd MMMM yyyy", CultureInfos.CI)</h1>
+        }
+    }
 }
