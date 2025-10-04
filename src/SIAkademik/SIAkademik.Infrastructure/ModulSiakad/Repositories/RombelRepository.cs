@@ -26,6 +26,7 @@ internal class RombelRepository : IRombelRepository
         .Include(r => r.DaftarJadwalMengajar).ThenInclude(j => j.Pegawai)
         .Include(r => r.DaftarJadwalMengajar).ThenInclude(j => j.MataPelajaran)
         .Include(r => r.DaftarJadwalMengajar).ThenInclude(j => j.DaftarNilai)
+        .Include(r => r.DaftarJadwalMengajar).ThenInclude(j => j.DaftarHariMengajar)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.Siswa)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)

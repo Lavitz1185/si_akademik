@@ -1,30 +1,84 @@
 ﻿@using SIAkademik.Web.Areas.DashboardSiswa.Models.Home
 @model IndexVM
 
-@if(Model.TahunAjaran is null)
+@inject ISignInManager SignInManager
+
+@{
+    var siswa = (await SignInManager.GetSiswa())!;
+}
+
+@if (Model.TahunAjaran is null)
 {
     <p>Belum Ada Tahun Ajaran</p>
 }
 else
 {
     <p>Tahun Ajaran : @Model.TahunAjaran.Periode @Model.TahunAjaran.Semester.Humanize()</p>
-    @if(Model.Tanggal < Model.TahunAjaran.TanggalMulai)
+
+    <p>
+        NISN/NIS : @siswa.NISN/@siswa.NIS <br />
+        Nama : @siswa.Nama <br />
+        Jenjang : @siswa.Jenjang.Humanize() <br />
+        Status : @siswa.StatusAktif.Humanize() <br />
+    </p>
+
+    @if (Model.AnggotaRombel is not null)
+    {
+        <p>
+            Kelas : @Model.AnggotaRombel.Rombel.Kelas.Jenjang.Humanize() @Model.AnggotaRombel.Rombel.Kelas.Peminatan.Nama @Model.AnggotaRombel.Rombel.Nama <br />
+            Wali Kelas : @Model.AnggotaRombel.Rombel.Wali.Nama <br/>
+            Kehadiran : @Model.AnggotaRombel.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Hadir).Count() <br />
+            Alpa : @Model.AnggotaRombel.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Alpa).Count() <br />
+            Sakit : @Model.AnggotaRombel.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Sakit).Count() <br />
+            Ijin : @Model.AnggotaRombel.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Ijin).Count() <br />
+        </p>
+    }
+
+    <form asp-action="Index" method="get">
+        <input asp-for="@Model.Tanggal" type="date" />
+    </form>
+
+    @if (Model.Tanggal < Model.TahunAjaran.TanggalMulai)
     {
         <p>Tahun Ajaran Belum Dimulai</p>
     }
-    else if(Model.Tanggal > Model.TahunAjaran.TanggalSelesai)
+    else if (Model.Tanggal > Model.TahunAjaran.TanggalSelesai)
     {
         <p>Tahun Ajaran Telah Berakhir</p>
     }
     else
     {
-        @if(Model.AnggotaRombel is null)
+        @if (Model.AnggotaRombel is null)
         {
             <p>Anda Tidak Memiliki Kelas Di Tahun Ajaran Ini</p>
         }
         else
         {
             <h1>Jadwal Tanggal : @Model.Tanggal.ToString("dd MMMM yyyy", CultureInfos.CI)</h1>
+            @if (Model.DaftarHariMengajar.Count == 0)
+            {
+                <p>Tidak ada aktivitas belajar saat ini</p>
+            }
+
+            @foreach (var hariMengajar in Model.DaftarHariMengajar.OrderBy(h => h.JamMulai))
+            {
+                <p>
+                    @hariMengajar.JadwalMengajar.MataPelajaran.Nama <br />
+                    @hariMengajar.JamMulai.ToShortTimeString() - @hariMengajar.JamAkhir.ToShortTimeString()<br />
+                    @hariMengajar.JadwalMengajar.Pegawai.Nama <br/>
+                    <a asp-action="Detail" asp-controller="JadwalMengajar" asp-route-id="@hariMengajar.JadwalMengajar.Id">Lihat</a>
+                </p>
+            }
         }
     }
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function() {
+            $('input#Tanggal').on('change', function() {
+                $(this).closest('form').trigger('submit');
+            });
+        });
+    </script>
 }

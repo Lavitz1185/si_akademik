@@ -49,20 +49,17 @@ public class HomeController : Controller
         _tahunAjaranRepository = tahunAjaranRepository;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(DateOnly? tanggal = null)
     {
-        var appUser = await _signInManager.GetUser();
-        var guru = appUser?.Guru;
+        tanggal ??= DateOnly.FromDateTime(CultureInfos.DateTimeNow);
 
+        var guru = await _signInManager.GetPegawai();
         if (guru is null) return Forbid();
 
-        guru = (await _pegawaiRepository.Get(guru.Id))!;
+        var tahunAjaran = await _tahunAjaranRepository.GetNewest();
+        if (tahunAjaran is null) return View(new IndexVM { Tanggal = tanggal.Value });
 
-        var tahunAjaran = (await _tahunAjaranRepository.GetAll()).LastOrDefault();
-
-        if (tahunAjaran is null) return View(new IndexVM());
-
-        var hari = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, CultureInfos.TimeZoneInfo).DayOfWeek;
+        var hari = tanggal.Value.DayOfWeek;
         var jadwalHariIni = guru.DaftarJadwalMengajar
             .Where(j => j.Rombel.Kelas.TahunAjaran == tahunAjaran)
             .SelectMany(j => j.DaftarHariMengajar)
@@ -77,7 +74,8 @@ public class HomeController : Controller
         {
             TahunAjaran = tahunAjaran,
             JadwalHariIni = jadwalHariIni,
-            RombelWali = rombelWali
+            RombelWali = rombelWali,
+            Tanggal = tanggal.Value
         });
     }
 

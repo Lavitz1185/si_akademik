@@ -21,6 +21,12 @@ internal class AnggotaRombelEntityConfiguration : IEntityTypeConfiguration<Anggo
                 IdRombel = 2,
                 IdSiswa = 2,
                 TanggalMasuk = new DateOnly(2021, 08, 01)
+            },
+            new AnggotaRombel
+            {
+                IdRombel = 1,
+                IdSiswa = 3,
+                TanggalMasuk = new DateOnly(2025, 08, 01)
             }
         );
     }

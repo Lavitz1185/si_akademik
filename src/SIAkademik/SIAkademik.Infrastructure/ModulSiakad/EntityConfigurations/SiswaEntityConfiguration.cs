@@ -46,6 +46,21 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
                 Jenjang = Jenjang.XII,   
                 StatusAktif = StatusAktifMahasiswa.TidakAktif,
                 AppUserId = 15
+            },
+            new
+            {
+                Id = 3,
+                NISN = "252601",
+                Nama = "Ajesta Winarti Banamtuan",
+                NIS = "252601",
+                JenisKelamin = JenisKelamin.Perempuan,
+                TanggalLahir = new DateOnly(2010, 1, 1),
+                TanggalMasuk = new DateOnly(2025, 08, 01),
+                TempatLahir = "Kupang",
+                Agama = Agama.KristenProtestan,
+                Jenjang = Jenjang.X,   
+                StatusAktif = StatusAktifMahasiswa.Aktif,
+                AppUserId = 19
             }
         );
     }

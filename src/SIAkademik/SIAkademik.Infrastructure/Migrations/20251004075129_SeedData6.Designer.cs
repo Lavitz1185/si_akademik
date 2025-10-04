@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SIAkademik.Infrastructure.Database;
@@ -12,9 +13,11 @@ using SIAkademik.Infrastructure.Database;
 namespace SIAkademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251004075129_SeedData6")]
+    partial class SeedData6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -268,12 +271,6 @@ namespace SIAkademik.Infrastructure.Migrations
                             IdSiswa = 2,
                             IdRombel = 2,
                             TanggalMasuk = new DateOnly(2021, 8, 1)
-                        },
-                        new
-                        {
-                            IdSiswa = 3,
-                            IdRombel = 1,
-                            TanggalMasuk = new DateOnly(2025, 8, 1)
                         });
                 });
 
@@ -2241,7 +2238,7 @@ namespace SIAkademik.Infrastructure.Migrations
                             NISN = "252601",
                             Nama = "Ajesta Winarti Banamtuan",
                             StatusAktif = 0,
-                            TanggalLahir = new DateOnly(2010, 1, 1),
+                            TanggalLahir = new DateOnly(2010, 5, 10),
                             TanggalMasuk = new DateOnly(2025, 8, 1),
                             TempatLahir = "Kupang"
                         });

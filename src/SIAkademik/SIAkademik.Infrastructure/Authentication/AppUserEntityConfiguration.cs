@@ -119,19 +119,26 @@ internal class AppUserEntityConfiguration : IEntityTypeConfiguration<AppUser>
                 Id = 16,
                 UserName = "sam.meha@pandhegajaya.sch.id",
                 PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
-                Role = AppUserRoles.Siswa
+                Role = AppUserRoles.Guru
             },
             new
             {
                 Id = 17,
                 UserName = "yunias@pandhegajaya.sch.id",
                 PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
-                Role = AppUserRoles.Siswa
+                Role = AppUserRoles.Guru
             },
             new
             {
                 Id = 18,
                 UserName = "dussebotahala02@gmail.com",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Guru
+            },
+            new
+            {
+                Id = 19,
+                UserName = "252601",
                 PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
                 Role = AppUserRoles.Siswa
             }

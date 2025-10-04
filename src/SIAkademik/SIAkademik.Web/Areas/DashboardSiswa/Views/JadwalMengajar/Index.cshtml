@@ -1,0 +1,98 @@
+﻿@using SIAkademik.Web.Areas.DashboardSiswa.Models.JadwalMengajarModels
+@model IndexVM
+
+@inject ITahunAjaranRepository TahunAjaranRepository
+@inject ISignInManager SignInManager
+
+@{
+    var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
+    var siswa = (await SignInManager.GetSiswa())!;
+}
+
+<p>
+    NISN/NIS : @siswa.NISN/@siswa.NIS <br />
+    Nama : @siswa.Nama <br />
+    Jenjang : @siswa.Jenjang.Humanize() <br />
+    Status : @siswa.StatusAktif.Humanize() <br />
+</p>
+
+@if(Model.AnggotaRombel is not null)
+{
+    <p>
+        Kelas : @Model.AnggotaRombel.Rombel.Kelas.Jenjang.Humanize() @Model.AnggotaRombel.Rombel.Kelas.Peminatan.Nama @Model.AnggotaRombel.Rombel.Nama <br />
+        Wali Kelas : @Model.AnggotaRombel.Rombel.Wali.Nama
+    </p>
+}
+
+<form asp-action="Index" method="get">
+    <select asp-for="@Model.IdTahunAjaran">
+        @if (Model.IdTahunAjaran is null)
+        {
+            <option value="@null">-- Pilih Tahun Ajaran</option>
+        }
+        @foreach (var tahunAjaran in daftarTahunAjaran)
+        {
+            <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+        }
+    </select>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Hari</th>
+            <th>Jam</th>
+            <th>Mata Pelajaran</th>
+            <th>Kelas</th>
+            <th>Guru</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.TahunAjaran is null)
+        {
+            <tr>
+                <td colspan="7">Belum ada tahun ajaran yang dibuka</td>
+            </tr>
+        }
+        else
+        {
+            @if (Model.AnggotaRombel is null)
+            {
+                <tr>
+                    <td colspan="7">Tidak ada kelas di tahun ajaran ini</td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var hari in Model.DaftarJadwalMengajar.SelectMany(j => j.DaftarHariMengajar).OrderBy(h => h.Hari).ThenBy(h => h.JamMulai))
+                {
+                    <tr>
+                        <td>@hari.Hari.Humanize()</td>
+                        <td>@hari.JamMulai.ToShortTimeString() - @hari.JamAkhir.ToShortTimeString()</td>
+                        <td>@hari.JadwalMengajar.MataPelajaran.Nama</td>
+                        <td>
+                            @hari.JadwalMengajar.Rombel.Kelas.Jenjang.Humanize()
+                            @hari.JadwalMengajar.Rombel.Kelas.Peminatan.Nama
+                            @hari.JadwalMengajar.Rombel.Nama
+                        </td>
+                        <td>@hari.JadwalMengajar.Pegawai.Nama</td>
+                        <td>
+                            <a asp-action="Detail" asp-route-id="@hari.JadwalMengajar.Id">Detail</a>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function() {
+            $('select#IdTahunAjaran').on('change', function() {
+                $(this).closest('form').trigger('submit');
+            });
+        });
+    </script>
+}
