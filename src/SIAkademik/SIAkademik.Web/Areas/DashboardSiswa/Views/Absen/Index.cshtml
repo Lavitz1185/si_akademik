@@ -1,0 +1,88 @@
+﻿@using SIAkademik.Web.Areas.DashboardSiswa.Models.AbsenModels
+@model IndexVM
+
+@inject ITahunAjaranRepository TahunAjaranRepository
+
+@{
+    var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
+}
+
+<p>
+    NISN/NIS : @Model.Siswa.NISN/@Model.Siswa.NIS <br />
+    Nama : @Model.Siswa.Nama <br />
+    Jenjang : @Model.Siswa.Jenjang.Humanize() <br />
+    Status : @Model.Siswa.StatusAktif.Humanize() <br />
+</p>
+
+@if(Model.AnggotaRombel is not null)
+{
+    <p>
+        Kelas : @Model.AnggotaRombel.Rombel.Kelas.Jenjang.Humanize() @Model.AnggotaRombel.Rombel.Kelas.Peminatan.Nama @Model.AnggotaRombel.Rombel.Nama <br />
+        Wali Kelas : @Model.AnggotaRombel.Rombel.Wali.Nama <br />
+        Hadir : @Model.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Hadir).Count() <br />
+        Tidak Hadir : @Model.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Alpa).Count() <br />
+        Sakit : @Model.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Sakit).Count() <br />
+        Ijin : @Model.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Ijin).Count() <br />
+    </p>
+}
+
+<form asp-action="Index" method="get">
+    <select asp-for="@Model.IdTahunAjaran">
+        @if (Model.IdTahunAjaran is null)
+        {
+            <option value="@null">-- Pilih Tahun Ajaran</option>
+        }
+        @foreach (var tahunAjaran in daftarTahunAjaran)
+        {
+            <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+        }
+    </select>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Tanggal</th>
+            <th>Absensi</th>
+            <th>Catatan</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.TahunAjaran is null)
+        {
+            <tr>
+                <td colspan="3">Belum ada tahun ajaran yang dibuka</td>
+            </tr>
+        }
+        else
+        {
+            @if (Model.AnggotaRombel is null)
+            {
+                <tr>
+                    <td colspan="3">Tidak ada kelas di tahun ajaran ini</td>
+                </tr>
+            }
+            else
+            {
+                @foreach(var absen in Model.DaftarAbsenKelas.OrderBy(a => a.Tanggal))
+                {
+                    <tr>
+                        <td>@absen.Tanggal.ToString(CultureInfos.CI.DateTimeFormat.LongDatePattern, CultureInfos.CI)</td>
+                        <td>@absen.Absensi.Humanize()</td>
+                        <td>@absen.Catatan</td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function() {
+            $('select#IdTahunAjaran').on('change', function() {
+                $(this).closest('form').trigger('submit');
+            });
+        });
+    </script>
+}

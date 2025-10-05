@@ -44,5 +44,13 @@ internal class AbsenKelasRepository : IAbsenKelasRepository
         .Where(a => a.AnggotaRombel.Siswa.Id == idSiswa)
         .ToListAsync();
 
+    public async Task<List<AbsenKelas>> GetAllBySiswaAndRombel(int idSiswa, int idRombel) => await _appDbContext.TblAbsenKelas
+        .Include(a => a.AnggotaRombel).ThenInclude(a => a.Siswa)
+        .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
+        .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Wali)
+        .Where(a => a.AnggotaRombel.Siswa.Id == idSiswa && a.AnggotaRombel.Rombel.Id == idRombel)
+        .ToListAsync();
+
     public void Update(AbsenKelas absenKelas) => _appDbContext.TblAbsenKelas.Update(absenKelas);
 }

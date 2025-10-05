@@ -8,6 +8,7 @@ public interface IAbsenKelasRepository
     Task<List<AbsenKelas>> GetAll();
     Task<List<AbsenKelas>> GetAllBySiswa(int idSiswa);
     Task<List<AbsenKelas>> GetAllByRombel(int idRombel);
+    Task<List<AbsenKelas>> GetAllBySiswaAndRombel(int idSiswa, int idRombel);
 
     void Add(AbsenKelas absenKelas);
     void Delete(AbsenKelas absenKelas);
