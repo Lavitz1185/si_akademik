@@ -8,109 +8,175 @@
     var nilaiUAS = Model.AnggotaRombel.DaftarNilai.FirstOrDefault(a => a.JadwalMengajar == Model.JadwalMengajar && a.Jenis == JenisNilai.UAS);
 }
 
-<p>
-    @Model.JadwalMengajar.Rombel.Kelas.TahunAjaran.Periode @Model.JadwalMengajar.Rombel.Kelas.TahunAjaran.Semester.Humanize() <br/>
-    @Model.JadwalMengajar.Rombel.Kelas.Jenjang.Humanize() @Model.JadwalMengajar.Rombel.Kelas.Peminatan.Nama @Model.JadwalMengajar.Rombel.Nama <br/>
-    @Model.JadwalMengajar.MataPelajaran.Nama @Model.JadwalMengajar.MataPelajaran.Jenjang.Humanize() @Model.JadwalMengajar.MataPelajaran.Peminatan.Nama <br/>
-    @Model.JadwalMengajar.Pegawai.Nama <br/>
-</p>
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-12">
+            <div class="card card-warning">
 
-<h2>Nilai Tugas</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Skor</th>
-            <th>Dekripsi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if(daftarTugas.Count() == 0)
-        {
-            <tr>
-                <td colspan="2">Tidak Ada Nilai Tugas</td>
-            </tr>
-        }
-        @foreach(var nilai in daftarTugas)
-        {
-            <tr>
-                <td>@nilai.Skor.ToString("F2")</td>
-                <td>@nilai.Deskripsi</td>
-            </tr>
-        }
-    </tbody>
-</table>
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Detail Nilai Siswa</h4>
+                </div>
+                <div class="card-body">
+                    <p>
+                        @Model.JadwalMengajar.Rombel.Kelas.TahunAjaran.Periode @Model.JadwalMengajar.Rombel.Kelas.TahunAjaran.Semester.Humanize() <br />
+                        @Model.JadwalMengajar.Rombel.Kelas.Jenjang.Humanize() @Model.JadwalMengajar.Rombel.Kelas.Peminatan.Nama @Model.JadwalMengajar.Rombel.Nama <br />
+                        @Model.JadwalMengajar.MataPelajaran.Nama @Model.JadwalMengajar.MataPelajaran.Jenjang.Humanize() @Model.JadwalMengajar.MataPelajaran.Peminatan.Nama <br />
+                        @Model.JadwalMengajar.Pegawai.Nama <br />
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h2>Nilai Ulangan Harian</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Skor</th>
-            <th>Dekripsi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (daftarUH.Count() == 0)
-        {
-            <tr>
-                <td colspan="2">Tidak Ada Nilai Ulangan Harian</td>
-            </tr>
-        }
-        @foreach (var nilai in daftarUH)
-        {
-            <tr>
-                <td>@nilai.Skor.ToString("F2")</td>
-                <td>@nilai.Deskripsi</td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-12">
+            <div class="card">
 
-<h2>Nilai UTS</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Skor</th>
-            <th>Dekripsi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if(nilaiUTS is not null)
-        {
-            <tr>
-                <td>@nilaiUTS.Skor.ToString("F2")</td>
-                <td>@nilaiUTS.Deskripsi</td>
-            </tr>
-        }
-        else
-        {
-            <tr>
-                <td colspan="2">Tidak Ada Nilai UTS</td>
-            </tr>
-        }
-    </tbody>
-</table>
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Nilai Tugas</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-hover" id="table-akun">
+                        <thead>
+                            <tr>
+                                <th>Skor</th>
+                                <th>Dekripsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (daftarTugas.Count() == 0)
+                            {
+                                <tr>
+                                    <td colspan="2">Tidak Ada Nilai Tugas</td>
+                                </tr>
+                            }
+                            @foreach (var nilai in daftarTugas)
+                            {
+                                <tr>
+                                    <td>@nilai.Skor.ToString("F2")</td>
+                                    <td>@nilai.Deskripsi</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h2>Nilai UAS</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Skor</th>
-            <th>Dekripsi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (nilaiUAS is not null)
-        {
-            <tr>
-                <td>@nilaiUAS.Skor.ToString("F2")</td>
-                <td>@nilaiUAS.Deskripsi</td>
-            </tr>
-        }
-        else
-        {
-            <tr>
-                <td colspan="2">Tidak Ada Nilai UAS</td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-12">
+            <div class="card">
+
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Nilai Ulangan Harian</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-hover" id="table-akun">
+                        <thead>
+                            <tr>
+                                <th>Skor</th>
+                                <th>Dekripsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (daftarUH.Count() == 0)
+                            {
+                                <tr>
+                                    <td colspan="2">Tidak Ada Nilai Ulangan Harian</td>
+                                </tr>
+                            }
+                            @foreach (var nilai in daftarUH)
+                            {
+                                <tr>
+                                    <td>@nilai.Skor.ToString("F2")</td>
+                                    <td>@nilai.Deskripsi</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-12">
+            <div class="card">
+
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Nilai UTS</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-hover" id="table-akun">
+                        <thead>
+                            <tr>
+                                <th>Skor</th>
+                                <th>Dekripsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (nilaiUTS is not null)
+                            {
+                                <tr>
+                                    <td>@nilaiUTS.Skor.ToString("F2")</td>
+                                    <td>@nilaiUTS.Deskripsi</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="2">Tidak Ada Nilai UTS</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-12">
+            <div class="card">
+
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Nilai UAS</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-hover" id="table-akun">
+                        <thead>
+                            <tr>
+                                <th>Skor</th>
+                                <th>Dekripsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (nilaiUAS is not null)
+                            {
+                                <tr>
+                                    <td>@nilaiUAS.Skor.ToString("F2")</td>
+                                    <td>@nilaiUAS.Deskripsi</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="2">Tidak Ada Nilai UAS</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
