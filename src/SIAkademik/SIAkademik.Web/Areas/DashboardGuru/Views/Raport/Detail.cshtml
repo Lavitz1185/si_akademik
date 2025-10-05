@@ -9,150 +9,204 @@
 }
 
 <form asp-action="IsiNilai" asp-route-idSiswa="@Model.AnggotaRombel.IdSiswa" asp-route-idRombel="@Model.AnggotaRombel.IdRombel">
-    <button type="submit">Isi Nilai</button>
+    <button type="submit" class="btn btn-primary mb-3">Isi Nilai</button>
 </form>
 
-<h1>Sikap</h1>
-<a asp-action="Tambah" asp-route-idSiswa="@Model.AnggotaRombel.IdSiswa" asp-route-idRombel="@Model.AnggotaRombel.IdRombel" 
-    asp-route-kategori="@KategoriNilaiRaport.Sikap">
-    Tambah
-</a>
-<table>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Sikap</th>
-            <th>Predikat</th>
-            <th>Dekripsi</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var sikap in daftarSikap)
-        {
-            <tr>
-                <td>@sikap.Id</td>
-                <td>@sikap.Nama</td>
-                <td>@sikap.Predikat</td>
-                <td>@sikap.Deskripsi</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@sikap.Id">Edit</a>
-                    <form asp-action="Hapus" asp-route-id="@sikap.Id" class="btn btn-danger btn-action swal-confirm" title="Hapus">
-                        <button type="submit">Hapus</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-12">
+            <div class="card card-warning">
 
-<h1>Pengetahuan</h1>
-<a asp-action="Tambah" asp-route-idSiswa="@Model.AnggotaRombel.IdSiswa" asp-route-idRombel="@Model.AnggotaRombel.IdRombel"
-   asp-route-kategori="@KategoriNilaiRaport.Pengetahuan">
-    Tambah
-</a>
-<table>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Mata Pelajaran</th>
-            <th>KKM</th>
-            <th>Nilai</th>
-            <th>Predikat</th>
-            <th>Dekripsi</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var pengetahuan in daftarPengetahuan)
-        {
-            <tr>
-                <td>@pengetahuan.Id</td>
-                <td>@pengetahuan.Nama</td>
-                <td>@pengetahuan.JadwalMengajar!.MataPelajaran.KKM</td>
-                <td>@pengetahuan.AnggotaRombel.NilaiAkhir(pengetahuan.JadwalMengajar!)</td>
-                <td>@pengetahuan.Predikat</td>
-                <td>@pengetahuan.Deskripsi</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@pengetahuan.Id">Edit</a>
-                    <form asp-action="Hapus" asp-route-id="@pengetahuan.Id" class="btn btn-danger btn-action swal-confirm" title="Hapus">
-                        <button type="submit">Hapus</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Sikap</h4>
+                </div>
+                <div class="card-body">
+                    <a asp-action="Tambah" asp-route-idSiswa="@Model.AnggotaRombel.IdSiswa" asp-route-idRombel="@Model.AnggotaRombel.IdRombel"
+                       asp-route-kategori="@KategoriNilaiRaport.Sikap" class="btn btn-primary mb-2">
+                        Tambah
+                    </a>
+                    <table class="table table-striped table-hover" id="table-akun">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Sikap</th>
+                                <th>Predikat</th>
+                                <th>Dekripsi</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var sikap in daftarSikap)
+                            {
+                                <tr>
+                                    <td>@sikap.Id</td>
+                                    <td>@sikap.Nama</td>
+                                    <td>@sikap.Predikat</td>
+                                    <td>@sikap.Deskripsi</td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@sikap.Id" class="btn btn-primary mr-1"><i class="fas fa-pencil-alt"></i></a>
+                                        <form asp-action="Hapus" asp-route-id="@sikap.Id" style="display:inline" class="btn-action swal-confirm" title="Hapus">
+                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h1>Keterampilan</h1>
-<a asp-action="Tambah" asp-route-idSiswa="@Model.AnggotaRombel.IdSiswa" asp-route-idRombel="@Model.AnggotaRombel.IdRombel"
-   asp-route-kategori="@KategoriNilaiRaport.Keterampilan">
-    Tambah
-</a>
-<table>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Mata Pelajaran</th>
-            <th>KKM</th>
-            <th>Nilai</th>
-            <th>Predikat</th>
-            <th>Dekripsi</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var keterampilan in daftarKeterampilan)
-        {
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-12">
+            <div class="card card-warning">
 
-            <tr>
-                <td>@keterampilan.Id</td>
-                <td>@keterampilan.Nama</td>
-                <td>@keterampilan.JadwalMengajar!.MataPelajaran.KKM</td>
-                <td>@keterampilan.AnggotaRombel.NilaiAkhir(keterampilan.JadwalMengajar!)</td>
-                <td>@keterampilan.Predikat</td>
-                <td>@keterampilan.Deskripsi</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@keterampilan.Id">Edit</a>
-                    <form asp-action="Hapus" asp-route-id="@keterampilan.Id" class="btn btn-danger btn-action swal-confirm" title="Hapus">
-                        <button type="submit">Hapus</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Pengetahuan</h4>
+                </div>
+                <div class="card-body">
+                    <a asp-action="Tambah" asp-route-idSiswa="@Model.AnggotaRombel.IdSiswa" asp-route-idRombel="@Model.AnggotaRombel.IdRombel"
+                       asp-route-kategori="@KategoriNilaiRaport.Pengetahuan" class="btn btn-primary mb-2">
+                        Tambah
+                    </a>
+                    <table class="table table-striped table-hover" id="table-akun">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Mata Pelajaran</th>
+                                <th>KKM</th>
+                                <th>Nilai</th>
+                                <th>Predikat</th>
+                                <th>Dekripsi</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var pengetahuan in daftarPengetahuan)
+                            {
+                                <tr>
+                                    <td>@pengetahuan.Id</td>
+                                    <td>@pengetahuan.Nama</td>
+                                    <td>@pengetahuan.JadwalMengajar!.MataPelajaran.KKM</td>
+                                    <td>@pengetahuan.AnggotaRombel.NilaiAkhir(pengetahuan.JadwalMengajar!)</td>
+                                    <td>@pengetahuan.Predikat</td>
+                                    <td>@pengetahuan.Deskripsi</td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@pengetahuan.Id" class="btn btn-primary mr-1"><i class="fas fa-pencil-alt"></i></a>
+                                        <form asp-action="Hapus" asp-route-id="@pengetahuan.Id" style="display:inline" class="btn-action swal-confirm" title="Hapus">
+                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h1>Ektrakulikuler</h1>
-<a asp-action="Tambah" asp-route-idSiswa="@Model.AnggotaRombel.IdSiswa" asp-route-idRombel="@Model.AnggotaRombel.IdRombel"
-   asp-route-kategori="@KategoriNilaiRaport.Ekstrakulikuler">
-    Tambah
-</a>
-<table>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Sikap</th>
-            <th>Predikat</th>
-            <th>Dekripsi</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var ekstrakulikuler in daftarEkstrakulikuler)
-        {
-            <tr>
-                <td>@ekstrakulikuler.Id</td>
-                <td>@ekstrakulikuler.Nama</td>
-                <td>@ekstrakulikuler.Predikat</td>
-                <td>@ekstrakulikuler.Deskripsi</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@ekstrakulikuler.Id">Edit</a>
-                    <form asp-action="Hapus" asp-route-id="@ekstrakulikuler.Id" class="btn btn-danger btn-action swal-confirm" title="Hapus">
-                        <button type="submit">Hapus</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-12">
+            <div class="card card-warning">
+
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Keterampilan</h4>
+                </div>
+                <div class="card-body">
+                    <a asp-action="Tambah" asp-route-idSiswa="@Model.AnggotaRombel.IdSiswa" asp-route-idRombel="@Model.AnggotaRombel.IdRombel"
+                       asp-route-kategori="@KategoriNilaiRaport.Keterampilan" class="btn btn-primary mb-2">
+                        Tambah
+                    </a>
+                    <table class="table table-striped table-hover" id="table-akun">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Mata Pelajaran</th>
+                                <th>KKM</th>
+                                <th>Nilai</th>
+                                <th>Predikat</th>
+                                <th>Dekripsi</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var keterampilan in daftarKeterampilan)
+                            {
+                                <tr>
+                                    <td>@keterampilan.Id</td>
+                                    <td>@keterampilan.Nama</td>
+                                    <td>@keterampilan.JadwalMengajar!.MataPelajaran.KKM</td>
+                                    <td>@keterampilan.AnggotaRombel.NilaiAkhir(keterampilan.JadwalMengajar!)</td>
+                                    <td>@keterampilan.Predikat</td>
+                                    <td>@keterampilan.Deskripsi</td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@keterampilan.Id" class="btn btn-primary mr-1"><i class="fas fa-pencil-alt"></i></a>
+                                        <form asp-action="Hapus" asp-route-id="@keterampilan.Id" style="display:inline" class="btn-action swal-confirm" title="Hapus">
+                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-12">
+            <div class="card card-warning">
+
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Ektrakulikuler</h4>
+                </div>
+                <div class="card-body">
+                    <a asp-action="Tambah" asp-route-idSiswa="@Model.AnggotaRombel.IdSiswa" asp-route-idRombel="@Model.AnggotaRombel.IdRombel"
+                       asp-route-kategori="@KategoriNilaiRaport.Ekstrakulikuler" class="btn btn-primary mb-2">
+                        Tambah
+                    </a>
+                    <table class="table table-striped table-hover" id="table-akun">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Sikap</th>
+                                <th>Predikat</th>
+                                <th>Dekripsi</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ekstrakulikuler in daftarEkstrakulikuler)
+                            {
+                                <tr>
+                                    <td>@ekstrakulikuler.Id</td>
+                                    <td>@ekstrakulikuler.Nama</td>
+                                    <td>@ekstrakulikuler.Predikat</td>
+                                    <td>@ekstrakulikuler.Deskripsi</td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@ekstrakulikuler.Id" class="btn btn-primary mr-1"><i class="fas fa-pencil-alt"></i></a>
+                                        <form asp-action="Hapus" asp-route-id="@ekstrakulikuler.Id" style="display:inline" class="btn-action swal-confirm" title="Hapus">
+                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
