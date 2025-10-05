@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SIAkademik.Domain.Abstracts;
 using SIAkademik.Domain.Authentication;
@@ -24,6 +25,8 @@ public class HomeController : Controller
     private readonly IToastrNotificationService _toastrNotificationService;
     private readonly IFileService _fileService;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IPasswordHasher<AppUser> _passwordHasher;
+    private readonly IAppUserRepository _appUserRepository;
 
     public HomeController(
         ISignInManager signInManager,
@@ -31,7 +34,9 @@ public class HomeController : Controller
         IJadwalMengajarRepository jadwalMengajarRepository,
         IToastrNotificationService toastrNotificationService,
         IFileService fileService,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        IPasswordHasher<AppUser> passwordHasher,
+        IAppUserRepository appUserRepository)
     {
         _signInManager = signInManager;
         _tahunAjaranRepository = tahunAjaranRepository;
@@ -39,6 +44,8 @@ public class HomeController : Controller
         _toastrNotificationService = toastrNotificationService;
         _fileService = fileService;
         _unitOfWork = unitOfWork;
+        _passwordHasher = passwordHasher;
+        _appUserRepository = appUserRepository;
     }
 
     public async Task<IActionResult> Index(DateOnly? tanggal)
@@ -387,6 +394,49 @@ public class HomeController : Controller
             ModelState.AddModelError(nameof(EditFotoProfilVM.FotoProfil), "Foto Profil Harus Diupload!");
             return View(vm);
         }
+
+        return RedirectToAction(nameof(Profil));
+    }
+
+    public async Task<IActionResult> UbahPassword()
+    {
+        var siswa = await _signInManager.GetSiswa();
+        if (siswa is null) return Forbid();
+
+        return View(new UbahPasswordVM());
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UbahPassword(UbahPasswordVM vm)
+    {
+        var siswa = await _signInManager.GetSiswa();
+        if (siswa is null) return Forbid();
+
+        if (!ModelState.IsValid) return View(vm);
+
+        if(_passwordHasher.VerifyHashedPassword(siswa.Account, siswa.Account.PasswordHash, vm.PasswordLama) == PasswordVerificationResult.Failed)
+        {
+            ModelState.AddModelError(nameof(UbahPasswordVM.PasswordLama), "Password lama yang dimasukkan tidak benar!");
+            return View(vm);
+        }
+
+        if(vm.PasswordLama == vm.PasswordBaru)
+        {
+            ModelState.AddModelError(nameof(UbahPasswordVM.PasswordBaru), "Password lama sama dengan password baru!");
+            return View(vm);
+        }
+
+        var account = (await _appUserRepository.Get(siswa.Account.Id))!;
+        account.PasswordHash = _passwordHasher.HashPassword(null, vm.PasswordBaru);
+
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsFailure)
+        {
+            ModelState.AddModelError(string.Empty, "Simpan Gagal!");
+            return View(vm);
+        }
+
+        _toastrNotificationService.AddSuccess("Password berhasil diubah!");
 
         return RedirectToAction(nameof(Profil));
     }
