@@ -1,0 +1,15 @@
+﻿@using SIAkademik.Web.Areas.DashboardSiswa.Models.Home
+@model EditFotoProfilVM
+
+<form asp-action="EditFotoProfil" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All"></div>
+
+    <img src="@Model.FotoProfilLama?.OriginalString" />
+
+    <label>Foto Profil (.jpeg, .jpg) Max 100 KB</label>
+    <input asp-for="@Model.FotoProfil" type="file"/>
+    <input asp-for="@Model.FotoProfilLama" hidden readonly/>
+
+    <button type="submit">Simpan</button>
+    <a asp-action="Profil">Batal</a>
+</form>

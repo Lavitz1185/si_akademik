@@ -1,0 +1,288 @@
+﻿@using SIAkademik.Web.Areas.DashboardSiswa.Models.Home
+@model EditProfilVM
+
+<img src="@Model.FotoProfil?.OriginalString" alt="Foto Profil" />
+
+<p>
+    NIS/NISN : @Model.NIS/@Model.NISN <br />
+    Nama : @Model.Nama <br />
+    Tanggal Masuk : @Model.TanggalMasuk.ToString("dd MMMM yyyy", CultureInfos.CI) <br />
+    Jenjang : @Model.Jenjang.Humanize() <br />
+    Status : @Model.StatusAktif.Humanize() <br />
+    Jenis Kelamin : @Model.JenisKelamin.Humanize() <br />
+    Tempat/Tanggal Lahir : @Model.TempatLahir/@Model.TanggalLahir.ToString("dd MMMM yyyy", CultureInfos.CI) <br />
+    Agama : @Model.Agama.Humanize() <br />
+</p>
+
+
+<form asp-action="EditProfil" method="post" enctype="multipart/form-data">
+    <a asp-action="Profil">Batal</a>
+    <button type="submit">Simpan</button>
+
+    <div asp-validation-summary="All"></div>
+
+    <input asp-for="@Model.Nama" readonly hidden />
+    <input asp-for="@Model.NIS" readonly hidden />
+    <input asp-for="@Model.NISN" readonly hidden />
+    <input asp-for="@Model.TanggalMasuk" readonly hidden />
+    <input asp-for="@Model.TanggalLahir" readonly hidden />
+    <input asp-for="@Model.TempatLahir" readonly hidden />
+    <input asp-for="@Model.Agama" readonly hidden />
+    <input asp-for="@Model.JenisKelamin" readonly hidden />
+    <input asp-for="@Model.Jenjang" readonly hidden />
+    <input asp-for="@Model.StatusAktif" readonly hidden />
+    <input asp-for="@Model.FotoProfil" readonly hidden />
+
+    <h1>Data Diri</h1>
+    <div class="row">
+        <label asp-for="@Model.Suku"></label>
+        <input asp-for="@Model.Suku" />
+        <span asp-validation-for="@Model.Suku"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.GolonganDarah"></label>
+        <select asp-for="@Model.GolonganDarah">
+            @foreach (var golonganDarah in Enum.GetValues<GolonganDarah>())
+            {
+                <option value="@golonganDarah">@golonganDarah.Humanize()</option>
+            }
+        </select>
+        <span asp-validation-for="@Model.GolonganDarah"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.TinggiBadan"></label>
+        <input asp-for="@Model.TinggiBadan" />
+        <span asp-validation-for="@Model.TinggiBadan"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.BeratBadan"></label>
+        <input asp-for="@Model.BeratBadan" />
+        <span asp-validation-for="@Model.BeratBadan"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.Hobi"></label>
+        <input asp-for="@Model.Hobi" />
+        <span asp-validation-for="@Model.Hobi"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.NoHP"></label>
+        <input asp-for="@Model.NoHP" />
+        <span asp-validation-for="@Model.NoHP"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.JumlahSaudara"></label>
+        <input asp-for="@Model.JumlahSaudara" />
+        <span asp-validation-for="@Model.JumlahSaudara"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.AnakKe"></label>
+        <input asp-for="@Model.AnakKe" />
+        <span asp-validation-for="@Model.AnakKe"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.NomorKartuKeluarga"></label>
+        <input asp-for="@Model.NomorKartuKeluarga" />
+        <span asp-validation-for="@Model.NomorKartuKeluarga"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.NomorKartuPelajar"></label>
+        <input asp-for="@Model.NomorKartuPelajar" />
+        <span asp-validation-for="@Model.NomorKartuPelajar"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.Email"></label>
+        <input asp-for="@Model.Email" />
+        <span asp-validation-for="@Model.Email"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.AsalSekolah"></label>
+        <input asp-for="@Model.AsalSekolah" />
+        <span asp-validation-for="@Model.AsalSekolah"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.AktaKelahiran"></label>
+        <input asp-for="@Model.AktaKelahiran" type="file" />
+        @if(Model.AktaKelahiranLama is not null)
+        {
+            <a href="@Model.AktaKelahiranLama.OriginalString">Akta Kelahiran yang telah diupload</a>
+        }
+        <span asp-validation-for="@Model.AktaKelahiran"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.IjazahSMP"></label>
+        <input asp-for="@Model.IjazahSMP" type="file" />
+        @if (Model.IjazahSMPLama is not null)
+        {
+            <a href="@Model.IjazahSMPLama.OriginalString">Akta Kelahiran yang telah diupload</a>
+        }
+        <span asp-validation-for="@Model.IjazahSMP"></span>
+    </div>
+
+    <h1>Alamat</h1>
+    <partial name="_AlamatFormPartial" model="@Model" />
+  
+    <h1>Data Ayah</h1>
+    <div class="row">
+        <label asp-for="@Model.NamaAyah"></label>
+        <input asp-for="@Model.NamaAyah" />
+        <span asp-validation-for="@Model.NamaAyah"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.NIKAyah"></label>
+        <input asp-for="@Model.NIKAyah" />
+        <span asp-validation-for="@Model.NIKAyah"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.PekerjaanAyah"></label>
+        <input asp-for="@Model.PekerjaanAyah" />
+        <span asp-validation-for="@Model.PekerjaanAyah"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.AgamaAyah"></label>
+        <select asp-for="@Model.AgamaAyah">
+            @foreach(var agama in Enum.GetValues<Agama>())
+            {
+                <option value="@agama">@agama.Humanize()</option>
+            }
+        </select>
+        <span asp-validation-for="@Model.AgamaAyah"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.NoHPAyah"></label>
+        <input asp-for="@Model.NoHPAyah" />
+        <span asp-validation-for="@Model.NoHPAyah"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.TanggalLahirAyah"></label>
+        <input asp-for="@Model.TanggalLahirAyah" type="date"/>
+        <span asp-validation-for="@Model.TanggalLahirAyah"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.StatusHidupAyah"></label>
+        <select asp-for="@Model.StatusHidupAyah">
+            @foreach(var status in Enum.GetValues<StatusHidup>())
+            {
+                <option value="@status">@status.Humanize()</option>
+            }
+        </select>
+        <span asp-validation-for="@Model.StatusHidupAyah"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.PendidikanTerakhirAyah"></label>
+        <input asp-for="@Model.PendidikanTerakhirAyah" />
+        <span asp-validation-for="@Model.PendidikanTerakhirAyah"></span>
+    </div>
+
+    <h1>Data Ibu</h1>
+    <div class="row">
+        <label asp-for="@Model.NamaIbu"></label>
+        <input asp-for="@Model.NamaIbu" />
+        <span asp-validation-for="@Model.NamaIbu"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.NIKIbu"></label>
+        <input asp-for="@Model.NIKIbu" />
+        <span asp-validation-for="@Model.NIKIbu"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.PekerjaanIbu"></label>
+        <input asp-for="@Model.PekerjaanIbu" />
+        <span asp-validation-for="@Model.PekerjaanIbu"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.AgamaIbu"></label>
+        <select asp-for="@Model.AgamaIbu">
+            @foreach (var agama in Enum.GetValues<Agama>())
+            {
+                <option value="@agama">@agama.Humanize()</option>
+            }
+        </select>
+        <span asp-validation-for="@Model.AgamaIbu"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.NoHPIbu"></label>
+        <input asp-for="@Model.NoHPIbu" />
+        <span asp-validation-for="@Model.NoHPIbu"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.TanggalLahirIbu"></label>
+        <input asp-for="@Model.TanggalLahirIbu" type="date"/>
+        <span asp-validation-for="@Model.TanggalLahirIbu"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.StatusHidupIbu"></label>
+        <select asp-for="@Model.StatusHidupIbu">
+            @foreach (var status in Enum.GetValues<StatusHidup>())
+            {
+                <option value="@status">@status.Humanize()</option>
+            }
+        </select>
+        <span asp-validation-for="@Model.StatusHidupIbu"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.PendidikanTerakhirIbu"></label>
+        <input asp-for="@Model.PendidikanTerakhirIbu" />
+        <span asp-validation-for="@Model.PendidikanTerakhirIbu"></span>
+    </div>
+
+    <h1>Data Wali</h1>
+    <div class="row">
+        <label asp-for="@Model.NamaWali"></label>
+        <input asp-for="@Model.NamaWali" />
+        <span asp-validation-for="@Model.NamaWali"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.NIKWali"></label>
+        <input asp-for="@Model.NIKWali" />
+        <span asp-validation-for="@Model.NIKWali"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.PekerjaanWali"></label>
+        <input asp-for="@Model.PekerjaanWali" />
+        <span asp-validation-for="@Model.PekerjaanWali"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.AgamaWali"></label>
+        <select asp-for="@Model.AgamaWali">
+            @foreach (var agama in Enum.GetValues<Agama>())
+            {
+                <option value="@agama">@agama.Humanize()</option>
+            }
+        </select>
+        <span asp-validation-for="@Model.AgamaWali"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.NoHPWali"></label>
+        <input asp-for="@Model.NoHPWali" />
+        <span asp-validation-for="@Model.NoHPWali"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.TanggalLahirWali"></label>
+        <input asp-for="@Model.TanggalLahirWali" type="date"/>
+        <span asp-validation-for="@Model.TanggalLahirWali"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.StatusHidupWali"></label>
+        <select asp-for="@Model.StatusHidupWali">
+            @foreach (var status in Enum.GetValues<StatusHidup>())
+            {
+                <option value="@status">@status.Humanize()</option>
+            }
+        </select>
+        <span asp-validation-for="@Model.StatusHidupWali"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.PendidikanTerakhirWali"></label>
+        <input asp-for="@Model.PendidikanTerakhirWali" />
+        <span asp-validation-for="@Model.PendidikanTerakhirWali"></span>
+    </div>
+    <div class="row">
+        <label asp-for="@Model.HubunganDenganWali"></label>
+        <input asp-for="@Model.HubunganDenganWali" />
+        <span asp-validation-for="@Model.HubunganDenganWali"></span>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

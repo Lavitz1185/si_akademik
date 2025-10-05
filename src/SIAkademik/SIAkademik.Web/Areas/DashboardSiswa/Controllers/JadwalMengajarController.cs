@@ -34,15 +34,16 @@ public class JadwalMengajarController : Controller
             await _tahunAjaranRepository.GetNewest() :
             await _tahunAjaranRepository.Get(idTahunAjaran.Value);
 
-        if (tahunAjaran is null) return View(new IndexVM());
+        if (tahunAjaran is null) return View(new IndexVM { Siswa = siswa });
 
         var anggotaRombel = siswa.DaftarAnggotaRombel.FirstOrDefault(a => a.Rombel.Kelas.TahunAjaran == tahunAjaran);
-        if (anggotaRombel is null) return View(new IndexVM { TahunAjaran = tahunAjaran, IdTahunAjaran = tahunAjaran.Id });
+        if (anggotaRombel is null) return View(new IndexVM { Siswa = siswa, TahunAjaran = tahunAjaran, IdTahunAjaran = tahunAjaran.Id });
 
         var daftarJadwalMengajar = await _jadwalMengajarRepository.GetAllByTahunAjaran(tahunAjaran.Id);
 
         return View(new IndexVM
         {
+            Siswa = siswa,
             TahunAjaran = tahunAjaran,
             IdTahunAjaran = tahunAjaran.Id,
             DaftarJadwalMengajar = [.. daftarJadwalMengajar.Where(j => j.Rombel == anggotaRombel.Rombel)],

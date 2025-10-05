@@ -61,6 +61,21 @@ internal class JadwalMengajarRepository : IJadwalMengajarRepository
         .Where(j => j.Rombel.Kelas.TahunAjaran.Id == idTahunAjaran)
         .ToListAsync();
 
+    public async Task<List<JadwalMengajar>> GetAllByTahunAjaranAndRombel(int idTahunAjaran, int idRombel) => await _appDbContext
+        .TblJadwalMengajar
+        .Include(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
+        .Include(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
+        .Include(j => j.Rombel).ThenInclude(r => r.DaftarAnggotaRombel).ThenInclude(a => a.Siswa)
+        .Include(j => j.Rombel).ThenInclude(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarNilai)
+        .Include(j => j.Pegawai)
+        .Include(j => j.DaftarHariMengajar)
+        .Include(j => j.DaftarPertemuan)
+        .Include(j => j.DaftarNilai).ThenInclude(n => n.AnggotaRombel).ThenInclude(a => a.Siswa)
+        .Include(j => j.DaftarNilai).ThenInclude(n => n.AnggotaRombel).ThenInclude(a => a.Rombel)
+        .Where(j => j.Rombel.Kelas.TahunAjaran.Id == idTahunAjaran && j.Rombel.Id == idRombel)
+        .ToListAsync();
+
     public async Task<bool> IsExist(int idMataPelajaran, int idRombel, string nipPegawai, int? id = null) => await _appDbContext
         .TblJadwalMengajar
         .Include(j => j.MataPelajaran)

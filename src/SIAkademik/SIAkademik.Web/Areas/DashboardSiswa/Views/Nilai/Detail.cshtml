@@ -1,0 +1,116 @@
+﻿@using SIAkademik.Web.Areas.DashboardSiswa.Models.NilaiModels
+@model DetailVM
+
+@{
+    var daftarTugas = Model.AnggotaRombel.DaftarNilai.Where(a => a.JadwalMengajar == Model.JadwalMengajar && a.Jenis == JenisNilai.Tugas);
+    var daftarUH = Model.AnggotaRombel.DaftarNilai.Where(a => a.JadwalMengajar == Model.JadwalMengajar && a.Jenis == JenisNilai.UH);
+    var nilaiUTS = Model.AnggotaRombel.DaftarNilai.FirstOrDefault(a => a.JadwalMengajar == Model.JadwalMengajar && a.Jenis == JenisNilai.UTS);
+    var nilaiUAS = Model.AnggotaRombel.DaftarNilai.FirstOrDefault(a => a.JadwalMengajar == Model.JadwalMengajar && a.Jenis == JenisNilai.UAS);
+}
+
+<p>
+    @Model.JadwalMengajar.Rombel.Kelas.TahunAjaran.Periode @Model.JadwalMengajar.Rombel.Kelas.TahunAjaran.Semester.Humanize() <br/>
+    @Model.JadwalMengajar.Rombel.Kelas.Jenjang.Humanize() @Model.JadwalMengajar.Rombel.Kelas.Peminatan.Nama @Model.JadwalMengajar.Rombel.Nama <br/>
+    @Model.JadwalMengajar.MataPelajaran.Nama @Model.JadwalMengajar.MataPelajaran.Jenjang.Humanize() @Model.JadwalMengajar.MataPelajaran.Peminatan.Nama <br/>
+    @Model.JadwalMengajar.Pegawai.Nama <br/>
+</p>
+
+<h2>Nilai Tugas</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Skor</th>
+            <th>Dekripsi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(daftarTugas.Count() == 0)
+        {
+            <tr>
+                <td colspan="2">Tidak Ada Nilai Tugas</td>
+            </tr>
+        }
+        @foreach(var nilai in daftarTugas)
+        {
+            <tr>
+                <td>@nilai.Skor.ToString("F2")</td>
+                <td>@nilai.Deskripsi</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Nilai Ulangan Harian</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Skor</th>
+            <th>Dekripsi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (daftarUH.Count() == 0)
+        {
+            <tr>
+                <td colspan="2">Tidak Ada Nilai Ulangan Harian</td>
+            </tr>
+        }
+        @foreach (var nilai in daftarUH)
+        {
+            <tr>
+                <td>@nilai.Skor.ToString("F2")</td>
+                <td>@nilai.Deskripsi</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Nilai UTS</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Skor</th>
+            <th>Dekripsi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(nilaiUTS is not null)
+        {
+            <tr>
+                <td>@nilaiUTS.Skor.ToString("F2")</td>
+                <td>@nilaiUTS.Deskripsi</td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td colspan="2">Tidak Ada Nilai UTS</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Nilai UAS</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Skor</th>
+            <th>Dekripsi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (nilaiUAS is not null)
+        {
+            <tr>
+                <td>@nilaiUAS.Skor.ToString("F2")</td>
+                <td>@nilaiUAS.Deskripsi</td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td colspan="2">Tidak Ada Nilai UAS</td>
+            </tr>
+        }
+    </tbody>
+</table>

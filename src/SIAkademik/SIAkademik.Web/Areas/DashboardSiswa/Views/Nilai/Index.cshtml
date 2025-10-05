@@ -1,4 +1,4 @@
-﻿@using SIAkademik.Web.Areas.DashboardSiswa.Models.JadwalMengajarModels
+﻿@using SIAkademik.Web.Areas.DashboardSiswa.Models.NilaiModels
 @model IndexVM
 
 @inject ITahunAjaranRepository TahunAjaranRepository
@@ -38,12 +38,15 @@
 <table>
     <thead>
         <tr>
-            <th>Hari</th>
-            <th>Jam</th>
-            <th>Mata Pelajaran</th>
-            <th>Kelas</th>
-            <th>Guru</th>
-            <th>Aksi</th>
+            <th rowspan="2">Mata Pelajaran</th>
+            <th rowspan="2">Guru</th>
+            <th colspan="2">Nilai Komponen</th>
+            <th rowspan="2">Nilai Akhir</th>
+            <th rowspan="2">Aksi</th>
+        </tr>
+        <tr>
+            <th>Komponen</th>
+            <th>Nilai</th>
         </tr>
     </thead>
     <tbody>
@@ -63,21 +66,35 @@
             }
             else
             {
-                @foreach (var hari in Model.DaftarJadwalMengajar.SelectMany(j => j.DaftarHariMengajar).OrderBy(h => h.Hari).ThenBy(h => h.JamMulai))
+                @foreach (var jadwal in Model.DaftarJadwalMengajar)
                 {
                     <tr>
-                        <td>@hari.Hari.Humanize()</td>
-                        <td>@hari.JamMulai.ToShortTimeString() - @hari.JamAkhir.ToShortTimeString()</td>
-                        <td>@hari.JadwalMengajar.MataPelajaran.Nama</td>
+                        <td rowspan="4">@jadwal.MataPelajaran.Nama</td>
+                        <td rowspan="4">@jadwal.Pegawai.Nama</td>
+                        <td>Tugas</td>
                         <td>
-                            @hari.JadwalMengajar.Rombel.Kelas.Jenjang.Humanize()
-                            @hari.JadwalMengajar.Rombel.Kelas.Peminatan.Nama
-                            @hari.JadwalMengajar.Rombel.Nama
+                            @Model.AnggotaRombel.RataTugas(jadwal).ToString("F1") 
+                            (@Model.AnggotaRombel.DaftarNilai.Where(n => n.JadwalMengajar == jadwal && n.Jenis == JenisNilai.Tugas).Count())
                         </td>
-                        <td>@hari.JadwalMengajar.Pegawai.Nama</td>
+                        <td rowspan="4">@Model.AnggotaRombel.NilaiAkhir(jadwal).ToString("F1")</td>
+                        <td rowspan="4">
+                            <a asp-action="Detail" asp-route-idJadwalMengajar="@jadwal.Id">Detail</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Ulangan Harian</td>
                         <td>
-                            <a asp-action="Detail" asp-route-id="@hari.JadwalMengajar.Id">Detail</a>
+                            @Model.AnggotaRombel.RataUH(jadwal).ToString("F1")
+                            (@Model.AnggotaRombel.DaftarNilai.Where(n => n.JadwalMengajar == jadwal && n.Jenis == JenisNilai.UH).Count())
                         </td>
+                    </tr>
+                    <tr>
+                        <td>UTS</td>
+                        <td>@Model.AnggotaRombel.NilaiUTS(jadwal).ToString("F1")</td>
+                    </tr>
+                    <tr>
+                        <td>UAS</td>
+                        <td>@Model.AnggotaRombel.NilaiUAS(jadwal).ToString("F1")</td>
                     </tr>
                 }
             }

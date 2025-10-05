@@ -1,0 +1,800 @@
+﻿@model Siswa
+
+<img src="@Model.FotoProfil?.OriginalString" alt="Foto Profil" />
+<a asp-action="EditFotoProfil">Ganti Foto Profil</a>
+
+<p>
+    NIS/NISN : @Model.NIS/@Model.NISN <br />
+    Nama : @Model.Nama <br />
+    Tanggal Masuk : @Model.TanggalMasuk.ToString("dd MMMM yyyy", CultureInfos.CI) <br />
+    Jenjang : @Model.Jenjang.Humanize() <br />
+    Status : @Model.StatusAktif.Humanize() <br />
+    Jenis Kelamin : @Model.JenisKelamin.Humanize() <br />
+    Tempat/Tanggal Lahir : @Model.TempatLahir/@Model.TanggalLahir.ToString("dd MMMM yyyy", CultureInfos.CI) <br />
+    Agama : @Model.Agama.Humanize() <br />
+</p>
+
+<a asp-action="EditProfil">Edit Profil</a>
+
+<h1>Data Diri</h1>
+<div class="row">
+    <div class="col-6">
+        Suku
+    </div>
+    @if (Model.Suku is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.Suku
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Golongan Darah
+    </div>
+    @if (Model.GolonganDarah is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.GolonganDarah
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Tinggi Badan
+    </div>
+    @if (Model.Hobi is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.TinggiBadan cm
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Berat Badan
+    </div>
+    @if (Model.Hobi is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.BeratBadan kg
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Hobi
+    </div>
+    @if (Model.Hobi is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.Hobi
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Nomor HP/WA
+    </div>
+    @if (Model.NoHP is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.NoHP.Value
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Jumlah Saudara
+    </div>
+    @if (Model.JumlahSaudara is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.JumlahSaudara orang
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Anak Ke
+    </div>
+    @if (Model.AnakKe is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.AnakKe
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Nomor Kartu Keluarga
+    </div>
+    @if (Model.NomorKartuKeluarga is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.NomorKartuKeluarga
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Nomor Kartu Pelajar
+    </div>
+    @if (Model.NomorKartuPelajar is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.NomorKartuKeluarga
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Email
+    </div>
+    @if (Model.Email is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.Email
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Asal Sekolah
+    </div>
+    @if (Model.AsalSekolah is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.AsalSekolah
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Akta Kelahiran
+    </div>
+    @if (Model.AktaKelahiran is null)
+    {
+        <div class="col-6">
+            Belum Diunggah
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            <a href="@Model.AktaKelahiran.OriginalString">Akta Kelahiran</a>
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Ijazah SMP
+    </div>
+    @if (Model.IjazahSMP is null)
+    {
+        <div class="col-6">
+            Belum Diunggah
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            <a href="@Model.IjazahSMP.OriginalString">Ijazah SMP</a>
+        </div>
+    }
+</div>
+
+<h1>Alamat</h1>
+<div class="row">
+    <div class="col-6">
+        Kode Pos
+    </div>
+    @if (Model.AlamatLengkap.KodePos == Alamat.Empty.KodePos)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.AlamatLengkap.KodePos
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Jalan
+    </div>
+    @if (Model.AlamatLengkap.Jalan == Alamat.Empty.Jalan)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.AlamatLengkap.Jalan
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        RT/RW
+    </div>
+    <div class="col-6">
+        @Model.AlamatLengkap.RT / @Model.AlamatLengkap.RW
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        Kelurahan/Desa
+    </div>
+    @if (Model.AlamatLengkap.KelurahanDesa == Alamat.Empty.KelurahanDesa)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.AlamatLengkap.KelurahanDesa
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Kecamatan
+    </div>
+    @if (Model.AlamatLengkap.Kecamatan == Alamat.Empty.Kecamatan)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.AlamatLengkap.Kecamatan
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Kota/Kabupaten
+    </div>
+    @if (Model.AlamatLengkap.KotaKabupaten == Alamat.Empty.KotaKabupaten)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.AlamatLengkap.KotaKabupaten
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Provinsi
+    </div>
+    @if (Model.AlamatLengkap.Provinsi == Alamat.Empty.Provinsi)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.AlamatLengkap.Provinsi
+        </div>
+    }
+</div>
+
+<h1>Data Ayah</h1>
+<div class="row">
+    <div class="col-6">
+        Nama
+    </div>
+    @if (Model.NamaAyah is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.NamaAyah
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        NIK
+    </div>
+    @if (Model.NIKAyah is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.NIKAyah
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Pekerjaan
+    </div>
+    @if (Model.PekerjaanAyah is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.PekerjaanAyah
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Agama
+    </div>
+    @if (Model.AgamaAyah is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.AgamaAyah.Humanize()
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        No. HP/WA
+    </div>
+    @if (Model.NoHPAyah is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.NoHPAyah.Value
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Tanggal Lahir
+    </div>
+    @if (Model.TanggalLahirAyah is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.TanggalLahirAyah.Value.ToString("dd MMMM yyyy", CultureInfos.CI)
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Status Hidup
+    </div>
+    @if (Model.StatusHidupAyah is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.StatusHidupAyah
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Pendidikan Terakhir
+    </div>
+    @if (Model.PendidikanTerakhirAyah is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.PendidikanTerakhirAyah
+        </div>
+    }
+</div>
+
+<h1>Data Ibu</h1>
+<div class="row">
+    <div class="col-6">
+        Nama
+    </div>
+    @if (Model.NamaIbu is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.NamaIbu
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        NIK
+    </div>
+    @if (Model.NIKIbu is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.NIKIbu
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Pekerjaan
+    </div>
+    @if (Model.PekerjaanIbu is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.PekerjaanIbu
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Agama
+    </div>
+    @if (Model.AgamaIbu is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.AgamaIbu.Humanize()
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        No. HP/WA
+    </div>
+    @if (Model.NoHPIbu is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.NoHPIbu.Value
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Tanggal Lahir
+    </div>
+    @if (Model.TanggalLahirIbu is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.TanggalLahirIbu.Value.ToString("dd MMMM yyyy", CultureInfos.CI)
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Status Hidup
+    </div>
+    @if (Model.StatusHidupIbu is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.StatusHidupIbu
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Pendidikan Terakhir
+    </div>
+    @if (Model.PendidikanTerakhirIbu is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.PendidikanTerakhirIbu
+        </div>
+    }
+</div>
+
+<h1>Data Wali</h1>
+<div class="row">
+    <div class="col-6">
+        Nama
+    </div>
+    @if (Model.NamaWali is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.NamaWali
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        NIK
+    </div>
+    @if (Model.NIKWali is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.NIKWali
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Pekerjaan
+    </div>
+    @if (Model.PekerjaanWali is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.PekerjaanWali
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Agama
+    </div>
+    @if (Model.AgamaWali is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.AgamaWali.Humanize()
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        No. HP/WA
+    </div>
+    @if (Model.NoHPWali is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.NoHPWali.Value
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Tanggal Lahir
+    </div>
+    @if (Model.TanggalLahirWali is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.TanggalLahirWali.Value.ToString("dd MMMM yyyy", CultureInfos.CI)
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Status Hidup
+    </div>
+    @if (Model.StatusHidupWali is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.StatusHidupWali
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Pendidikan Terakhir
+    </div>
+    @if (Model.PendidikanTerakhirWali is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.PendidikanTerakhirWali
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-6">
+        Hubungan Dengan Wali
+    </div>
+    @if (Model.HubunganDenganWali is null)
+    {
+        <div class="col-6">
+            Belum Diisi
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            @Model.HubunganDenganWali
+        </div>
+    }
+</div>

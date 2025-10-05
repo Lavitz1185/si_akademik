@@ -43,12 +43,19 @@ public class AnggotaRombel : IEquatable<AnggotaRombel>
     {
         var rataTugas = RataTugas(jadwalMengajar);
         var rataUH = RataUH(jadwalMengajar);
-        var nilaiUTS = DaftarNilai.Where(n => n.JadwalMengajar == jadwalMengajar && n.Jenis == JenisNilai.UTS).FirstOrDefault()?.Skor ?? 0;
-        var nilaiUAS = DaftarNilai.Where(n => n.JadwalMengajar == jadwalMengajar && n.Jenis == JenisNilai.UAS).FirstOrDefault()?.Skor ?? 0;
+        var nilaiUTS = NilaiUTS(jadwalMengajar);
+        var nilaiUAS = NilaiUAS(jadwalMengajar);
 
         return (rataTugas + rataUH + nilaiUTS + nilaiUAS) / 4;
     }
 
+    public double NilaiUTS(JadwalMengajar jadwalMengajar) => DaftarNilai
+        .Where(n => n.JadwalMengajar == jadwalMengajar && n.Jenis == JenisNilai.UTS)
+        .FirstOrDefault()?.Skor ?? 0;
+
+    public double NilaiUAS(JadwalMengajar jadwalMengajar) => DaftarNilai
+        .Where(n => n.JadwalMengajar == jadwalMengajar && n.Jenis == JenisNilai.UAS)
+        .FirstOrDefault()?.Skor ?? 0;
 
     public override bool Equals(object? obj) => obj is AnggotaRombel a && Equals(a);
 

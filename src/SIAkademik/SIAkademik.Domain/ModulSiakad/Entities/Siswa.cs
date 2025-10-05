@@ -20,7 +20,12 @@ public class Siswa : Entity<int>
 
     public bool IsBiodataComplete() =>
         Suku is not null &&
-        AlamatLengkap != new Alamat() &&
+        AlamatLengkap.KodePos != Alamat.Empty.KodePos &&
+        AlamatLengkap.Jalan != Alamat.Empty.Jalan &&
+        AlamatLengkap.KelurahanDesa != Alamat.Empty.KelurahanDesa &&
+        AlamatLengkap.Kecamatan != Alamat.Empty.Kecamatan &&
+        AlamatLengkap.KotaKabupaten != Alamat.Empty.KotaKabupaten &&
+        AlamatLengkap.Provinsi != Alamat.Empty.Provinsi &&
         GolonganDarah is not null &&
         TinggiBadan is not null &&
         BeratBadan is not null &&
@@ -50,15 +55,6 @@ public class Siswa : Entity<int>
         TanggalLahirIbu is not null &&
         StatusHidupIbu is not null &&
         PendidikanTerakhirIbu is not null &&
-        NamaWali is not null &&
-        NIKWali is not null &&
-        PekerjaanWali is not null &&
-        AgamaWali is not null &&
-        NoHPWali is not null &&
-        TanggalLahirWali is not null &&
-        StatusHidupWali is not null &&
-        PendidikanTerakhirWali is not null &&
-        HubunganDenganWali is not null &&
         IjazahSMP is not null &&
         FotoProfil is not null;
 
@@ -84,11 +80,11 @@ public class Siswa : Entity<int>
     public NoHP? NoHP { get; set; }
     public int? JumlahSaudara { get; set; }
     public int? AnakKe { get; set; }
-    public Uri? AktaKelahiran { get; set; }
     public string? NomorKartuKeluarga { get; set; }
     public string? NomorKartuPelajar { get; set; }
     public string? Email { get; set; }
     public string? AsalSekolah { get; set; }
+    public Uri? AktaKelahiran { get; set; }
     public Uri? IjazahSMP { get; set; }
     public Uri? FotoProfil { get; set; }
 
@@ -96,7 +92,7 @@ public class Siswa : Entity<int>
     public string? NamaAyah { get; set; }
     public string? NIKAyah { get; set; }
     public string? PekerjaanAyah { get; set; }
-    public string? AgamaAyah { get; set; }
+    public Agama? AgamaAyah { get; set; }
     public NoHP? NoHPAyah { get; set; }
     public DateOnly? TanggalLahirAyah { get; set; }
     public StatusHidup? StatusHidupAyah { get; set; }
@@ -106,7 +102,7 @@ public class Siswa : Entity<int>
     public string? NamaIbu { get; set; }
     public string? NIKIbu { get; set; }
     public string? PekerjaanIbu { get; set; }
-    public string? AgamaIbu { get; set; }
+    public Agama? AgamaIbu { get; set; }
     public NoHP? NoHPIbu { get; set; }
     public DateOnly? TanggalLahirIbu { get; set; }
     public StatusHidup? StatusHidupIbu { get; set; }
@@ -116,7 +112,7 @@ public class Siswa : Entity<int>
     public string? NamaWali { get; set; }
     public string? NIKWali { get; set; }
     public string? PekerjaanWali { get; set; }
-    public string? AgamaWali { get; set; }
+    public Agama? AgamaWali { get; set; }
     public NoHP? NoHPWali { get; set; }
     public DateOnly? TanggalLahirWali { get; set; }
     public StatusHidup? StatusHidupWali { get; set; }

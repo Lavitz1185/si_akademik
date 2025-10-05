@@ -3,10 +3,6 @@
 
 @inject ISignInManager SignInManager
 
-@{
-    var siswa = (await SignInManager.GetSiswa())!;
-}
-
 @if (Model.TahunAjaran is null)
 {
     <p>Belum Ada Tahun Ajaran</p>
@@ -16,10 +12,10 @@ else
     <p>Tahun Ajaran : @Model.TahunAjaran.Periode @Model.TahunAjaran.Semester.Humanize()</p>
 
     <p>
-        NISN/NIS : @siswa.NISN/@siswa.NIS <br />
-        Nama : @siswa.Nama <br />
-        Jenjang : @siswa.Jenjang.Humanize() <br />
-        Status : @siswa.StatusAktif.Humanize() <br />
+        NISN/NIS : @Model.Siswa.NISN/@Model.Siswa.NIS <br />
+        Nama : @Model.Siswa.Nama <br />
+        Jenjang : @Model.Siswa.Jenjang.Humanize() <br />
+        Status : @Model.Siswa.StatusAktif.Humanize() <br />
     </p>
 
     @if (Model.AnggotaRombel is not null)

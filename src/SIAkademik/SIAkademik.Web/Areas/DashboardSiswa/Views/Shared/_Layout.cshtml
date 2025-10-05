@@ -45,7 +45,7 @@
     <script src="~/lib/datatables/export-tables/vfs_fonts.js" asp-append-version="true"></script>
     <script src="~/js/datatables.js" asp-append-version="true"></script>
 
-    @* @{
+    @{
         var globalOptions = new ToastrOptions
         {
             closeButton = true,
@@ -64,7 +64,7 @@
         };
     }
 
-    <vc:toastr global-options=globalOptions></vc:toastr> *@
+    <vc:toastr global-options=globalOptions></vc:toastr>
 
     <script type="text/javascript">
         const matchLink = (linkHref, currentUrl, match) => {

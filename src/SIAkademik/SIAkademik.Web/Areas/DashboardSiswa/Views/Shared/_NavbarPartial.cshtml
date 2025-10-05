@@ -116,12 +116,19 @@
         </li> *@
         <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                <img alt="image" src="~/images/contoh/foto_dashboard.png" class="user-img-radious-style">
+                @if(siswa.FotoProfil is not null)
+                {
+                    <img alt="Foto Profil" src="@siswa.FotoProfil.OriginalString" class="user-img-radious-style">
+                }
+                else
+                {
+                    <img alt="Foto Profil" src="~/images/contoh/foto_dashboard.png" class="user-img-radious-style">
+                }
                 <span class="d-sm-none d-lg-inline-block"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right pullDown">
                 @* <div class="dropdown-title pb-0">Hello SISWA</div> *@
-                <a href="#" class="dropdown-item has-icon">
+                <a asp-action="Profil" asp-controller="Home" asp-area="@AreaNames.DashboardSiswa" class="dropdown-item has-icon">
                     <i class="far fa-user"></i> Profile
                 </a>
                 @* <a href="#" class="dropdown-item has-icon">

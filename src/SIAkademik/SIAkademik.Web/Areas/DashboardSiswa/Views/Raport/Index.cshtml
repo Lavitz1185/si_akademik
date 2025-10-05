@@ -1,0 +1,212 @@
+﻿@using SIAkademik.Web.Areas.DashboardSiswa.Models.RaportModels
+@model IndexVM
+
+@inject ITahunAjaranRepository TahunAjaranRepository
+
+@{
+    var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
+    var daftarSikap = Model.DaftarRaport.Where(r => r.KategoriNilai == KategoriNilaiRaport.Sikap);
+    var daftarPengetahun = Model.DaftarRaport.Where(r => r.KategoriNilai == KategoriNilaiRaport.Pengetahuan);
+    var daftarKeterampilan = Model.DaftarRaport.Where(r => r.KategoriNilai == KategoriNilaiRaport.Keterampilan);
+    var daftarEkstrakulikuler = Model.DaftarRaport.Where(r => r.KategoriNilai == KategoriNilaiRaport.Ekstrakulikuler);
+}
+
+<p>
+    NISN/NIS : @Model.Siswa.NISN/@Model.Siswa.NIS <br />
+    Nama : @Model.Siswa.Nama <br />
+    Jenjang : @Model.Siswa.Jenjang.Humanize() <br />
+    Status : @Model.Siswa.StatusAktif.Humanize() <br />
+</p>
+
+@if(Model.AnggotaRombel is not null)
+{
+    <p>
+        Kelas : @Model.AnggotaRombel.Rombel.Kelas.Jenjang.Humanize() @Model.AnggotaRombel.Rombel.Kelas.Peminatan.Nama @Model.AnggotaRombel.Rombel.Nama <br />
+        Wali Kelas : @Model.AnggotaRombel.Rombel.Wali.Nama
+    </p>
+
+    <a asp-action="Cetak" asp-route-idRombel="@Model.AnggotaRombel.IdRombel">Cetak</a>
+}
+
+<form asp-action="Index" method="get">
+    <select asp-for="@Model.IdTahunAjaran">
+        @if (Model.IdTahunAjaran is null)
+        {
+            <option value="@null">-- Pilih Tahun Ajaran</option>
+        }
+        @foreach (var tahunAjaran in daftarTahunAjaran)
+        {
+            <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+        }
+    </select>
+</form>
+
+<h1>Sikap</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Sikap</th>
+            <th>Predikat</th>
+            <th>Dekripsi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.TahunAjaran is null)
+        {
+            <tr>
+                <td colspan="3">Belum ada tahun ajaran yang dibuka</td>
+            </tr>
+        }
+        else
+        {
+            @if (Model.AnggotaRombel is null)
+            {
+                <tr>
+                    <td colspan="3">Tidak ada kelas di tahun ajaran ini</td>
+                </tr>
+            }
+            else
+            {
+                @foreach(var raport in daftarSikap)
+                {
+                    <tr>
+                        <td>@raport.Nama</td>
+                        <td>@raport.Predikat</td>
+                        <td>@raport.Deskripsi</td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+
+<h1>Pengetahuan</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Mata Pelajaran</th>
+            <th>Nilai</th>
+            <th>Predikat</th>
+            <th>Dekripsi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.TahunAjaran is null)
+        {
+            <tr>
+                <td colspan="4">Belum ada tahun ajaran yang dibuka</td>
+            </tr>
+        }
+        else
+        {
+            @if (Model.AnggotaRombel is null)
+            {
+                <tr>
+                    <td colspan="4">Tidak ada kelas di tahun ajaran ini</td>
+                </tr>
+            }
+            else
+            {
+                @foreach(var raport in daftarPengetahun)
+                {
+                    <tr>
+                        <td>@raport.Nama</td>
+                        <td>@Model.AnggotaRombel.NilaiAkhir(raport.JadwalMengajar!)</td>
+                        <td>@raport.Predikat</td>
+                        <td>@raport.Deskripsi</td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+
+<h1>Keterampilan</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Mata Pelajaran</th>
+            <th>Nilai</th>
+            <th>Predikat</th>
+            <th>Dekripsi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.TahunAjaran is null)
+        {
+            <tr>
+                <td colspan="4">Belum ada tahun ajaran yang dibuka</td>
+            </tr>
+        }
+        else
+        {
+            @if (Model.AnggotaRombel is null)
+            {
+                <tr>
+                    <td colspan="4">Tidak ada kelas di tahun ajaran ini</td>
+                </tr>
+            }
+            else
+            {
+                @foreach(var raport in daftarKeterampilan)
+                {
+                    <tr>
+                        <td>@raport.Nama</td>
+                        <td>@Model.AnggotaRombel.NilaiAkhir(raport.JadwalMengajar!)</td>
+                        <td>@raport.Predikat</td>
+                        <td>@raport.Deskripsi</td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+
+<h1>Ekstrakulikuler</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Ekstrakulikuler</th>
+            <th>Predikat</th>
+            <th>Dekripsi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.TahunAjaran is null)
+        {
+            <tr>
+                <td colspan="3">Belum ada tahun ajaran yang dibuka</td>
+            </tr>
+        }
+        else
+        {
+            @if (Model.AnggotaRombel is null)
+            {
+                <tr>
+                    <td colspan="3">Tidak ada kelas di tahun ajaran ini</td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var raport in daftarEkstrakulikuler)
+                {
+                    <tr>
+                        <td>@raport.Nama</td>
+                        <td>@raport.Predikat</td>
+                        <td>@raport.Deskripsi</td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function() {
+            $('select#IdTahunAjaran').on('change', function() {
+                $(this).closest('form').trigger('submit');
+            });
+        });
+    </script>
+}

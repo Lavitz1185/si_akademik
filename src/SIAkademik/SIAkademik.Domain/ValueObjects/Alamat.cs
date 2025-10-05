@@ -13,6 +13,8 @@ public class Alamat : IEquatable<Alamat>
     public string Provinsi { get; set; } = string.Empty;
     public string KodePos { get; set; } = string.Empty;
 
+    public static readonly Alamat Empty = new Alamat();
+
     public bool Equals(Alamat? other) => 
         other is not null &&
         other.RT == RT &&
