@@ -45,7 +45,7 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AppUser");
+                    b.ToTable("AppUser", (string)null);
 
                     b.HasData(
                         new
@@ -208,7 +208,7 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.HasIndex("AnggotaRombelIdSiswa", "AnggotaRombelIdRombel");
 
-                    b.ToTable("TblAbsen");
+                    b.ToTable("TblAbsen", (string)null);
                 });
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.AbsenKelas", b =>
@@ -239,7 +239,7 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.HasIndex("AnggotaRombelIdSiswa", "AnggotaRombelIdRombel");
 
-                    b.ToTable("TblAbsenKelas");
+                    b.ToTable("TblAbsenKelas", (string)null);
                 });
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.AnggotaRombel", b =>
@@ -260,7 +260,7 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.HasIndex("IdRombel");
 
-                    b.ToTable("TblAnggotaRombel");
+                    b.ToTable("TblAnggotaRombel", (string)null);
 
                     b.HasData(
                         new
@@ -291,7 +291,7 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TblDivisi");
+                    b.ToTable("TblDivisi", (string)null);
 
                     b.HasData(
                         new
@@ -350,7 +350,7 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.HasIndex("JadwalMengajarId");
 
-                    b.ToTable("TblHariMengajar");
+                    b.ToTable("TblHariMengajar", (string)null);
 
                     b.HasData(
                         new
@@ -604,7 +604,7 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TblJabatan");
+                    b.ToTable("TblJabatan", (string)null);
 
                     b.HasData(
                         new
@@ -798,7 +798,7 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.HasIndex("MataPelajaranId", "RombelId", "PegawaiId")
                         .IsUnique();
 
-                    b.ToTable("TblJadwalMengajar");
+                    b.ToTable("TblJadwalMengajar", (string)null);
 
                     b.HasData(
                         new
@@ -1022,7 +1022,7 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.HasIndex("TahunAjaranId");
 
-                    b.ToTable("TblKelas");
+                    b.ToTable("TblKelas", (string)null);
 
                     b.HasData(
                         new
@@ -1080,7 +1080,7 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.HasIndex("PeminatanId");
 
-                    b.ToTable("TblMataPelajaran");
+                    b.ToTable("TblMataPelajaran", (string)null);
 
                     b.HasData(
                         new
@@ -1358,7 +1358,7 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.HasIndex("AnggotaRombelIdSiswa", "AnggotaRombelIdRombel");
 
-                    b.ToTable("TblNilai");
+                    b.ToTable("TblNilai", (string)null);
                 });
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Pegawai", b =>
@@ -1465,7 +1465,7 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.HasIndex("JabatanId");
 
-                    b.ToTable("TblPegawai");
+                    b.ToTable("TblPegawai", (string)null);
 
                     b.HasData(
                         new
@@ -1825,7 +1825,7 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TblPeminatan");
+                    b.ToTable("TblPeminatan", (string)null);
 
                     b.HasData(
                         new
@@ -1887,7 +1887,7 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.HasIndex("JadwalMengajarId");
 
-                    b.ToTable("TblPertemuan");
+                    b.ToTable("TblPertemuan", (string)null);
                 });
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Raport", b =>
@@ -1928,7 +1928,7 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.HasIndex("AnggotaRombelIdSiswa", "AnggotaRombelIdRombel");
 
-                    b.ToTable("TblRaport");
+                    b.ToTable("TblRaport", (string)null);
 
                     b.HasData(
                         new
@@ -1988,7 +1988,7 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.HasIndex("WaliId");
 
-                    b.ToTable("TblRombel");
+                    b.ToTable("TblRombel", (string)null);
 
                     b.HasData(
                         new
@@ -2212,7 +2212,7 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.HasIndex("AppUserId")
                         .IsUnique();
 
-                    b.ToTable("TblSiswa");
+                    b.ToTable("TblSiswa", (string)null);
 
                     b.HasData(
                         new
@@ -2269,7 +2269,7 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TblTahunAjaran");
+                    b.ToTable("TblTahunAjaran", (string)null);
 
                     b.HasData(
                         new
