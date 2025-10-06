@@ -3,71 +3,132 @@
 
 @inject ISignInManager SignInManager
 
-@if (Model.TahunAjaran is null)
-{
-    <p>Belum Ada Tahun Ajaran</p>
-}
-else
-{
-    <p>Tahun Ajaran : @Model.TahunAjaran.Periode @Model.TahunAjaran.Semester.Humanize()</p>
+<div class="section">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body p-4">
 
-    <p>
-        NISN/NIS : @Model.Siswa.NISN/@Model.Siswa.NIS <br />
-        Nama : @Model.Siswa.Nama <br />
-        Jenjang : @Model.Siswa.Jenjang.Humanize() <br />
-        Status : @Model.Siswa.StatusAktif.Humanize() <br />
-    </p>
-
-    @if (Model.AnggotaRombel is not null)
-    {
-        <p>
-            Kelas : @Model.AnggotaRombel.Rombel.Kelas.Jenjang.Humanize() @Model.AnggotaRombel.Rombel.Kelas.Peminatan.Nama @Model.AnggotaRombel.Rombel.Nama <br />
-            Wali Kelas : @Model.AnggotaRombel.Rombel.Wali.Nama <br/>
-            Kehadiran : @Model.AnggotaRombel.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Hadir).Count() <br />
-            Alpa : @Model.AnggotaRombel.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Alpa).Count() <br />
-            Sakit : @Model.AnggotaRombel.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Sakit).Count() <br />
-            Ijin : @Model.AnggotaRombel.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Ijin).Count() <br />
-        </p>
-    }
-
-    <form asp-action="Index" method="get">
-        <input asp-for="@Model.Tanggal" type="date" />
-    </form>
-
-    @if (Model.Tanggal < Model.TahunAjaran.TanggalMulai)
-    {
-        <p>Tahun Ajaran Belum Dimulai</p>
-    }
-    else if (Model.Tanggal > Model.TahunAjaran.TanggalSelesai)
-    {
-        <p>Tahun Ajaran Telah Berakhir</p>
-    }
-    else
-    {
-        @if (Model.AnggotaRombel is null)
-        {
-            <p>Anda Tidak Memiliki Kelas Di Tahun Ajaran Ini</p>
-        }
-        else
-        {
-            <h1>Jadwal Tanggal : @Model.Tanggal.ToString("dd MMMM yyyy", CultureInfos.CI)</h1>
-            @if (Model.DaftarHariMengajar.Count == 0)
+            @if (Model.TahunAjaran is null)
             {
-                <p>Tidak ada aktivitas belajar saat ini</p>
+                <div class="alert alert-warning text-center mb-0">
+                    <i class="bi bi-exclamation-triangle"></i> Belum Ada Tahun Ajaran
+                </div>
             }
-
-            @foreach (var hariMengajar in Model.DaftarHariMengajar.OrderBy(h => h.JamMulai))
+            else
             {
-                <p>
-                    @hariMengajar.JadwalMengajar.MataPelajaran.Nama <br />
-                    @hariMengajar.JamMulai.ToShortTimeString() - @hariMengajar.JamAkhir.ToShortTimeString()<br />
-                    @hariMengajar.JadwalMengajar.Pegawai.Nama <br/>
-                    <a asp-action="Detail" asp-controller="JadwalMengajar" asp-route-id="@hariMengajar.JadwalMengajar.Id">Lihat</a>
-                </p>
+                <div class="mb-4">
+                    <h4 class="fw-bold text-primary mb-3">
+                        Tahun Ajaran: @Model.TahunAjaran.Periode @Model.TahunAjaran.Semester.Humanize()
+                    </h4>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="card border-0 bg-light">
+                                <div class="card-body">
+                                    <h6 class="text-secondary fw-semibold mb-3">Data Siswa</h6>
+                                    <p class="mb-1"><strong>NISN/NIS:</strong> @Model.Siswa.NISN / @Model.Siswa.NIS</p>
+                                    <p class="mb-1"><strong>Nama:</strong> @Model.Siswa.Nama</p>
+                                    <p class="mb-1"><strong>Jenjang:</strong> @Model.Siswa.Jenjang.Humanize()</p>
+                                    <p class="mb-0"><strong>Status:</strong> @Model.Siswa.StatusAktif.Humanize()</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        @if (Model.AnggotaRombel is not null)
+                        {
+                            <div class="col-md-6">
+                                <div class="card border-0 bg-light">
+                                    <div class="card-body">
+                                        <h6 class="text-secondary fw-semibold mb-3">Kelas & Kehadiran</h6>
+                                        <p class="mb-1">
+                                            <strong>Kelas:</strong>
+                                            @Model.AnggotaRombel.Rombel.Kelas.Jenjang.Humanize()
+                                            @Model.AnggotaRombel.Rombel.Kelas.Peminatan.Nama
+                                            @Model.AnggotaRombel.Rombel.Nama
+                                        </p>
+                                        <p class="mb-1"><strong>Wali Kelas:</strong> @Model.AnggotaRombel.Rombel.Wali.Nama</p>
+
+                                        <div class="row text-center mt-3">
+                                            <div class="col"><span class="badge bg-success">Hadir: @Model.AnggotaRombel.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Hadir).Count()</span></div>
+                                            <div class="col"><span class="badge bg-danger">Alpa: @Model.AnggotaRombel.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Alpa).Count()</span></div>
+                                            <div class="col"><span class="badge bg-warning text-dark">Izin: @Model.AnggotaRombel.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Ijin).Count()</span></div>
+                                            <div class="col"><span class="badge bg-info text-dark">Sakit: @Model.AnggotaRombel.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Sakit).Count()</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <form asp-action="Index" method="get" class="mb-4">
+                    <div class="input-group">
+                        <span class="input-group-text bg-primary text-white"><i class="bi bi-calendar-event"></i></span>
+                        <input asp-for="@Model.Tanggal" type="date" class="form-control" />
+                        <button type="submit" class="btn btn-primary">Tampilkan</button>
+                    </div>
+                </form>
+
+                @if (Model.Tanggal < Model.TahunAjaran.TanggalMulai)
+                {
+                    <div class="alert alert-info text-center">
+                        <i class="bi bi-clock-history"></i> Tahun Ajaran Belum Dimulai
+                    </div>
+                }
+                else if (Model.Tanggal > Model.TahunAjaran.TanggalSelesai)
+                {
+                    <div class="alert alert-secondary text-center">
+                        <i class="bi bi-calendar-x"></i> Tahun Ajaran Telah Berakhir
+                    </div>
+                }
+                else
+                {
+                    @if (Model.AnggotaRombel is null)
+                    {
+                        <div class="alert alert-danger text-center">
+                            <i class="bi bi-exclamation-circle"></i> Anda Tidak Memiliki Kelas Di Tahun Ajaran Ini
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="mb-3 d-flex justify-content-between align-items-center">
+                            <h5 class="fw-bold text-success mb-0">
+                                Jadwal: @Model.Tanggal.ToString("dd MMMM yyyy", CultureInfos.CI)
+                            </h5>
+                            <i class="bi bi-journal-bookmark text-success fs-4"></i>
+                        </div>
+
+                        @if (Model.DaftarHariMengajar.Count == 0)
+                        {
+                            <div class="alert alert-warning text-center">
+                                <i class="bi bi-emoji-neutral"></i> Tidak ada aktivitas belajar saat ini
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row g-3">
+                                @foreach (var hariMengajar in Model.DaftarHariMengajar.OrderBy(h => h.JamMulai))
+                                {
+                                    <div class="col-md-6">
+                                        <div class="card h-100 border-0 shadow-sm">
+                                            <div class="card-body">
+                                                <h6 class="fw-bold text-primary">@hariMengajar.JadwalMengajar.MataPelajaran.Nama</h6>
+                                                <p class="mb-1"><i class="bi bi-clock"></i> @hariMengajar.JamMulai.ToShortTimeString() - @hariMengajar.JamAkhir.ToShortTimeString()</p>
+                                                <p class="mb-1"><i class="bi bi-person"></i> @hariMengajar.JadwalMengajar.Pegawai.Nama</p>
+                                                <a asp-action="Detail" asp-controller="JadwalMengajar" asp-route-id="@hariMengajar.JadwalMengajar.Id" class="btn btn-outline-primary btn-sm mt-2">
+                                                    <i class="bi bi-eye"></i> Lihat Detail
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    }
+                }
             }
-        }
-    }
-}
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     <script type="text/javascript">
