@@ -63,24 +63,5 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
                 AppUserId = 19
             }
         );
-
-        for (int i = 0; i < 150; i++)
-        {
-            builder.HasData(new
-            {
-                Id = 4 + i,
-                NISN = "0047892929",
-                Nama = "Anlidua Lua Hingmadi",
-                NIS = "192005",
-                JenisKelamin = JenisKelamin.Perempuan,
-                TanggalLahir = new DateOnly(2004, 5, 10),
-                TanggalMasuk = new DateOnly(2019, 08, 01),
-                TempatLahir = "Kalabahi",
-                Agama = Agama.KristenProtestan,
-                Jenjang = Jenjang.XII,
-                StatusAktif = StatusAktifMahasiswa.Aktif,
-                AppUserId = 15
-            });
-        }
     }
 }
