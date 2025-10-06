@@ -1,54 +1,85 @@
 ﻿@using SIAkademik.Web.Areas.DashboardSiswa.Models.JadwalMengajarModels
 @model DetailVM
 
-<p>
-    @Model.JadwalMengajar.Rombel.Kelas.TahunAjaran.Periode @Model.JadwalMengajar.Rombel.Kelas.TahunAjaran.Semester.Humanize() <br/>
-    @Model.JadwalMengajar.Rombel.Kelas.Jenjang.Humanize() @Model.JadwalMengajar.Rombel.Kelas.Peminatan.Nama @Model.JadwalMengajar.Rombel.Nama <br/>
-    @Model.JadwalMengajar.MataPelajaran.Nama @Model.JadwalMengajar.MataPelajaran.Jenjang.Humanize() @Model.JadwalMengajar.MataPelajaran.Peminatan.Nama <br/>
-    @Model.JadwalMengajar.Pegawai.Nama <br/>
-    @Model.JadwalMengajar.DaftarPertemuan.Count Pertemuan <br/>
-</p>
 
-<h2>Daftar Pertemuan</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Nomor</th>
-            <th>Keterangan</th>
-            <th>Tanggal</th>
-            <th>Status</th>
-            <th>Absen</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var pertemuan in Model.JadwalMengajar.DaftarPertemuan.OrderBy(p => p.Nomor))
-        {
-            <tr>
-                <td>@pertemuan.Nomor</td>
-                @if(pertemuan.StatusPertemuan == StatusPertemuan.BelumMulai)
-                {
-                    <td>Belum Dimulai</td>
-                    <td>Belum Dimulai</td>
-                    <td>@pertemuan.StatusPertemuan.Humanize()</td>
-                    <td>Belum Dimulai</td>
-                }
-                else
-                {
-                    var absen = pertemuan.DaftarAbsen.FirstOrDefault(a => a.AnggotaRombel == Model.AnggotaRombel);
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-12">
+            <div class="card card-warning">
 
-                    <td>@pertemuan.Keterangan</td>
-                    <td>@pertemuan.TanggalPelaksanaan!.Value.ToString(CultureInfos.CI.DateTimeFormat.LongDatePattern, CultureInfos.CI)</td>
-                    <td>@pertemuan.StatusPertemuan.Humanize()</td>
-                    @if(absen is null)
-                    {
-                        <td>Anda belum diabsen</td>
-                    }
-                    else
-                    {
-                        <td>@absen.Absensi.Humanize()</td>
-                    }
-                }
-            </tr>
-        }
-    </tbody>
-</table>
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Jadwal Mengajar</h4>
+                </div>
+                <div class="card-body">
+                    <p>
+                        @Model.JadwalMengajar.Rombel.Kelas.TahunAjaran.Periode @Model.JadwalMengajar.Rombel.Kelas.TahunAjaran.Semester.Humanize() <br />
+                        @Model.JadwalMengajar.Rombel.Kelas.Jenjang.Humanize() @Model.JadwalMengajar.Rombel.Kelas.Peminatan.Nama @Model.JadwalMengajar.Rombel.Nama <br />
+                        @Model.JadwalMengajar.MataPelajaran.Nama @Model.JadwalMengajar.MataPelajaran.Jenjang.Humanize() @Model.JadwalMengajar.MataPelajaran.Peminatan.Nama <br />
+                        @Model.JadwalMengajar.Pegawai.Nama <br />
+                        @Model.JadwalMengajar.DaftarPertemuan.Count Pertemuan <br />
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-12">
+            <div class="card">
+
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Daftar Pertemuan</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-hover" id="table-akun">
+                        <thead>
+                            <tr>
+                                <th>Nomor</th>
+                                <th>Keterangan</th>
+                                <th>Tanggal</th>
+                                <th>Status</th>
+                                <th>Absen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var pertemuan in Model.JadwalMengajar.DaftarPertemuan.OrderBy(p => p.Nomor))
+                            {
+                                <tr>
+                                    <td>@pertemuan.Nomor</td>
+                                    @if (pertemuan.StatusPertemuan == StatusPertemuan.BelumMulai)
+                                    {
+                                        <td>Belum Dimulai</td>
+                                        <td>Belum Dimulai</td>
+                                        <td>@pertemuan.StatusPertemuan.Humanize()</td>
+                                        <td>Belum Dimulai</td>
+                                    }
+                                    else
+                                    {
+                                        var absen = pertemuan.DaftarAbsen.FirstOrDefault(a => a.AnggotaRombel == Model.AnggotaRombel);
+
+                                        <td>@pertemuan.Keterangan</td>
+                                        <td>@pertemuan.TanggalPelaksanaan!.Value.ToString(CultureInfos.CI.DateTimeFormat.LongDatePattern, CultureInfos.CI)</td>
+                                        <td>@pertemuan.StatusPertemuan.Humanize()</td>
+                                        @if (absen is null)
+                                        {
+                                            <td>Anda belum diabsen</td>
+                                        }
+                                        else
+                                        {
+                                            <td>@absen.Absensi.Humanize()</td>
+                                        }
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
