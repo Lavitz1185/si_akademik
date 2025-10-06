@@ -1,28 +1,63 @@
 ﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.NilaiModels
 @model TambahVM
 
-<form asp-action="Tambah" method="post" class="container">
-    <div asp-validation-summary="ModelOnly"></div>
-
-    <input asp-for="@Model.IdSiswa" readonly hidden/>
-    <input asp-for="@Model.IdJadwalMengajar" readonly hidden/>
-
-    <div class="row">
-        <label asp-for="@Model.Deskripsi"></label>
-        <input asp-for="@Model.Deskripsi" />
-        <span asp-validation-for="@Model.Deskripsi"></span>
+<!-- Breadcrumb -->
+<div class="row" style="justify-content: center;">
+    <div class="col-12 col-md-6 col-lg-6" style="padding: 0;">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Manajemen Guru</a></li>
+                <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="Nilai" asp-action="Index">Nilai</a></li>
+                <li class="breadcrumb-item" aria-current="page">Tambah Data</li>
+            </ol>
+        </nav>
     </div>
+</div>
 
-    <input asp-for="@Model.Jenis" readonly hidden/>
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-6">
+            <div class="card card-danger">
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Tambah Nilai</h4>
+                </div>
 
-    <div class="row">
-        <label asp-for="@Model.Skor"></label>
-        <input asp-for="@Model.Skor" />
-        <span asp-validation-for="@Model.Skor"></span>
+                <form asp-action="Tambah" method="post" class="container">
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly"></div>
+
+                        <input asp-for="@Model.IdSiswa" class="form-control" readonly hidden />
+                        <input asp-for="@Model.IdJadwalMengajar" class="form-control" readonly hidden />
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Deskripsi"></label>
+                            <input asp-for="@Model.Deskripsi" class="form-control" />
+                            <span asp-validation-for="@Model.Deskripsi"></span>
+                        </div>
+
+                        <input asp-for="@Model.Jenis" readonly hidden />
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Skor"></label>
+                            <input asp-for="@Model.Skor" class="form-control"/>
+                            <span asp-validation-for="@Model.Skor"></span>
+                        </div>
+
+
+                    </div>
+
+                    <div class="card-footer text-right">
+                        <a href="javascript:void(0)" class="btn btn-danger swal-cancel">Batal</a>
+                        <button class="btn btn-primary mr-1" type="submit">Simpan</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
     </div>
+</div>
 
-    <button type="submit">Simpan</button>
-</form>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
