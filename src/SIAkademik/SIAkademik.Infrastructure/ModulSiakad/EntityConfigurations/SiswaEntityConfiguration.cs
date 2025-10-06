@@ -13,7 +13,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
     {
         builder.HasKey(x => x.Id);
 
-        builder.ComplexProperty(x => x.AlamatLengkap, o => 
+        builder.ComplexProperty(x => x.AlamatLengkap, o =>
         {
             o.Property(y => y.Jalan).IsRequired();
             o.Property(y => y.RT).IsRequired();
@@ -43,7 +43,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
                 TanggalMasuk = new DateOnly(2019, 08, 01),
                 TempatLahir = "Kalabahi",
                 Agama = Agama.KristenProtestan,
-                Jenjang = Jenjang.XII,   
+                Jenjang = Jenjang.XII,
                 StatusAktif = StatusAktifMahasiswa.TidakAktif,
                 AppUserId = 15
             },
@@ -58,10 +58,29 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
                 TanggalMasuk = new DateOnly(2025, 08, 01),
                 TempatLahir = "Kupang",
                 Agama = Agama.KristenProtestan,
-                Jenjang = Jenjang.X,   
+                Jenjang = Jenjang.X,
                 StatusAktif = StatusAktifMahasiswa.Aktif,
                 AppUserId = 19
             }
         );
+
+        for (int i = 0; i < 150; i++)
+        {
+            builder.HasData(new
+            {
+                Id = 4 + i,
+                NISN = "0047892929",
+                Nama = "Anlidua Lua Hingmadi",
+                NIS = "192005",
+                JenisKelamin = JenisKelamin.Perempuan,
+                TanggalLahir = new DateOnly(2004, 5, 10),
+                TanggalMasuk = new DateOnly(2019, 08, 01),
+                TempatLahir = "Kalabahi",
+                Agama = Agama.KristenProtestan,
+                Jenjang = Jenjang.XII,
+                StatusAktif = StatusAktifMahasiswa.Aktif,
+                AppUserId = 15
+            });
+        }
     }
 }

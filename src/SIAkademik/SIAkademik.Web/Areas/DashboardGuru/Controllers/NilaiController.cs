@@ -115,7 +115,7 @@ public class NilaiController : Controller
 
         if (jenisNilai == JenisNilai.UTS || jenisNilai == JenisNilai.UAS)
         {
-            if(anggotaRombel.DaftarNilai.Any(n => n.JadwalMengajar == jadwalMengajar && n.Jenis == JenisNilai.UAS))
+            if(anggotaRombel.DaftarNilai.Any(n => n.JadwalMengajar == jadwalMengajar && n.Jenis == jenisNilai))
             {
                 _toastrNotificationService.AddError($"Nilai {jenisNilai.Humanize()} sudah ada!");
                 return RedirectToAction(nameof(Detail), new { idJadwalMengajar, idSiswa });
