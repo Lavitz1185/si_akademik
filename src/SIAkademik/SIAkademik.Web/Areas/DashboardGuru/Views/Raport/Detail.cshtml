@@ -8,6 +8,17 @@
     var daftarEkstrakulikuler = Model.DaftarRaport.Where(r => r.KategoriNilai == KategoriNilaiRaport.Ekstrakulikuler);
 }
 
+<!-- Breadcrumb -->
+<div class="row">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Kelas Wali</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="Raport" asp-action="Index">Raport</a></li>
+            <li class="breadcrumb-item" aria-current="page">Detail Raport</li>
+        </ol>
+    </nav>
+</div>
+
 <form asp-action="IsiNilai" asp-route-idSiswa="@Model.AnggotaRombel.IdSiswa" asp-route-idRombel="@Model.AnggotaRombel.IdRombel">
     <button type="submit" class="btn btn-primary mb-3">Isi Nilai</button>
 </form>

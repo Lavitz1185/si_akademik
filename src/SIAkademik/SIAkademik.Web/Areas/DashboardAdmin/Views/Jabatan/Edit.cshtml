@@ -14,6 +14,7 @@
     </div>
 </div>
 
+<!-- Isi Konten -->
 <div class="section-body">
     <div class="row" style="justify-content: center;">
         <div class="col-12 col-md-6 col-lg-6">
@@ -27,7 +28,7 @@
                     <div class="card-body">
                         <div asp-validation-summary="ModelOnly"></div>
 
-                        <div class="form-group">
+                        <div class="form-group" hidden>
                             <label asp-for="@Model.Id"></label>
                             <input asp-for="@Model.Id" readonly class="form-control"/>
                             <span asp-validation-for="@Model.Id"></span>
@@ -51,9 +52,9 @@
                         </div>                       
                     </div>
 
-                    <div class="card-footer text-right">
-                        <a href="javascript:void(0)" class="btn btn-danger swal-cancel">Batal</a>
-                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                    <div class="card-footer text-right pt-0">
+                        <a href="javascript:void(0)" class="btn btn-danger text-white swal-cancel">Batal</a>
+                        <button class="btn btn-primary mr-1" type="submit">Simpan</button>
                     </div>
                 </form>
             </div>
