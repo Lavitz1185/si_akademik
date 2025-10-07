@@ -10,12 +10,13 @@
     </nav>
 </div>
 
+<!-- Isi Konten -->
 <div class="card card-primary">
     <div class="card-header">
-        <h4>Data Tahun Ajaran</h4>
+        <h4>Daftar Tahun Ajaran</h4>
     </div>
     <div class="padding-20">
-        <div class="d-flex justify-content-start ml-auto mb-2">
+        <div class="d-flex justify-content-start ml-auto mb-3">
 
             <div class="mb-0">
                 <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah"
@@ -52,7 +53,9 @@
                             <td>@tahunAjaran.DaftarKelas.Count</td>
                             <td>
 
-                                <a asp-action="Index" asp-controller="Kelas" asp-route-idTahunAjaran="@tahunAjaran.Id" class="btn btn-warning">Lihat Kelas</a>
+                                <a asp-action="Index" asp-controller="Kelas" asp-route-idTahunAjaran="@tahunAjaran.Id" class="btn btn-warning" data-toggle="tooltip" title="Lihat Daftar Kelas">
+                                    <i class="fas fa-eye"></i>
+                                </a>
                                 <a asp-action="Edit" asp-route-id="@tahunAjaran.Id" class="btn btn-primary btn-action" data-toggle="tooltip" title="Edit">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
