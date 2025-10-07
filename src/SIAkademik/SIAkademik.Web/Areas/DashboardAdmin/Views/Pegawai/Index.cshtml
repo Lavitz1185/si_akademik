@@ -5,17 +5,18 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Manajemen SDM</a></li>
-            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Pegawai" asp-action="Index"></a>Guru/Pegawai</li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Pegawai" asp-action="Index"></a>Guru & Pegawai</li>
         </ol>
     </nav>
 </div>
 
+<!-- Isi Konten -->
 <div class="card card-primary">
     <div class="card-header">
-        <h4>Data Guru/Pegawai</h4>
+        <h4>Daftar Guru & Pegawai</h4>
     </div>
     <div class="padding-20">
-        <div class="d-flex justify-content-start ml-auto mb-2">
+        <div class="d-flex justify-content-start ml-auto mb-3">
 
             <div class="mb-0">
                 <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah"
@@ -45,7 +46,7 @@
                         <th>No. Rekening</th>
                         <th>Divisi</th>
                         <th>Jabatan</th>
-                        <th style="min-width: 120px !important">Aksi</th>
+                        <th style="min-width: 80px !important">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>

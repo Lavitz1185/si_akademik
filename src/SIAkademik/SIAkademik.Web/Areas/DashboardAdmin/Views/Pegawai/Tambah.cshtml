@@ -16,7 +16,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Manajemen SDM</a></li>
-            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Pegawai" asp-action="Index">Guru/Pegawai</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Pegawai" asp-action="Index">Guru & Pegawai</a></li>
             <li class="breadcrumb-item" aria-current="page">Tambah Data</li>
         </ol>
     </nav>
@@ -28,7 +28,7 @@
             <div class="card card-danger">
 
                 <div class="card-header" style="padding-top: 20px;">
-                    <h4>Tambah Guru/Pegawai</h4>
+                    <h4>Tambah Data Guru/Pegawai</h4>
                 </div>
 
                 <form asp-action="Tambah">
@@ -198,9 +198,9 @@
                         </div>
 
                     </div>
-                    <div class="card-footer text-right">
-                        <a href="javascript:void(0)" class="btn btn-danger swal-cancel">Batal</a>
-                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                    <div class="card-footer text-right pt-0">
+                        <a href="javascript:void(0)" class="btn btn-danger text-white swal-cancel">Batal</a>
+                        <button class="btn btn-primary mr-1" type="submit">Simpan</button>
                     </div>
 
                 </form>
