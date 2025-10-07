@@ -1,5 +1,16 @@
 ﻿@model Rombel
 
+<!-- Breadcrumb -->
+<div class="row">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Kelas Wali</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="KelasWali" asp-action="Index">Jadwal Mengajar</a></li>
+            <li class="breadcrumb-item" aria-current="page">Detail Data</li>
+        </ol>
+    </nav>
+</div>
+
 <a asp-action="Absen" asp-route-id="@Model.Id">Absen</a>
 
 <h1>Daftar Siswa</h1>
