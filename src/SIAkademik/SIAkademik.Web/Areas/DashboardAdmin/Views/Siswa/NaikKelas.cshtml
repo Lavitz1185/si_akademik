@@ -5,22 +5,23 @@
 <div class="row">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Manajemen Akademik</a></li>
-            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Siswa" asp-action="ProsesKelulusan" asp-route-jenjang="@Model.jenjang"></a>Proses Kelulusan</li>
+            <li class="breadcrumb-item"><a href="#">Manajemen Peserta Didik</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Siswa" asp-action="NaikKelas" asp-route-jenjang="@Model.jenjang"></a>Naik Kelas</li>
         </ol>
     </nav>
 </div>
 
+<!-- Isi Konten -->
 <div class="card card-primary">
     <div class="card-header">
-        <h4>Daftar Data Siswa</h4>
+        <h4>Proses Naik Kelas</h4>
     </div>
     <div class="padding-20">
         <div class="d-flex justify-content-start ml-auto mb-2">
             <div class="mb-0">
-                <form asp-action="NaikKelas" method="get" style="display:inline">
-                    <label asp-for="@Model.jenjang"></label>
-                    <select asp-for="@Model.jenjang">
+                <form asp-action="NaikKelas" method="get" class="d-flex align-items-center" style="gap: 8px;">
+                    <label asp-for="@Model.jenjang" class="mb-0" style="font-weight: 600;">Pilih Jenjang Saat Ini:</label>
+                    <select asp-for="@Model.jenjang" class="form-control form-control-sm w-auto">
                         <option value="@Jenjang.X">@Jenjang.X.Humanize()</option>
                         <option value="@Jenjang.XI">@Jenjang.XI.Humanize()</option>
                     </select>
@@ -29,10 +30,10 @@
         </div>
 
         <form asp-action="NaikKelas" id="naikKelas" asp-route-jenjang="@Model.jenjang">
-            <div class="d-flex justify-content-end ml-auto mb-2">
-                <div class="mb-0">
-                    <label asp-for="@Model.JenjangTujuan"></label>
-                    <select asp-for="@Model.JenjangTujuan">
+            <div class="d-flex justify-content-between ml-auto mb-3">
+                <div class="d-flex align-items-center" style="gap: 8px;">
+                    <label asp-for="@Model.JenjangTujuan" class="mb-0" style="font-weight: 600; min-width:150px;">Pilih Jenjang Tujuan:</label>
+                    <select asp-for="@Model.JenjangTujuan" class="form-control form-control-sm w-auto">
                         @if(Model.jenjang == Jenjang.X)
                         {
                             <option value="@Jenjang.XI">@Jenjang.XI.Humanize()</option>
@@ -46,16 +47,18 @@
                 </div>
 
                 <div class="ml-3">
-                    <button type="submit">Simpan</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </div>
+
+
             <div class="table-responsive">
                 <input asp-for="@Model.jenjang" hidden readonly />
-                <table class="table table-striped table-hover" id="table-akun">
+                <table class="table table-striped table-hover" id="save-stage">
                     <thead>
                         <tr>
-                            <th style="min-width: 80px">
-                                <input id="pilihSemua" type="checkbox" />
+                            <th style="min-width: 60px; text-align: center;">
+                                <input id="pilihSemua" type="checkbox" style="cursor:pointer;" />
                             </th>
                             <th>Id</th>
                             <th>NISN</th>
@@ -75,7 +78,7 @@
                         {
                             var siswa = Model.DaftarSiswa[i];
                             <tr>
-                                <td>
+                                <td style="text-align: center; padding-right: 28px;">
                                     <input asp-for="@Model.DaftarEntry[@i].NaikKelas" type="checkbox" />
                                     <input asp-for="@Model.DaftarEntry[@i].IdSiswa" hidden readonly />
                                 </td>
