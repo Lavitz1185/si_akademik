@@ -22,96 +22,123 @@
     </nav>
 </div>
 
+<!-- Isi Konten -->
 <div class="section-body">
     <div class="row" style="justify-content: center;">
         <div class="col-12 col-md-6 col-lg-12">
-            <div class="card card-warning">
-
+            <div class="card card-info mb-2">
                 <div class="card-header" style="padding-top: 20px;">
-                    <h4>Informasi Rombel</h4>
+                    <h4>Informasi Detail Rombel</h4>
                 </div>
-                    <div class="card-body">
-                    <h6>@Model.Kelas.Jenjang.Humanize() @Model.Kelas.Peminatan.Nama @Model.Nama - @Model.Kelas.TahunAjaran.Periode @Model.Kelas.TahunAjaran.Semester.Humanize()</h6>
-                    <h6>Wali : @Model.Wali.Nama (@Model.Wali.Id)</h6>
+                <div class="card-body rounded" style="background-color: #f0f7fd; margin-left: 25px; margin-right: 25px; margin-bottom: 20px;">
+                    <div class="row">
+                        <!-- Kolom kiri -->
+                        <div class="col-md-6">
+                            <div class="row mb-1">
+                                <div class="col-3" style="font-weight:600;">Jenjang</div>
+                                <div class="col">@Model.Kelas.Jenjang.Humanize()</div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-3" style="font-weight:600;">Peminatan</div>
+                                <div class="col">@Model.Kelas.Peminatan.Nama</div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-3" style="font-weight:600;">Kelas</div>
+                                <div class="col">@Model.Nama</div>
+                            </div>
+                        </div>
+
+                        <!-- Kolom kanan -->
+                        <div class="col-md-6">
+                            <div class="row mb-1">
+                                <div class="col-3" style="font-weight:600;">Tahun Ajaran</div>
+                                <div class="col">@Model.Kelas.TahunAjaran.Periode</div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-3" style="font-weight:600;">Semester</div>
+                                <div class="col">@Model.Kelas.TahunAjaran.Semester.Humanize()</div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-3" style="font-weight:600;">Nama Wali</div>
+                                <div class="col">@Model.Wali.Nama (@Model.Wali.Id)</div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+            </div>
+
+            @* Percobaan *@
+            <div class="card">
+                <div class="card-body mt-3">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                               aria-controls="home" aria-selected="true">Daftar Seluruh Siswa</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                               aria-controls="profile" aria-selected="false">Daftar Siswa Dalam Rombel</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="table-responsive col-12">
+                                <table class="table table-striped table-hover" id="table-akun0">
+                                    <thead>
+                                        <tr>
+                                            <th>NISN</th>
+                                            <th>Nama Siswa</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var siswa in daftarSiswa)
+                                        {
+                                            <tr>
+                                                <td>@siswa.NISN</td>
+                                                <td>@siswa.Nama</td>
+                                                <td>
+                                                    <form asp-action="TambahSiswa" asp-route-id="@Model.Id" asp-route-idSiswa="@siswa.Id">
+                                                        <button type="submit" class="btn btn-primary">Tambah ke Rombel <i class="fas fa-arrow-right pl-2"></i></button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="table-responsive col-12">
+                                <table class="table table-striped table-hover" id="table-akunn">
+                                    <thead>
+                                        <tr>
+                                            <th>NISN</th>
+                                            <th>Nama Siswa</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var siswa in Model.DaftarAnggotaRombel.Select(a => a.Siswa))
+                                        {
+                                            <tr>
+                                                <td>@siswa.NISN</td>
+                                                <td>@siswa.Nama</td>
+                                                <td>
+                                                    <form asp-action="HapusSiswa" asp-route-id="@Model.Id" asp-route-idSiswa="@siswa.Id">
+                                                        <button type="submit" class="btn btn-danger swal-confirm"><i class="fas fa-arrow-left pr-2"></i>Hapus dari Rombel</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-<div class="section-body">
-    <div class="row" style="justify-content: center;">
-        <div class="col-12 col-md-6 col-lg-6">
-            <div class="card">
-                <div class="card-header">
-                    <h4>Daftar Seluruh Siswa</h4>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive col-12">
-                        <table class="table table-striped table-hover" id="table-akun0">
-                            <thead>
-                                <tr>
-                                    <th>NISN</th>
-                                    <th>Nama Siswa</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var siswa in daftarSiswa)
-                                {
-                                    <tr>
-                                        <td>@siswa.NISN</td>
-                                        <td>@siswa.Nama</td>
-                                        <td>
-                                            <form asp-action="TambahSiswa" asp-route-id="@Model.Id" asp-route-idSiswa="@siswa.Id">
-                                                <button type="submit" class="btn btn-primary">Tambah ke Rombel</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-6">
-            <div class="card">
-                <div class="card-header">
-                    <h4>Daftar Siswa Dalam Rombel</h4>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive col-12">
-                        <table class="table table-striped table-hover" id="table-akunn">
-                            <thead>
-                                <tr>
-                                    <th>NISN</th>
-                                    <th>Nama Siswa</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var siswa in Model.DaftarAnggotaRombel.Select(a => a.Siswa))
-                                {
-                                    <tr>
-                                        <td>@siswa.NISN</td>
-                                        <td>@siswa.Nama</td>
-                                        <td>
-                                            <form asp-action="HapusSiswa" asp-route-id="@Model.Id" asp-route-idSiswa="@siswa.Id">
-                                                <button type="submit" class="btn btn-danger swal-confirm">Hapus dari Rombel</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-
