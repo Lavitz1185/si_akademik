@@ -1,8 +1,6 @@
 ﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.JadwalMengajarModels
 @model TambahHariVM
 
-
-
 <!-- Breadcrumb -->
 <div class="row" style="justify-content: center;">
     <div class="col-12 col-md-6 col-lg-6" style="padding: 0;">
@@ -10,18 +8,19 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Manajemen Akademik</a></li>
                 <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="JadwalMengajar" asp-action="Index">Jadwal Mengajar</a></li>
-                <li class="breadcrumb-item" aria-current="page">Tambah Data</li>
+                <li class="breadcrumb-item" aria-current="page">Tambah Data Hari</li>
             </ol>
         </nav>
     </div>
 </div>
 
+<!-- Isi Konten -->
 <div class="section-body">
     <div class="row" style="justify-content: center;">
         <div class="col-12 col-md-6 col-lg-6">
             <div class="card card-warning">
                 <div class="card-header" style="padding-top: 20px;">
-                    <h4>Tambah Hari Jadwal Mengajar</h4>
+                    <h4>Tambah Data Hari Jadwal Mengajar</h4>
                 </div>
 
                 <form asp-action="TambahHari" method="post" class="container">
@@ -55,17 +54,15 @@
                         </div>                       
                     </div>
 
-                    <div class="card-footer text-right">
-                        <a href="javascript:void(0)" class="btn btn-danger swal-cancel">Batal</a>
-                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                    <div class="card-footer text-right pt-0">
+                        <a href="javascript:void(0)" class="btn btn-danger text-white swal-cancel">Batal</a>
+                        <button class="btn btn-primary mr-1" type="submit">Simpan</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

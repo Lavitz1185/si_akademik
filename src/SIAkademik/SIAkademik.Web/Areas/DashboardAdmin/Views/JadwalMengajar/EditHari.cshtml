@@ -8,30 +8,31 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Manajemen Akademik</a></li>
                 <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="JadwalMengajar" asp-action="Index">Jadwal Mengajar</a></li>
-                <li class="breadcrumb-item" aria-current="page">Edit Data</li>
+                <li class="breadcrumb-item" aria-current="page">Edit Data Hari</li>
             </ol>
         </nav>
     </div>
 </div>
 
+<!-- Isi Konten -->
 <div class="section-body">
     <div class="row" style="justify-content: center;">
         <div class="col-12 col-md-6 col-lg-6">
             <div class="card card-warning">
                 <div class="card-header" style="padding-top: 20px;">
-                    <h4>Edit Hari Jadwal Mengajar</h4>
+                    <h4>Edit Data Hari Jadwal Mengajar</h4>
                 </div>
 
                 <form asp-action="EditHari" method="post">
                     <div class="card-body">
                         <div asp-validation-summary="ModelOnly"></div>
 
-                        <div class="form-group">
+                        <div class="form-group" hidden>
                             <label asp-for="@Model.IdJadwalMengajar"></label>
                             <input asp-for="@Model.IdJadwalMengajar" class="form-control" readonly />
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" hidden>
                             <label asp-for="@Model.IdHariMengajar"></label>
                             <input asp-for="@Model.IdHariMengajar" class="form-control" readonly />
                         </div>
@@ -60,9 +61,9 @@
                             <span asp-validation-for="@Model.JamAkhir"></span>
                         </div>                        
                     </div>
-                    <div class="card-footer text-right">
-                        <a href="javascript:void(0)" class="btn btn-danger swal-cancel">Batal</a>
-                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                    <div class="card-footer text-right pt-0">
+                        <a href="javascript:void(0)" class="btn btn-danger text-white swal-cancel">Batal</a>
+                        <button class="btn btn-primary mr-1" type="submit">Simpan</button>
                     </div>
                 </form>
             </div>
