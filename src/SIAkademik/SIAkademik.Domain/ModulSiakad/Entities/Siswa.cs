@@ -119,6 +119,7 @@ public class Siswa : Entity<int>
     public string? PendidikanTerakhirWali { get; set; }
     public string? HubunganDenganWali { get; set; }
 
+    public List<Rombel> DaftarRombel { get; set; }
     public List<AnggotaRombel> DaftarAnggotaRombel { get; set; } = [];
     public AppUser Account { get; set; }
 }

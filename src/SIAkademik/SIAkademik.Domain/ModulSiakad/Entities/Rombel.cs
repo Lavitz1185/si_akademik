@@ -8,6 +8,7 @@ public class Rombel : Entity<int>
 
     public Kelas Kelas { get; set; }
     public Pegawai Wali { get; set; }
+    public List<Siswa> DaftarSiswa { get; set; }
     public List<AnggotaRombel> DaftarAnggotaRombel { get; set; } = [];
     public List<JadwalMengajar> DaftarJadwalMengajar { get; set; } = [];
 }

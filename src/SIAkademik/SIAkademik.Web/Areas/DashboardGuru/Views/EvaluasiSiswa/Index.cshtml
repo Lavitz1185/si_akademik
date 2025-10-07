@@ -1,0 +1,161 @@
+﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.EvaluasiSiswaModels
+@model IndexVM
+
+@inject ITahunAjaranRepository TahunAjaranRepository
+
+@{
+    var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
+}
+
+<form asp-action="Index" method="get">
+    <select asp-for="@Model.IdTahunAjaran" class="submit-on-change">
+        @if (Model.IdTahunAjaran is null)
+        {
+            <option value="@null">-- Pilih Tahun Ajaran --</option>
+        }
+
+        @foreach (var tahunAjaran in daftarTahunAjaran)
+        {
+            <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+        }
+    </select>
+
+    <select asp-for="@Model.IdJadwalMengajar" class="submit-on-change">
+        @if (Model.IdJadwalMengajar is null)
+        {
+            <option value="@null">-- Pilih Mata Pelajaran --</option>
+        }
+
+        @foreach (var jadwalMengajar in Model.DaftarJadwalMengajar)
+        {
+            <option value="@jadwalMengajar.Id">
+                @jadwalMengajar.Rombel.Kelas.Jenjang.Humanize()
+                @jadwalMengajar.Rombel.Kelas.Peminatan.Nama
+                @jadwalMengajar.Rombel.Nama
+                @jadwalMengajar.MataPelajaran.Nama
+            </option>
+        }
+    </select>
+
+    <select asp-for="@Model.Jenis" class="submit-on-change">
+        @foreach (var jenis in Enum.GetValues<JenisNilai>())
+        {
+            <option value="@jenis">@jenis.Humanize()</option>
+        }
+    </select>
+</form>
+
+@if (Model.TahunAjaran is not null && Model.JadwalMengajar is not null)
+{
+    @if((Model.Jenis != JenisNilai.UTS && Model.Jenis != JenisNilai.UAS) || (Model.DaftarEvaluasiSiswa.Count == 0))
+    {
+        <button type="button" id="tambah">Tambah</button>
+        <div id="formTambah" style="display:none">
+            <form asp-action="Tambah" asp-route-idTahunAjaran="@Model.IdTahunAjaran" asp-route-idJadwalMengajar="@Model.IdJadwalMengajar"
+                  asp-route-jenis="@Model.Jenis" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTambah">Tambah @Model.Jenis.Humanize()</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="deskripsi">Deskripsi</label>
+                        <input id="deskripsi" name="deskripsi" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                </div>
+            </form>
+        </div>
+    }
+
+    <table>
+        <thead>
+            <tr>
+                <th>Dekripsi</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var evaluasiSiswa in Model.DaftarEvaluasiSiswa)
+            {
+                <tr>
+                    <td>@evaluasiSiswa.Deskripsi</td>
+                    <td>
+                        <button type="button" class="btn-edit">Edit</button>
+                        <div class="form-edit" style="display:none">
+                            <form asp-action="Edit" asp-route-id="@evaluasiSiswa.Id">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalTambah">Edit @Model.Jenis.Humanize()</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="deskripsi">Deskripsi</label>
+                                        <input id="deskripsi" name="deskripsi" class="form-control" value="@evaluasiSiswa.Deskripsi" />
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <form asp-action="Hapus" asp-route-id="@evaluasiSiswa.Id" title="Hapus">
+                            <button type="submit" class="btn btn-danger btn-action swal-confirm">Hapus</button>
+                        </form>
+
+                        <a asp-action="IsiNilai" asp-route-id="@evaluasiSiswa.Id">Isi Nilai</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    @if (Model.TahunAjaran is null)
+    {
+        <p>Tidak Ada Data Tahun Ajaran</p>
+    }
+    else
+    {
+        <p>Anda tidak memiliki kelas di tahun ajaran ini atau mata pelajaran ini</p>
+    }
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function() {
+            $('.submit-on-change').on('change', function() {
+                $(this).closest('form').trigger('submit');
+            });
+
+            const formTambah = $('#formTambah')
+            if (formTambah) {
+                $('#modalTambahContent').html($(formTambah).html());
+                $('button#tambah').on('click', () => $('#modalTambah').modal('show'))
+                $(formTambah).remove();
+            }
+
+            $('.form-edit').each(function() {
+                const formEdit = $(this);
+                formEdit.siblings('.btn-edit').on('click', () => {
+                    $('#modalEditContent').html($(formEdit).html());
+                    $('#modalEdit').modal('show');
+                });
+            });
+        });
+    </script>
+}

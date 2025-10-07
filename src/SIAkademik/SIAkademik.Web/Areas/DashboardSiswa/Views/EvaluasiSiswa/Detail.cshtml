@@ -2,10 +2,10 @@
 @model DetailVM
 
 @{
-    var daftarTugas = Model.AnggotaRombel.DaftarNilai.Where(a => a.JadwalMengajar == Model.JadwalMengajar && a.Jenis == JenisNilai.Tugas);
-    var daftarUH = Model.AnggotaRombel.DaftarNilai.Where(a => a.JadwalMengajar == Model.JadwalMengajar && a.Jenis == JenisNilai.UH);
-    var nilaiUTS = Model.AnggotaRombel.DaftarNilai.FirstOrDefault(a => a.JadwalMengajar == Model.JadwalMengajar && a.Jenis == JenisNilai.UTS);
-    var nilaiUAS = Model.AnggotaRombel.DaftarNilai.FirstOrDefault(a => a.JadwalMengajar == Model.JadwalMengajar && a.Jenis == JenisNilai.UAS);
+    var daftarTugas = Model.AnggotaRombel.DaftarNilaiEvaluasiSiswa.Where(a => a.EvaluasiSiswa.JadwalMengajar == Model.JadwalMengajar && a.EvaluasiSiswa.Jenis == JenisNilai.Tugas);
+    var daftarUH = Model.AnggotaRombel.DaftarNilaiEvaluasiSiswa.Where(a => a.EvaluasiSiswa.JadwalMengajar == Model.JadwalMengajar && a.EvaluasiSiswa.Jenis == JenisNilai.UH);
+    var nilaiUTS = Model.AnggotaRombel.DaftarNilaiEvaluasiSiswa.Where(a => a.EvaluasiSiswa.JadwalMengajar == Model.JadwalMengajar && a.EvaluasiSiswa.Jenis == JenisNilai.UTS).FirstOrDefault();
+    var nilaiUAS = Model.AnggotaRombel.DaftarNilaiEvaluasiSiswa.Where(a => a.EvaluasiSiswa.JadwalMengajar == Model.JadwalMengajar && a.EvaluasiSiswa.Jenis == JenisNilai.UAS).FirstOrDefault();
 }
 
 <div class="section-body">
@@ -41,7 +41,7 @@
                     <table class="table table-striped table-hover" id="table-akun">
                         <thead>
                             <tr>
-                                <th>Skor</th>
+                                <th>Nilai</th>
                                 <th>Dekripsi</th>
                             </tr>
                         </thead>
@@ -55,8 +55,8 @@
                             @foreach (var nilai in daftarTugas)
                             {
                                 <tr>
-                                    <td>@nilai.Skor.ToString("F2")</td>
-                                    <td>@nilai.Deskripsi</td>
+                                    <td>@nilai.Nilai.ToString("F2")</td>
+                                    <td>@nilai.EvaluasiSiswa.Deskripsi</td>
                                 </tr>
                             }
                         </tbody>
@@ -79,7 +79,7 @@
                     <table class="table table-striped table-hover" id="table-akun">
                         <thead>
                             <tr>
-                                <th>Skor</th>
+                                <th>Nilai</th>
                                 <th>Dekripsi</th>
                             </tr>
                         </thead>
@@ -93,8 +93,8 @@
                             @foreach (var nilai in daftarUH)
                             {
                                 <tr>
-                                    <td>@nilai.Skor.ToString("F2")</td>
-                                    <td>@nilai.Deskripsi</td>
+                                    <td>@nilai.Nilai.ToString("F2")</td>
+                                    <td>@nilai.EvaluasiSiswa.Deskripsi</td>
                                 </tr>
                             }
                         </tbody>
@@ -117,7 +117,7 @@
                     <table class="table table-striped table-hover" id="table-akun">
                         <thead>
                             <tr>
-                                <th>Skor</th>
+                                <th>Nilai</th>
                                 <th>Dekripsi</th>
                             </tr>
                         </thead>
@@ -125,8 +125,8 @@
                             @if (nilaiUTS is not null)
                             {
                                 <tr>
-                                    <td>@nilaiUTS.Skor.ToString("F2")</td>
-                                    <td>@nilaiUTS.Deskripsi</td>
+                                    <td>@nilaiUTS.Nilai.ToString("F2")</td>
+                                    <td>@nilaiUTS.EvaluasiSiswa.Deskripsi</td>
                                 </tr>
                             }
                             else
@@ -155,7 +155,7 @@
                     <table class="table table-striped table-hover" id="table-akun">
                         <thead>
                             <tr>
-                                <th>Skor</th>
+                                <th>Nilai</th>
                                 <th>Dekripsi</th>
                             </tr>
                         </thead>
@@ -163,8 +163,8 @@
                             @if (nilaiUAS is not null)
                             {
                                 <tr>
-                                    <td>@nilaiUAS.Skor.ToString("F2")</td>
-                                    <td>@nilaiUAS.Deskripsi</td>
+                                    <td>@nilaiUAS.Nilai.ToString("F2")</td>
+                                    <td>@nilaiUAS.EvaluasiSiswa.Deskripsi</td>
                                 </tr>
                             }
                             else

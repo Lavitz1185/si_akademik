@@ -19,10 +19,6 @@
                 <td>@anggotaRombel.Siswa.NISN</td>
                 <td>@anggotaRombel.Siswa.Nama</td>
                 <td>
-                    @foreach (var nilai in anggotaRombel.DaftarNilai.Where(n => n.JadwalMengajar == Model.JadwalMengajar).OrderBy(n => n.Jenis))
-                    {
-                        <p>@nilai.Jenis.Humanize() - @nilai.Deskripsi : @nilai.Skor.ToString("F2")</p>
-                    }
                 </td>
             </tr>
         }

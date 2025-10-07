@@ -31,12 +31,13 @@ internal class AppDbContext(DbContextOptions<AppDbContext> dbContextOptions) : D
     public DbSet<AbsenKelas> TblAbsenKelas { get; set; }
     public DbSet<AnggotaRombel> TblAnggotaRombel { get; set; }
     public DbSet<Divisi> TblDivisi { get; set; }
+    public DbSet<EvaluasiSiswa> TblEvaluasiSiswa { get; set; }
     public DbSet<HariMengajar> TblHariMengajar { get; set; }
     public DbSet<Jabatan> TblJabatan { get; set; }
     public DbSet<JadwalMengajar> TblJadwalMengajar { get; set; }
     public DbSet<Kelas> TblKelas { get; set; }
     public DbSet<MataPelajaran> TblMataPelajaran { get; set; }
-    public DbSet<Nilai> TblNilai { get; set; }
+    public DbSet<NilaiEvaluasiSiswa> TblNilaiEvaluasiSiswa { get; set; }
     public DbSet<Pegawai> TblPegawai { get; set; }
     public DbSet<Peminatan> TblPeminatan { get; set; }
     public DbSet<Pertemuan> TblPertemuan { get; set; }

@@ -29,7 +29,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
         builder.Property(x => x.NoHPIbu).HasConversion<NoHPIntConverter>();
         builder.Property(x => x.NoHPWali).HasConversion<NoHPIntConverter>();
         builder.HasOne(x => x.Account).WithOne(x => x.Siswa).HasForeignKey<Siswa>("AppUserId");
-        builder.HasMany(x => x.DaftarAnggotaRombel).WithOne(x => x.Siswa);
+        builder.HasMany(x => x.DaftarRombel).WithMany(y => y.DaftarSiswa).UsingEntity<AnggotaRombel>();
 
         builder.HasData(
             new

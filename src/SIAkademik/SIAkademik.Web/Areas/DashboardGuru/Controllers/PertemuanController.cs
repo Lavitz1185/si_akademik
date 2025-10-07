@@ -260,7 +260,7 @@ public class PertemuanController : Controller
     public async Task<IActionResult> TambahPartial(int idJadwalMengajar)
     {
         var jadwalMengajar = await _jadwalMengajarRepository.Get(idJadwalMengajar);
-        if (jadwalMengajar == null) return NotFound();
+        if (jadwalMengajar is null) return NotFound();
 
         var vm = new TambahVM { IdJadwalMengajar = jadwalMengajar.Id };
         return PartialView("~/Areas/DashboardGuru/Views/Pertemuan/_FormTambah.cshtml", vm);

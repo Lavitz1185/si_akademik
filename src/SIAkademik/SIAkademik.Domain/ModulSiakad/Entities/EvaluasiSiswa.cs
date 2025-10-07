@@ -3,12 +3,12 @@ using SIAkademik.Domain.Enums;
 
 namespace SIAkademik.Domain.ModulSiakad.Entities;
 
-public class Nilai : Entity<int>
+public class EvaluasiSiswa : Entity<int>
 {
-    public required double Skor { get; set; }
     public required string Deskripsi { get; set; }
     public required JenisNilai Jenis { get; set; }
 
-    public AnggotaRombel AnggotaRombel { get; set; }
     public JadwalMengajar JadwalMengajar { get; set; }
+    public List<AnggotaRombel> DaftarAnggotaRombel { get; set; } = [];
+    public List<NilaiEvaluasiSiswa> DaftarNilaiEvaluasiSiswa { get; set; } = [];
 }

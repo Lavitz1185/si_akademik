@@ -9,13 +9,13 @@ namespace SIAkademik.Web.Areas.DashboardSiswa.Controllers;
 
 [Area(AreaNames.DashboardSiswa)]
 [Authorize(Roles = AppUserRoles.Siswa)]
-public class NilaiController : Controller
+public class EvaluasiSiswaController : Controller
 {
     private readonly ISignInManager _signInManager;
     private readonly IJadwalMengajarRepository _jadwalMengajarRepository;
     private readonly ITahunAjaranRepository _tahunAjaranRepository;
 
-    public NilaiController(
+    public EvaluasiSiswaController(
         ISignInManager signInManager,
         IJadwalMengajarRepository jadwalMengajarRepository,
         ITahunAjaranRepository tahunAjaranRepository)

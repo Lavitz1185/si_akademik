@@ -2,17 +2,6 @@
 
 @model JadwalMengajar
 
-@* @{
-    // Kirim ID jadwal mengajar aktif ke partial form tambah
-    var tambahModel = new SIAkademik.Web.Areas.DashboardGuru.Models.PertemuanModels.TambahVM
-    {
-        IdJadwalMengajar = Model.Id
-    };
-}
-
-<partial name="~/Areas/DashboardGuru/Views/Pertemuan/_ModalBody.cshtml" model="tambahModel" /> *@
-
-
 <!-- Breadcrumb -->
 <div class="row">
     <nav aria-label="breadcrumb">
@@ -131,36 +120,6 @@
 
 <h1>Daftar Pertemuan</h1>
 
-@* <a asp-action="Tambah" asp-controller="Pertemuan" asp-route-idJadwalMengajar="@Model.Id">Tambah</a>
-<a id="basi" class="btn btn-success">Tambah Pertemuan</a>
-
-<form style="display:inline">
-    <button type="button" class="btn btn-danger btn-action" data-toggle="modal" data-target="#exampleModalCenter"
-            title="Hapus">
-        <i class="fas fa-trash"></i>
-    </button>
-</form> *@
-
-@* <button class="btn btn-success"
-        onclick="openSharedModal('Tambah Pertemuan', '/DashboardGuru/Pertemuan/_FormTambah')">
-    Tambah Pertemuan
-</button> *@
-
-<!-- Tombol -->
-@* <button type="button" class="btn btn-primary" onclick="openSharedModal()">
-    Buka Modal via JS
-</button> *@
-
-@* <button type="button"
-        class="btn btn-primary"
-        onclick="openSharedModal('Tambah Pertemuan', '@Url.Action("_FormTambah", "Pertemuan", new { area = "DashboardGuru" })')">
-    Tambah Pertemuan
-</button> *@
-
-@* <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalTambahPertemuan">
-    + Tambah Pertemuan
-</button> *@
-
 <button type="button" class="btn btn-success" onclick="openTambahModal(@Model.Id)">
     + Tambah Pertemuan
 </button>
@@ -183,22 +142,3 @@
         }
     </script>
 }
-
-
-
-@* <button type="button" class="btn btn-success" onclick="openTambahModal(@Model.Id)">+ Tambah Pertemuan</button>
- *@
-@* @section Scripts {
-    <script>
-        function openTambahModal(idJadwal) {
-            // Ubah judul modal
-            document.getElementById("exampleModalCenterTitle").textContent = "Tambah Pertemuan";
-
-            // Load isi modal via AJAX
-            $("#sharedModalBody").load('/DashboardGuru/Pertemuan/TambahPartial?idJadwalMengajar=' + idJadwal, function () {
-                $("#exampleModalCenter").modal("show");
-            });
-        }
-    </script>
-} *@
-

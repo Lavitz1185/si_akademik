@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SIAkademik.Infrastructure.Database;
@@ -12,9 +13,11 @@ using SIAkademik.Infrastructure.Database;
 namespace SIAkademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251007045001_Sedikit7")]
+    partial class Sedikit7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -327,425 +330,6 @@ namespace SIAkademik.Infrastructure.Migrations
                         {
                             Id = 6,
                             Nama = "Yayasan"
-                        });
-                });
-
-            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.EvaluasiSiswa", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Deskripsi")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("JadwalMengajarId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Jenis")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("JadwalMengajarId");
-
-                    b.ToTable("TblEvaluasiSiswa");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Deskripsi = "Tugas 1",
-                            JadwalMengajarId = 3,
-                            Jenis = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Deskripsi = "UH 1",
-                            JadwalMengajarId = 3,
-                            Jenis = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Deskripsi = "UTS",
-                            JadwalMengajarId = 3,
-                            Jenis = 2
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Deskripsi = "UAS",
-                            JadwalMengajarId = 3,
-                            Jenis = 3
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Deskripsi = "Tugas 1",
-                            JadwalMengajarId = 4,
-                            Jenis = 0
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Deskripsi = "UH 1",
-                            JadwalMengajarId = 4,
-                            Jenis = 1
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Deskripsi = "UTS",
-                            JadwalMengajarId = 4,
-                            Jenis = 2
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Deskripsi = "UAS",
-                            JadwalMengajarId = 4,
-                            Jenis = 3
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Deskripsi = "Tugas 1",
-                            JadwalMengajarId = 5,
-                            Jenis = 0
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Deskripsi = "UH 1",
-                            JadwalMengajarId = 5,
-                            Jenis = 1
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Deskripsi = "UTS",
-                            JadwalMengajarId = 5,
-                            Jenis = 2
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Deskripsi = "UAS",
-                            JadwalMengajarId = 5,
-                            Jenis = 3
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Deskripsi = "Tugas 1",
-                            JadwalMengajarId = 6,
-                            Jenis = 0
-                        },
-                        new
-                        {
-                            Id = 14,
-                            Deskripsi = "UH 1",
-                            JadwalMengajarId = 6,
-                            Jenis = 1
-                        },
-                        new
-                        {
-                            Id = 15,
-                            Deskripsi = "UTS",
-                            JadwalMengajarId = 6,
-                            Jenis = 2
-                        },
-                        new
-                        {
-                            Id = 16,
-                            Deskripsi = "UAS",
-                            JadwalMengajarId = 6,
-                            Jenis = 3
-                        },
-                        new
-                        {
-                            Id = 17,
-                            Deskripsi = "Tugas 1",
-                            JadwalMengajarId = 7,
-                            Jenis = 0
-                        },
-                        new
-                        {
-                            Id = 18,
-                            Deskripsi = "UH 1",
-                            JadwalMengajarId = 7,
-                            Jenis = 1
-                        },
-                        new
-                        {
-                            Id = 19,
-                            Deskripsi = "UTS",
-                            JadwalMengajarId = 7,
-                            Jenis = 2
-                        },
-                        new
-                        {
-                            Id = 20,
-                            Deskripsi = "UAS",
-                            JadwalMengajarId = 7,
-                            Jenis = 3
-                        },
-                        new
-                        {
-                            Id = 21,
-                            Deskripsi = "Tugas 1",
-                            JadwalMengajarId = 8,
-                            Jenis = 0
-                        },
-                        new
-                        {
-                            Id = 22,
-                            Deskripsi = "UH 1",
-                            JadwalMengajarId = 8,
-                            Jenis = 1
-                        },
-                        new
-                        {
-                            Id = 23,
-                            Deskripsi = "UTS",
-                            JadwalMengajarId = 8,
-                            Jenis = 2
-                        },
-                        new
-                        {
-                            Id = 24,
-                            Deskripsi = "UAS",
-                            JadwalMengajarId = 8,
-                            Jenis = 3
-                        },
-                        new
-                        {
-                            Id = 25,
-                            Deskripsi = "Tugas 1",
-                            JadwalMengajarId = 9,
-                            Jenis = 0
-                        },
-                        new
-                        {
-                            Id = 26,
-                            Deskripsi = "UH 1",
-                            JadwalMengajarId = 9,
-                            Jenis = 1
-                        },
-                        new
-                        {
-                            Id = 27,
-                            Deskripsi = "UTS",
-                            JadwalMengajarId = 9,
-                            Jenis = 2
-                        },
-                        new
-                        {
-                            Id = 28,
-                            Deskripsi = "UAS",
-                            JadwalMengajarId = 9,
-                            Jenis = 3
-                        },
-                        new
-                        {
-                            Id = 29,
-                            Deskripsi = "Tugas 1",
-                            JadwalMengajarId = 10,
-                            Jenis = 0
-                        },
-                        new
-                        {
-                            Id = 30,
-                            Deskripsi = "UH 1",
-                            JadwalMengajarId = 10,
-                            Jenis = 1
-                        },
-                        new
-                        {
-                            Id = 31,
-                            Deskripsi = "UTS",
-                            JadwalMengajarId = 10,
-                            Jenis = 2
-                        },
-                        new
-                        {
-                            Id = 32,
-                            Deskripsi = "UAS",
-                            JadwalMengajarId = 10,
-                            Jenis = 3
-                        },
-                        new
-                        {
-                            Id = 33,
-                            Deskripsi = "Tugas 1",
-                            JadwalMengajarId = 11,
-                            Jenis = 0
-                        },
-                        new
-                        {
-                            Id = 34,
-                            Deskripsi = "UH 1",
-                            JadwalMengajarId = 11,
-                            Jenis = 1
-                        },
-                        new
-                        {
-                            Id = 35,
-                            Deskripsi = "UTS",
-                            JadwalMengajarId = 11,
-                            Jenis = 2
-                        },
-                        new
-                        {
-                            Id = 36,
-                            Deskripsi = "UAS",
-                            JadwalMengajarId = 11,
-                            Jenis = 3
-                        },
-                        new
-                        {
-                            Id = 37,
-                            Deskripsi = "Tugas 1",
-                            JadwalMengajarId = 12,
-                            Jenis = 0
-                        },
-                        new
-                        {
-                            Id = 38,
-                            Deskripsi = "UH 1",
-                            JadwalMengajarId = 12,
-                            Jenis = 1
-                        },
-                        new
-                        {
-                            Id = 39,
-                            Deskripsi = "UTS",
-                            JadwalMengajarId = 12,
-                            Jenis = 2
-                        },
-                        new
-                        {
-                            Id = 40,
-                            Deskripsi = "UAS",
-                            JadwalMengajarId = 12,
-                            Jenis = 3
-                        },
-                        new
-                        {
-                            Id = 41,
-                            Deskripsi = "Tugas 1",
-                            JadwalMengajarId = 13,
-                            Jenis = 0
-                        },
-                        new
-                        {
-                            Id = 42,
-                            Deskripsi = "UH 1",
-                            JadwalMengajarId = 13,
-                            Jenis = 1
-                        },
-                        new
-                        {
-                            Id = 43,
-                            Deskripsi = "UTS",
-                            JadwalMengajarId = 13,
-                            Jenis = 2
-                        },
-                        new
-                        {
-                            Id = 44,
-                            Deskripsi = "UAS",
-                            JadwalMengajarId = 13,
-                            Jenis = 3
-                        },
-                        new
-                        {
-                            Id = 45,
-                            Deskripsi = "Tugas 1",
-                            JadwalMengajarId = 14,
-                            Jenis = 0
-                        },
-                        new
-                        {
-                            Id = 46,
-                            Deskripsi = "UH 1",
-                            JadwalMengajarId = 14,
-                            Jenis = 1
-                        },
-                        new
-                        {
-                            Id = 47,
-                            Deskripsi = "UTS",
-                            JadwalMengajarId = 14,
-                            Jenis = 2
-                        },
-                        new
-                        {
-                            Id = 48,
-                            Deskripsi = "UAS",
-                            JadwalMengajarId = 14,
-                            Jenis = 3
-                        },
-                        new
-                        {
-                            Id = 49,
-                            Deskripsi = "Tugas 1",
-                            JadwalMengajarId = 15,
-                            Jenis = 0
-                        },
-                        new
-                        {
-                            Id = 50,
-                            Deskripsi = "UH 1",
-                            JadwalMengajarId = 15,
-                            Jenis = 1
-                        },
-                        new
-                        {
-                            Id = 51,
-                            Deskripsi = "UTS",
-                            JadwalMengajarId = 15,
-                            Jenis = 2
-                        },
-                        new
-                        {
-                            Id = 52,
-                            Deskripsi = "UAS",
-                            JadwalMengajarId = 15,
-                            Jenis = 3
-                        },
-                        new
-                        {
-                            Id = 53,
-                            Deskripsi = "Tugas 1",
-                            JadwalMengajarId = 16,
-                            Jenis = 0
-                        },
-                        new
-                        {
-                            Id = 54,
-                            Deskripsi = "UH 1",
-                            JadwalMengajarId = 16,
-                            Jenis = 1
-                        },
-                        new
-                        {
-                            Id = 55,
-                            Deskripsi = "UTS",
-                            JadwalMengajarId = 16,
-                            Jenis = 2
-                        },
-                        new
-                        {
-                            Id = 56,
-                            Deskripsi = "UAS",
-                            JadwalMengajarId = 16,
-                            Jenis = 3
                         });
                 });
 
@@ -1748,360 +1332,37 @@ namespace SIAkademik.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.NilaiEvaluasiSiswa", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Nilai", b =>
                 {
-                    b.Property<int>("IdAnggotaRombel")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    b.Property<int>("IdEvaluasiSiswa")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AnggotaRombelId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Nilai")
+                    b.Property<string>("Deskripsi")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("JadwalMengajarId")
                         .HasColumnType("integer");
 
-                    b.HasKey("IdAnggotaRombel", "IdEvaluasiSiswa");
+                    b.Property<int>("Jenis")
+                        .HasColumnType("integer");
 
-                    b.HasIndex("IdEvaluasiSiswa");
+                    b.Property<double>("Skor")
+                        .HasColumnType("double precision");
 
-                    b.ToTable("TblNilaiEvaluasiSiswa");
+                    b.HasKey("Id");
 
-                    b.HasData(
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 1,
-                            Nilai = 100
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 2,
-                            Nilai = 100
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 3,
-                            Nilai = 100
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 4,
-                            Nilai = 100
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 5,
-                            Nilai = 91
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 6,
-                            Nilai = 91
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 7,
-                            Nilai = 91
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 8,
-                            Nilai = 91
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 9,
-                            Nilai = 90
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 10,
-                            Nilai = 90
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 11,
-                            Nilai = 90
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 12,
-                            Nilai = 90
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 13,
-                            Nilai = 90
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 14,
-                            Nilai = 90
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 15,
-                            Nilai = 90
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 16,
-                            Nilai = 90
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 17,
-                            Nilai = 89
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 18,
-                            Nilai = 89
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 19,
-                            Nilai = 89
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 20,
-                            Nilai = 89
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 21,
-                            Nilai = 87
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 22,
-                            Nilai = 87
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 23,
-                            Nilai = 87
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 24,
-                            Nilai = 87
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 25,
-                            Nilai = 93
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 26,
-                            Nilai = 93
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 27,
-                            Nilai = 93
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 28,
-                            Nilai = 93
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 29,
-                            Nilai = 86
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 30,
-                            Nilai = 86
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 31,
-                            Nilai = 86
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 32,
-                            Nilai = 86
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 33,
-                            Nilai = 90
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 34,
-                            Nilai = 90
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 35,
-                            Nilai = 90
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 36,
-                            Nilai = 90
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 37,
-                            Nilai = 92
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 38,
-                            Nilai = 92
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 39,
-                            Nilai = 92
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 40,
-                            Nilai = 92
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 41,
-                            Nilai = 86
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 42,
-                            Nilai = 86
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 43,
-                            Nilai = 86
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 44,
-                            Nilai = 86
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 45,
-                            Nilai = 95
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 46,
-                            Nilai = 95
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 47,
-                            Nilai = 95
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 48,
-                            Nilai = 95
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 49,
-                            Nilai = 97
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 50,
-                            Nilai = 97
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 51,
-                            Nilai = 97
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 52,
-                            Nilai = 97
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 53,
-                            Nilai = 90
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 54,
-                            Nilai = 90
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 55,
-                            Nilai = 90
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 56,
-                            Nilai = 90
-                        });
+                    b.HasIndex("AnggotaRombelId");
+
+                    b.HasIndex("JadwalMengajarId");
+
+                    b.ToTable("TblNilai");
                 });
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Pegawai", b =>
@@ -3076,17 +2337,6 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Navigation("Siswa");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.EvaluasiSiswa", b =>
-                {
-                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.JadwalMengajar", "JadwalMengajar")
-                        .WithMany("DaftarEvaluasiSiswa")
-                        .HasForeignKey("JadwalMengajarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("JadwalMengajar");
-                });
-
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.HariMengajar", b =>
                 {
                     b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.JadwalMengajar", "JadwalMengajar")
@@ -3155,23 +2405,23 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Navigation("Peminatan");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.NilaiEvaluasiSiswa", b =>
+            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Nilai", b =>
                 {
                     b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.AnggotaRombel", "AnggotaRombel")
-                        .WithMany("DaftarNilaiEvaluasiSiswa")
-                        .HasForeignKey("IdAnggotaRombel")
+                        .WithMany("DaftarNilai")
+                        .HasForeignKey("AnggotaRombelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.EvaluasiSiswa", "EvaluasiSiswa")
-                        .WithMany("DaftarNilaiEvaluasiSiswa")
-                        .HasForeignKey("IdEvaluasiSiswa")
+                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.JadwalMengajar", "JadwalMengajar")
+                        .WithMany("DaftarNilai")
+                        .HasForeignKey("JadwalMengajarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AnggotaRombel");
 
-                    b.Navigation("EvaluasiSiswa");
+                    b.Navigation("JadwalMengajar");
                 });
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Pegawai", b =>
@@ -3270,7 +2520,7 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.Navigation("DaftarAbsenKelas");
 
-                    b.Navigation("DaftarNilaiEvaluasiSiswa");
+                    b.Navigation("DaftarNilai");
 
                     b.Navigation("DaftarRaport");
                 });
@@ -3280,11 +2530,6 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Navigation("DaftarPegawai");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.EvaluasiSiswa", b =>
-                {
-                    b.Navigation("DaftarNilaiEvaluasiSiswa");
-                });
-
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Jabatan", b =>
                 {
                     b.Navigation("DaftarPegawai");
@@ -3292,9 +2537,9 @@ namespace SIAkademik.Infrastructure.Migrations
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.JadwalMengajar", b =>
                 {
-                    b.Navigation("DaftarEvaluasiSiswa");
-
                     b.Navigation("DaftarHariMengajar");
+
+                    b.Navigation("DaftarNilai");
 
                     b.Navigation("DaftarPertemuan");
 

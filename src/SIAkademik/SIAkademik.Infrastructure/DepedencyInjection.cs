@@ -31,12 +31,13 @@ public static class DepedencyInjection
         services.AddScoped<IAbsenKelasRepository, AbsenKelasRepository>();
         services.AddScoped<IAnggotaRombelRepository, AnggotaRombelRepository>();
         services.AddScoped<IDivisiRepository, DivisiRepository>();
+        services.AddScoped<IEvaluasiSiswaRepository, EvaluasiSiswaRepository>();
         services.AddScoped<IHariMengajarRepository, HariMengajarRepository>();
         services.AddScoped<IJabatanRepository, JabatanRepository>();
         services.AddScoped<IJadwalMengajarRepository, JadwalMengajarRepository>();
         services.AddScoped<IKelasRepository, KelasRepository>();
         services.AddScoped<IMataPelajaranRepository, MataPelajaranRepository>();
-        services.AddScoped<INilaiRepository, NilaiRepository>();
+        services.AddScoped<INilaiEvaluasiSiswaRepository, NilaiEvaluasiSiswaRepository>();
         services.AddScoped<IPegawaiRepository, PegawaiRepository>();
         services.AddScoped<IPeminatanRepository, PeminatanRepository>();
         services.AddScoped<IPertemuanRepository, PertemuanRepository>();

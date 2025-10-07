@@ -101,7 +101,7 @@
                                             <td>Tugas</td>
                                             <td>
                                                 @Model.AnggotaRombel.RataTugas(jadwal).ToString("F1")
-                                                (@Model.AnggotaRombel.DaftarNilai.Where(n => n.JadwalMengajar == jadwal && n.Jenis == JenisNilai.Tugas).Count())
+                                                (@Model.AnggotaRombel.DaftarEvaluasiSiswa.Where(n => n.JadwalMengajar == jadwal && n.Jenis == JenisNilai.Tugas).Count())
                                             </td>
                                             <td rowspan="4">@Model.AnggotaRombel.NilaiAkhir(jadwal).ToString("F1")</td>
                                             <td rowspan="4">
@@ -112,7 +112,7 @@
                                             <td>Ulangan Harian</td>
                                             <td>
                                                 @Model.AnggotaRombel.RataUH(jadwal).ToString("F1")
-                                                (@Model.AnggotaRombel.DaftarNilai.Where(n => n.JadwalMengajar == jadwal && n.Jenis == JenisNilai.UH).Count())
+                                                (@Model.AnggotaRombel.DaftarEvaluasiSiswa.Where(n => n.JadwalMengajar == jadwal && n.Jenis == JenisNilai.UH).Count())
                                             </td>
                                         </tr>
                                         <tr>

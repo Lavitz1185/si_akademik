@@ -23,8 +23,7 @@ internal class RaportEntityConfiguration : IEntityTypeConfiguration<Raport>
                             " lain",
                 KategoriNilai = KategoriNilaiRaport.Sikap,
                 Predikat = "Baik",
-                AnggotaRombelIdSiswa = 2,
-                AnggotaRombelIdRombel = 2
+                AnggotaRombelId = 1
             },
             new
             {
@@ -35,8 +34,7 @@ internal class RaportEntityConfiguration : IEntityTypeConfiguration<Raport>
                             "selalu memiliki rasa ingin tahu, baik dalam sikap ramah tamah",
                 KategoriNilai = KategoriNilaiRaport.Sikap,
                 Predikat = "Baik",
-                AnggotaRombelIdSiswa = 2,
-                AnggotaRombelIdRombel = 2
+                AnggotaRombelId = 1
             },
             new
             {
@@ -45,8 +43,7 @@ internal class RaportEntityConfiguration : IEntityTypeConfiguration<Raport>
                 Deskripsi = "Aktif dalam ekstrakulikuler Microsoft Word",
                 KategoriNilai = KategoriNilaiRaport.Ekstrakulikuler,
                 Predikat = "Memuaskan",
-                AnggotaRombelIdSiswa = 2,
-                AnggotaRombelIdRombel = 2
+                AnggotaRombelId = 1
             }
         );
     }
