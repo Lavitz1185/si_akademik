@@ -52,4 +52,11 @@
     <ProjectReference Include="..\SIAkademik.Infrastructure\SIAkademik.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Areas\DashboardGuru\Views\Shared\_ModalContainer.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

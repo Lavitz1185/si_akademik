@@ -1,0 +1,70 @@
+﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.PertemuanModels;
+
+@model TambahVM
+
+<form asp-action="Tambah" asp-controller="Pertemuan" method="post">
+    <div class="modal-header">
+        <h5 class="modal-title" id="modalTambahPertemuanTitle">Tambah Pertemuan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <input type="hidden" asp-for="IdJadwalMengajar" />
+        <div class="form-group">
+            <label asp-for="Nomor"></label>
+            <input asp-for="Nomor" class="form-control" />
+            <span asp-validation-for="Nomor" class="text-danger"></span>
+        </div>        
+    </div>  
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+    </div>
+</form>
+
+
+@* <form asp-action="Tambah" asp-controller="Pertemuan" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="modalTambahPertemuanTitle">Tambah Pertemuan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <input asp-for="IdJadwalMengajar" type="hidden" />
+
+        <div class="form-group">
+            <label asp-for="Nomor"></label>
+            <input asp-for="Nomor" class="form-control" />
+            <span asp-validation-for="Nomor" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+    </div>
+</form> *@
+
+@* <form asp-action="Tambah" asp-controller="Pertemuan" method="post" id="formTambahPertemuan">
+    <input type="hidden" asp-for="IdJadwalMengajar" />
+    <div class="mb-3">
+        <label asp-for="Nomor" class="form-label"></label>
+        <input asp-for="Nomor" class="form-control" />
+        <span asp-validation-for="Nomor" class="text-danger"></span>
+    </div>
+    <div class="text-end">
+        <button type="submit" class="btn btn-primary">Simpan</button>
+    </div>
+</form> *@
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

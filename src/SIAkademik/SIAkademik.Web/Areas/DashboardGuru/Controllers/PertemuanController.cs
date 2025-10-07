@@ -255,4 +255,14 @@ public class PertemuanController : Controller
 
         return RedirectToAction(nameof(JadwalMengajarController.Detail), "JadwalMengajar", new { id = idJadwalMengajar });
     }
+
+    [HttpGet]
+    public async Task<IActionResult> TambahPartial(int idJadwalMengajar)
+    {
+        var jadwalMengajar = await _jadwalMengajarRepository.Get(idJadwalMengajar);
+        if (jadwalMengajar == null) return NotFound();
+
+        var vm = new TambahVM { IdJadwalMengajar = jadwalMengajar.Id };
+        return PartialView("~/Areas/DashboardGuru/Views/Pertemuan/_FormTambah.cshtml", vm);
+    }
 }
