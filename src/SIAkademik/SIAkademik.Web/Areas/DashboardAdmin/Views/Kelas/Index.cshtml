@@ -17,27 +17,31 @@
     </nav>
 </div>
 
+<!-- Isi Konten -->
 <div class="card card-primary">
     <div class="card-header">
-        <h4>Data Kelas</h4>
+        <h4>Daftar Kelas</h4>
     </div>
     <div class="padding-20">
-        <div class="d-flex justify-content-between mb-3 align-items-center">
-            <a class="btn btn-primary" asp-action="Tambah" asp-route-idTahunAjaran="@Model.TahunAjaran?.Id"
-               data-bs-toggle="tooltip" title="Tambah Kelas">
-                <i class="fas fa-plus me-1"></i> Tambah Kelas
-            </a>
+        <div class="d-flex justify-content-between mb-3">
+            <div class="mb-0">
+                <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah" asp-route-idTahunAjaran="@Model.TahunAjaran?.Id"
+                   data-bs-toggle="tooltip" title="Tambah Kelas">
+                    <i class="fas fa-plus me-1"></i> Tambah Kelas
+                </a>
+            </div>
 
-            <form method="get" asp-action="Index" id="form" class="d-flex ms-3">
-                <div class="input-group">
-                    <select id="idTahunAjaran" name="idTahunAjaran" class="form-control mr-1" required>
+            <div class="ml-auto mr-3">
+                <form method="get" asp-action="Index" id="form" class="d-flex align-items-center" style="gap: 8px;">
+                    <label class="mb-0" style="font-weight: 600;">Tahun Ajaran:</label>
+                    <select id="idTahunAjaran" name="idTahunAjaran" class="form-control form-control-sm w-auto" style="min-width:150px;" required>
                         @if (Model.TahunAjaran is null)
                         {
-                            <option selected value="@null">-- Pilih Tahun Ajaran --</option>
+                            <option selected value="@null">-- Semua --</option>
                         }
                         else
                         {
-                            <option value="@null">-- Pilih Tahun Ajaran --</option>
+                            <option value="@null">-- Semua --</option>
                         }
                         @foreach (var tahunAjaran in daftarTahunAjaran)
                         {
@@ -51,8 +55,8 @@
                             }
                         }
                     </select>
-                </div>
-            </form>
+                </form>
+            </div>           
         </div>
 
         <div class="table-responsive">
