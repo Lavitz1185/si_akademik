@@ -11,22 +11,23 @@
 <div class="row">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Manajemen Akademik</a></li>
+            <li class="breadcrumb-item"><a href="#">Manajemen Peserta Didik</a></li>
             <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Siswa" asp-action="ProsesKelulusan" asp-route-idTahunAjaran="@Model.IdTahunAjaran"></a>Proses Kelulusan</li>
         </ol>
     </nav>
 </div>
 
+<!-- Isi Konten -->
 <div class="card card-primary">
     <div class="card-header">
-        <h4>Daftar Data Siswa</h4>
+        <h4>Proses Kelulusan</h4>
     </div>
     <div class="padding-20">
-        <div class="d-flex justify-content-start ml-auto mb-2">
+        <div class="d-flex justify-content-start ml-auto mr-3 mb-3">
             <div class="mb-0">
-                <form asp-action="ProsesKelulusan" method="get" style="display:inline">
-                    <label for="idTahunAjaran">Tahun Ajaran</label>
-                    <select id="idTahunAjaran" name="idTahunAjaran">
+                <form asp-action="ProsesKelulusan" method="get" class="d-flex align-items-center" style="gap: 8px;">
+                    <label for="idTahunAjaran" class="mb-0" style="font-weight: 600;">Tahun Ajaran:</label>
+                    <select id="idTahunAjaran" name="idTahunAjaran" class="form-control form-control-sm w-auto">
                         @if (Model.IdTahunAjaran is null)
                         {
                             <option selected value="@null">-- Pilih Tahun Ajaran --</option>
@@ -48,19 +49,18 @@
             </div>
 
             <div class="ml-auto">
-                <button type="button" id="simpan">Simpan</button>
+                <button type="button" id="simpan" class="btn btn-primary">Simpan</button>
             </div>
         </div>
-
 
         <div class="table-responsive">
             <form asp-action="ProsesKelulusan" id="prosesKelulusan" method="post">
                 <input asp-for="@Model.IdTahunAjaran" hidden readonly/>
-                <table class="table table-striped table-hover" id="table-akun">
+                <table class="table table-striped table-hover" id="save-stage">
                     <thead>
                         <tr>
-                            <th style="min-width: 80px">
-                                <input id="pilihSemua" type="checkbox"/>
+                            <th style="min-width: 60px; text-align: center;">
+                                <input id="pilihSemua" type="checkbox" style="cursor:pointer;"/>
                             </th>
                             <th>Id</th>
                             <th>NISN</th>
@@ -80,7 +80,7 @@
                         {
                             var siswa = Model.DaftarSiswa[i];
                             <tr>
-                                <td>
+                                <td style="text-align: center; padding-right: 28px;">
                                     <input asp-for="@Model.DaftarEntry[@i].Luluskan" type="checkbox" />
                                     <input asp-for="@Model.DaftarEntry[@i].IdSiswa" hidden readonly />
                                 </td>
@@ -106,7 +106,6 @@
                                 </td>
                             </tr>
                         }
-
                     </tbody>
                 </table>
             </form>
