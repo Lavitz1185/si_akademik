@@ -75,24 +75,26 @@
                                                 <td>
                                                     @if (pertemuan.StatusPertemuan == StatusPertemuan.BelumMulai)
                                                     {
-                                                        <a asp-action="Mulai" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id">Mulai</a>
+                                                        <a asp-action="Mulai" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id" class="btn btn-success"><i class="fas fa-play mr-2"></i>Mulai</a>
                                                     }
 
                                                     @if (pertemuan.StatusPertemuan == StatusPertemuan.Berjalan)
                                                     {
-                                                        <form asp-action="Akhiri" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id">
-                                                            <button type="submit">Akhiri</button>
+                                                        <form asp-action="Akhiri" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id" style="display:inline">
+                                                            <button type="submit" class="btn btn-danger"><i class="fas fa-stop mr-2"></i>Akhiri</button>
                                                         </form>
                                                     }
 
                                                     @if (pertemuan.StatusPertemuan != StatusPertemuan.BelumMulai)
                                                     {
-                                                        <a asp-action="Absen" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id">Absen</a>
-                                                        <a asp-action="Edit" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id">Edit</a>
+                                                        <a asp-action="Absen" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id" class="btn btn-success"><i class="fas fa-clipboard-check mr-2"></i>Absen</a>
+                                                        <a asp-action="Edit" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id" class="btn btn-primary"><i class="fas fa-pencil-alt mr-2"></i>Edit</a>
                                                     }
 
-                                                    <form asp-action="Hapus" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id" title="Hapus">
-                                                        <button type="submit" class="btn btn-danger btn-action swal-confirm">Hapus</button>
+                                                    <form asp-action="Hapus" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id" title="Hapus" style="display:inline">
+                                                        <button type="submit" class="btn btn-danger btn-action swal-confirm">
+                                                            <i class="fas fa-trash mr-2"></i>Hapus
+                                                        </button>
                                                     </form>
                                                 </td>
                                             </tr>
