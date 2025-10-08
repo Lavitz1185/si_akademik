@@ -1,0 +1,96 @@
+﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.EvaluasiSiswaModels
+@model IsiNilaiVM
+
+
+<!-- Breadcrumb -->
+<div class="row">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Akademik</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardSiswa" asp-controller="JadwalMengajar" asp-action="Index">Nilai</a></li>
+            <li class="breadcrumb-item" aria-current="page">Isi Nilai</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-12">
+            <div class="card card-info mb-2">
+
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Daftar Pertemuan</h4>
+                </div>
+                <div class="card-body rounded" style="background-color: #f0f7fd; margin-left: 25px; margin-right: 25px; margin-bottom: 20px;">
+                    <div class="row">
+                        <!-- Kolom kiri -->
+                        <div class="col-md-6">
+                            <div class="row mb-1">
+                                <div class="col-3" style="font-weight:600;">Mata Pelajaran</div>
+                                <div class="col">@Model.EvaluasiSiswa.JadwalMengajar.MataPelajaran.Nama</div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-3" style="font-weight:600;">Kelas</div>
+                                <div class="col">
+                                    @Model.EvaluasiSiswa.JadwalMengajar.Rombel.Kelas.Jenjang.Humanize()
+                                    @Model.EvaluasiSiswa.JadwalMengajar.Rombel.Kelas.Peminatan.Nama
+                                    @Model.EvaluasiSiswa.JadwalMengajar.Rombel.Nama
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Kolom kanan -->
+                        <div class="col-md-6">
+                            <div class="row mb-1">
+                                <div class="col-3" style="font-weight:600;">Tahun Ajaran</div>
+                                <div class="col">@Model.EvaluasiSiswa.JadwalMengajar.Rombel.Kelas.TahunAjaran.Periode</div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-3" style="font-weight:600;">Semester</div>
+                                <div class="col">@Model.EvaluasiSiswa.JadwalMengajar.Rombel.Kelas.TahunAjaran.Semester.Humanize()</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <form asp-action="IsiNilai" asp-route-id="@Model.Id">
+
+                        <div class="mb-3">
+                            <a asp-action="IsiNilai" asp-route-id="@Model.Id" class="btn btn-warning">Edit Nilai</a>
+                        </div>          
+
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="table-akun1">
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Nilai</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.DaftarIsiNilaiEntry.Count; i++)
+                                    {
+                                        var entry = Model.DaftarIsiNilaiEntry[i];
+                                        <tr>
+                                            <input asp-for="@Model.DaftarIsiNilaiEntry[@i].NamaSiswa" hidden readonly />
+                                            <input asp-for="@Model.DaftarIsiNilaiEntry[@i].IdAnggotaRombel" hidden readonly />
+                                            <td>
+                                                @entry.NamaSiswa
+                                            </td>
+                                            <td>
+                                                <input asp-for="@Model.DaftarIsiNilaiEntry[@i].Nilai" class="form-control" readonly />
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>                       
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

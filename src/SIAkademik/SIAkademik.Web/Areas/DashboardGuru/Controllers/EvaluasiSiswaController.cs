@@ -235,6 +235,31 @@ public class EvaluasiSiswaController : Controller
             });
     }
 
+    public async Task<IActionResult> DetailNilai(int id)
+    {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        var evaluasiSiswa = await _evaluasiSiswaRepository.Get(id);
+        if (evaluasiSiswa is null) return NotFound();
+        if (evaluasiSiswa.JadwalMengajar.Rombel.Wali != pegawai) return BadRequest();
+
+        return View(new IsiNilaiVM
+        {
+            Id = id,
+            EvaluasiSiswa = evaluasiSiswa,
+            DaftarIsiNilaiEntry = evaluasiSiswa
+                .DaftarNilaiEvaluasiSiswa
+                .Select(e => new IsiNilaiEntryVM
+                {
+                    IdAnggotaRombel = e.IdAnggotaRombel,
+                    NamaSiswa = e.AnggotaRombel.Siswa.Nama,
+                    Nilai = e.Nilai
+                })
+                .ToList()
+        });
+    }
+
     public async Task<IActionResult> IsiNilai(int id)
     {
         var pegawai = await _signInManager.GetPegawai();
@@ -282,6 +307,6 @@ public class EvaluasiSiswaController : Controller
         else
             _toastrNotificationService.AddSuccess("Simpan Berhasil!");
 
-        return RedirectToAction(nameof(IsiNilai), new {id = vm.Id});
+        return RedirectToAction(nameof(DetailNilai), new { id = vm.Id });
     }
 }
