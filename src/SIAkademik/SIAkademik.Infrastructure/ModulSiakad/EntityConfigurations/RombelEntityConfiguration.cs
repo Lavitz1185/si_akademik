@@ -19,7 +19,7 @@ internal class RombelEntityConfiguration : IEntityTypeConfiguration<Rombel>
                 Id = 1,
                 Nama = "A",
                 KelasId = 1,
-                WaliId = "PJ23-030"
+                WaliId = "PJ22-024"
             },
             new
             {
@@ -27,6 +27,34 @@ internal class RombelEntityConfiguration : IEntityTypeConfiguration<Rombel>
                 Nama = "A",
                 KelasId = 2,
                 WaliId = "PJ17-010"
+            },
+            new
+            {
+                Id = 3,
+                Nama = "A",
+                KelasId = 3,
+                WaliId = "PJ24-004"
+            },
+            new
+            {
+                Id = 4,
+                Nama = "B",
+                KelasId = 3,
+                WaliId = "PJ18-013"
+            },
+            new
+            {
+                Id = 5,
+                Nama = "A",
+                KelasId = 4,
+                WaliId = "PJ19-017"
+            },
+            new
+            {
+                Id = 6,
+                Nama = "B",
+                KelasId = 4,
+                WaliId = "PJ23-031"
             }
         );
     }

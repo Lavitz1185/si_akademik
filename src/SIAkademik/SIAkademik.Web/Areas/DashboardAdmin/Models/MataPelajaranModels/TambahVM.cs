@@ -9,10 +9,6 @@ public class TambahVM
     [Required(ErrorMessage = "{0} harus diisi")]
     public string Nama { get; set; } = string.Empty;
 
-    [Display(Name = "Jenjang")]
-    [Required(ErrorMessage = "{0} harus diisi")]
-    public Jenjang Jenjang { get; set; }
-
     [Display(Name = "Peminatan")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public int PeminatanId { get; set; }

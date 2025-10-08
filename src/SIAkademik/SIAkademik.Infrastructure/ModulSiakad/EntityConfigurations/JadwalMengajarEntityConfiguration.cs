@@ -122,7 +122,7 @@ internal class JadwalMengajarEntityConfiguration : IEntityTypeConfiguration<Jadw
             new
             {
                 Id = 17,
-                MataPelajaranId = 17,
+                MataPelajaranId = 14,
                 RombelId = 1,
                 PegawaiId = "PJ14-003"
             },
@@ -136,7 +136,7 @@ internal class JadwalMengajarEntityConfiguration : IEntityTypeConfiguration<Jadw
             new
             {
                 Id = 19,
-                MataPelajaranId = 19,
+                MataPelajaranId = 13,
                 RombelId = 1,
                 PegawaiId = "PJ18-012"
             },
@@ -171,7 +171,7 @@ internal class JadwalMengajarEntityConfiguration : IEntityTypeConfiguration<Jadw
             new
             {
                 Id = 24,
-                MataPelajaranId = 25,
+                MataPelajaranId = 8,
                 RombelId = 1,
                 PegawaiId = "PJ23-029"
             },
@@ -185,37 +185,44 @@ internal class JadwalMengajarEntityConfiguration : IEntityTypeConfiguration<Jadw
             new
             {
                 Id = 26,
-                MataPelajaranId = 27,
+                MataPelajaranId = 12,
                 RombelId = 1,
                 PegawaiId = "PJ23-030"
             },
             new
             {
                 Id = 27,
-                MataPelajaranId = 28,
+                MataPelajaranId = 5,
                 RombelId = 1,
                 PegawaiId = "PJ23-031"
             },
             new
             {
                 Id = 28,
-                MataPelajaranId = 29,
+                MataPelajaranId = 1,
                 RombelId = 1,
                 PegawaiId = "PJ23-030"
             },
             new
             {
                 Id = 29,
-                MataPelajaranId = 30,
+                MataPelajaranId = 6,
                 RombelId = 1,
                 PegawaiId = "PJ24-005"
             },
             new
             {
                 Id = 30,
-                MataPelajaranId = 31,
+                MataPelajaranId = 9,
                 RombelId = 1,
                 PegawaiId = "PJ23-030"
+            },
+            new
+            {
+                Id = 31,
+                MataPelajaranId = 17,
+                RombelId = 2,
+                PegawaiId = "PJ17-010"
             }
         );
     }

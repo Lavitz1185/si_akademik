@@ -28,56 +28,61 @@
     <div class="padding-20">
         <div class="d-flex justify-content-between mb-3 align-items-center">
 
-            <form asp-action="Index" method="get" class="d-flex ms-3">
-
-                <select id="idTahunAjaran" name="idTahunAjaran" class="form-control mr-1">
-                    @if (Model.TahunAjaran is null)
-                    {
-                        <option selected value="@null">-- Pilih Tahun Ajaran --</option>
-                    }
-
-                    @foreach (var tahunAjaran in daftarTahunAjaran)
-                    {
-                        @if (Model.TahunAjaran == tahunAjaran)
+            <form asp-action="Index" method="get" class="d-flex">
+                <div class="d-flex align-items-center mr-3" style="gap: 8px;">
+                    <label for="idTahunAjaran" class="mb-0" style="font-weight: 600;">Tahun Ajaran:</label>
+                    <select id="idTahunAjaran" name="idTahunAjaran" class="form-control w-auto">
+                        @if (Model.TahunAjaran is null)
                         {
-                            <option selected value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+                            <option selected value="@null">-- Pilih Tahun Ajaran --</option>
                         }
-                        else
+
+                        @foreach (var tahunAjaran in daftarTahunAjaran)
                         {
-                            <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
-                        }
-                    }
-                </select>
-
-                <select id="idRombel" name="idRombel" class="form-control mr-1">
-                    @if (Model.Rombel is null)
-                    {
-                        <option selected value="@null">-- Pilih Kelas --</option>
-                    }
-                    else
-                    {
-                        <option value="@null">-- Pilih Kelas --</option>
-                    }
-
-                    @if (Model.TahunAjaran is not null)
-                    {
-                        var daftarRombel = await RombelRepository.GetAllByTahunAjaran(Model.TahunAjaran.Id);
-
-                        @foreach (var rombel in daftarRombel.Where(r => r.Wali == pegawai))
-                        {
-                            @if (Model.Rombel == rombel)
+                            @if (Model.TahunAjaran == tahunAjaran)
                             {
-                                <option selected value="@rombel.Id">@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Nama @rombel.Nama</option>
+                                <option selected value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
                             }
                             else
                             {
-                                <option value="@rombel.Id">@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Nama @rombel.Nama</option>
+                                <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
                             }
                         }
-                    }
-                </select>
+                    </select>
+                </div>
 
-                <button type="submit" class="btn btn-secondary">Filter</button>
+                <div class="d-flex align-items-center mr-3" style="gap: 8px;">
+                    <label for="idTahunAjaran" class="mb-0" style="font-weight: 600;">Kelas:</label>
+                    <select id="idRombel" name="idRombel" class="form-control w-auto">
+                        @if (Model.Rombel is null)
+                        {
+                            <option selected value="@null">-- Pilih Kelas --</option>
+                        }
+                        else
+                        {
+                            <option value="@null">-- Pilih Kelas --</option>
+                        }
+
+                        @if (Model.TahunAjaran is not null)
+                        {
+                            var daftarRombel = await RombelRepository.GetAllByTahunAjaran(Model.TahunAjaran.Id);
+
+                            @foreach (var rombel in daftarRombel.Where(r => r.Wali == pegawai))
+                            {
+                                @if (Model.Rombel == rombel)
+                                {
+                                    <option selected value="@rombel.Id">@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Nama @rombel.Nama</option>
+                                }
+                                else
+                                {
+                                    <option value="@rombel.Id">@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Nama @rombel.Nama</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Filter</button>
             </form>        
         </div>
 
@@ -101,8 +106,8 @@
                                 <td>@anggota.Siswa.NISN</td>
                                 <td>@anggota.Siswa.Nama</td>
                                 <td>
-                                    <a asp-action="Detail" asp-route-idSiswa="@anggota.Siswa.Id" asp-route-idRombel="@anggota.Rombel.Id" class="btn btn-warning">Detail</a>
-                                    <a asp-action="Cetak" asp-route-idSiswa="@anggota.Siswa.Id" asp-route-idRombel="@anggota.Rombel.Id" class="btn btn-primary">Cetak</a>
+                                    <a asp-action="Detail" asp-route-idSiswa="@anggota.Siswa.Id" asp-route-idRombel="@anggota.Rombel.Id" class="btn btn-warning"><i class="fas fa-eye"></i></a>
+                                    <a asp-action="Cetak" asp-route-idSiswa="@anggota.Siswa.Id" asp-route-idRombel="@anggota.Rombel.Id" class="btn btn-primary"><i class="fas fa-print"></i></a>
                                 </td>
                             </tr>
                         }
@@ -112,8 +117,6 @@
         </div>
     </div>
 </div>
-
-
 
 @section Scripts {
     <script type="text/javascript">

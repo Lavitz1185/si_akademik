@@ -344,6 +344,30 @@ internal class NilaiEvaluasiSiswaEntityConfiguration : IEntityTypeConfiguration<
                 IdAnggotaRombel = 1,
                 IdEvaluasiSiswa = 56,
                 Nilai = 90
+            },
+            new NilaiEvaluasiSiswa
+            {
+                IdAnggotaRombel = 1,
+                IdEvaluasiSiswa = 57,
+                Nilai = 90
+            },
+            new NilaiEvaluasiSiswa
+            {
+                IdAnggotaRombel = 1,
+                IdEvaluasiSiswa = 58,
+                Nilai = 90
+            },
+            new NilaiEvaluasiSiswa
+            {
+                IdAnggotaRombel = 1,
+                IdEvaluasiSiswa = 59,
+                Nilai = 90
+            },
+            new NilaiEvaluasiSiswa
+            {
+                IdAnggotaRombel = 1,
+                IdEvaluasiSiswa = 60,
+                Nilai = 90
             }
         );
     }

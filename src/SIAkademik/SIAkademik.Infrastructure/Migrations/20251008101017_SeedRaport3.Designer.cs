@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SIAkademik.Infrastructure.Database;
@@ -12,9 +13,11 @@ using SIAkademik.Infrastructure.Database;
 namespace SIAkademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251008101017_SeedRaport3")]
+    partial class SeedRaport3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -746,34 +749,6 @@ namespace SIAkademik.Infrastructure.Migrations
                             Deskripsi = "UAS",
                             JadwalMengajarId = 16,
                             Jenis = 3
-                        },
-                        new
-                        {
-                            Id = 57,
-                            Deskripsi = "Tugas 1",
-                            JadwalMengajarId = 31,
-                            Jenis = 0
-                        },
-                        new
-                        {
-                            Id = 58,
-                            Deskripsi = "UH 1",
-                            JadwalMengajarId = 31,
-                            Jenis = 1
-                        },
-                        new
-                        {
-                            Id = 59,
-                            Deskripsi = "UTS",
-                            JadwalMengajarId = 31,
-                            Jenis = 2
-                        },
-                        new
-                        {
-                            Id = 60,
-                            Deskripsi = "UAS",
-                            JadwalMengajarId = 31,
-                            Jenis = 3
                         });
                 });
 
@@ -1353,7 +1328,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 17,
-                            MataPelajaranId = 14,
+                            MataPelajaranId = 17,
                             PegawaiId = "PJ14-003",
                             RombelId = 1
                         },
@@ -1367,7 +1342,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 19,
-                            MataPelajaranId = 13,
+                            MataPelajaranId = 19,
                             PegawaiId = "PJ18-012",
                             RombelId = 1
                         },
@@ -1402,7 +1377,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 24,
-                            MataPelajaranId = 8,
+                            MataPelajaranId = 25,
                             PegawaiId = "PJ23-029",
                             RombelId = 1
                         },
@@ -1416,44 +1391,37 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 26,
-                            MataPelajaranId = 12,
+                            MataPelajaranId = 27,
                             PegawaiId = "PJ23-030",
                             RombelId = 1
                         },
                         new
                         {
                             Id = 27,
-                            MataPelajaranId = 5,
+                            MataPelajaranId = 28,
                             PegawaiId = "PJ23-031",
                             RombelId = 1
                         },
                         new
                         {
                             Id = 28,
-                            MataPelajaranId = 1,
+                            MataPelajaranId = 29,
                             PegawaiId = "PJ23-030",
                             RombelId = 1
                         },
                         new
                         {
                             Id = 29,
-                            MataPelajaranId = 6,
+                            MataPelajaranId = 30,
                             PegawaiId = "PJ24-005",
                             RombelId = 1
                         },
                         new
                         {
                             Id = 30,
-                            MataPelajaranId = 9,
+                            MataPelajaranId = 31,
                             PegawaiId = "PJ23-030",
                             RombelId = 1
-                        },
-                        new
-                        {
-                            Id = 31,
-                            MataPelajaranId = 17,
-                            PegawaiId = "PJ17-010",
-                            RombelId = 2
                         });
                 });
 
@@ -1521,6 +1489,9 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("Jenjang")
+                        .HasColumnType("integer");
+
                     b.Property<double>("KKM")
                         .HasColumnType("double precision");
 
@@ -1541,6 +1512,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 3,
+                            Jenjang = 2,
                             KKM = 75.0,
                             Nama = "Pendidikan Agama dan Budi Pekerti",
                             PeminatanId = 1
@@ -1548,6 +1520,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 4,
+                            Jenjang = 2,
                             KKM = 75.0,
                             Nama = "Pendidikan Pancasila dan Kewarganegaraan",
                             PeminatanId = 1
@@ -1555,6 +1528,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 5,
+                            Jenjang = 2,
                             KKM = 75.0,
                             Nama = "Bahasa Indonesia",
                             PeminatanId = 1
@@ -1562,6 +1536,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 6,
+                            Jenjang = 2,
                             KKM = 75.0,
                             Nama = "Matematika",
                             PeminatanId = 1
@@ -1569,6 +1544,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 7,
+                            Jenjang = 2,
                             KKM = 75.0,
                             Nama = "Sejarah Indonesia",
                             PeminatanId = 1
@@ -1576,6 +1552,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 8,
+                            Jenjang = 2,
                             KKM = 75.0,
                             Nama = "Bahasa Inggris",
                             PeminatanId = 1
@@ -1583,6 +1560,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 9,
+                            Jenjang = 2,
                             KKM = 75.0,
                             Nama = "Seni Budaya",
                             PeminatanId = 1
@@ -1590,6 +1568,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 10,
+                            Jenjang = 2,
                             KKM = 75.0,
                             Nama = "Pendidikan Jasmani Olah Raga Kesehatan",
                             PeminatanId = 1
@@ -1597,6 +1576,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 11,
+                            Jenjang = 2,
                             KKM = 75.0,
                             Nama = "Matematika",
                             PeminatanId = 5
@@ -1604,6 +1584,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 12,
+                            Jenjang = 2,
                             KKM = 75.0,
                             Nama = "Fisika",
                             PeminatanId = 5
@@ -1611,6 +1592,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 13,
+                            Jenjang = 2,
                             KKM = 75.0,
                             Nama = "Biologi",
                             PeminatanId = 5
@@ -1618,6 +1600,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 14,
+                            Jenjang = 2,
                             KKM = 75.0,
                             Nama = "Kimia",
                             PeminatanId = 5
@@ -1625,6 +1608,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 15,
+                            Jenjang = 2,
                             KKM = 75.0,
                             Nama = "Pendalaman Minat Matematika",
                             PeminatanId = 5
@@ -1632,6 +1616,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 16,
+                            Jenjang = 2,
                             KKM = 75.0,
                             Nama = "Pendalaman Minat Bahasa Inggris",
                             PeminatanId = 5
@@ -1639,20 +1624,31 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 17,
+                            Jenjang = 0,
                             KKM = 75.0,
-                            Nama = "Prakarya dan Kewirausahaan",
+                            Nama = "Kimia",
                             PeminatanId = 1
                         },
                         new
                         {
                             Id = 18,
+                            Jenjang = 0,
                             KKM = 75.0,
                             Nama = "Pendidikan Pancasila",
                             PeminatanId = 1
                         },
                         new
                         {
+                            Id = 19,
+                            Jenjang = 0,
+                            KKM = 75.0,
+                            Nama = "Biologi",
+                            PeminatanId = 1
+                        },
+                        new
+                        {
                             Id = 20,
+                            Jenjang = 0,
                             KKM = 75.0,
                             Nama = "Coding",
                             PeminatanId = 1
@@ -1660,6 +1656,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 21,
+                            Jenjang = 0,
                             KKM = 75.0,
                             Nama = "Sejarah",
                             PeminatanId = 1
@@ -1667,6 +1664,7 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 22,
+                            Jenjang = 0,
                             KKM = 75.0,
                             Nama = "Sosiologi",
                             PeminatanId = 1
@@ -1674,13 +1672,23 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 23,
+                            Jenjang = 0,
                             KKM = 75.0,
                             Nama = "Pendidikan Jasmani, Olah Raga dan Kesehatan",
                             PeminatanId = 1
                         },
                         new
                         {
+                            Id = 24,
+                            Jenjang = 0,
+                            KKM = 75.0,
+                            Nama = "Bahasa Inggris",
+                            PeminatanId = 1
+                        },
+                        new
+                        {
                             Id = 25,
+                            Jenjang = 0,
                             KKM = 75.0,
                             Nama = "Ekonomi",
                             PeminatanId = 1
@@ -1688,13 +1696,55 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 26,
+                            Jenjang = 0,
                             KKM = 75.0,
                             Nama = "Geografi",
                             PeminatanId = 1
                         },
                         new
                         {
+                            Id = 27,
+                            Jenjang = 0,
+                            KKM = 75.0,
+                            Nama = "Fisika",
+                            PeminatanId = 1
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Jenjang = 0,
+                            KKM = 75.0,
+                            Nama = "Bahasa Indonesia",
+                            PeminatanId = 1
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Jenjang = 0,
+                            KKM = 75.0,
+                            Nama = "Pendidikan Agama dan Budi Pekerti",
+                            PeminatanId = 1
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Jenjang = 0,
+                            KKM = 75.0,
+                            Nama = "Matematika (Umum)",
+                            PeminatanId = 1
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Jenjang = 0,
+                            KKM = 75.0,
+                            Nama = "Seni Budaya",
+                            PeminatanId = 1
+                        },
+                        new
+                        {
                             Id = 32,
+                            Jenjang = 0,
                             KKM = 75.0,
                             Nama = "Prakarya dan Kewirausahaan",
                             PeminatanId = 1
@@ -2053,30 +2103,6 @@ namespace SIAkademik.Infrastructure.Migrations
                         {
                             IdAnggotaRombel = 1,
                             IdEvaluasiSiswa = 56,
-                            Nilai = 90.0
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 57,
-                            Nilai = 90.0
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 58,
-                            Nilai = 90.0
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 59,
-                            Nilai = 90.0
-                        },
-                        new
-                        {
-                            IdAnggotaRombel = 1,
-                            IdEvaluasiSiswa = 60,
                             Nilai = 90.0
                         });
                 });
@@ -2692,286 +2718,6 @@ namespace SIAkademik.Infrastructure.Migrations
                             Deskripsi = "Kompetensi pengetahuan sangat baik, sangat menguasai perlindungan dan penegakan hukum di Indonesia, menguasai kasus-kasus pelanggaran hak dan pengikaran kewajiban warga negara",
                             JadwalMengajarId = 4,
                             KategoriNilai = 1,
-                            Nama = "",
-                            Predikat = "A"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai teks editorial, cukup menguasai teks lamaran pekerjaan",
-                            JadwalMengajarId = 5,
-                            KategoriNilai = 1,
-                            Nama = "",
-                            Predikat = "B"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai ukuran pemusatan dan penyebaran data yang disajikan dalam bentuk tabel distribusi frekuensi dan histogram, menguasai jarak dalam ruang",
-                            JadwalMengajarId = 6,
-                            KategoriNilai = 1,
-                            Nama = "",
-                            Predikat = "B"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai peran dan nilai-nilai perjuangan tokoh nasional dan daerah dalam mempertahankan keutuhan negara, menguasai upaya bangsa indonesia menghadapi ancaman disintegrasi negara",
-                            JadwalMengajarId = 7,
-                            KategoriNilai = 1,
-                            Nama = "",
-                            Predikat = "B"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai perbedaan fungsi sosial, struktur teks dan kebahasaan dalam teks news item lisan dan tulis dari radio, koran, dan TV, menguasai penerapan fungsi sosial, struktur teks, dan unsur kebahasan teks dalam tindakan menawarkan jasa",
-                            JadwalMengajarId = 8,
-                            KategoriNilai = 1,
-                            Nama = "",
-                            Predikat = "B"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi pengetahuan sangat baik, sangat menguasai teknik menyusun naskah teater kontemporer, sangat menguasai perencangan pemetasan teater kontemporer",
-                            JadwalMengajarId = 9,
-                            KategoriNilai = 1,
-                            Nama = "",
-                            Predikat = "A"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai atletik jalan cepat, lompat tinggi, lari jarak pendek, sangat menguasai permainan bulu tangkis, softball, tenis meja",
-                            JadwalMengajarId = 10,
-                            KategoriNilai = 1,
-                            Nama = "",
-                            Predikat = "B"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi pengetahuan sangat baik, sangat menguasai limit di ketakhinggaan fungsi aljabar dan trigonometri,menguasai limit fungsi trigonometri",
-                            JadwalMengajarId = 11,
-                            KategoriNilai = 1,
-                            Nama = "",
-                            Predikat = "B"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai rangkaian arus bolak balik, cukup menguasai prinsip kerja peralatan listrik searah",
-                            JadwalMengajarId = 12,
-                            KategoriNilai = 1,
-                            Nama = "",
-                            Predikat = "A"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi pengetahuan sangat baik, sangat menguasai pola-pola hereditas, menguasai pengaruh faktor internal dan faktor eksternal terhadap pertumbuhan dan perkembangan",
-                            JadwalMengajarId = 13,
-                            KategoriNilai = 1,
-                            Nama = "",
-                            Predikat = "B"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi pengetahuan sangat baik, sangat menguasai analisis gejala yang terjadi sel elektrolisis yang digunakan dalam kehidupan, sangat menguasai penyebab adanya fenomena sifat koligatif larutan, dan tekanan osmosis",
-                            JadwalMengajarId = 14,
-                            KategoriNilai = 1,
-                            Nama = "",
-                            Predikat = "A"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai ukuran pemusatan dan penyebaran data yang disajikan dalam bentuk tabel distribusi frekuensi dan histogram, menguasai jarak dalam ruang",
-                            JadwalMengajarId = 15,
-                            KategoriNilai = 1,
-                            Nama = "",
-                            Predikat = "A"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai perbedaan fungsi sosial struktur teks news item lisan dan tulis dari radio, koran, dan TV, menguasai penerapan fungsi sosial, struktur teks dan unsur kebahasaan teks dalam tindakan menawarkan jasa",
-                            JadwalMengajarId = 16,
-                            KategoriNilai = 1,
-                            Nama = "",
-                            Predikat = "B"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai sistem produksi kerajinan inovatif sesuai kebutuhan pasar global berdasarkan daya dukung yang dimiliki oleh daerah setempat, sangat menguasai perencanaan usaha kerajinan inovatif berdasarkan kebutuhan pasar global",
-                            JadwalMengajarId = 31,
-                            KategoriNilai = 1,
-                            Nama = "",
-                            Predikat = "A"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi keterampilan sangat baik, sangat menguasai peran dan fungsi pria dan wanita dalam rumah tangga, sangat menguasai peran dan fungsi pria dan wanita dalam rumah tangga, sangat menguasai prinsip dasar pernikahan dan rumah tangga Kristen",
-                            JadwalMengajarId = 3,
-                            KategoriNilai = 2,
-                            Nama = "",
-                            Predikat = "A"
-                        },
-                        new
-                        {
-                            Id = 20,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi keterampilan sangat baik, sangat menguasai perlindungan dan penegakan hukum di Indonesia, menguasai kasus-kasus pelanggaran hak dan pengikaran kewajiban warga negara",
-                            JadwalMengajarId = 4,
-                            KategoriNilai = 2,
-                            Nama = "",
-                            Predikat = "A"
-                        },
-                        new
-                        {
-                            Id = 21,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi keterampilan baik, sangat menguasai teks editorial, cukup menguasai teks lamaran pekerjaan",
-                            JadwalMengajarId = 5,
-                            KategoriNilai = 2,
-                            Nama = "",
-                            Predikat = "B"
-                        },
-                        new
-                        {
-                            Id = 22,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi keterampilan baik, sangat menguasai ukuran pemusatan dan penyebaran data yang disajikan dalam bentuk tabel distribusi frekuensi dan histogram, menguasai jarak dalam ruang",
-                            JadwalMengajarId = 6,
-                            KategoriNilai = 2,
-                            Nama = "",
-                            Predikat = "B"
-                        },
-                        new
-                        {
-                            Id = 23,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi keterampilan baik, sangat menguasai peran dan nilai-nilai perjuangan tokoh nasional dan daerah dalam mempertahankan keutuhan negara, menguasai upaya bangsa indonesia menghadapi ancaman disintegrasi negara",
-                            JadwalMengajarId = 7,
-                            KategoriNilai = 2,
-                            Nama = "",
-                            Predikat = "B"
-                        },
-                        new
-                        {
-                            Id = 24,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi keterampilan baik, sangat menguasai perbedaan fungsi sosial, struktur teks dan kebahasaan dalam teks news item lisan dan tulis dari radio, koran, dan TV, menguasai penerapan fungsi sosial, struktur teks, dan unsur kebahasan teks dalam tindakan menawarkan jasa",
-                            JadwalMengajarId = 8,
-                            KategoriNilai = 2,
-                            Nama = "",
-                            Predikat = "B"
-                        },
-                        new
-                        {
-                            Id = 25,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi keterampilan sangat baik, sangat menguasai teknik menyusun naskah teater kontemporer, sangat menguasai perencangan pemetasan teater kontemporer",
-                            JadwalMengajarId = 9,
-                            KategoriNilai = 2,
-                            Nama = "",
-                            Predikat = "A"
-                        },
-                        new
-                        {
-                            Id = 26,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi keterampilan baik, sangat menguasai atletik jalan cepat, lompat tinggi, lari jarak pendek, sangat menguasai permainan bulu tangkis, softball, tenis meja",
-                            JadwalMengajarId = 10,
-                            KategoriNilai = 2,
-                            Nama = "",
-                            Predikat = "B"
-                        },
-                        new
-                        {
-                            Id = 27,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi keterampilan sangat baik, sangat menguasai limit di ketakhinggaan fungsi aljabar dan trigonometri,menguasai limit fungsi trigonometri",
-                            JadwalMengajarId = 11,
-                            KategoriNilai = 2,
-                            Nama = "",
-                            Predikat = "B"
-                        },
-                        new
-                        {
-                            Id = 28,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi keterampilan baik, sangat menguasai rangkaian arus bolak balik, cukup menguasai prinsip kerja peralatan listrik searah",
-                            JadwalMengajarId = 12,
-                            KategoriNilai = 2,
-                            Nama = "",
-                            Predikat = "A"
-                        },
-                        new
-                        {
-                            Id = 29,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi keterampilan sangat baik, sangat menguasai pola-pola hereditas, menguasai pengaruh faktor internal dan faktor eksternal terhadap pertumbuhan dan perkembangan",
-                            JadwalMengajarId = 13,
-                            KategoriNilai = 2,
-                            Nama = "",
-                            Predikat = "B"
-                        },
-                        new
-                        {
-                            Id = 30,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi keterampilan sangat baik, sangat menguasai analisis gejala yang terjadi sel elektrolisis yang digunakan dalam kehidupan, sangat menguasai penyebab adanya fenomena sifat koligatif larutan, dan tekanan osmosis",
-                            JadwalMengajarId = 14,
-                            KategoriNilai = 2,
-                            Nama = "",
-                            Predikat = "A"
-                        },
-                        new
-                        {
-                            Id = 31,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi keterampilan baik, sangat menguasai ukuran pemusatan dan penyebaran data yang disajikan dalam bentuk tabel distribusi frekuensi dan histogram, menguasai jarak dalam ruang",
-                            JadwalMengajarId = 15,
-                            KategoriNilai = 2,
-                            Nama = "",
-                            Predikat = "A"
-                        },
-                        new
-                        {
-                            Id = 32,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi keterampilan baik, sangat menguasai perbedaan fungsi sosial struktur teks news item lisan dan tulis dari radio, koran, dan TV, menguasai penerapan fungsi sosial, struktur teks dan unsur kebahasaan teks dalam tindakan menawarkan jasa",
-                            JadwalMengajarId = 16,
-                            KategoriNilai = 2,
-                            Nama = "",
-                            Predikat = "B"
-                        },
-                        new
-                        {
-                            Id = 33,
-                            AnggotaRombelId = 1,
-                            Deskripsi = "Kompetensi keterampilan baik, sangat menguasai sistem produksi kerajinan inovatif sesuai kebutuhan pasar global berdasarkan daya dukung yang dimiliki oleh daerah setempat, sangat menguasai perencanaan usaha kerajinan inovatif berdasarkan kebutuhan pasar global",
-                            JadwalMengajarId = 31,
-                            KategoriNilai = 2,
                             Nama = "",
                             Predikat = "A"
                         });

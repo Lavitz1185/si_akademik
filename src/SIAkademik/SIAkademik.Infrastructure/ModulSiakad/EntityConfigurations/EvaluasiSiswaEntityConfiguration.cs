@@ -51,5 +51,36 @@ internal class EvaluasiSiswaEntityConfiguration : IEntityTypeConfiguration<Evalu
                 }
             );
         }
+
+        builder.HasData(
+            new
+            {
+                Id = 57,
+                Deskripsi = "Tugas 1",
+                Jenis = JenisNilai.Tugas,
+                JadwalMengajarId = 31
+            },
+            new
+            {
+                Id = 58,
+                Deskripsi = "UH 1",
+                Jenis = JenisNilai.UH,
+                JadwalMengajarId = 31
+            },
+            new
+            {
+                Id = 59,
+                Deskripsi = "UTS",
+                Jenis = JenisNilai.UTS,
+                JadwalMengajarId = 31
+            },
+            new
+            {
+                Id = 60,
+                Deskripsi = "UAS",
+                Jenis = JenisNilai.UAS,
+                JadwalMengajarId = 31
+            }
+        );
     }
 }
