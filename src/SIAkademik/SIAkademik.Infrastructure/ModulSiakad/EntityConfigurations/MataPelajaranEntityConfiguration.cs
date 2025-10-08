@@ -115,7 +115,7 @@ internal class MataPelajaranEntityConfiguration : IEntityTypeConfiguration<MataP
             new
             {
                 Id = 17,
-                Nama = "Seni Budaya",
+                Nama = "Prakarya dan Kewirausahaan",
                 PeminatanId = 1,
                 KKM = 75d
             },
