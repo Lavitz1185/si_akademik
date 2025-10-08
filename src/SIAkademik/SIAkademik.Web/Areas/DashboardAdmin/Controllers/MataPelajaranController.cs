@@ -63,7 +63,6 @@ public class MataPelajaranController : Controller
         var mataPelajaran = new MataPelajaran
         {
             Nama = vm.Nama,
-            Jenjang = vm.Jenjang,
             Peminatan = peminatan,
             KKM = vm.KKM
         };
@@ -90,7 +89,6 @@ public class MataPelajaranController : Controller
         {
             Id = id,
             Nama = mataPelajaran.Nama,
-            Jenjang = mataPelajaran.Jenjang,
             PeminatanId = mataPelajaran.Peminatan.Id,
             KKM = mataPelajaran.KKM
         });
@@ -112,7 +110,6 @@ public class MataPelajaranController : Controller
         }
 
         mataPelajaran.Nama = vm.Nama;
-        mataPelajaran.Jenjang = vm.Jenjang;
         mataPelajaran.Peminatan = peminatan;
         mataPelajaran.KKM = vm.KKM;
 

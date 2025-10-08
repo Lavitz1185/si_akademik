@@ -13,10 +13,6 @@ public class EditVM
     [Required(ErrorMessage = "{0} harus diisi")]
     public required string Nama { get; set; }
 
-    [Display(Name = "Jenjang")]
-    [Required(ErrorMessage = "{0} harus diisi")]
-    public required Jenjang Jenjang { get; set; }
-
     [Display(Name = "Peminatan")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public required int PeminatanId { get; set; }
