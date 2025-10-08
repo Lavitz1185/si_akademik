@@ -1,25 +1,59 @@
 ﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.PertemuanModels
 @model MulaiVM
 
-<form asp-action="Mulai" class="container">
-    <div asp-validation-summary="ModelOnly"></div>
 
-    <input asp-for="@Model.Id" hidden readonly/>
-
-    <div class="row">
-        <label asp-for="@Model.Keterangan"></label>
-        <textarea asp-for="@Model.Keterangan"></textarea>
-        <span asp-validation-for="@Model.Keterangan"></span>
+<!-- Breadcrumb -->
+<div class="row" style="justify-content: center;">
+    <div class="col-12 col-md-6 col-lg-6" style="padding: 0;">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Akademik</a></li>
+                <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Siswa" asp-action="Index">Jadwal Mengajar</a></li>
+                <li class="breadcrumb-item" aria-current="page">Detail Data</li>
+                <li class="breadcrumb-item" aria-current="page">Mulai Mengajar</li>
+            </ol>
+        </nav>
     </div>
+</div>
 
-    <div class="row">
-        <label asp-for="@Model.TanggalPelaksanaan"></label>
-        <input asp-for="@Model.TanggalPelaksanaan" type="date"/>
-        <span asp-validation-for="@Model.TanggalPelaksanaan"></span>
+<!-- Isi Konten -->
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-6">
+            <div class="card card-success">
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Mulai Pelajaran</h4>
+                </div>
+
+                <form asp-action="Mulai" class="container">
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly"></div>
+
+                        <input asp-for="@Model.Id" class="form-control" hidden readonly />
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Keterangan"></label>
+                            <textarea asp-for="@Model.Keterangan" class="form-control"></textarea>
+                            <span asp-validation-for="@Model.Keterangan"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.TanggalPelaksanaan"></label>
+                            <input asp-for="@Model.TanggalPelaksanaan" type="date" class="form-control" />
+                            <span asp-validation-for="@Model.TanggalPelaksanaan"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer text-right pt-0">
+                        <a href="javascript:void(0)" class="btn btn-danger text-white swal-cancel">Batal</a>
+                        <button class="btn btn-primary mr-1" type="submit">Simpan</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
     </div>
-
-    <button type="submit">Simpan</button>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

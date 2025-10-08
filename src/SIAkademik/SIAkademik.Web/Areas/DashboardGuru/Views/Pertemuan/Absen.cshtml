@@ -2,42 +2,80 @@
 
 @model AbsenVM
 
-<form asp-action="Absen" method="post">
-    <div asp-validation-summary="ModelOnly"></div>
 
-    <input asp-for="@Model.IdPertemuan" readonly hidden/>
+<!-- Breadcrumb -->
+<div class="row">
+    <div class="col-12 col-md-6 col-lg-6" style="padding: 0;">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Akademik</a></li>
+                <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="JadwalMengajar" asp-action="Index">Jadwal Mengajar</a></li>
+                <li class="breadcrumb-item"><a href="#">Detail Data</a></li>
+                <li class="breadcrumb-item">Absen</li>
+            </ol>
+        </nav>
+    </div>
+</div>
 
-    <button type="submit">Simpan</button>
+<!-- Isi Konten -->
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card card-info">
 
-    <table>
-        <thead>
-            <tr>
-                <th>Nama</th>
-                <th>Absen</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for(int i = 0; i < Model.DaftarAbsen.Count; i++)
-            {
-                <input asp-for="@Model.DaftarAbsen[@i].IdSiswa" hidden readonly/>
-                <input asp-for="@Model.DaftarAbsen[@i].NamaSiswa" hidden readonly/>
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Absen</h4>
+                </div>
 
-                <tr>
-                    <td>@Model.DaftarAbsen[@i].NamaSiswa</td>
-                    <td>
-                        <select asp-for="@Model.DaftarAbsen[@i].Absensi">
-                            @foreach(var absensi in Enum.GetValues<Absensi>())
-                            {
-                                <option value="@absensi">@absensi.Humanize()</option>
-                            }
-                        </select>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
 
-</form>
+                <div class="card-body">
+                    
+                    <form asp-action="Absen" method="post">
+                        <div asp-validation-summary="ModelOnly"></div>
+
+                        <input asp-for="@Model.IdPertemuan" readonly hidden />
+
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>                      
+
+
+                        <!-- Tabel -->
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="table-akunn">
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Absen</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.DaftarAbsen.Count; i++)
+                                    {
+                                        <input asp-for="@Model.DaftarAbsen[@i].IdSiswa" hidden readonly />
+                                        <input asp-for="@Model.DaftarAbsen[@i].NamaSiswa" hidden readonly />
+
+                                        <tr>
+                                            <td>@Model.DaftarAbsen[@i].NamaSiswa</td>
+                                            <td>
+                                                <select asp-for="@Model.DaftarAbsen[@i].Absensi" class="form-control">
+                                                    @foreach (var absensi in Enum.GetValues<Absensi>())
+                                                    {
+                                                        <option value="@absensi">@absensi.Humanize()</option>
+                                                    }
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
