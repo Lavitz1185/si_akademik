@@ -8,173 +8,200 @@
     var nilaiUAS = Model.AnggotaRombel.DaftarNilaiEvaluasiSiswa.Where(a => a.EvaluasiSiswa.JadwalMengajar == Model.JadwalMengajar && a.EvaluasiSiswa.Jenis == JenisNilai.UAS).FirstOrDefault();
 }
 
-<div class="section-body">
-    <div class="row" style="justify-content: center;">
-        <div class="col-12 col-md-6 col-lg-12">
-            <div class="card card-warning">
-
-                <div class="card-header" style="padding-top: 20px;">
-                    <h4>Detail Nilai Siswa</h4>
-                </div>
-                <div class="card-body">
-                    <p>
-                        @Model.JadwalMengajar.Rombel.Kelas.TahunAjaran.Periode @Model.JadwalMengajar.Rombel.Kelas.TahunAjaran.Semester.Humanize() <br />
-                        @Model.JadwalMengajar.Rombel.Kelas.Jenjang.Humanize() @Model.JadwalMengajar.Rombel.Kelas.Peminatan.Nama @Model.JadwalMengajar.Rombel.Nama <br />
-                        @Model.JadwalMengajar.MataPelajaran.Nama @Model.JadwalMengajar.MataPelajaran.Jenjang.Humanize() @Model.JadwalMengajar.MataPelajaran.Peminatan.Nama <br />
-                        @Model.JadwalMengajar.Pegawai.Nama <br />
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- Breadcrumb -->
+<div class="row">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Akademik</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardSiswa" asp-controller="EvaluasiSiswa" asp-action="Index">Nilai Siswa</a></li>
+            <li class="breadcrumb-item" aria-current="page">Detail Nilai Siswa</li>
+        </ol>
+    </nav>
 </div>
 
 <div class="section-body">
     <div class="row" style="justify-content: center;">
         <div class="col-12 col-md-6 col-lg-12">
-            <div class="card">
+            <div class="card card-info mb-2">
+
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Detail Nilai Siswa</h4>
+                </div>
+                <div class="card-body rounded" style="background-color: #f0f7fd; margin-left: 25px; margin-right: 25px; margin-bottom: 20px;">
+                    <div class="row">
+                        <!-- Kolom kiri -->
+                        <div class="col-md-6">
+                            <div class="row mb-1">
+                                <div class="col-3" style="font-weight:600;">Mata Pelajaran</div>
+                                <div class="col">@Model.JadwalMengajar.MataPelajaran.Nama</div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-3" style="font-weight:600;">Guru</div>
+                                <div class="col">@Model.JadwalMengajar.Pegawai.Nama</div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-3" style="font-weight:600;">Jumlah Pertemuan</div>
+                                <div class="col">@Model.JadwalMengajar.DaftarPertemuan.Count</div>
+                            </div>
+                        </div>
+
+                        <!-- Kolom kanan -->
+                        <div class="col-md-6">
+                            <div class="row mb-1">
+                                <div class="col-3" style="font-weight:600;">Tahun Ajaran</div>
+                                <div class="col">@Model.JadwalMengajar.Rombel.Kelas.TahunAjaran.Periode</div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-3" style="font-weight:600;">Semester</div>
+                                <div class="col">@Model.JadwalMengajar.Rombel.Kelas.TahunAjaran.Semester.Humanize()</div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-3" style="font-weight:600;">Kelas</div>
+                                <div class="col">@Model.JadwalMengajar.Rombel.Kelas.Jenjang.Humanize() @Model.JadwalMengajar.Rombel.Kelas.Peminatan.Nama @Model.JadwalMengajar.Rombel.Nama</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+
+            <!-- Tabel Nilai Tugas -->
+            <div class="card mb-2">
 
                 <div class="card-header" style="padding-top: 20px;">
                     <h4>Nilai Tugas</h4>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped table-hover" id="table-akun">
-                        <thead>
-                            <tr>
-                                <th>Nilai</th>
-                                <th>Dekripsi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (daftarTugas.Count() == 0)
-                            {
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="table-akun">
+                            <thead>
                                 <tr>
-                                    <td colspan="2">Tidak Ada Nilai Tugas</td>
+                                    <th>Nilai</th>
+                                    <th>Dekripsi</th>
                                 </tr>
-                            }
-                            @foreach (var nilai in daftarTugas)
-                            {
-                                <tr>
-                                    <td>@nilai.Nilai.ToString("F2")</td>
-                                    <td>@nilai.EvaluasiSiswa.Deskripsi</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @if (daftarTugas.Count() == 0)
+                                {
+                                    <tr>
+                                        <td colspan="2">Tidak Ada Nilai Tugas</td>
+                                    </tr>
+                                }
+                                @foreach (var nilai in daftarTugas)
+                                {
+                                    <tr>
+                                        <td>@nilai.Nilai.ToString("F2")</td>
+                                        <td>@nilai.EvaluasiSiswa.Deskripsi</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
-<div class="section-body">
-    <div class="row" style="justify-content: center;">
-        <div class="col-12 col-md-6 col-lg-12">
-            <div class="card">
+            <!-- Tabel Nilai Ulangan Harian -->
+            <div class="card mb-2">
 
                 <div class="card-header" style="padding-top: 20px;">
                     <h4>Nilai Ulangan Harian</h4>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped table-hover" id="table-akun">
-                        <thead>
-                            <tr>
-                                <th>Nilai</th>
-                                <th>Dekripsi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (daftarUH.Count() == 0)
-                            {
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="table-akun">
+                            <thead>
                                 <tr>
-                                    <td colspan="2">Tidak Ada Nilai Ulangan Harian</td>
+                                    <th>Nilai</th>
+                                    <th>Dekripsi</th>
                                 </tr>
-                            }
-                            @foreach (var nilai in daftarUH)
-                            {
-                                <tr>
-                                    <td>@nilai.Nilai.ToString("F2")</td>
-                                    <td>@nilai.EvaluasiSiswa.Deskripsi</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @if (daftarUH.Count() == 0)
+                                {
+                                    <tr>
+                                        <td colspan="2">Tidak Ada Nilai Ulangan Harian</td>
+                                    </tr>
+                                }
+                                @foreach (var nilai in daftarUH)
+                                {
+                                    <tr>
+                                        <td>@nilai.Nilai.ToString("F2")</td>
+                                        <td>@nilai.EvaluasiSiswa.Deskripsi</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
-<div class="section-body">
-    <div class="row" style="justify-content: center;">
-        <div class="col-12 col-md-6 col-lg-12">
-            <div class="card">
+            <!-- Tabel Nilai UTS -->
+            <div class="card mb-2">
 
                 <div class="card-header" style="padding-top: 20px;">
                     <h4>Nilai UTS</h4>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped table-hover" id="table-akun">
-                        <thead>
-                            <tr>
-                                <th>Nilai</th>
-                                <th>Dekripsi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (nilaiUTS is not null)
-                            {
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="table-akun">
+                            <thead>
                                 <tr>
-                                    <td>@nilaiUTS.Nilai.ToString("F2")</td>
-                                    <td>@nilaiUTS.EvaluasiSiswa.Deskripsi</td>
+                                    <th>Nilai</th>
+                                    <th>Dekripsi</th>
                                 </tr>
-                            }
-                            else
-                            {
-                                <tr>
-                                    <td colspan="2">Tidak Ada Nilai UTS</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @if (nilaiUTS is not null)
+                                {
+                                    <tr>
+                                        <td>@nilaiUTS.Nilai.ToString("F2")</td>
+                                        <td>@nilaiUTS.EvaluasiSiswa.Deskripsi</td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="2">Tidak Ada Nilai UTS</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
-<div class="section-body">
-    <div class="row" style="justify-content: center;">
-        <div class="col-12 col-md-6 col-lg-12">
+
+            <!-- Tabel Nilai UAS -->
             <div class="card">
 
                 <div class="card-header" style="padding-top: 20px;">
                     <h4>Nilai UAS</h4>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped table-hover" id="table-akun">
-                        <thead>
-                            <tr>
-                                <th>Nilai</th>
-                                <th>Dekripsi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (nilaiUAS is not null)
-                            {
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="table-akun">
+                            <thead>
                                 <tr>
-                                    <td>@nilaiUAS.Nilai.ToString("F2")</td>
-                                    <td>@nilaiUAS.EvaluasiSiswa.Deskripsi</td>
+                                    <th>Nilai</th>
+                                    <th>Dekripsi</th>
                                 </tr>
-                            }
-                            else
-                            {
-                                <tr>
-                                    <td colspan="2">Tidak Ada Nilai UAS</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @if (nilaiUAS is not null)
+                                {
+                                    <tr>
+                                        <td>@nilaiUAS.Nilai.ToString("F2")</td>
+                                        <td>@nilaiUAS.EvaluasiSiswa.Deskripsi</td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="2">Tidak Ada Nilai UAS</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
