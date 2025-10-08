@@ -95,7 +95,7 @@
                                             </td>
                                             <td rowspan="4">@Model.AnggotaRombel.NilaiAkhir(jadwal).ToString("F1")</td>
                                             <td rowspan="4">
-                                                <a asp-action="Detail" asp-route-idJadwalMengajar="@jadwal.Id" class="btn btn-warning">Detail</a>
+                                                <a asp-action="Detail" asp-route-idJadwalMengajar="@jadwal.Id" class="btn btn-warning" data-toggle="tooltip" title="Detail Nilai"><i class="fas fa-eye"></i></a>
                                             </td>
                                         </tr>
                                         <tr>

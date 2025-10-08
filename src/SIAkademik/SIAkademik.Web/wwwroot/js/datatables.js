@@ -62,12 +62,6 @@ $('#table-akunn').DataTable({
     ],
 });
 
-$('#table-akun1').DataTable({
-    columnDefs: [
-        { "sortable": false, "targets": [1] }
-    ],
-});
-
 $('#table-akun-1').DataTable({
     dom: '<"row justify-content-between"lf><"row"B>rt<"bottom-wrapper"ip>', // Atur posisi elemen
     buttons: [
@@ -132,4 +126,29 @@ $('#tableExport').DataTable({
     buttons: [
         'csv', 'excel', 'pdf', 'print'
     ]
+});
+
+//tabel 2 kolom saja
+$('#table-akun1').DataTable({
+    columnDefs: [
+        { "sortable": false, "targets": [1] }
+    ],
+});
+
+$('#table-akun2').DataTable({
+    columnDefs: [
+        { "sortable": false, "targets": [1] }
+    ],
+});
+
+$('#table-akun3').DataTable({
+    columnDefs: [
+        { "sortable": false, "targets": [1] }
+    ],
+});
+
+$('#table-akun4').DataTable({
+    columnDefs: [
+        { "sortable": false, "targets": [1] }
+    ],
 });
