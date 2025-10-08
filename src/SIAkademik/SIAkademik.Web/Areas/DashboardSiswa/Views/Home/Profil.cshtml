@@ -1,801 +1,717 @@
 ﻿@model Siswa
 
-<img src="@Model.FotoProfil?.OriginalString" alt="Foto Profil" />
-<a asp-action="EditFotoProfil">Ganti Foto Profil</a>
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-12" >
+            <div class="card card-primary mt-3">
+                <div class="card-header border-bottom">
+                    <h4>Profil Siswa</h4>
+                    <div class="ml-auto">
+                        <a asp-action="EditProfil" class="btn btn-warning"><i class="fas fa-pencil-alt"></i><span class="pl-2">Edit Profil</span></a>
+                        <a asp-action="UbahPassword" class="btn btn-primary"><i class="fas fa-pencil-alt"></i><span class="pl-2">Ubah Password</span></a>
+                    </div>                  
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-2">
+                            <img src="@Model.FotoProfil?.OriginalString" alt="Foto Profil" />
+                            <a asp-action="EditFotoProfil">Ganti Foto Profil</a>
+                        </div>
+                        <div class="col-10">
+                            <div class="row">
 
-<p>
-    NIS/NISN : @Model.NIS/@Model.NISN <br />
-    Nama : @Model.Nama <br />
-    Tanggal Masuk : @Model.TanggalMasuk.ToString("dd MMMM yyyy", CultureInfos.CI) <br />
-    Jenjang : @Model.Jenjang.Humanize() <br />
-    Status : @Model.StatusAktif.Humanize() <br />
-    Jenis Kelamin : @Model.JenisKelamin.Humanize() <br />
-    Tempat/Tanggal Lahir : @Model.TempatLahir/@Model.TanggalLahir.ToString("dd MMMM yyyy", CultureInfos.CI) <br />
-    Agama : @Model.Agama.Humanize() <br />
-</p>
+                                <div class="col-6">
+                                    <div class="row mb-3 border-bottom pb-1">
+                                        <div class="col-md-5" style="font-weight:600;">NISN/NIS</div>
+                                        <div class="col-md-7">@Model.NIS/@Model.NISN</div>
+                                    </div>
 
-<a asp-action="EditProfil">Edit Profil</a>
-<a asp-action="UbahPassword">Ubah Password</a>
+                                    <div class="row mb-3 border-bottom pb-1">
+                                        <div class="col-md-5" style="font-weight:600;">Nama Siswa</div>
+                                        <div class="col-md-7">@Model.Nama</div>
+                                    </div>
 
-<h1>Data Diri</h1>
-<div class="row">
-    <div class="col-6">
-        Suku
-    </div>
-    @if (Model.Suku is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.Suku
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Golongan Darah
-    </div>
-    @if (Model.GolonganDarah is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.GolonganDarah
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Tinggi Badan
-    </div>
-    @if (Model.Hobi is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.TinggiBadan cm
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Berat Badan
-    </div>
-    @if (Model.Hobi is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.BeratBadan kg
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Hobi
-    </div>
-    @if (Model.Hobi is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.Hobi
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Nomor HP/WA
-    </div>
-    @if (Model.NoHP is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.NoHP.Value
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Jumlah Saudara
-    </div>
-    @if (Model.JumlahSaudara is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.JumlahSaudara orang
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Anak Ke
-    </div>
-    @if (Model.AnakKe is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.AnakKe
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Nomor Kartu Keluarga
-    </div>
-    @if (Model.NomorKartuKeluarga is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.NomorKartuKeluarga
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Nomor Kartu Pelajar
-    </div>
-    @if (Model.NomorKartuPelajar is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.NomorKartuKeluarga
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Email
-    </div>
-    @if (Model.Email is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.Email
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Asal Sekolah
-    </div>
-    @if (Model.AsalSekolah is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.AsalSekolah
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Akta Kelahiran
-    </div>
-    @if (Model.AktaKelahiran is null)
-    {
-        <div class="col-6">
-            Belum Diunggah
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            <a href="@Model.AktaKelahiran.OriginalString">Akta Kelahiran</a>
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Ijazah SMP
-    </div>
-    @if (Model.IjazahSMP is null)
-    {
-        <div class="col-6">
-            Belum Diunggah
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            <a href="@Model.IjazahSMP.OriginalString">Ijazah SMP</a>
-        </div>
-    }
-</div>
+                                    <div class="row mb-3 border-bottom pb-1">
+                                        <div class="col-md-5" style="font-weight:600;">Jenis Kelamin</div>
+                                        <div class="col-md-7">@Model.JenisKelamin.Humanize()</div>
+                                    </div>
 
-<h1>Alamat</h1>
-<div class="row">
-    <div class="col-6">
-        Kode Pos
-    </div>
-    @if (Model.AlamatLengkap.KodePos == Alamat.Empty.KodePos)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.AlamatLengkap.KodePos
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Jalan
-    </div>
-    @if (Model.AlamatLengkap.Jalan == Alamat.Empty.Jalan)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.AlamatLengkap.Jalan
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        RT/RW
-    </div>
-    <div class="col-6">
-        @Model.AlamatLengkap.RT / @Model.AlamatLengkap.RW
-    </div>
-</div>
-<div class="row">
-    <div class="col-6">
-        Kelurahan/Desa
-    </div>
-    @if (Model.AlamatLengkap.KelurahanDesa == Alamat.Empty.KelurahanDesa)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.AlamatLengkap.KelurahanDesa
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Kecamatan
-    </div>
-    @if (Model.AlamatLengkap.Kecamatan == Alamat.Empty.Kecamatan)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.AlamatLengkap.Kecamatan
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Kota/Kabupaten
-    </div>
-    @if (Model.AlamatLengkap.KotaKabupaten == Alamat.Empty.KotaKabupaten)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.AlamatLengkap.KotaKabupaten
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Provinsi
-    </div>
-    @if (Model.AlamatLengkap.Provinsi == Alamat.Empty.Provinsi)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.AlamatLengkap.Provinsi
-        </div>
-    }
-</div>
+                                    <div class="row mb-3 border-bottom pb-1">
+                                        <div class="col-md-5" style="font-weight:600;">Tempat / Tanggal Lahir</div>
+                                        <div class="col-md-7">@Model.TempatLahir / @Model.TanggalLahir.ToString("dd MMMM yyyy", CultureInfos.CI)</div>
+                                    </div>
+                                </div>
 
-<h1>Data Ayah</h1>
-<div class="row">
-    <div class="col-6">
-        Nama
-    </div>
-    @if (Model.NamaAyah is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.NamaAyah
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        NIK
-    </div>
-    @if (Model.NIKAyah is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.NIKAyah
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Pekerjaan
-    </div>
-    @if (Model.PekerjaanAyah is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.PekerjaanAyah
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Agama
-    </div>
-    @if (Model.AgamaAyah is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.AgamaAyah.Humanize()
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        No. HP/WA
-    </div>
-    @if (Model.NoHPAyah is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.NoHPAyah.Value
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Tanggal Lahir
-    </div>
-    @if (Model.TanggalLahirAyah is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.TanggalLahirAyah.Value.ToString("dd MMMM yyyy", CultureInfos.CI)
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Status Hidup
-    </div>
-    @if (Model.StatusHidupAyah is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.StatusHidupAyah
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Pendidikan Terakhir
-    </div>
-    @if (Model.PendidikanTerakhirAyah is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.PendidikanTerakhirAyah
-        </div>
-    }
-</div>
+                                <div class="col-6">
+                                    <div class="row mb-3 border-bottom pb-1">
+                                        <div class="col-md-5" style="font-weight:600;">Tanggal Masuk</div>
+                                        <div class="col-md-7">@Model.TanggalMasuk.ToString("dd MMMM yyyy", CultureInfos.CI)</div>
+                                    </div>
 
-<h1>Data Ibu</h1>
-<div class="row">
-    <div class="col-6">
-        Nama
-    </div>
-    @if (Model.NamaIbu is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.NamaIbu
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        NIK
-    </div>
-    @if (Model.NIKIbu is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.NIKIbu
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Pekerjaan
-    </div>
-    @if (Model.PekerjaanIbu is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.PekerjaanIbu
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Agama
-    </div>
-    @if (Model.AgamaIbu is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.AgamaIbu.Humanize()
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        No. HP/WA
-    </div>
-    @if (Model.NoHPIbu is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.NoHPIbu.Value
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Tanggal Lahir
-    </div>
-    @if (Model.TanggalLahirIbu is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.TanggalLahirIbu.Value.ToString("dd MMMM yyyy", CultureInfos.CI)
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Status Hidup
-    </div>
-    @if (Model.StatusHidupIbu is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.StatusHidupIbu
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Pendidikan Terakhir
-    </div>
-    @if (Model.PendidikanTerakhirIbu is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.PendidikanTerakhirIbu
-        </div>
-    }
-</div>
+                                    <div class="row mb-3 border-bottom pb-1">
+                                        <div class="col-md-5" style="font-weight:600;">Jenjang</div>
+                                        <div class="col-md-7">@Model.Jenjang.Humanize()</div>
+                                    </div>
 
-<h1>Data Wali</h1>
-<div class="row">
-    <div class="col-6">
-        Nama
+                                    <div class="row mb-3 border-bottom pb-1">
+                                        <div class="col-md-5" style="font-weight:600;">Status Siswa</div>
+                                        <div class="col-md-7">@Model.StatusAktif.Humanize()</div>
+                                    </div>
+
+                                    <div class="row mb-3 border-bottom pb-1">
+                                        <div class="col-md-5" style="font-weight:600;">Agama</div>
+                                        <div class="col-md-7">@Model.Agama.Humanize()</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @* Ini Desain Tab *@
+                            <ul class="nav nav-tabs pt-2" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                       aria-controls="home" aria-selected="true">Data Diri</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="kedua-tab" data-toggle="tab" href="#kedua" role="tab"
+                                       aria-controls="kedua" aria-selected="false">Alamat</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="ketiga-tab" data-toggle="tab" href="#ketiga" role="tab"
+                                       aria-controls="ketiga" aria-selected="false">Orang Tua</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="keempat-tab" data-toggle="tab" href="#keempat" role="tab"
+                                       aria-controls="keempat" aria-selected="false">Wali</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active pt-0" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="row border pt-2">
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-12 pb-3">
+                                                    <div class="card-header border-bottom pl-0" style="border-bottom: 2px solid #6777ef !important;">
+                                                        <h4 style="color: #6777ef">Umum</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Suku</div>
+                                                @if (Model.Suku is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.Suku</div>
+                                                }                                                
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Golongan Darah</div>
+                                                @if (Model.GolonganDarah is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.GolonganDarah</div>
+                                                }                                               
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Tinggi Badan</div>
+                                                @if (Model.TinggiBadan is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.TinggiBadan cm</div>
+                                                }                                                
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Berat Badan</div>
+                                                @if (Model.BeratBadan is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.BeratBadan kg</div>
+                                                }                                               
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Hobi</div>
+                                                @if (Model.Hobi is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.Hobi</div>
+                                                }
+                                            </div>                                           
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Jumlah Saudara</div>
+                                                @if (Model.JumlahSaudara is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7"> @Model.JumlahSaudara orang</div>                                                  
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Anak Ke-</div>
+                                                @if (Model.AnakKe is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.AnakKe</div>
+                                                }
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-12 pb-3">
+                                                    <div class="card-header border-bottom pl-0" style="border-bottom: 2px solid #6777ef !important;">
+                                                        <h4 style="color: #6777ef">Kontak</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">No. HP/WA</div>
+                                                @if (Model.NoHP is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.NoHP.Value</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Email</div>
+                                                @if (Model.Email is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.Email</div>
+                                                }
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-12 pb-3">
+                                                    <div class="card-header border-bottom pl-0" style="border-bottom: 2px solid #6777ef !important;">
+                                                        <h4 style="color: #6777ef">Asal Sekolah & Dokumen</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">No. KK</div>
+                                                @if (Model.NomorKartuKeluarga is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>                                                
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.NomorKartuKeluarga</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">No. Kartu Pelajar</div>
+                                                @if (Model.NomorKartuPelajar is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.NomorKartuPelajar</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Asal Sekolah</div>
+                                                @if (Model.AsalSekolah is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.AsalSekolah</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Akta Kelahiran</div>
+                                                @if (Model.AktaKelahiran is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diunggah</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7"><a href="@Model.AktaKelahiran.OriginalString">Akta Kelahiran</a></div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Ijazah SMP</div>
+                                                @if (Model.IjazahSMP is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diunggah</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7"><a href="@Model.IjazahSMP.OriginalString">Ijazah SMP</a></div>
+                                                    <div class="col-6">
+                                                        <a href="@Model.IjazahSMP.OriginalString">Ijazah SMP</a>
+                                                    </div>
+                                                }                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade pt-0" id="kedua" role="tabpanel" aria-labelledby="kedua-tab">
+                                    <div class="row border pt-2">
+                                        <div class="col-6">                                            
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Kode Pos</div>
+                                                @if (Model.AlamatLengkap.KodePos == Alamat.Empty.KodePos)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.AlamatLengkap.KodePos</div>
+                                                }                                               
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Jalan</div>
+                                                @if (Model.AlamatLengkap.Jalan == Alamat.Empty.Jalan)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7"> @Model.AlamatLengkap.Jalan</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">RT / RW</div>
+                                                <div class="col-md-7">@Model.AlamatLengkap.RT / @Model.AlamatLengkap.RW</div>
+                                            </div>
+
+                                            <div class="row mb-3 pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Kelurahan / Desa</div>
+                                                @if (Model.AlamatLengkap.KelurahanDesa == Alamat.Empty.KelurahanDesa)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7"> @Model.AlamatLengkap.KelurahanDesa</div>                                                   
+                                                }                                              
+                                            </div>                                          
+                                            
+                                        </div>
+
+                                        <div class="col-6">                                           
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Kecamatan</div>
+                                                @if (Model.AlamatLengkap.Kecamatan == Alamat.Empty.Kecamatan)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7"> @Model.AlamatLengkap.Kecamatan</div>                                                   
+                                                }                                              
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Kabupaten / Kota</div>
+                                                @if (Model.AlamatLengkap.KotaKabupaten == Alamat.Empty.KotaKabupaten)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.AlamatLengkap.KotaKabupaten</div>                                                  
+                                                }                                              
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Provinsi</div>
+                                                @if (Model.AlamatLengkap.Provinsi == Alamat.Empty.Provinsi)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7"> @Model.AlamatLengkap.Provinsi</div>
+                                                }                                              
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade pt-0" id="ketiga" role="tabpanel" aria-labelledby="ketiga-tab">
+                                    <div class="row border pt-2">
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-12 pb-3">
+                                                    <div class="card-header border-bottom pl-0" style="border-bottom: 2px solid #6777ef !important;">
+                                                        <h4 style="color: #6777ef">Biodata Ayah</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Nama Lengkap</div>
+                                                @if (Model.NamaAyah is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7"> @Model.NamaAyah</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">NIK</div>
+                                                @if (Model.NIKAyah is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">  @Model.NIKAyah</div>
+                                                }                                              
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Pekerjaan</div>
+                                                @if (Model.PekerjaanAyah is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7"> @Model.PekerjaanAyah</div>
+                                                }                                                                                        
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Agama</div>
+                                                @if (Model.AgamaAyah is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.AgamaAyah.Humanize()</div>
+                                                }                                               
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">No. HP/WA</div>
+                                                @if (Model.NoHPAyah is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.NoHPAyah.Value</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Tanggal Lahir</div>
+                                                @if (Model.TanggalLahirAyah is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.TanggalLahirAyah.Value.ToString("dd MMMM yyyy", CultureInfos.CI)</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Status Hidup</div>
+                                                @if (Model.StatusHidupAyah is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.StatusHidupAyah</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Pendidikan Terakhir</div>
+                                                @if (Model.PendidikanTerakhirAyah is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7"> @Model.PendidikanTerakhirAyah</div>
+                                                }                                            
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-12 pb-3">
+                                                    <div class="card-header border-bottom pl-0" style="border-bottom: 2px solid #6777ef !important;">
+                                                        <h4 style="color: #6777ef">Biodata Ibu</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Nama Lengkap</div>
+                                                @if (Model.NamaIbu is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7"> @Model.NamaIbu</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">NIK</div>
+                                                @if (Model.NIKIbu is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">  @Model.NIKIbu</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Pekerjaan</div>
+                                                @if (Model.PekerjaanIbu is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7"> @Model.PekerjaanIbu</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Agama</div>
+                                                @if (Model.AgamaIbu is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.AgamaIbu.Humanize()</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">No. HP/WA</div>
+                                                @if (Model.NoHPIbu is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.NoHPIbu.Value</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Tanggal Lahir</div>
+                                                @if (Model.TanggalLahirIbu is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.TanggalLahirIbu.Value.ToString("dd MMMM yyyy", CultureInfos.CI)</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Status Hidup</div>
+                                                @if (Model.StatusHidupIbu is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.StatusHidupIbu</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Pendidikan Terakhir</div>
+                                                @if (Model.PendidikanTerakhirIbu is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7"> @Model.PendidikanTerakhirIbu</div>
+                                                }
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade pt-0" id="keempat" role="tabpanel" aria-labelledby="keempat-tab">
+                                    <div class="row border pt-2">
+                                        <div class="col-6">
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Nama Lengkap</div>
+                                                @if (Model.NamaWali is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7"> @Model.NamaWali</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">NIK</div>
+                                                @if (Model.NIKWali is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">  @Model.NIKWali</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Pekerjaan</div>
+                                                @if (Model.PekerjaanWali is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7"> @Model.PekerjaanWali</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Agama</div>
+                                                @if (Model.AgamaWali is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.AgamaWali.Humanize()</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">No. HP/WA</div>
+                                                @if (Model.NoHPWali is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.NoHPWali.Value</div>
+                                                }
+                                            </div>                                            
+
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Tanggal Lahir</div>
+                                                @if (Model.TanggalLahirWali is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.TanggalLahirWali.Value.ToString("dd MMMM yyyy", CultureInfos.CI)</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Status Hidup</div>
+                                                @if (Model.StatusHidupWali is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.StatusHidupWali</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Pendidikan Terakhir</div>
+                                                @if (Model.PendidikanTerakhirWali is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7"> @Model.PendidikanTerakhirWali</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Hubungan Dengan Wali</div>
+                                                @if (Model.HubunganDenganWali is null)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7"> @Model.HubunganDenganWali</div>
+                                                }
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    @if (Model.NamaWali is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.NamaWali
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        NIK
-    </div>
-    @if (Model.NIKWali is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.NIKWali
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Pekerjaan
-    </div>
-    @if (Model.PekerjaanWali is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.PekerjaanWali
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Agama
-    </div>
-    @if (Model.AgamaWali is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.AgamaWali.Humanize()
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        No. HP/WA
-    </div>
-    @if (Model.NoHPWali is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.NoHPWali.Value
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Tanggal Lahir
-    </div>
-    @if (Model.TanggalLahirWali is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.TanggalLahirWali.Value.ToString("dd MMMM yyyy", CultureInfos.CI)
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Status Hidup
-    </div>
-    @if (Model.StatusHidupWali is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.StatusHidupWali
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Pendidikan Terakhir
-    </div>
-    @if (Model.PendidikanTerakhirWali is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.PendidikanTerakhirWali
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="col-6">
-        Hubungan Dengan Wali
-    </div>
-    @if (Model.HubunganDenganWali is null)
-    {
-        <div class="col-6">
-            Belum Diisi
-        </div>
-    }
-    else
-    {
-        <div class="col-6">
-            @Model.HubunganDenganWali
-        </div>
-    }
 </div>
