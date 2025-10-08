@@ -26,14 +26,18 @@
             <div class="container mt-5">
                 <div class="row">
                     <div class="col-12 col-md-10 offset-md-1 col-lg-10 offset-lg-1">
-                        <div class="login-brand">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <img src="~/images/navigation/logo_sekolah_transparent.png" style="width: 50px; height: 50px;" />
+                        </div>
+                        <div class="login-brand mt-2">
                             SIAKAD SMAK PANDHEGA JAYA
                         </div>
                         <div class="card card-primary">
                             <div class="row m-0">
                                 <div class="col-12 col-md-12 col-lg-5 p-0">
                                     <div class="card-header text-center">
-                                        <h4>Dashboard Admin</h4>
+                                        <h4 class="pr-0">Selamat Datang</h4>
+                                        <span style='font-size:20px;'>&#128075;</span>
                                     </div>
                                     <div class="card-body">
                                         <form asp-action="Login" asp-controller="Home" asp-area="Dashboard" method="post">
@@ -66,7 +70,7 @@
                                             <div class="form-group floating-addon">
                                                 <div class="custom-control custom-checkbox">
                                                     <input asp-for="@Model.RememberMe" type="checkbox" name="remember" class="custom-control-input">
-                                                    <label class="custom-control-label" asp-for="@Model.RememberMe">Remember Me</label>
+                                                    <label class="custom-control-label" asp-for="@Model.RememberMe">Ingat Saya</label>
                                                     <span class="text-danger" asp-validation-for="@Model.RememberMe"></span>
                                                 </div>         
                                             </div>
