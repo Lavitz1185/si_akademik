@@ -409,14 +409,17 @@
                     }
                     else
                     {
-                        @if (Model.TahunAjaran is null)
-                        {
-                            <p>Tidak Ada Data Tahun Ajaran</p>
-                        }
-                        else
-                        {
-                            <p>Anda tidak memiliki kelas di tahun ajaran ini atau mata pelajaran ini</p>
-                        }
+                        <div class="d-flex justify-content-center mt-5">
+                            @if (Model.TahunAjaran is null)
+                            {
+                                <p>Tidak Ada Data Tahun Ajaran</p>
+                            }
+                            else
+                            {
+                                <p>Anda tidak memiliki kelas di tahun ajaran ini atau mata pelajaran ini</p>
+                            }
+                        </div>
+                        
                     }
                 </div>
             </div>            
