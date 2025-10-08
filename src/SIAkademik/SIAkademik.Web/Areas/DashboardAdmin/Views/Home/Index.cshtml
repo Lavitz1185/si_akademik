@@ -12,8 +12,8 @@
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h6 class="text-muted mb-1">Total Siswa</h6>
-                        <h3 class="fw-bold">1,245</h3>
-                        <small class="text-success">+90 siswa baru semester ini</small>
+                        <h3 class="fw-bold">@Model.DaftarSiswa.Count</h3>
+                        <small class="text-success">+@Model.DaftarSiswa.Where(s => s.TanggalMasuk.Year == CultureInfos.DateTimeNow.Year).Count() siswa baru semester ini</small>
                     </div>
                 </div>
             </div>
@@ -23,29 +23,32 @@
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h6 class="text-muted mb-1">Total Guru</h6>
-                        <h3 class="fw-bold">87</h3>
-                        <small class="text-success">+2 guru baru</small>
+                        <h3 class="fw-bold">@Model.DaftarPegawai.Count</h3>
+                        <small class="text-success">+@Model.DaftarPegawai.Where(p => p.TanggalMasuk.Year == CultureInfos.DateTimeNow.Year).Count() guru baru</small>
                     </div>
                 </div>
             </div>
 
-            <!-- Card Kelas Aktif -->
-            <div class="col-md-3">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h6 class="text-muted mb-1">Kelas Aktif</h6>
-                        <h3 class="fw-bold">36</h3>
-                        <small class="text-muted">Tahun Ajaran 2025/2026</small>
+            @if(Model.TahunAjaran is not null)
+            {
+                <!-- Card Kelas Aktif -->
+                <div class="col-md-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h6 class="text-muted mb-1">Kelas Aktif</h6>
+                            <h3 class="fw-bold">@Model.DaftarRombel.Count</h3>
+                            <small class="text-muted">Tahun Ajaran @Model.TahunAjaran.Periode @Model.TahunAjaran.Semester.Humanize()</small>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
 
             <!-- Card Jumlah Alumni -->
             <div class="col-md-3">
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h6 class="text-muted mb-1">Jumlah Siswa Lulus</h6>
-                        <h3 class="fw-bold">300</h3>
+                        <h3 class="fw-bold">@Model.DaftarSiswa.Where(s => s.StatusAktif == StatusAktifMahasiswa.TidakAktif).Count()</h3>
                         <small class="text-muted">Alumni SMAK Pandhega Jaya</small>
                     </div>
                 </div>
@@ -68,28 +71,17 @@
                                         <th>Jenjang</th>
                                         <th>Jumlah Kelas</th>
                                         <th>Jumlah Siswa</th>
-                                        <th>Rata-rata Nilai</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-center">
-                                    <tr>
-                                        <td>X</td>
-                                        <td>12</td>
-                                        <td>410</td>
-                                        <td>82.3</td>
-                                    </tr>
-                                    <tr>
-                                        <td>XI</td>
-                                        <td>12</td>
-                                        <td>417</td>
-                                        <td>84.1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>XII</td>
-                                        <td>12</td>
-                                        <td>418</td>
-                                        <td>86.0</td>
-                                    </tr>
+                                    @foreach(var jenjang in Enum.GetValues<Jenjang>())
+                                    {
+                                        <tr>
+                                            <td>@jenjang.Humanize()</td>
+                                            <td>@Model.DaftarRombel.Where(r => r.Kelas.Jenjang == jenjang).Count()</td>
+                                            <td>@Model.DaftarRombel.Where(r => r.Kelas.Jenjang == jenjang).SelectMany(r => r.DaftarAnggotaRombel).Count()</td>
+                                        </tr>
+                                    }
                                 </tbody>
                             </table>
                         </div>                       
@@ -105,19 +97,19 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
                                 📋 Data Siswa
-                                <a href="#" class="btn btn-primary btn-sm">Lihat</a>
+                                <a asp-action="Index" asp-controller="Siswa" class="btn btn-primary btn-sm">Lihat</a>
                             </li>
                             <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
                                 👨‍🏫 Data Guru
-                                <a href="#" class="btn btn-primary btn-sm">Lihat</a>
+                                <a asp-action="Index" asp-controller="Pegawai" class="btn btn-primary btn-sm">Lihat</a>
                             </li>
                             <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
                                 🏫 Data Kelas
-                                <a href="#" class="btn btn-primary btn-sm">Lihat</a>
+                                <a asp-action="Index" asp-controller="Kelas" asp-route-idTahunAjaran="@Model.TahunAjaran?.Id" class="btn btn-primary btn-sm">Lihat</a>
                             </li>
                             <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
                                 ⚙️ Mata Pelajaran
-                                <a href="#" class="btn btn-primary btn-sm">Lihat</a>
+                                <a asp-action="Index" asp-controller="MataPelajaran" class="btn btn-primary btn-sm">Lihat</a>
                             </li>
                             <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
                                 🧾 Nilai & Penilaian
@@ -125,7 +117,7 @@
                             </li>
                             <li class="list-group-item px-0 d-flex justify-content-between align-items-center">                    
                                 📅 Jadwal Mengajar
-                                <a href="#" class="btn btn-primary btn-sm">Lihat</a>
+                                <a asp-action="Index" asp-controller="JadwalMengajar" asp-route-idTahunAjaran="@Model.TahunAjaran?.Id" class="btn btn-primary btn-sm">Lihat</a>
                             </li>
                         </ul>
                     </div>
