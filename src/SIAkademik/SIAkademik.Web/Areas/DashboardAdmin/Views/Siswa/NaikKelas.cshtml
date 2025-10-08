@@ -32,7 +32,7 @@
         <form asp-action="NaikKelas" id="naikKelas" asp-route-jenjang="@Model.jenjang">
             <div class="d-flex justify-content-between ml-auto mb-3">
                 <div class="d-flex align-items-center" style="gap: 8px;">
-                    <label asp-for="@Model.JenjangTujuan" class="mb-0" style="font-weight: 600; min-width:150px;">Pilih Jenjang Tujuan:</label>
+                    <label asp-for="@Model.JenjangTujuan" class="mb-0" style="font-weight: 600; min-width:140px;">Pilih Jenjang Tujuan:</label>
                     <select asp-for="@Model.JenjangTujuan" class="form-control form-control-sm w-auto">
                         @if(Model.jenjang == Jenjang.X)
                         {
