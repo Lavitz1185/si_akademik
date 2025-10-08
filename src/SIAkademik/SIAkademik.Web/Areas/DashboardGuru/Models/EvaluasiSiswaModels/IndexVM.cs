@@ -13,8 +13,6 @@ public class IndexVM
     public JadwalMengajar? JadwalMengajar { get; set; }
     public int? IdJadwalMengajar { get; set; }
 
-    public required JenisNilai Jenis { get; set; }
-
     public List<EvaluasiSiswa> DaftarEvaluasiSiswa { get; set; } = [];
     public List<JadwalMengajar> DaftarJadwalMengajar { get; set; } = [];
 }

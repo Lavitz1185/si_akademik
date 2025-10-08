@@ -399,3 +399,5 @@ FodyWeavers.xsd
 
 # Env
 *.env
+/src/SIAkademik/SIAkademik.Web/appsettings.Production.json
+/src/SIAkademik/SIAkademik.Web/appsettings.Production.json

@@ -36,92 +36,326 @@
             </option>
         }
     </select>
-
-    <select asp-for="@Model.Jenis" class="submit-on-change">
-        @foreach (var jenis in Enum.GetValues<JenisNilai>())
-        {
-            <option value="@jenis">@jenis.Humanize()</option>
-        }
-    </select>
 </form>
 
 @if (Model.TahunAjaran is not null && Model.JadwalMengajar is not null)
 {
-    @if((Model.Jenis != JenisNilai.UTS && Model.Jenis != JenisNilai.UAS) || (Model.DaftarEvaluasiSiswa.Count == 0))
-    {
-        <button type="button" id="tambah">Tambah</button>
-        <div id="formTambah" style="display:none">
-            <form asp-action="Tambah" asp-route-idTahunAjaran="@Model.IdTahunAjaran" asp-route-idJadwalMengajar="@Model.IdJadwalMengajar"
-                  asp-route-jenis="@Model.Jenis" method="post">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTambah">Tambah @Model.Jenis.Humanize()</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="deskripsi">Deskripsi</label>
-                        <input id="deskripsi" name="deskripsi" class="form-control" />
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                </div>
-            </form>
-        </div>
-    }
-
-    <table>
-        <thead>
-            <tr>
-                <th>Dekripsi</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var evaluasiSiswa in Model.DaftarEvaluasiSiswa)
-            {
-                <tr>
-                    <td>@evaluasiSiswa.Deskripsi</td>
-                    <td>
-                        <button type="button" class="btn-edit">Edit</button>
-                        <div class="form-edit" style="display:none">
-                            <form asp-action="Edit" asp-route-id="@evaluasiSiswa.Id">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalTambah">Edit @Model.Jenis.Humanize()</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="deskripsi">Deskripsi</label>
-                                        <input id="deskripsi" name="deskripsi" class="form-control" value="@evaluasiSiswa.Deskripsi" />
-                                    </div>
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                </div>
-                            </form>
+    @* Ini Desain Tab *@
+    <div class="card-body mt-3">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                   aria-controls="home" aria-selected="true">Tugas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="kedua-tab" data-toggle="tab" href="#kedua" role="tab"
+                   aria-controls="kedua" aria-selected="false">Ulangan Harian</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="ketiga-tab" data-toggle="tab" href="#ketiga" role="tab"
+                   aria-controls="ketiga" aria-selected="false">Ujian Tengah Semester</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="keempat-tab" data-toggle="tab" href="#keempat" role="tab"
+                   aria-controls="keempat" aria-selected="false">Ujian Akhir Semester</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <button type="button" class="btn-tambah">Tambah</button>
+                <div class="form-tambah" style="display:none">
+                    <form asp-action="Tambah" asp-route-idTahunAjaran="@Model.IdTahunAjaran" asp-route-idJadwalMengajar="@Model.IdJadwalMengajar"
+                          asp-route-jenis="@JenisNilai.Tugas" method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalTambah">Tambah Tugas</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
 
-                        <form asp-action="Hapus" asp-route-id="@evaluasiSiswa.Id" title="Hapus">
-                            <button type="submit" class="btn btn-danger btn-action swal-confirm">Hapus</button>
-                        </form>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="deskripsi">Deskripsi</label>
+                                <input id="deskripsi" name="deskripsi" class="form-control" />
+                            </div>
+                        </div>
 
-                        <a asp-action="IsiNilai" asp-route-id="@evaluasiSiswa.Id">Isi Nilai</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        </div>
+                    </form>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dekripsi</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var evaluasiSiswa in Model.DaftarEvaluasiSiswa.Where(e => e.Jenis == JenisNilai.Tugas))
+                        {
+                            <tr>
+                                <td>@evaluasiSiswa.Deskripsi</td>
+                                <td>
+                                    <button type="button" class="btn-edit">Edit</button>
+                                    <div class="form-edit" style="display:none">
+                                        <form asp-action="Edit" asp-route-id="@evaluasiSiswa.Id">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalTambah">Edit Tugas</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="deskripsi">Deskripsi</label>
+                                                    <input id="deskripsi" name="deskripsi" class="form-control" value="@evaluasiSiswa.Deskripsi" />
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <form asp-action="Hapus" asp-route-id="@evaluasiSiswa.Id" title="Hapus">
+                                        <button type="submit" class="btn btn-danger btn-action swal-confirm">Hapus</button>
+                                    </form>
+
+                                    <a asp-action="IsiNilai" asp-route-id="@evaluasiSiswa.Id">Isi Nilai</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="kedua" role="tabpanel" aria-labelledby="kedua-tab">
+                <button type="button" class="btn-tambah">Tambah</button>
+                <div class="form-tambah" style="display:none">
+                    <form asp-action="Tambah" asp-route-idTahunAjaran="@Model.IdTahunAjaran" asp-route-idJadwalMengajar="@Model.IdJadwalMengajar"
+                          asp-route-jenis="@JenisNilai.UH" method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalTambah">Tambah Ulangan Harian</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="deskripsi">Deskripsi</label>
+                                <input id="deskripsi" name="deskripsi" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        </div>
+                    </form>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dekripsi</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var evaluasiSiswa in Model.DaftarEvaluasiSiswa.Where(e => e.Jenis == JenisNilai.UH))
+                        {
+                            <tr>
+                                <td>@evaluasiSiswa.Deskripsi</td>
+                                <td>
+                                    <button type="button" class="btn-edit">Edit</button>
+                                    <div class="form-edit" style="display:none">
+                                        <form asp-action="Edit" asp-route-id="@evaluasiSiswa.Id">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalTambah">Edit Ulangan Harian</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="deskripsi">Deskripsi</label>
+                                                    <input id="deskripsi" name="deskripsi" class="form-control" value="@evaluasiSiswa.Deskripsi" />
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <form asp-action="Hapus" asp-route-id="@evaluasiSiswa.Id" title="Hapus">
+                                        <button type="submit" class="btn btn-danger btn-action swal-confirm">Hapus</button>
+                                    </form>
+
+                                    <a asp-action="IsiNilai" asp-route-id="@evaluasiSiswa.Id">Isi Nilai</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="ketiga" role="tabpanel" aria-labelledby="ketiga-tab">
+                @if(Model.DaftarEvaluasiSiswa.Where(e => e.Jenis == JenisNilai.UTS).Count() == 0) 
+                {
+                    <button type="button" class="btn-tambah">Tambah</button>
+                    <div class="form-tambah" style="display:none">
+                        <form asp-action="Tambah" asp-route-idTahunAjaran="@Model.IdTahunAjaran" asp-route-idJadwalMengajar="@Model.IdJadwalMengajar"
+                              asp-route-jenis="@JenisNilai.UTS" method="post">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalTambah">Tambah Ujian Tengah Semester</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="deskripsi">Deskripsi</label>
+                                    <input id="deskripsi" name="deskripsi" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            </div>
+                        </form>
+                    </div>
+                }
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dekripsi</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var evaluasiSiswa in Model.DaftarEvaluasiSiswa.Where(e => e.Jenis == JenisNilai.UTS))
+                        {
+                            <tr>
+                                <td>@evaluasiSiswa.Deskripsi</td>
+                                <td>
+                                    <button type="button" class="btn-edit">Edit</button>
+                                    <div class="form-edit" style="display:none">
+                                        <form asp-action="Edit" asp-route-id="@evaluasiSiswa.Id">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalTambah">Edit Ujian Tengah Semester</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="deskripsi">Deskripsi</label>
+                                                    <input id="deskripsi" name="deskripsi" class="form-control" value="@evaluasiSiswa.Deskripsi" />
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <a asp-action="IsiNilai" asp-route-id="@evaluasiSiswa.Id">Isi Nilai</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="keempat" role="tabpanel" aria-labelledby="keempat-tab">
+                @if (Model.DaftarEvaluasiSiswa.Where(e => e.Jenis == JenisNilai.UAS).Count() == 0)
+                {
+                    <button type="button" class="btn-tambah">Tambah</button>
+                    <div class="form-tambah" style="display:none">
+                        <form asp-action="Tambah" asp-route-idTahunAjaran="@Model.IdTahunAjaran" asp-route-idJadwalMengajar="@Model.IdJadwalMengajar"
+                              asp-route-jenis="@JenisNilai.UAS" method="post">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalTambah">Tambah Ujian Akhir Semester</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="deskripsi">Deskripsi</label>
+                                    <input id="deskripsi" name="deskripsi" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            </div>
+                        </form>
+                    </div>
+                }
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dekripsi</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var evaluasiSiswa in Model.DaftarEvaluasiSiswa.Where(e => e.Jenis == JenisNilai.UTS))
+                        {
+                            <tr>
+                                <td>@evaluasiSiswa.Deskripsi</td>
+                                <td>
+                                    <button type="button" class="btn-edit">Edit</button>
+                                    <div class="form-edit" style="display:none">
+                                        <form asp-action="Edit" asp-route-id="@evaluasiSiswa.Id">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalTambah">Edit Ujian Akhir Semester</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="deskripsi">Deskripsi</label>
+                                                    <input id="deskripsi" name="deskripsi" class="form-control" value="@evaluasiSiswa.Deskripsi" />
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <a asp-action="IsiNilai" asp-route-id="@evaluasiSiswa.Id">Isi Nilai</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @* Akhir Desain Tab *@
 }
 else
 {
@@ -135,47 +369,6 @@ else
     }
 }
 
-@* Ini Desain Tab *@
-<div class="card-body mt-3">
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
-               aria-controls="home" aria-selected="true">Tugas</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="kedua-tab" data-toggle="tab" href="#kedua" role="tab"
-               aria-controls="kedua" aria-selected="false">Ulangan Harian</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="ketiga-tab" data-toggle="tab" href="#ketiga" role="tab"
-               aria-controls="ketiga" aria-selected="false">Ujian Tengah Semester</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="keempat-tab" data-toggle="tab" href="#keempat" role="tab"
-               aria-controls="keempat" aria-selected="false">Ujian Akhir Semester</a>
-        </li>
-    </ul>
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            @* Isi Dalam Sini *@
-            <h1>Tab 1</h1>
-        </div>
-        <div class="tab-pane fade" id="kedua" role="tabpanel" aria-labelledby="kedua-tab">
-            @* Isi Dalam Sini *@
-            <h1>Tab 2</h1>
-        </div>
-        <div class="tab-pane fade" id="ketiga" role="tabpanel" aria-labelledby="ketiga-tab">
-            @* Isi Dalam Sini *@
-            <h1>Tab 3</h1>
-        </div>
-        <div class="tab-pane fade" id="keempat" role="tabpanel" aria-labelledby="keempat-tab">
-            @* Isi Dalam Sini *@
-            <h1>Tab 4</h1>
-        </div>
-    </div>
-</div>
-@* Akhir Desain Tab *@
-
 @section Scripts {
     <script type="text/javascript">
         $(function() {
@@ -183,12 +376,13 @@ else
                 $(this).closest('form').trigger('submit');
             });
 
-            const formTambah = $('#formTambah')
-            if (formTambah) {
-                $('#modalTambahContent').html($(formTambah).html());
-                $('button#tambah').on('click', () => $('#modalTambah').modal('show'))
-                $(formTambah).remove();
-            }
+            $('.form-tambah').each(function() {
+                const formTambah = $(this);
+                formTambah.siblings('.btn-tambah').on('click',() => {
+                    $('#modalTambahContent').html($(formTambah).html());
+                    $('#modalTambah').modal('show');
+                });
+            });
 
             $('.form-edit').each(function() {
                 const formEdit = $(this);

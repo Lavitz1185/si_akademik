@@ -42,7 +42,7 @@ public class EvaluasiSiswaController : Controller
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<IActionResult> Index(int? idTahunAjaran = null, int? idJadwalMengajar = null, JenisNilai jenis = JenisNilai.Tugas)
+    public async Task<IActionResult> Index(int? idTahunAjaran = null, int? idJadwalMengajar = null)
     {
         var pegawai = await _signInManager.GetPegawai();
         if (pegawai is null) return Forbid();
@@ -51,7 +51,7 @@ public class EvaluasiSiswaController : Controller
             await _tahunAjaranRepository.GetNewest() :
             await _tahunAjaranRepository.Get(idTahunAjaran.Value);
 
-        if (tahunAjaran is null) return View(new IndexVM { Pegawai = pegawai, Jenis = jenis });
+        if (tahunAjaran is null) return View(new IndexVM { Pegawai = pegawai });
 
         var daftarJadwalMengajar = await _jadwalMengajarRepository.GetAllByTahunAjaran(tahunAjaran.Id);
         daftarJadwalMengajar = daftarJadwalMengajar.Where(j => j.Rombel.Wali == pegawai).ToList();
@@ -66,9 +66,42 @@ public class EvaluasiSiswaController : Controller
                 Pegawai = pegawai,
                 TahunAjaran = tahunAjaran,
                 IdTahunAjaran = tahunAjaran.Id,
-                Jenis = jenis,
                 DaftarJadwalMengajar = daftarJadwalMengajar
-            });
+            }); 
+
+        if (jadwalMengajar.DaftarEvaluasiSiswa.Count(e => e.Jenis == JenisNilai.UTS) == 0)
+        {
+            var evaluasiSiswa = new EvaluasiSiswa
+            {
+                Deskripsi = "UTS",
+                JadwalMengajar = jadwalMengajar,
+                Jenis = JenisNilai.UTS
+            };
+
+            foreach (var anggotaRombel in jadwalMengajar.Rombel.DaftarAnggotaRombel)
+                _nilaiEvaluasiSiswaRepository.Add(new NilaiEvaluasiSiswa { Nilai = 0, AnggotaRombel = anggotaRombel, EvaluasiSiswa = evaluasiSiswa });
+
+            _evaluasiSiswaRepository.Add(evaluasiSiswa);
+
+            var result = await _unitOfWork.SaveChangesAsync();
+        }
+
+        if (jadwalMengajar.DaftarEvaluasiSiswa.Count(e => e.Jenis == JenisNilai.UAS) == 0)
+        {
+            var evaluasiSiswa = new EvaluasiSiswa
+            {
+                Deskripsi = "UAS",
+                JadwalMengajar = jadwalMengajar,
+                Jenis = JenisNilai.UAS
+            };
+
+            foreach (var anggotaRombel in jadwalMengajar.Rombel.DaftarAnggotaRombel)
+                _nilaiEvaluasiSiswaRepository.Add(new NilaiEvaluasiSiswa { Nilai = 0, AnggotaRombel = anggotaRombel, EvaluasiSiswa = evaluasiSiswa });
+
+            _evaluasiSiswaRepository.Add(evaluasiSiswa);
+
+            var result = await _unitOfWork.SaveChangesAsync();
+        }
 
         return View(new IndexVM
         {
@@ -77,8 +110,7 @@ public class EvaluasiSiswaController : Controller
             IdTahunAjaran = tahunAjaran.Id,
             JadwalMengajar = jadwalMengajar,
             IdJadwalMengajar = jadwalMengajar.Id,
-            Jenis = jenis,
-            DaftarEvaluasiSiswa = jadwalMengajar.DaftarEvaluasiSiswa.Where(e => e.Jenis == jenis).ToList(),
+            DaftarEvaluasiSiswa = jadwalMengajar.DaftarEvaluasiSiswa,
             DaftarJadwalMengajar = daftarJadwalMengajar
         });
     }
@@ -101,13 +133,13 @@ public class EvaluasiSiswaController : Controller
             if (jadwalMengajar.DaftarEvaluasiSiswa.Any(e => e.Jenis == jenis))
             {
                 _toastrNotificationService.AddError($"Nilai {jenis.Humanize()} hanya boleh ada 1 per mata pelajaran");
-                return RedirectToAction(nameof(Index), new { idJadwalMengajar, idTahunAjaran, jenis });
+                return RedirectToAction(nameof(Index), new { idJadwalMengajar, idTahunAjaran });
             }
             else
             if (jadwalMengajar.DaftarEvaluasiSiswa.Any(e => e.Deskripsi.ToLower() == deskripsi.ToLower()))
             {
                 _toastrNotificationService.AddError($"{jenis.Humanize()} dengan deskripsi '{deskripsi}' sudah ada");
-                return RedirectToAction(nameof(Index), new { idJadwalMengajar, idTahunAjaran, jenis });
+                return RedirectToAction(nameof(Index), new { idJadwalMengajar, idTahunAjaran });
             }
 
         var evaluasiSiswa = new EvaluasiSiswa
@@ -137,7 +169,7 @@ public class EvaluasiSiswaController : Controller
         else
             _toastrNotificationService.AddSuccess("Simpan berhasil!");
 
-        return RedirectToAction(nameof(Index), new { idJadwalMengajar, idTahunAjaran, jenis });
+        return RedirectToAction(nameof(Index), new { idJadwalMengajar, idTahunAjaran });
     }
 
     [HttpPost]
@@ -171,7 +203,6 @@ public class EvaluasiSiswaController : Controller
             {
                 idJadwalMengajar = evaluasiSiswa.JadwalMengajar.Id,
                 idTahunAjaran = evaluasiSiswa.JadwalMengajar.Rombel.Kelas.TahunAjaran.Id,
-                jenis = evaluasiSiswa.Jenis
             });
     }
 
