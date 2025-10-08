@@ -4,15 +4,14 @@
 @inject IJadwalMengajarRepository JadwalMengajarRepository
 @inject IRombelRepository RombelRepository
 
-
 <!-- Breadcrumb -->
 <div class="row" style="justify-content: center;">
     <div class="col-12 col-md-6 col-lg-6" style="padding: 0;">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Wali Kelas</a></li>
-                <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="Raport" asp-action="Index">Raport</a></li>
-@*                 <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="Raport" asp-action="Detail">Detail Raport</a></li> *@
+                <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="Raport" asp-action="Index">Rapor</a></li>
+                <li class="breadcrumb-item"><a href=""> Detail Rapor</a></li>
                 <li class="breadcrumb-item" aria-current="page">Tambah Data</li>
             </ol>
         </nav>
@@ -24,7 +23,7 @@
         <div class="col-12 col-md-6 col-lg-6">
             <div class="card card-danger">
                 <div class="card-header" style="padding-top: 20px;">
-                    <h4>Tambah Nilai</h4>
+                    <h4>Tambah Data Nilai</h4>
                 </div>
 
                 <form asp-action="Tambah" method="post" class="container">
@@ -75,8 +74,8 @@
 
                     </div>
                                      
-                    <div class="card-footer text-right">
-                        <a href="javascript:void(0)" class="btn btn-danger swal-cancel">Batal</a>
+                    <div class="card-footer text-right pt-0">
+                        <a href="javascript:void(0)" class="btn btn-danger text-white swal-cancel">Batal</a>
                         <button class="btn btn-primary mr-1" type="submit">Simpan</button>
                     </div>
                 </form>
