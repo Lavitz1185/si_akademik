@@ -1,111 +1,168 @@
 ﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.KelasWaliModels
 @model DetailJadwalVM
 
-<h1>Nilai</h1>
-<table>
-    <thead>
-        <tr>
-            <th>NIS</th>
-            <th>NISN</th>
-            <th>Nama</th>
-            <th>Nilai</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var anggotaRombel in Model.Rombel.DaftarAnggotaRombel)
-        {
-            <tr>
-                <td>@anggotaRombel.Siswa.NIS</td>
-                <td>@anggotaRombel.Siswa.NISN</td>
-                <td>@anggotaRombel.Siswa.Nama</td>
-                <td>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+<!-- Breadcrumb -->
+<div class="row">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Wali Kelas</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="KelasWali" asp-action="Index">Kelas Wali</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="KelasWali" asp-action="Detail">Detail Data</a></li>
+            <li class="breadcrumb-item" aria-current="page">Detail Jadwal</li>
+        </ol>
+    </nav>
+</div>
+
+<!-- Isi Konten -->
+<div class="section-body">
+    <div class="row mb-3" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-12">
+            <div class="card card-info mb-2">
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Detail Jadwal</h4>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <form asp-action="DetailJadwal" asp-route-id="@Model.Rombel.Id" asp-route-idJadwal="@Model.JadwalMengajar.Id" class="d-flex align-items-center" style="gap: 8px;">
+                            <label for="showTidakAktif" class="mb-0" style="font-weight: 600;">Pertemuan:</label>
+                            <select id="idPertemuan" name="idPertemuan" class="form-control form-control-sm w-auto">
+                                @if (Model.Pertemuan is null)
+                                {
+                                    <option selected value="">-- Pilih Pertemuan --</option>
+                                }
+
+                                @foreach (var pertemuan in Model.JadwalMengajar.DaftarPertemuan.OrderBy(p => p.Nomor))
+                                {
+                                    @if (Model.Pertemuan == pertemuan)
+                                    {
+                                        <option selected value="@pertemuan.Id">Pertemuan Ke-@pertemuan.Nomor</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@pertemuan.Id">Pertemuan Ke-@pertemuan.Nomor</option>
+                                    }
+                                }
+                            </select>
+                        </form>
+                    </div>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                               aria-controls="home" aria-selected="true">Pertemuan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                               aria-controls="profile" aria-selected="false">Absen</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="table-responsive col-12">
+                                <table class="table table-striped" id="table-akun">
+                                    <thead>
+                                        <tr>
+                                            <th>Nomor</th>
+                                            <th>Tanggal Pelaksanaan</th>
+                                            <th>Keterangan</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.Pertemuan is not null)
+                                        {
+                                            <tr>
+                                                <td>@Model.Pertemuan.Nomor</td>
+                                                @if (Model.Pertemuan.StatusPertemuan != StatusPertemuan.BelumMulai)
+                                                {
+                                                    <td>@Model.Pertemuan.TanggalPelaksanaan!.Value.ToString(CultureInfos.CI.DateTimeFormat.LongDatePattern, CultureInfos.CI)</td>
+                                                    <td>@Model.Pertemuan.Keterangan</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>Belum Dimulai</td>
+                                                    <td>Belum Dimulai</td>
+                                                }
+                                                <td>@Model.Pertemuan.StatusPertemuan.Humanize()</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="table-responsive col-12">
+                                <table class="table table-striped" id="table-akunn">
+                                    <thead>
+                                        <tr>
+                                            <th>NIS</th>
+                                            <th>NISN</th>
+                                            <th>Nama</th>
+                                            <th>Absensi</th>
+                                            <th>Tanggal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.Pertemuan is not null)
+                                        {
+                                            @foreach (var absen in Model.Pertemuan.DaftarAbsen)
+                                            {
+                                                <tr>
+                                                    <td>@absen.AnggotaRombel.Siswa.NIS</td>
+                                                    <td>@absen.AnggotaRombel.Siswa.NISN</td>
+                                                    <td>@absen.AnggotaRombel.Siswa.Nama</td>
+                                                    <td>@absen.Absensi.Humanize()</td>
+                                                    <td>@absen.Tanggal.ToString(CultureInfos.CI.DateTimeFormat.LongDatePattern, CultureInfos.CI)</td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-<h1>Absen</h1>
-<form asp-action="DetailJadwal" asp-route-id="@Model.Rombel.Id" asp-route-idJadwal="@Model.JadwalMengajar.Id">
-    <select id="idPertemuan" name="idPertemuan">
-        @if (Model.Pertemuan is null)
-        {
-            <option selected value="">-- Pilih Pertemuan --</option>
-        }
-
-        @foreach (var pertemuan in Model.JadwalMengajar.DaftarPertemuan.OrderBy(p => p.Nomor))
-        {
-            @if (Model.Pertemuan == pertemuan)
-            {
-                <option selected value="@pertemuan.Id">Pertemuan Ke-@pertemuan.Nomor</option>
-            }
-            else
-            {
-                <option value="@pertemuan.Id">Pertemuan Ke-@pertemuan.Nomor</option>
-            }
-        }
-    </select>
-</form>
-
-<h2>Pertemuan</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Nomor</th>
-            <th>Tanggal Pelaksanaan</th>
-            <th>Keterangan</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model.Pertemuan is not null)
-        {
-            <tr>
-                <td>@Model.Pertemuan.Nomor</td>
-                @if (Model.Pertemuan.StatusPertemuan != StatusPertemuan.BelumMulai)
-                {
-                    <td>@Model.Pertemuan.TanggalPelaksanaan!.Value.ToString(CultureInfos.CI.DateTimeFormat.LongDatePattern, CultureInfos.CI)</td>
-                    <td>@Model.Pertemuan.Keterangan</td>
-                }
-                else
-                {
-                    <td>Belum Dimulai</td>
-                    <td>Belum Dimulai</td>
-                }
-                <td>@Model.Pertemuan.StatusPertemuan.Humanize()</td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<h2>Absen</h2>
-<table>
-    <thead>
-        <tr>
-            <th>NIS</th>
-            <th>NISN</th>
-            <th>Nama</th>
-            <th>Absensi</th>
-            <th>Tanggal</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if(Model.Pertemuan is not null)
-        {
-            @foreach(var absen in Model.Pertemuan.DaftarAbsen)
-            {
-                <tr>
-                    <td>@absen.AnggotaRombel.Siswa.NIS</td>
-                    <td>@absen.AnggotaRombel.Siswa.NISN</td>
-                    <td>@absen.AnggotaRombel.Siswa.Nama</td>
-                    <td>@absen.Absensi.Humanize()</td>
-                    <td>@absen.Tanggal.ToString(CultureInfos.CI.DateTimeFormat.LongDatePattern, CultureInfos.CI)</td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
+<div class="row" style="justify-content: center;">
+    <div class="col-12 col-md-6 col-lg-12">
+        <div class="card mb-2">
+            <div class="card-header" style="padding-top: 20px;">
+                <h4>Nilai</h4>
+            </div>
+            <div class="card-body">     
+                <div class="table-responsive">
+                    <table class="table table-striped" id="table-akun0">
+                        <thead>
+                            <tr>
+                                <th>NIS</th>
+                                <th>NISN</th>
+                                <th>Nama</th>
+                                <th>Nilai</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var anggotaRombel in Model.Rombel.DaftarAnggotaRombel)
+                            {
+                                <tr>
+                                    <td>@anggotaRombel.Siswa.NIS</td>
+                                    <td>@anggotaRombel.Siswa.NISN</td>
+                                    <td>@anggotaRombel.Siswa.Nama</td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>             
+            </div>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     <script type="text/javascript">

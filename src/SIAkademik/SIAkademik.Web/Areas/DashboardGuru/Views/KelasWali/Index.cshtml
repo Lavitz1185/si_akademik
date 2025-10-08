@@ -18,16 +18,18 @@
     </nav>
 </div>
 
+<!-- Isi Konten -->
 <div class="card card-primary">
     <div class="card-header">
-        <h4>Data Kelas Wali</h4>
+        <h4>Daftar Kelas Wali</h4>
     </div>
     <div class="padding-20">
-        <div class="d-flex justify-content-start ml-auto mb-2">
+        <div class="d-flex justify-content-start ml-auto mb-3">
 
             <div class="mb-0">
-                <form asp-action="Index" id="formTahunAjaran" method="get">
-                    <select id="idTahunAjaran" name="idTahunAjaran" class="form-control">
+                <form asp-action="Index" id="formTahunAjaran" method="get" class="d-flex align-items-center" style="gap: 8px;">
+                    <label for="showTidakAktif" class="mb-0" style="font-weight: 600;">Tahun Ajaran:</label>
+                    <select id="idTahunAjaran" name="idTahunAjaran" class="form-control form-control-sm w-auto">
                         @if (Model.TahunAjaran is null)
                         {
                             <option selected value="@null">-- Pilih Tahun Ajaran --</option>
@@ -46,7 +48,6 @@
                         }
                     </select>
                 </form>
-
             </div>
         </div>
 
@@ -68,8 +69,8 @@
                             <td>@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Nama - @rombel.Nama</td>
                             <td>@rombel.DaftarAnggotaRombel.Count</td>
                             <td>
-                                <a asp-action="Detail" asp-route-id="@rombel.Id" class="btn btn-warning">Detail</a>
-                                <a asp-action="Absen" asp-route-id="@rombel.Id" class="btn btn-success">Absen</a>
+                                <a asp-action="Detail" asp-route-id="@rombel.Id" class="btn btn-warning"><i class="fas fa-eye mr-2"></i>Detail</a>
+                                <a asp-action="Absen" asp-route-id="@rombel.Id" class="btn btn-success"><i class="fas fa-clipboard-check mr-2"></i>Absen</a>
                             </td>
                         </tr>
                     }

@@ -4,62 +4,93 @@
 <div class="row">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Kelas Wali</a></li>
-            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="KelasWali" asp-action="Index">Jadwal Mengajar</a></li>
+            <li class="breadcrumb-item"><a href="#">Wali Kelas</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="KelasWali" asp-action="Index">Kelas Wali</a></li>
             <li class="breadcrumb-item" aria-current="page">Detail Data</li>
         </ol>
     </nav>
 </div>
 
-<a asp-action="Absen" asp-route-id="@Model.Id">Absen</a>
-
-<h1>Daftar Siswa</h1>
-<table>
-    <thead>
-        <tr>
-            <th>NIS</th>
-            <th>NISN</th>
-            <th>Nama</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var anggotaRombel in Model.DaftarAnggotaRombel)
-        {
-            <tr>
-                <td>@anggotaRombel.Siswa.NIS</td>
-                <td>@anggotaRombel.Siswa.NISN</td>
-                <td>@anggotaRombel.Siswa.Nama</td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<h1>Jadwal</h1>
-<table>
-    <thead>
-        <tr>
-            <th>Mata Pelajaran</th>
-            <th>Guru</th>
-            <th>Hari</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var jadwal in Model.DaftarJadwalMengajar)
-        {
-            <tr>
-                <td>@jadwal.MataPelajaran.Nama</td>
-                <td>@jadwal.Pegawai.Nama</td>
-                <td>
-                    @foreach(var hari in jadwal.DaftarHariMengajar.OrderBy(h => h.Hari).ThenBy(h => h.JamMulai))
-                    {
-                        <p>@hari.Hari.Humanize() (@hari.JamMulai.ToString("HH:mm") - @hari.JamAkhir.ToString("HH:mm"))</p>
-                    }
-                </td>
-                <td>
-                    <a asp-action="DetailJadwal" asp-route-id="@Model.Id" asp-route-idJadwal="@jadwal.Id">Detail</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-12">
+            <div class="card card-info mb-2">
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Detail Data Kelas Wali</h4>
+                </div>     
+                <div class="card-body">
+                    <div class="mb-3">
+                        <a asp-action="Absen" asp-route-id="@Model.Id" class="btn btn-primary">Absen</a>
+                    </div>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                               aria-controls="home" aria-selected="true">Daftar Seluruh Siswa</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                               aria-controls="profile" aria-selected="false">Jadwal</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="table-responsive col-12">
+                                <table class="table table-striped" id="table-akun">
+                                    <thead>
+                                        <tr>
+                                            <th>NIS</th>
+                                            <th>NISN</th>
+                                            <th>Nama</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var anggotaRombel in Model.DaftarAnggotaRombel)
+                                        {
+                                            <tr>
+                                                <td>@anggotaRombel.Siswa.NIS</td>
+                                                <td>@anggotaRombel.Siswa.NISN</td>
+                                                <td>@anggotaRombel.Siswa.Nama</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="table-responsive col-12">
+                                <table class="table table-striped" id="table-akunn">
+                                    <thead>
+                                        <tr>
+                                            <th>Mata Pelajaran</th>
+                                            <th>Guru</th>
+                                            <th>Hari</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var jadwal in Model.DaftarJadwalMengajar)
+                                        {
+                                            <tr>
+                                                <td>@jadwal.MataPelajaran.Nama</td>
+                                                <td>@jadwal.Pegawai.Nama</td>
+                                                <td>
+                                                    @foreach (var hari in jadwal.DaftarHariMengajar.OrderBy(h => h.Hari).ThenBy(h => h.JamMulai))
+                                                    {
+                                                        <p>@hari.Hari.Humanize() (@hari.JamMulai.ToString("HH:mm") - @hari.JamAkhir.ToString("HH:mm"))</p>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    <a asp-action="DetailJadwal" asp-route-id="@Model.Id" asp-route-idJadwal="@jadwal.Id" class="btn btn-warning"><i class="fas fa-eye"></i></a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
