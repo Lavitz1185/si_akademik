@@ -89,9 +89,9 @@
                             <td>@rombel.Kelas.TahunAjaran.Periode @rombel.Kelas.TahunAjaran.Semester.Humanize()</td>
                             <td>
                                 <a asp-action="Detail" asp-route-id="@rombel.Id" class="btn btn-warning" data-toggle="tooltip" title="Detail Rombel"><i class="fas fa-eye"></i></a>
-                                <a asp-action="Edit" asp-route-id="@rombel.Id" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
+                                <a asp-action="Edit" asp-route-id="@rombel.Id" class="btn btn-primary" data-toggle="tooltip" title="Edit Rombel"><i class="fas fa-pencil-alt"></i></a>
                                 <form asp-action="Hapus" asp-route-id="@rombel.Id" style="display:inline" method="post">
-                                    <button type="button" class="btn btn-danger swal-confirm"><i class="fas fa-trash"></i></button>
+                                    <button type="button" class="btn btn-danger swal-confirm" data-toggle="tooltip" title="Hapus Rombel"><i class="fas fa-trash"></i></button>
                                 </form>
                             </td>
                         </tr>

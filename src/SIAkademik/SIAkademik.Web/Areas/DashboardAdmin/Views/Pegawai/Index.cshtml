@@ -70,11 +70,11 @@
                             <td>@item.Divisi.Nama</td>
                             <td>@item.Jabatan.Nama</td>
                             <td>
-                                <a asp-action="Edit" asp-route-nip="@item.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit">
+                                <a asp-action="Edit" asp-route-nip="@item.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit Guru/Pegawai">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
                                 <form style="display:inline" asp-action="Hapus" asp-route-nip="@item.Id" method="post">
-                                    <button type="button" class="btn btn-danger btn-action swal-confirm" title="Hapus">
+                                    <button type="button" class="btn btn-danger btn-action swal-confirm" data-toggle="tooltip" title="Hapus Guru/Pegawai">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>

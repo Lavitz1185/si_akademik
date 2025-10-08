@@ -66,17 +66,15 @@
             </form>
         </div>
 
-
-
         <div class="table-responsive">
             <table class="table table-striped" id="table-akun">
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Mata Pelajaran</th>
-                        <th>Rombel</th>
-                        <th>Guru</th>
-                        <th style="min-width: 200px;">Hari</th>
+                        <th style="min-width: 30px;">Id</th>
+                        <th style="min-width: 40px;">Mata Pelajaran</th>
+                        <th style="min-width: 80px;">Rombel</th>
+                        <th style="min-width: 80px;">Guru</th>
+                        <th style="min-width: 250px;">Hari</th>
                         <th style="min-width: 120px !important">Aksi</th>
                     </tr>
                 </thead>
@@ -147,9 +145,9 @@
                                 </div>
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@jadwalMengajar.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                <a asp-action="Edit" asp-route-id="@jadwalMengajar.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit Jadwal Mengajar"><i class="fas fa-pencil-alt"></i></a>
                                 <form asp-action="Hapus" asp-route-id="@jadwalMengajar.Id" method="post" style="display:inline">
-                                    <button type="button" class="btn btn-danger btn-action swal-confirm" title="Hapus"><i class="fas fa-trash"></i></button>
+                                    <button type="button" class="btn btn-danger btn-action swal-confirm" data-toggle="tooltip" title="Hapus Jadwal Mengajar"><i class="fas fa-trash"></i></button>
                                 </form>
                             </td>
                         </tr>

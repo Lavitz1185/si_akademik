@@ -44,9 +44,9 @@
                             <td>@divisi.Nama</td>
                             <td>@divisi.DaftarPegawai.Count</td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@divisi.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                <a asp-action="Edit" asp-route-id="@divisi.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit Divisi"><i class="fas fa-pencil-alt"></i></a>
                                 <form asp-action="Hapus" asp-route-id="@divisi.Id" method="post" style="display:inline">
-                                    <button type="button" class="btn btn-danger btn-action swal-confirm" title="Hapus"><i class="fas fa-trash"></i></button>
+                                    <button type="button" class="btn btn-danger btn-action swal-confirm" data-toggle="tooltip" title="Hapus Divisi"><i class="fas fa-trash"></i></button>
                                 </form>
                             </td>
                         </tr>

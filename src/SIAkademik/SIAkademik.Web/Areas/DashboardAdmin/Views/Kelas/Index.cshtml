@@ -26,7 +26,7 @@
         <div class="d-flex justify-content-between mb-3">
             <div class="mb-0">
                 <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah" asp-route-idTahunAjaran="@Model.TahunAjaran?.Id"
-                   data-bs-toggle="tooltip" title="Tambah Kelas">
+                   data-toggle="tooltip" title="Tambah Kelas">
                     <i class="fas fa-plus me-1"></i> Tambah Kelas
                 </a>
             </div>
@@ -81,11 +81,11 @@
                             <td>@kelas.TahunAjaran.Periode-@kelas.TahunAjaran.Semester.Humanize()</td>
                             <td>@kelas.DaftarRombel.Count</td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@kelas.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit">
+                                <a asp-action="Edit" asp-route-id="@kelas.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit Kelas">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
                                 <form style="display:inline" asp-action="Hapus" method="post" asp-route-id="@kelas.Id">
-                                    <button type="button" class="btn btn-danger btn-action swal-confirm" title="Hapus">
+                                    <button type="button" class="btn btn-danger btn-action swal-confirm" data-toggle="tooltip" title="Hapus Kelas">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
