@@ -46,17 +46,27 @@ public class JadwalMengajarController : Controller
         _pertemuanRepository = pertemuanRepository;
     }
 
-    public async Task<IActionResult> Index(int? idTahunAjaran = null)
+    public async Task<IActionResult> Index(int? idTahunAjaran = null, int? idRombel = null)
     {
         var tahunAjaran = idTahunAjaran is not null ?
             await _tahunAjaranRepository.Get(idTahunAjaran.Value) :
-            (await _tahunAjaranRepository.GetAll()).LastOrDefault();
+            await _tahunAjaranRepository.GetNewest();
 
         if (tahunAjaran is null) return View(new IndexVM());
 
         var daftarJadwal = await _jadwalMengajarRepository.GetAllByTahunAjaran(tahunAjaran.Id);
 
-        return View(new IndexVM { DaftarJadwalMengajar = daftarJadwal, TahunAjaran = tahunAjaran });
+        var rombel = await _rombelRepository.Get(idRombel ?? 0);
+        if (rombel is null || rombel.Kelas.TahunAjaran != tahunAjaran)
+            return View(new IndexVM { DaftarJadwalMengajar = daftarJadwal, TahunAjaran = tahunAjaran, IdTahunAjaran = tahunAjaran.Id });
+
+        return View(new IndexVM
+        {
+            TahunAjaran = tahunAjaran,
+            IdTahunAjaran = tahunAjaran.Id,
+            IdRombel = rombel.Id,
+            DaftarJadwalMengajar = daftarJadwal.Where(j => j.Rombel == rombel).ToList(),
+        });
     }
 
     public async Task<IActionResult> Tambah(int idTahunAjaran)

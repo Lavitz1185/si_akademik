@@ -31,28 +31,42 @@
                        data-toggle="tooltip" title="Tambah Jadwal Mengajar">
                         <i class="fas fa-plus"></i>Tambah Jadwal Mengajar
                     </a>
-                }                
+                }
             </div>
 
-            <form asp-action="Index" , method="get" id="idTahunAjaran" class="d-flex align-items-center" style="gap: 8px;">
-                <label for="idTahunAjaran" class="mb-0" style="font-weight: 600;">Tahun Ajaran:</label>
-                <select name="idTahunAjaran" id="idTahunAjaran" class="form-control form-control-sm w-auto">
-                    @foreach (var tahunAjaran in daftarTahunAjaran)
-                    {
-                        @if (tahunAjaran == Model.TahunAjaran)
-                        {
-                            <option selected value="@tahunAjaran.Id">@tahunAjaran.Periode - @tahunAjaran.Semester.Humanize()</option>
-                        }
-                        else
-                        {
-                            <option value="@tahunAjaran.Id">@tahunAjaran.Periode - @tahunAjaran.Semester.Humanize()</option>
-                        }
-                    }
-                </select>
+            <form asp-action="Index" method="get" id="idTahunAjaran" class="d-flex align-items-center" style="gap: 8px;">
+                <div class="d-flex ml-auto mr-3">
+                    <div class="d-flex align-items-center mr-2" style="gap: 8px;">
+                        <label asp-for="@Model.IdTahunAjaran" class="mb-0" style="font-weight: 600;">Tahun Ajaran:</label>
+                        <select asp-for="@Model.IdTahunAjaran" class="submit-on-change form-control form-control-sm w-auto" style="min-width:150px;">
+                            @if(Model.IdTahunAjaran is null)
+                            {
+                                <option value="@null">-- Pilih --</option>
+                            }
+
+                            @foreach (var tahunAjaran in daftarTahunAjaran)
+                            {
+                                <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="d-flex align-items-center mr-2" style="gap: 8px;">
+                        <label asp-for="@Model.IdRombel" class="mb-0" style="font-weight: 600;">Kelas:</label>
+                        <select asp-for="@Model.IdRombel" class="submit-on-change form-control form-control-sm w-auto" style="min-width:150px;">
+                            <option value="@null">-- Pilih --</option>
+
+                            @foreach (var rombel in Model.TahunAjaran?.DaftarKelas?.SelectMany(k => k.DaftarRombel) ?? new List<Rombel>())
+                            {
+                                <option value="@rombel.Id">@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Nama @rombel.Nama</option>
+                            }
+                        </select>
+                    </div>
+                </div>
             </form>
         </div>
 
-        
+
 
         <div class="table-responsive">
             <table class="table table-striped" id="table-akun">
@@ -137,7 +151,7 @@
                                 <form asp-action="Hapus" asp-route-id="@jadwalMengajar.Id" method="post" style="display:inline">
                                     <button type="button" class="btn btn-danger btn-action swal-confirm" title="Hapus"><i class="fas fa-trash"></i></button>
                                 </form>
-                            </td>                            
+                            </td>
                         </tr>
                     }
                 </tbody>
@@ -148,8 +162,10 @@
 
 @section Scripts {
     <script type="text/javascript">
-        $(
-            $('select#idTahunAjaran').on('change', () => $('form#idTahunAjaran').submit())
-        )
+        $(function() {
+            $('.submit-on-change').on('change', function() {
+                $(this).closest('form').trigger('submit');
+            });
+        });
     </script>
 }

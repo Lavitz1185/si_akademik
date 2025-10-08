@@ -5,6 +5,8 @@ namespace SIAkademik.Web.Areas.DashboardAdmin.Models.RombelModels;
 public class IndexVM
 {
     public TahunAjaran? TahunAjaran { get; set; }
+    public int? IdTahunAjaran { get; set; }
     public Kelas? Kelas { get; set; }
+    public int? IdKelas { get; set; }
     public List<Rombel> DaftarRombel { get; set; } = [];
 }

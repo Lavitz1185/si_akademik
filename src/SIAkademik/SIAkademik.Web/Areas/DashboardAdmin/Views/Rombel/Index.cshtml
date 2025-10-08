@@ -34,62 +34,32 @@
                     <i class="fas fa-plus"></i> Tambah Rombel
                 </a>
             </div>
-            
 
             <form asp-action="Index" method="get">
                 <div class="d-flex ml-auto mr-3">
                     <div class="d-flex align-items-center mr-2" style="gap: 8px;">
-                        <label for="idTahunAjaran" class="mb-0" style="font-weight: 600;">Tahun Ajaran:</label>
-                        <select name="idTahunAjaran" id="idTahunAjaran" class="form-control form-control-sm w-auto" style="min-width:150px;">
-                            @if (Model.TahunAjaran is null)
-                            {
-                                <option selected value="@null">-- Pilih --</option>
-                            }
-                            else
-                            {
-                                <option value="@null">-- Pilih --</option>
-                            }
+                        <label asp-for="@Model.IdTahunAjaran" class="mb-0" style="font-weight: 600;">Tahun Ajaran:</label>
+                        <select asp-for="@Model.IdTahunAjaran" class="submit-on-change form-control form-control-sm w-auto" style="min-width:150px;">
+                            <option value="@null">-- Pilih --</option>
 
                             @foreach (var tahunAjaran in daftarTahunAjaran)
                             {
-                                @if (Model.TahunAjaran == tahunAjaran)
-                                {
-                                    <option selected value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
-                                }
-                                else
-                                {
-                                    <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
-                                }
+                                <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
                             }
                         </select>
                     </div>
 
                     <div class="d-flex align-items-center mr-2" style="gap: 8px;">
-                        <label for="idKelas" class="mb-0" style="font-weight: 600;">Kelas:</label>
-                        <select name="idKelas" id="idKelas" class="form-control form-control-sm w-auto" style="min-width:150px;">
-                            @if (Model.Kelas is null)
-                            {
-                                <option selected value="@null">-- Pilih --</option>
-                            }
-                            else
-                            {
-                                <option value="@null">-- Pilih --</option>
-                            }
+                        <label asp-for="@Model.IdKelas" class="mb-0" style="font-weight: 600;">Kelas:</label>
+                        <select asp-for="@Model.IdKelas" class="submit-on-change form-control form-control-sm w-auto" style="min-width:150px;">
+                            <option value="@null">-- Pilih --</option>
 
                             @foreach (var kelas in daftarKelas)
                             {
-                                @if (Model.Kelas == kelas)
-                                {
-                                    <option selected value="@kelas.Id">@kelas.Jenjang.Humanize() @kelas.Peminatan.Nama</option>
-                                }
-                                else
-                                {
-                                    <option value="@kelas.Id">@kelas.Jenjang.Humanize() @kelas.Peminatan.Nama</option>
-                                }
+                                <option value="@kelas.Id">@kelas.Jenjang.Humanize() @kelas.Peminatan.Nama</option>
                             }
                         </select>
-                    </div>                                  
-                    <button type="submit" class="btn btn-primary">Filter</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -134,24 +104,10 @@
 
 @section Scripts {
     <script type="text/javascript">
-        $(
-            $('form select#idTahunAjaran').on('change', async function () {
-                const idTahunAjaran = $(this).val()
-
-                if (idTahunAjaran == "") {
-                    $('form select#idKelas').html('<option value="">--</option>');
-                } else {
-                    const response = await fetch(`/Dashboard/Admin/Kelas/DaftarKelas?idTahunAjaran=${idTahunAjaran}`)
-                    const daftarKelas = await response.json();
-
-                    $('form select#idKelas').html('<option value="">--</option>');
-
-                    for (let kelas of daftarKelas) {
-                        $('form select#idKelas')
-                            .append(`<option value="${kelas.id}">${kelas.jenjang} ${kelas.peminatan}</option>`);
-                    }
-                }
-            })
-        )
+        $(function() {
+            $('.submit-on-change').on('change', function() {
+                $(this).closest('form').trigger('submit');
+            });
+        });
     </script>
 }

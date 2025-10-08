@@ -47,7 +47,10 @@ public class RombelController : Controller
 
     public async Task<IActionResult> Index(int? idKelas = null, int? idTahunAjaran = null)
     {
-        var tahunAjaran = idTahunAjaran is null ? null : await _tahunAjaranRepository.Get(idTahunAjaran.Value);
+        var tahunAjaran = idTahunAjaran is null ? 
+            await _tahunAjaranRepository.GetNewest() : 
+            await _tahunAjaranRepository.Get(idTahunAjaran.Value);
+
         Kelas? kelas = null;
 
         if (idKelas is not null)
@@ -69,7 +72,9 @@ public class RombelController : Controller
         return View(new IndexVM
         {
             TahunAjaran = tahunAjaran,
+            IdTahunAjaran = tahunAjaran?.Id,
             Kelas = kelas,
+            IdKelas = kelas?.Id,
             DaftarRombel = daftarRombel
         });
     }

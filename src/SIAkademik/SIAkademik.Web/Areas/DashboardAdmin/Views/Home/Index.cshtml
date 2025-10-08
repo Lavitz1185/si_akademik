@@ -1,6 +1,18 @@
 ﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.Home
 @model IndexVM
 
+@{
+    var jumlahJadwalPerhari = Model.DaftarRombel
+        .SelectMany(r => r.DaftarJadwalMengajar)
+        .SelectMany(j => j.DaftarHariMengajar)
+        .GroupBy(h => h.Hari)
+        .OrderBy(g => g.Key)
+        .ToDictionary(g => g.Key, g => g.Count());
+
+    foreach(var hari in Enum.GetValues<Hari>())
+        if (!jumlahJadwalPerhari.TryGetValue(hari, out int jumlah)) jumlahJadwalPerhari.Add(hari, 0);
+}
+
 <section class="section">
     <div class="container-fluid mt-3 mb-3">
         <h3 class="" style="font-weight:bold;">Selamat Pagi, Admin Albert Tapatab👋</h3>
@@ -137,14 +149,14 @@
             </div>
 
             <!-- Jadwal per Guru -->
-            <div class="col-lg-3 col-md-6 col-12 pr-1">
+            @*<div class="col-lg-3 col-md-6 col-12 pr-1">
                 <div class="card shadow-sm h-100">
                     <div class="card-body">
                         <h6 class="card-title text-center">Jadwal per Guru</h6>
                         <canvas id="chartGuru" style="width:100%; height:260px;"></canvas>
                     </div>
                 </div>
-            </div>
+            </div>*@
 
             <!-- Siswa per Jenis Kelamin -->
             <div class="col-lg-3 col-md-6 col-12 pr-1">
@@ -180,7 +192,13 @@
                 labels: ["Senin", "Selasa", "Rabu", "Kamis", "Jumat"],
                 datasets: [{
                     label: "Jumlah Jadwal",
-                    data: [5, 3, 7, 4, 6],
+                    data: [
+                        @jumlahJadwalPerhari[Hari.Senin], 
+                        @jumlahJadwalPerhari[Hari.Selasa], 
+                        @jumlahJadwalPerhari[Hari.Rabu], 
+                        @jumlahJadwalPerhari[Hari.Kamis], 
+                        @jumlahJadwalPerhari[Hari.Jumat]
+                    ],
                     backgroundColor: 'rgba(54, 162, 235, 0.6)',
                     borderRadius: 6
                 }]
@@ -188,18 +206,18 @@
         });
 
         // Jadwal per Guru
-        new Chart(document.getElementById('chartGuru'), {
-            type: 'bar',
-            data: {
-                labels: ["Guru A", "Guru B", "Guru C", "Guru D"],
-                datasets: [{
-                    label: "Jumlah Jadwal",
-                    data: [8, 6, 4, 5],
-                    backgroundColor: 'rgba(255, 99, 132, 0.6)',
-                    borderRadius: 6
-                }]
-            }
-        });
+        // new Chart(document.getElementById('chartGuru'), {
+        //     type: 'bar',
+        //     data: {
+        //         labels: ["Guru A", "Guru B", "Guru C", "Guru D"],
+        //         datasets: [{
+        //             label: "Jumlah Jadwal",
+        //             data: [8, 6, 4, 5],
+        //             backgroundColor: 'rgba(255, 99, 132, 0.6)',
+        //             borderRadius: 6
+        //         }]
+        //     }
+        // });
 
         // Siswa per Jenis Kelamin
         new Chart(document.getElementById('chartGender'), {
@@ -208,7 +226,10 @@
                 labels: ["Laki-laki", "Perempuan"],
                 datasets: [{
                     label: "Jumlah Siswa",
-                    data: [120, 98],
+                    data: [
+                        @Model.DaftarSiswa.Where(s => s.JenisKelamin == JenisKelamin.LakiLaki).Count(), 
+                        @Model.DaftarSiswa.Where(s => s.JenisKelamin == JenisKelamin.Perempuan).Count()
+                    ],
                     backgroundColor: [
                         'rgba(75, 192, 192, 0.7)',
                         'rgba(255, 159, 64, 0.7)'
@@ -225,7 +246,11 @@
                 labels: ["X", "XI", "XII"],
                 datasets: [{
                     label: "Jumlah Siswa",
-                    data: [85, 90, 70],
+                    data: [
+                        @Model.DaftarSiswa.Where(s => s.StatusAktif == StatusAktifMahasiswa.Aktif && s.Jenjang == Jenjang.X).Count(),
+                        @Model.DaftarSiswa.Where(s => s.StatusAktif == StatusAktifMahasiswa.Aktif && s.Jenjang == Jenjang.XI).Count(),
+                        @Model.DaftarSiswa.Where(s => s.StatusAktif == StatusAktifMahasiswa.Aktif && s.Jenjang == Jenjang.XII).Count()
+                    ],
                     backgroundColor: 'rgba(153, 102, 255, 0.6)',
                     borderRadius: 6
                 }]
