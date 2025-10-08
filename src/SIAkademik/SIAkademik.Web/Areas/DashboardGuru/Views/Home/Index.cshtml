@@ -4,7 +4,7 @@
 <section class="section">
     <div class="container-fluid mt-3 mb-3">
         <!-- Header Selamat Datang -->
-        <h3 style="font-weight:bold;">Selamat Pagi, Guru Albert Tapatab 👋</h3>
+        <h3 style="font-weight:bold;">Selamat Pagi, Guru @Model.Pegawai.Nama 👋</h3>
         <p class="text-muted">Pantau jadwal mengajar, kelas wali, dan kalender akademik.</p>
 
         <div class="row g-3 mt-3">
@@ -13,7 +13,7 @@
                 <div class="card shadow-sm h-100">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="fw-bold mb-0">Jadwal Mengajar Hari Ini</h4>
-                        <form asp-action="Index">
+                        <form asp-action="Index" method="get">
                             <input asp-for="@Model.Tanggal" type="date" class="form-control" />
                         </form>
                     </div>
@@ -24,78 +24,48 @@
 
                         <!-- Card Jadwal -->
                         <div class="row g-3">
-                            <!-- Loop foreach pelajaran -->
-                            <div class="col-md-12 mb-3">
-                                <div class="border rounded p-3 d-flex justify-content-between align-items-center" style="background-color:#f9fafb;">
-                                    <div class="col-8">
-                                        <h6 class="fw-bold mb-3">MATEMATIKA</h6>
-                                        <div class="row text-muted">
-                                            <div class="col-6 mb-3">
-                                                <i class="fas fa-clock mr-1"></i> 10:30 - 13:00 WITA
+                            @if (Model.JadwalHariIni.Count == 0)
+                            {
+                                <h6>Tidak ada aktivitas mengajar saat ini</h6>
+                            }
+
+                            @foreach (var hari in Model.JadwalHariIni.OrderBy(j => j.JamMulai))
+                            {
+                                <!-- Loop foreach pelajaran -->
+                                <div class="col-md-12 mb-3">
+                                    <div class="border rounded p-3 d-flex justify-content-between align-items-center" style="background-color:#f9fafb;">
+                                        <div class="col-8">
+                                            <h6 class="fw-bold mb-3">@hari.JadwalMengajar.MataPelajaran.Nama</h6>
+                                            <div class="row text-muted">
+                                                <div class="col-6 mb-3">
+                                                    <i class="fas fa-clock mr-1"></i> @hari.JamMulai.ToShortTimeString() - @hari.JamAkhir.ToShortTimeString() WITA
+                                                </div>
+                                                <div class="col-6 mb-3">
+                                                    <i class="fas fa-person mr-1"></i> @hari.JadwalMengajar.Pegawai.Nama
+                                                </div>
+                                                @* <div class="col-6 mb-3">
+                                                    <i class="fas fa-book mr-1"></i> Pertemuan ke 1
+                                                </div>
+                                                <div class="col-6 mb-3">
+                                                    <i class="fas fa-door-open mr-1"></i> 55201-205A
+                                                </div>
+                                                <div class="col-12 mb-3">
+                                                    <i class="fas fa-check-circle mr-1"></i> Kehadiran Belum Tercatat
+                                                </div> *@
                                             </div>
-                                            <div class="col-6 mb-3">
-                                                <i class="fas fa-person mr-1"></i> Paulina Yane Tupu, S.Pd
-                                            </div>
-                                            <div class="col-6 mb-3">
-                                                <i class="fas fa-book mr-1"></i> Pertemuan ke 1
-                                            </div>
-                                            <div class="col-6 mb-3">
-                                                <i class="fas fa-door-open mr-1"></i> 55201-205A
-                                            </div>
-                                            <div class="col-12 mb-3">
-                                                <i class="fas fa-check-circle mr-1"></i> Kehadiran Belum Tercatat
-                                            </div>
+                                        </div>
+                                        <div class="col-4 d-flex flex-column align-items-end">
+                                            <a asp-action="Detail" asp-controller="JadwalMengajar" asp-route-id="@hari.JadwalMengajar.Id" class="btn btn-outline-success btn-sm w-100 mb-1 text-end">
+                                                <i class="bi bi-box-arrow-up-right me-1"></i> Lihat Kelas
+                                            </a>
+                                            @* <a href="#" class="btn btn-outline-success btn-sm w-100 mb-1 text-end">
+                                                <i class="bi bi-box-arrow-up-right me-1"></i> Lihat Pertemuan
+                                            </a> *@
                                         </div>
 
                                     </div>
-                                    <div class="col-4 d-flex flex-column align-items-end">
-                                        <a href="#" class="btn btn-outline-success btn-sm w-100 mb-1 text-end">
-                                            <i class="bi bi-box-arrow-up-right me-1"></i> Lihat Kelas
-                                        </a>
-                                        <a href="#" class="btn btn-outline-success btn-sm w-100 mb-1 text-end">
-                                            <i class="bi bi-box-arrow-up-right me-1"></i> Lihat Pertemuan
-                                        </a>
-                                    </div>
-
                                 </div>
-                            </div>
-
-                            <!-- Card Jadwal 2 (Contoh jika ada 2 pelajaran) -->
-                            <div class="col-md-12 mb-3">
-                                <div class="border rounded p-3 d-flex justify-content-between align-items-center" style="background-color:#f9fafb;">
-                                    <div class="col-8">
-                                        <h6 class="fw-bold mb-3">MATEMATIKA</h6>
-                                        <div class="row text-muted">
-                                            <div class="col-6 mb-3">
-                                                <i class="fas fa-clock mr-1"></i> 10:30 - 13:00 WITA
-                                            </div>
-                                            <div class="col-6 mb-3">
-                                                <i class="fas fa-person mr-1"></i> Paulina Yane Tupu, S.Pd
-                                            </div>
-                                            <div class="col-6 mb-3">
-                                                <i class="fas fa-book mr-1"></i> Pertemuan ke 1
-                                            </div>
-                                            <div class="col-6 mb-3">
-                                                <i class="fas fa-door-open mr-1"></i> 55201-205A
-                                            </div>
-                                            <div class="col-12 mb-3">
-                                                <i class="fas fa-check-circle mr-1"></i> Kehadiran Belum Tercatat
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-4 d-flex flex-column align-items-end">
-                                        <a href="#" class="btn btn-outline-success btn-sm w-100 mb-1 text-end">
-                                            <i class="bi bi-box-arrow-up-right me-1"></i> Lihat Kelas
-                                        </a>
-                                        <a href="#" class="btn btn-outline-success btn-sm w-100 mb-1 text-end">
-                                            <i class="bi bi-box-arrow-up-right me-1"></i> Lihat Pertemuan
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <!-- end loop -->
+                            }
                         </div>
                     </div>
                 </div>
@@ -105,11 +75,13 @@
             <div class="col-lg-4 col-md-12">
                 <!-- Row Atas: Kelas Wali -->
                 <div class="card shadow-sm mb-3">
-                    
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h4 class="fw-bold">Kelas Wali</h4> <hr>
-                            <h4 class="text-muted font-12" style="font-weight: 500">2025/2026 Genap</h4>
-                        </div>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="fw-bold">Kelas Wali</h4> <hr>
+                        @if (Model.TahunAjaran is not null)
+                        {
+                            <h4 class="text-muted font-12" style="font-weight: 500">@Model.TahunAjaran.Periode @Model.TahunAjaran.Semester.Humanize()</h4>
+                        }
+                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped mb-0">
@@ -120,14 +92,28 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-center">
-                                    <tr>
-                                        <td>X IPA 1</td>
-                                        <td>36</td>
-                                    </tr>
-                                    <tr>
-                                        <td>X IPA 2</td>
-                                        <td>34</td>
-                                    </tr>
+                                    @if(Model.TahunAjaran is null)
+                                    {
+                                        <tr>
+                                            <td colspan="2">Tidak ada tahun ajaran aktif</td>
+                                        </tr>
+                                    }
+                                    else if(Model.RombelWali.Count == 0)
+                                    {
+                                        <tr>
+                                            <td colspan="2">Tidak ada kelas wali di tahun ajaran ini</td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        @foreach(var rombel in Model.RombelWali)
+                                        {
+                                            <tr>
+                                                <td>@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Nama @rombel.Nama</td>
+                                                <td>@rombel.DaftarAnggotaRombel.Count</td>
+                                            </tr>
+                                        }
+                                    }
                                 </tbody>
                             </table>
                         </div>

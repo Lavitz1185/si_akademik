@@ -57,7 +57,7 @@ public class HomeController : Controller
         if (guru is null) return Forbid();
 
         var tahunAjaran = await _tahunAjaranRepository.GetNewest();
-        if (tahunAjaran is null) return View(new IndexVM { Tanggal = tanggal.Value });
+        if (tahunAjaran is null) return View(new IndexVM { Pegawai = guru, Tanggal = tanggal.Value });
 
         var hari = tanggal.Value.DayOfWeek;
         var jadwalHariIni = guru.DaftarJadwalMengajar
@@ -72,6 +72,7 @@ public class HomeController : Controller
 
         return View(new IndexVM
         {
+            Pegawai = guru,
             TahunAjaran = tahunAjaran,
             JadwalHariIni = jadwalHariIni,
             RombelWali = rombelWali,
