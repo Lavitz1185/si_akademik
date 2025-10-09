@@ -3,138 +3,188 @@
 
 @inject ISignInManager SignInManager
 
-<div class="section">
-    <div class="card shadow-lg border-0 rounded-4">
-        <div class="card-body p-4">
-
-            @if (Model.TahunAjaran is null)
-            {
-                <div class="alert alert-warning text-center mb-0">
-                    <i class="bi bi-exclamation-triangle"></i> Belum Ada Tahun Ajaran
-                </div>
-            }
-            else
-            {
-                <div class="mb-4">
-                    <h4 class="fw-bold text-primary mb-3">
-                        Tahun Ajaran: @Model.TahunAjaran.Periode @Model.TahunAjaran.Semester.Humanize()
-                    </h4>
-
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <div class="card border-0 bg-light">
-                                <div class="card-body">
-                                    <h6 class="mb-3">Data Siswa</h6>
-                                    <p class="mb-1"><strong>NISN/NIS:</strong> @Model.Siswa.NISN / @Model.Siswa.NIS</p>
-                                    <p class="mb-1"><strong>Nama:</strong> @Model.Siswa.Nama</p>
-                                    <p class="mb-1"><strong>Jenjang:</strong> @Model.Siswa.Jenjang.Humanize()</p>
-                                    <p class="mb-0"><strong>Status:</strong> @Model.Siswa.StatusAktif.Humanize()</p>
-                                </div>
-                            </div>
+<section class="section">
+    <div class="container-fluid mt-3 mb-3">
+        <div class="row g-3 mt-3">
+            <!-- Kolom Kiri: Jadwal Mengajar -->
+            <div class="col-lg-8 col-md-12">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="fw-bold mb-0">Jadwal Belajar Hari Ini</h4>
+                        <form asp-action="Index" method="get">
+                            <input asp-for="@Model.Tanggal" type="date" class="form-control" />
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <div class="rounded mb-3" style="background-color: #f5f7f8; color:#4d5f72; padding: 10px; font-size:14px;">
+                            <p class="mb-0">@Model.Tanggal.ToString(CultureInfos.CI.DateTimeFormat.LongDatePattern, CultureInfos.CI)</p>
                         </div>
 
-                        @if (Model.AnggotaRombel is not null)
-                        {
-                            <div class="col-md-6">
-                                <div class="card border-0 bg-light">
-                                    <div class="card-body">
-                                        <h6 class="mb-3">Kelas & Kehadiran</h6>
-                                        <p class="mb-1">
-                                            <strong>Kelas:</strong>
-                                            @Model.AnggotaRombel.Rombel.Kelas.Jenjang.Humanize()
-                                            @Model.AnggotaRombel.Rombel.Kelas.Peminatan.Nama
-                                            @Model.AnggotaRombel.Rombel.Nama
-                                        </p>
-                                        <p class="mb-1"><strong>Wali Kelas:</strong> @Model.AnggotaRombel.Rombel.Wali.Nama</p>
+                        <!-- Card Jadwal -->
+                        <div class="row g-3">
 
-                                        <div class="row text-center mt-3">
-                                            <div class="col"><span class="badge bg-success">Hadir: @Model.AnggotaRombel.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Hadir).Count()</span></div>
-                                            <div class="col"><span class="badge bg-danger">Alpa: @Model.AnggotaRombel.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Alpa).Count()</span></div>
-                                            <div class="col"><span class="badge bg-warning text-dark">Izin: @Model.AnggotaRombel.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Ijin).Count()</span></div>
-                                            <div class="col"><span class="badge bg-info text-dark">Sakit: @Model.AnggotaRombel.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Sakit).Count()</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
+                            @* <div class="col-12 text-center py-4">
+                            <p class="text-center">Tidak ada aktivitas mengajar saat ini</p>
+                            </div> *@
 
-                <form asp-action="Index" method="get" class="mb-4">
-                    <div class="input-group">
-                        <span class="input-group-text bg-primary text-white"><i class="bi bi-calendar-event"></i></span>
-                        <input asp-for="@Model.Tanggal" type="date" class="form-control" />
-                        <button type="submit" class="btn btn-primary">Tampilkan</button>
-                    </div>
-                </form>
 
-                @if (Model.Tanggal < Model.TahunAjaran.TanggalMulai)
-                {
-                    <div class="alert alert-info text-center">
-                        <i class="bi bi-clock-history"></i> Tahun Ajaran Belum Dimulai
-                    </div>
-                }
-                else if (Model.Tanggal > Model.TahunAjaran.TanggalSelesai)
-                {
-                    <div class="alert alert-secondary text-center">
-                        <i class="bi bi-calendar-x"></i> Tahun Ajaran Telah Berakhir
-                    </div>
-                }
-                else
-                {
-                    @if (Model.AnggotaRombel is null)
-                    {
-                        <div class="alert alert-danger text-center">
-                            <i class="bi bi-exclamation-circle"></i> Anda Tidak Memiliki Kelas Di Tahun Ajaran Ini
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="mb-3 d-flex justify-content-between align-items-center">
-                            <h5 class="fw-bold text-success mb-0">
-                                Jadwal: @Model.Tanggal.ToString("dd MMMM yyyy", CultureInfos.CI)
-                            </h5>
-                            <i class="bi bi-journal-bookmark text-success fs-4"></i>
-                        </div>
 
-                        @if (Model.DaftarHariMengajar.Count == 0)
-                        {
-                            <div class="alert alert-warning text-center">
-                                <i class="bi bi-emoji-neutral"></i> Tidak ada aktivitas belajar saat ini
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="row g-3">
-                                @foreach (var hariMengajar in Model.DaftarHariMengajar.OrderBy(h => h.JamMulai))
-                                {
-                                    <div class="col-md-6">
-                                        <div class="card h-100 border-0 shadow-sm">
-                                            <div class="card-body">
-                                                <h6 class="fw-bold text-primary">@hariMengajar.JadwalMengajar.MataPelajaran.Nama</h6>
-                                                <p class="mb-1"><i class="bi bi-clock"></i> @hariMengajar.JamMulai.ToShortTimeString() - @hariMengajar.JamAkhir.ToShortTimeString()</p>
-                                                <p class="mb-1"><i class="bi bi-person"></i> @hariMengajar.JadwalMengajar.Pegawai.Nama</p>
-                                                <a asp-action="Detail" asp-controller="JadwalMengajar" asp-route-id="@hariMengajar.JadwalMengajar.Id" class="btn btn-outline-primary btn-sm mt-2">
-                                                    <i class="bi bi-eye"></i> Lihat Detail
-                                                </a>
+                            <!-- Loop foreach pelajaran -->
+                            <div class="col-md-12 mb-3">
+                                <div class="border rounded p-3 d-flex justify-content-between align-items-center" style="background-color:#f9fafb;">
+                                    <div class="col-8">
+                                        <h6 class="fw-bold mb-3">Matematika</h6>
+                                        <div class="row text-muted">
+                                            <div class="col-6 mb-3">
+                                                <i class="fas fa-clock mr-1"></i> 10.30 - 13.00
                                             </div>
+                                            <div class="d-flex col-6 mb-3">
+                                                <div><i class="fas fa-user mr-2"></i></div>
+                                                <div>Dr. Oswaldus Putra Fernando</div>                                               
+                                            </div>
+                                            @* <div class="col-6 mb-3">
+                                            <i class="fas fa-book mr-1"></i> Pertemuan ke 1
+                                            </div>
+                                            <div class="col-6 mb-3">
+                                            <i class="fas fa-door-open mr-1"></i> 55201-205A
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                            <i class="fas fa-check-circle mr-1"></i> Kehadiran Belum Tercatat
+                                            </div> *@
                                         </div>
                                     </div>
-                                }
+                                    <div class="col-4 d-flex flex-column align-items-end">
+                                        <a href="" class="btn btn-outline-success btn-sm w-100 mb-1 text-end">
+                                            <i class="bi bi-box-arrow-up-right me-1"></i> Lihat Jadwal Kelas
+                                        </a>
+                                        <a href="#" class="btn btn-outline-success btn-sm w-100 mb-1 text-end">
+                                            <i class="bi bi-box-arrow-up-right me-1"></i> Lihat Nilai Siswa
+                                        </a>
+                                    </div>
+
+                                </div>
                             </div>
-                        }
-                    }
-                }
-            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kolom Kanan -->
+            <div class="col-lg-4 col-md-12">
+                <!-- Row Atas: Kelas Wali -->
+                <div class="card shadow-sm mb-3">
+                    <div class="card-body">
+                        <h6>Hai, Oswaldus Putra Fernando</h6>
+                        <p style="color: #7a848e;">Saat ini anda berada di kelas X MIPA 2</p>
+                        <div class="rounded" style="background-color: #fff3cd; padding: .5rem .5rem;">
+                            <p style="color: #664d03;" class="mb-0">Siswa belum melengkapi biodata.</p>
+                            <a style="text-decoration: underline; color: #001B36" href=""> Lengkapi di sini</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row Bawah: Kalender Akademik -->
+                <div class="card shadow-sm">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="fw-bold mb-0">Kalender Akademik</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="wrapper">
+                            <header>
+                                <div class="icons">
+                                    <span id="prev">
+                                        <i class="fas fa-angle-left"></i>
+                                    </span>
+                                </div>
+                                <p class="current-date font-20 m-0"></p>
+                                <div class="icons">
+                                    <span id="next">
+                                        <i class="fas fa-angle-right"></i>
+                                    </span>
+                                </div>
+                            </header>
+                            <div class="calendar">
+                                <ul class="weeks p-0">
+                                    <li>Sun</li>
+                                    <li>Mon</li>
+                                    <li>Tue</li>
+                                    <li>Wed</li>
+                                    <li>Thu</li>
+                                    <li>Fri</li>
+                                    <li>Sat</li>
+                                </ul>
+                                <ul class="days p-0"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</section>
 
 @section Scripts {
     <script type="text/javascript">
-        $(function() {
-            $('input#Tanggal').on('change', function() {
+        $(function () {
+            $('input#Tanggal').on('change', function () {
                 $(this).closest('form').trigger('submit');
+            });
+        });
+
+        const daysTag = document.querySelector(".days"),
+            currentDate = document.querySelector(".current-date"),
+            prevNextIcon = document.querySelectorAll(".icons span");
+
+        // getting new date, current year and month
+        let date = new Date(),
+            currYear = date.getFullYear(),
+            currMonth = date.getMonth();
+
+        // storing full name of all months in array
+        const months = ["January", "February", "March", "April", "May", "June", "July",
+            "August", "September", "October", "November", "December"];
+
+        const renderCalendar = () => {
+            let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // getting first day of month
+                lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // getting last date of month
+                lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // getting last day of month
+                lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // getting last date of previous month
+            let liTag = "";
+
+            for (let i = firstDayofMonth; i > 0; i--) { // creating li of previous month last days
+                liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
+            }
+
+            for (let i = 1; i <= lastDateofMonth; i++) { // creating li of all days of current month
+                // adding active class to li if the current day, month, and year matched
+                let isToday = i === date.getDate() && currMonth === new Date().getMonth()
+                    && currYear === new Date().getFullYear() ? "active" : "";
+                liTag += `<li class="${isToday}">${i}</li>`;
+            }
+
+            for (let i = lastDayofMonth; i < 6; i++) { // creating li of next month first days
+                liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`
+            }
+            currentDate.innerText = `${months[currMonth]} ${currYear}`; // passing current mon and yr as currentDate text
+            daysTag.innerHTML = liTag;
+        }
+        renderCalendar();
+
+        prevNextIcon.forEach(icon => { // getting prev and next icons
+            icon.addEventListener("click", () => { // adding click event on both icons
+                // if clicked icon is previous icon then decrement current month by 1 else increment it by 1
+                currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
+
+                if (currMonth < 0 || currMonth > 11) { // if current month is less than 0 or greater than 11
+                    // creating a new date of current year & month and pass it as date value
+                    date = new Date(currYear, currMonth, new Date().getDate());
+                    currYear = date.getFullYear(); // updating current year with new date year
+                    currMonth = date.getMonth(); // updating current month with new date month
+                } else {
+                    date = new Date(); // pass the current date as date value
+                }
+                renderCalendar(); // calling renderCalendar function
             });
         });
     </script>
