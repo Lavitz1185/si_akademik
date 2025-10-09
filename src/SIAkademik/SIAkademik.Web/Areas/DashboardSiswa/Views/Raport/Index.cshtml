@@ -11,10 +11,20 @@
     var daftarEkstrakulikuler = Model.DaftarRaport.Where(r => r.KategoriNilai == KategoriNilaiRaport.Ekstrakulikuler);
 }
 
+<!-- Breadcrumb -->
+<div class="row">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Akademik</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardSiswa" asp-controller="EvaluasiSiswa" asp-action="Index"></a>Rapor</li>
+        </ol>
+    </nav>
+</div>
+
 <div class="section-body">
     <div class="row" style="justify-content: center;">
         <div class="col-12 col-md-6 col-lg-12">
-            <div class="card card-info mb-2">
+            <div class="card card-primary mb-2">
 
                 <div class="card-header" style="padding-top: 20px;">
                     <h4>Rapor Siswa</h4>
@@ -68,10 +78,10 @@
             <div class="card">
 
                 <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <p class="mb-0 pr-2">Periode</p>
-                        <form asp-action="Index" method="get">
-                            <select asp-for="@Model.IdTahunAjaran" class="form-control w-auto pt-0 pb-0" style="height: 35px !important;">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <form asp-action="Index" method="get" class="d-flex align-items-center" style="gap: 8px;">
+                            <label for="idTahunAjaran" class="mb-0" style="font-weight: 600;">Tahun Ajaran:</label>
+                            <select asp-for="@Model.IdTahunAjaran" class="form-control form-control-sm w-auto">
                                 @if (Model.IdTahunAjaran is null)
                                 {
                                     <option value="@null">-- Pilih Tahun Ajaran</option>
@@ -82,12 +92,12 @@
                                 }
                             </select>
                         </form>
-                    </div>
 
-                    @if (Model.AnggotaRombel is not null)
-                    {
-                        <a asp-action="Cetak" asp-route-idRombel="@Model.AnggotaRombel.IdRombel" class="btn btn-warning">Cetak</a>
-                    }
+                        @if (Model.AnggotaRombel is not null)
+                        {
+                            <a asp-action="Cetak" asp-route-idRombel="@Model.AnggotaRombel.IdRombel" class="btn btn-warning"><i class="fas fa-print"></i> Cetak Rapor</a>
+                        }
+                    </div>
 
                     <div class="card-header pr-0 pl-0" style="padding-top: 20px;">
                         <h4>Sikap</h4>
@@ -139,7 +149,7 @@
                     </div>
 
                     <div class="card-body pr-0 pl-0">
-                        <table class="table table-striped table-hover" id="table-akun">
+                        <table class="table table-striped table-hover" id="table-akunn">
                             <thead>
                                 <tr>
                                     <th>Mata Pelajaran</th>
@@ -186,7 +196,7 @@
                     </div>
 
                     <div class="card-body pr-0 pl-0">
-                        <table class="table table-striped table-hover" id="table-akun">
+                        <table class="table table-striped table-hover" id="table-akun0">
                             <thead>
                                 <tr>
                                     <th>Mata Pelajaran</th>
@@ -233,7 +243,7 @@
                     </div>
 
                     <div class="card-body pr-0 pl-0">
-                        <table class="table table-striped table-hover" id="table-akun">
+                        <table class="table table-striped table-hover" id="table-akun1">
                             <thead>
                                 <tr>
                                     <th>Ekstrakulikuler</th>

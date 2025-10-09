@@ -20,10 +20,10 @@
 <div class="section-body">
     <div class="row" style="justify-content: center;">
         <div class="col-12 col-md-6 col-lg-12">
-            <div class="card card-info mb-2">
+            <div class="card card-primary mb-2">
 
                 <div class="card-header" style="padding-top: 20px;">
-                    <h4>Presensi Kelas Siswa</h4>
+                    <h4>Daftar Presensi Kelas</h4>
                 </div>
 
                 <div class="card-body rounded" style="background-color: #f0f7fd; margin-left: 25px; margin-right: 25px; margin-bottom: 20px;">
@@ -70,9 +70,9 @@
 
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
-                        <p class="mb-0 pr-2">Periode</p>
-                        <form asp-action="Index" method="get">
-                            <select asp-for="@Model.IdTahunAjaran" class="form-control w-auto pt-0 pb-0" style="height: 35px !important;">
+                        <form asp-action="Index" method="get" class="d-flex align-items-center" style="gap: 8px;">
+                            <label for="idTahunAjaran" class="mb-0" style="font-weight: 600;">Tahun Ajaran:</label>
+                            <select asp-for="@Model.IdTahunAjaran" class="form-control form-control-sm w-auto">
                                 @if (Model.IdTahunAjaran is null)
                                 {
                                     <option value="@null">-- Pilih Tahun Ajaran</option>
@@ -132,15 +132,6 @@
                             </div>
                         </div>
                     </div>
-                   @*  @if (Model.AnggotaRombel is not null)
-                    {
-                        <p>
-                            Hadir : @Model.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Hadir).Count() <br />
-                            Tidak Hadir : @Model.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Alpa).Count() <br />
-                            Sakit : @Model.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Sakit).Count() <br />
-                            Ijin : @Model.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Ijin).Count() <br />
-                        </p>
-                    } *@
 
                     <div class="table-responsive">
                         <table class="table table-striped table-hover" id="table-akun">
