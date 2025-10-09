@@ -361,42 +361,39 @@ public class HomeController : Controller
         var siswa = await _signInManager.GetSiswa();
         if (siswa is null) return Forbid();
 
-        if (!ModelState.IsValid) return View(vm);
+        if (vm.FotoProfil is null)
+            return Json(new { success = false, message = "Foto profil harus diupload!" });
 
-        if (vm.FotoProfil is not null)
+        if (!ModelState.IsValid)
+            return Json(new { success = false, message = "Data tidak valid." });
+
+        // Upload file (pakai service kamu)
+        var fotoProfil = await _fileService.UploadFile<EditFotoProfilVM>(
+            vm.FotoProfil,
+            "ijazahSMP",
+            [".jpeg", ".jpg"],
+            0,
+            104858
+        );
+
+        if (fotoProfil.IsFailure)
+            return Json(new { success = false, message = $"Upload gagal: {fotoProfil.Error.Message}" });
+
+        siswa.FotoProfil = fotoProfil.Value;
+
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsFailure)
+            return Json(new { success = false, message = "Simpan gagal!" });
+
+        // Simpan berhasil, kirim URL baru ke JavaScript agar langsung diupdate di halaman
+        return Json(new
         {
-            var fotoProfil = await _fileService.UploadFile<EditFotoProfilVM>(
-                vm.FotoProfil,
-                "ijazahSMP",
-                [".jpeg", ".jpg"],
-                0,
-                104858);
-
-            if (fotoProfil.IsFailure)
-            {
-                ModelState.AddModelError(nameof(EditFotoProfilVM.FotoProfil), $"Upload Foto Profil Gagal : {fotoProfil.Error.Message}");
-                return View(vm);
-            }
-
-            siswa.FotoProfil = fotoProfil.Value;
-
-            var result = await _unitOfWork.SaveChangesAsync();
-            if (result.IsFailure)
-            {
-                _toastrNotificationService.AddError("Simpan gagal!");
-                return View(vm);
-            }
-            else
-                _toastrNotificationService.AddSuccess("Simpan Berhasil!");
-        }
-        else if(vm.FotoProfilLama is not null)
-        {
-            ModelState.AddModelError(nameof(EditFotoProfilVM.FotoProfil), "Foto Profil Harus Diupload!");
-            return View(vm);
-        }
-
-        return RedirectToAction(nameof(Profil));
+            success = true,
+            message = "Foto profil berhasil diperbarui!",
+            newFotoUrl = siswa.FotoProfil.OriginalString
+        });
     }
+
 
     public async Task<IActionResult> UbahPassword()
     {
