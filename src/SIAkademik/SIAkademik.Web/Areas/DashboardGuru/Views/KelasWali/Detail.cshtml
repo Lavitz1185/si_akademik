@@ -17,11 +17,11 @@
         <div class="col-12 col-md-6 col-lg-12">
             <div class="card card-info mb-2">
                 <div class="card-header" style="padding-top: 20px;">
-                    <h4>Detail Data Kelas Wali</h4>
+                    <h4>Detail Kelas Wali</h4>
                 </div>     
                 <div class="card-body">
-                    <div class="mb-3">
-                        <a asp-action="Absen" asp-route-id="@Model.Id" class="btn btn-primary">Absen</a>
+                    <div class="d-flex justify-content-start mb-3">
+                        <a asp-action="Absen" asp-route-id="@Model.Id" class="btn btn-success pl-3 pr-3" data-toggle="tooltip" title="Absen Kelas Wali"><i class="fas fa-user-check"></i> Absen Kelas Wali</a>
                     </div>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
@@ -81,7 +81,7 @@
                                                     }
                                                 </td>
                                                 <td>
-                                                    <a asp-action="DetailJadwal" asp-route-id="@Model.Id" asp-route-idJadwal="@jadwal.Id" class="btn btn-warning"><i class="fas fa-eye"></i></a>
+                                                    <a asp-action="DetailJadwal" asp-route-id="@Model.Id" asp-route-idJadwal="@jadwal.Id" class="btn btn-warning" data-toggle="tooltip" title="Detail Jadwal Kelas Wali"><i class="fas fa-eye"></i></a>
                                                 </td>
                                             </tr>
                                         }
