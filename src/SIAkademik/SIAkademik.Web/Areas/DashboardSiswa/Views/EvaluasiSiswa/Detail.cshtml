@@ -32,15 +32,15 @@
                         <!-- Kolom kiri -->
                         <div class="col-md-6">
                             <div class="row mb-1">
-                                <div class="col-3" style="font-weight:600;">Mata Pelajaran</div>
+                                <div class="col-5" style="font-weight:600;">Mata Pelajaran</div>
                                 <div class="col">@Model.JadwalMengajar.MataPelajaran.Nama</div>
                             </div>
                             <div class="row mb-1">
-                                <div class="col-3" style="font-weight:600;">Guru</div>
+                                <div class="col-5" style="font-weight:600;">Guru</div>
                                 <div class="col">@Model.JadwalMengajar.Pegawai.Nama</div>
                             </div>
                             <div class="row mb-1">
-                                <div class="col-3" style="font-weight:600;">Jumlah Pertemuan</div>
+                                <div class="col-5" style="font-weight:600;">Jumlah Pertemuan</div>
                                 <div class="col">@Model.JadwalMengajar.DaftarPertemuan.Count</div>
                             </div>
                         </div>
@@ -48,15 +48,15 @@
                         <!-- Kolom kanan -->
                         <div class="col-md-6">
                             <div class="row mb-1">
-                                <div class="col-3" style="font-weight:600;">Tahun Ajaran</div>
+                                <div class="col-5" style="font-weight:600;">Tahun Ajaran</div>
                                 <div class="col">@Model.JadwalMengajar.Rombel.Kelas.TahunAjaran.Periode</div>
                             </div>
                             <div class="row mb-1">
-                                <div class="col-3" style="font-weight:600;">Semester</div>
+                                <div class="col-5" style="font-weight:600;">Semester</div>
                                 <div class="col">@Model.JadwalMengajar.Rombel.Kelas.TahunAjaran.Semester.Humanize()</div>
                             </div>
                             <div class="row mb-1">
-                                <div class="col-3" style="font-weight:600;">Kelas</div>
+                                <div class="col-5" style="font-weight:600;">Kelas</div>
                                 <div class="col">@Model.JadwalMengajar.Rombel.Kelas.Jenjang.Humanize() @Model.JadwalMengajar.Rombel.Kelas.Peminatan.Nama @Model.JadwalMengajar.Rombel.Nama</div>
                             </div>
                         </div>
