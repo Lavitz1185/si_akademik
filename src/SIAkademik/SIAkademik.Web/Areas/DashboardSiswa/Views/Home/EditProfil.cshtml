@@ -1,287 +1,579 @@
 ﻿@using SIAkademik.Web.Areas.DashboardSiswa.Models.Home
 @model EditProfilVM
 
-<img src="@Model.FotoProfil?.OriginalString" alt="Foto Profil" />
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-12">
+            <form asp-action="EditProfil" method="post" enctype="multipart/form-data">
 
-<p>
-    NIS/NISN : @Model.NIS/@Model.NISN <br />
-    Nama : @Model.Nama <br />
-    Tanggal Masuk : @Model.TanggalMasuk.ToString("dd MMMM yyyy", CultureInfos.CI) <br />
-    Jenjang : @Model.Jenjang.Humanize() <br />
-    Status : @Model.StatusAktif.Humanize() <br />
-    Jenis Kelamin : @Model.JenisKelamin.Humanize() <br />
-    Tempat/Tanggal Lahir : @Model.TempatLahir/@Model.TanggalLahir.ToString("dd MMMM yyyy", CultureInfos.CI) <br />
-    Agama : @Model.Agama.Humanize() <br />
-</p>
+               @*  <div asp-validation-summary="All"></div> *@
 
+                <input asp-for="@Model.Nama" readonly hidden />
+                <input asp-for="@Model.NIS" readonly hidden />
+                <input asp-for="@Model.NISN" readonly hidden />
+                <input asp-for="@Model.TanggalMasuk" readonly hidden />
+                <input asp-for="@Model.TanggalLahir" readonly hidden />
+                <input asp-for="@Model.TempatLahir" readonly hidden />
+                <input asp-for="@Model.Agama" readonly hidden />
+                <input asp-for="@Model.JenisKelamin" readonly hidden />
+                <input asp-for="@Model.Jenjang" readonly hidden />
+                <input asp-for="@Model.StatusAktif" readonly hidden />
+                <input asp-for="@Model.FotoProfil" readonly hidden />
 
-<form asp-action="EditProfil" method="post" enctype="multipart/form-data">
-    <a asp-action="Profil">Batal</a>
-    <button type="submit">Simpan</button>
+                <div class="card card-primary mt-3">
+                    <div class="card-header border-bottom pb-3">
+                        <h4>Profil Siswa</h4>
+                        <div class="ml-auto">
+                            <button type="submit" class="btn btn-success" data-toggle="tooltip" title="Simpan">
+                                <i class="fas fa-save"></i>
+                                <span class="pl-1">Simpan</span>
+                            </button>
+                            <a asp-action="Profil" class="btn btn-warning" data-toggle="tooltip" title="Batal">
+                                <i class="fas fa-sync"></i>
+                                <span class="pl-1">Batal</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-2 border-right text-center">
+                                <div id="foto-container" class="d-flex justify-content-center">
+                                    @if (Model.FotoProfil is not null)
+                                    {
+                                        <img id="foto-profil" src="@Model.FotoProfil.OriginalString" alt="Foto Profil" style="width: 100%;" />
+                                    }
+                                    else
+                                    {
+                                        var inisial = string.Join("", Model.Nama?.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                                        .Select(n => n[0]))
+                                        .ToUpperInvariant();
+                                        if (inisial.Length > 2) inisial = inisial.Substring(0, 2);
 
-    <div asp-validation-summary="All"></div>
+                                        <div class="fotoprofil">
+                                            @inisial
+                                        </div>
+                                    }
+                                </div>
 
-    <input asp-for="@Model.Nama" readonly hidden />
-    <input asp-for="@Model.NIS" readonly hidden />
-    <input asp-for="@Model.NISN" readonly hidden />
-    <input asp-for="@Model.TanggalMasuk" readonly hidden />
-    <input asp-for="@Model.TanggalLahir" readonly hidden />
-    <input asp-for="@Model.TempatLahir" readonly hidden />
-    <input asp-for="@Model.Agama" readonly hidden />
-    <input asp-for="@Model.JenisKelamin" readonly hidden />
-    <input asp-for="@Model.Jenjang" readonly hidden />
-    <input asp-for="@Model.StatusAktif" readonly hidden />
-    <input asp-for="@Model.FotoProfil" readonly hidden />
+                                <button id="btn-ganti-foto" type="button" class="btn btn-secondary mt-2" data-toggle="tooltip" title="Ganti Foto Profil">Ganti Foto Profil</button>
 
-    <h1>Data Diri</h1>
-    <div class="row">
-        <label asp-for="@Model.Suku"></label>
-        <input asp-for="@Model.Suku" />
-        <span asp-validation-for="@Model.Suku"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.GolonganDarah"></label>
-        <select asp-for="@Model.GolonganDarah">
-            @foreach (var golonganDarah in Enum.GetValues<GolonganDarah>())
-            {
-                <option value="@golonganDarah">@golonganDarah.Humanize()</option>
-            }
-        </select>
-        <span asp-validation-for="@Model.GolonganDarah"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.TinggiBadan"></label>
-        <input asp-for="@Model.TinggiBadan" />
-        <span asp-validation-for="@Model.TinggiBadan"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.BeratBadan"></label>
-        <input asp-for="@Model.BeratBadan" />
-        <span asp-validation-for="@Model.BeratBadan"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.Hobi"></label>
-        <input asp-for="@Model.Hobi" />
-        <span asp-validation-for="@Model.Hobi"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.NoHP"></label>
-        <input asp-for="@Model.NoHP" />
-        <span asp-validation-for="@Model.NoHP"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.JumlahSaudara"></label>
-        <input asp-for="@Model.JumlahSaudara" />
-        <span asp-validation-for="@Model.JumlahSaudara"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.AnakKe"></label>
-        <input asp-for="@Model.AnakKe" />
-        <span asp-validation-for="@Model.AnakKe"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.NomorKartuKeluarga"></label>
-        <input asp-for="@Model.NomorKartuKeluarga" />
-        <span asp-validation-for="@Model.NomorKartuKeluarga"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.NomorKartuPelajar"></label>
-        <input asp-for="@Model.NomorKartuPelajar" />
-        <span asp-validation-for="@Model.NomorKartuPelajar"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.Email"></label>
-        <input asp-for="@Model.Email" />
-        <span asp-validation-for="@Model.Email"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.AsalSekolah"></label>
-        <input asp-for="@Model.AsalSekolah" />
-        <span asp-validation-for="@Model.AsalSekolah"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.AktaKelahiran"></label>
-        <input asp-for="@Model.AktaKelahiran" type="file" />
-        @if(Model.AktaKelahiranLama is not null)
-        {
-            <a href="@Model.AktaKelahiranLama.OriginalString">Akta Kelahiran yang telah diupload</a>
-        }
-        <span asp-validation-for="@Model.AktaKelahiran"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.IjazahSMP"></label>
-        <input asp-for="@Model.IjazahSMP" type="file" />
-        @if (Model.IjazahSMPLama is not null)
-        {
-            <a href="@Model.IjazahSMPLama.OriginalString">Akta Kelahiran yang telah diupload</a>
-        }
-        <span asp-validation-for="@Model.IjazahSMP"></span>
-    </div>
+                                <input type="file" id="input-foto" accept=".jpg,.jpeg" style="display:none" />
+                            </div>
+                            <div class="col-10">
+                                <div class="row">
 
-    <h1>Alamat</h1>
-    <partial name="_AlamatFormPartial" model="@Model" />
-  
-    <h1>Data Ayah</h1>
-    <div class="row">
-        <label asp-for="@Model.NamaAyah"></label>
-        <input asp-for="@Model.NamaAyah" />
-        <span asp-validation-for="@Model.NamaAyah"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.NIKAyah"></label>
-        <input asp-for="@Model.NIKAyah" />
-        <span asp-validation-for="@Model.NIKAyah"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.PekerjaanAyah"></label>
-        <input asp-for="@Model.PekerjaanAyah" />
-        <span asp-validation-for="@Model.PekerjaanAyah"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.AgamaAyah"></label>
-        <select asp-for="@Model.AgamaAyah">
-            @foreach(var agama in Enum.GetValues<Agama>())
-            {
-                <option value="@agama">@agama.Humanize()</option>
-            }
-        </select>
-        <span asp-validation-for="@Model.AgamaAyah"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.NoHPAyah"></label>
-        <input asp-for="@Model.NoHPAyah" />
-        <span asp-validation-for="@Model.NoHPAyah"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.TanggalLahirAyah"></label>
-        <input asp-for="@Model.TanggalLahirAyah" type="date"/>
-        <span asp-validation-for="@Model.TanggalLahirAyah"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.StatusHidupAyah"></label>
-        <select asp-for="@Model.StatusHidupAyah">
-            @foreach(var status in Enum.GetValues<StatusHidup>())
-            {
-                <option value="@status">@status.Humanize()</option>
-            }
-        </select>
-        <span asp-validation-for="@Model.StatusHidupAyah"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.PendidikanTerakhirAyah"></label>
-        <input asp-for="@Model.PendidikanTerakhirAyah" />
-        <span asp-validation-for="@Model.PendidikanTerakhirAyah"></span>
-    </div>
+                                    <div class="col-6">
+                                        <div class="row mb-3 border-bottom pb-1">
+                                            <div class="col-md-5" style="font-weight:600;">NISN/NIS</div>
+                                            <div class="col-md-7">@Model.NIS/@Model.NISN</div>
+                                        </div>
 
-    <h1>Data Ibu</h1>
-    <div class="row">
-        <label asp-for="@Model.NamaIbu"></label>
-        <input asp-for="@Model.NamaIbu" />
-        <span asp-validation-for="@Model.NamaIbu"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.NIKIbu"></label>
-        <input asp-for="@Model.NIKIbu" />
-        <span asp-validation-for="@Model.NIKIbu"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.PekerjaanIbu"></label>
-        <input asp-for="@Model.PekerjaanIbu" />
-        <span asp-validation-for="@Model.PekerjaanIbu"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.AgamaIbu"></label>
-        <select asp-for="@Model.AgamaIbu">
-            @foreach (var agama in Enum.GetValues<Agama>())
-            {
-                <option value="@agama">@agama.Humanize()</option>
-            }
-        </select>
-        <span asp-validation-for="@Model.AgamaIbu"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.NoHPIbu"></label>
-        <input asp-for="@Model.NoHPIbu" />
-        <span asp-validation-for="@Model.NoHPIbu"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.TanggalLahirIbu"></label>
-        <input asp-for="@Model.TanggalLahirIbu" type="date"/>
-        <span asp-validation-for="@Model.TanggalLahirIbu"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.StatusHidupIbu"></label>
-        <select asp-for="@Model.StatusHidupIbu">
-            @foreach (var status in Enum.GetValues<StatusHidup>())
-            {
-                <option value="@status">@status.Humanize()</option>
-            }
-        </select>
-        <span asp-validation-for="@Model.StatusHidupIbu"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.PendidikanTerakhirIbu"></label>
-        <input asp-for="@Model.PendidikanTerakhirIbu" />
-        <span asp-validation-for="@Model.PendidikanTerakhirIbu"></span>
-    </div>
+                                        <div class="row mb-3 border-bottom pb-1">
+                                            <div class="col-md-5" style="font-weight:600;">Nama Siswa</div>
+                                            <div class="col-md-7">@Model.Nama</div>
+                                        </div>
 
-    <h1>Data Wali</h1>
-    <div class="row">
-        <label asp-for="@Model.NamaWali"></label>
-        <input asp-for="@Model.NamaWali" />
-        <span asp-validation-for="@Model.NamaWali"></span>
+                                        <div class="row mb-3 border-bottom pb-1">
+                                            <div class="col-md-5" style="font-weight:600;">Jenis Kelamin</div>
+                                            <div class="col-md-7">@Model.JenisKelamin.Humanize()</div>
+                                        </div>
+
+                                        <div class="row mb-3 border-bottom pb-1">
+                                            <div class="col-md-5" style="font-weight:600;">Tempat / Tanggal Lahir</div>
+                                            <div class="col-md-7">@Model.TempatLahir / @Model.TanggalLahir.ToString("dd MMMM yyyy", CultureInfos.CI)</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="row mb-3 border-bottom pb-1">
+                                            <div class="col-md-5" style="font-weight:600;">Tanggal Masuk</div>
+                                            <div class="col-md-7">@Model.TanggalMasuk.ToString("dd MMMM yyyy", CultureInfos.CI)</div>
+                                        </div>
+
+                                        <div class="row mb-3 border-bottom pb-1">
+                                            <div class="col-md-5" style="font-weight:600;">Jenjang</div>
+                                            <div class="col-md-7">@Model.Jenjang.Humanize()</div>
+                                        </div>
+
+                                        <div class="row mb-3 border-bottom pb-1">
+                                            <div class="col-md-5" style="font-weight:600;">Status Siswa</div>
+                                            <div class="col-md-7">@Model.StatusAktif.Humanize()</div>
+                                        </div>
+
+                                        <div class="row mb-3 border-bottom pb-1">
+                                            <div class="col-md-5" style="font-weight:600;">Agama</div>
+                                            <div class="col-md-7">@Model.Agama.Humanize()</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @* Ini Desain Tab *@
+                                <ul class="nav nav-tabs pt-2" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                           aria-controls="home" aria-selected="true" title="Data Diri">Data Diri</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="kedua-tab" data-toggle="tab" href="#kedua" role="tab"
+                                           aria-controls="kedua" aria-selected="false" title="Alamat">Alamat</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="ketiga-tab" data-toggle="tab" href="#ketiga" role="tab"
+                                           aria-controls="ketiga" aria-selected="false" title="Orang Tua">Orang Tua</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="keempat-tab" data-toggle="tab" href="#keempat" role="tab"
+                                           aria-controls="keempat" aria-selected="false" title="Wali">Wali</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active pt-0" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row border pt-2">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-12 pb-3">
+                                                        <div class="card-header border-bottom pl-0" style="border-bottom: 2px solid #6777ef !important;">
+                                                            <h4 style="color: #6777ef">Umum</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.Suku"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.Suku" class="form-control" /></div>                                                    
+                                                    <span asp-validation-for="@Model.Suku" hidden></span>                                                   
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.GolonganDarah"></label>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <select asp-for="@Model.GolonganDarah" class="form-control">
+                                                            @foreach (var golonganDarah in Enum.GetValues<GolonganDarah>())
+                                                            {
+                                                                <option value="@golonganDarah">@golonganDarah.Humanize()</option>
+                                                            }
+                                                        </select>
+                                                    </div>                                                   
+                                                    <span asp-validation-for="@Model.GolonganDarah" hidden></span>
+
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.TinggiBadan"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.TinggiBadan" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.TinggiBadan" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.BeratBadan"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.BeratBadan" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.BeratBadan" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.Hobi"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.Hobi" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.Hobi" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.JumlahSaudara"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.JumlahSaudara" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.JumlahSaudara" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.AnakKe">Anak Ke-</label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.AnakKe" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.AnakKe" hidden></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-12 pb-3">
+                                                        <div class="card-header border-bottom pl-0" style="border-bottom: 2px solid #6777ef !important;">
+                                                            <h4 style="color: #6777ef">Kontak</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.NoHP">No. WA/HP<span style="color:red">*</span></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.NoHP" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.NoHP" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.Email">Email<span style="color:red">*</span></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.Email" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.Email" hidden></span>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-12 pb-3">
+                                                        <div class="card-header border-bottom pl-0" style="border-bottom: 2px solid #6777ef !important;">
+                                                            <h4 style="color: #6777ef">Asal Sekolah & Dokumen</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.NomorKartuKeluarga">No. KK<span style="color:red">*</span></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.NomorKartuKeluarga" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.NomorKartuKeluarga" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.NomorKartuPelajar">No. Kartu Pelajar<span style="color:red">*</span></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.NomorKartuPelajar" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.NomorKartuPelajar" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.AsalSekolah"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.AsalSekolah" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.AsalSekolah" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.AktaKelahiran"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.AktaKelahiran" class="form-control" /></div>
+                                                    @if (Model.AktaKelahiranLama is not null)
+                                                    {
+                                                        <a href="@Model.AktaKelahiranLama.OriginalString">Akta Kelahiran yang telah diupload</a>
+                                                    }
+                                                    <span asp-validation-for="@Model.AktaKelahiran" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.IjazahSMP"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.IjazahSMP" class="form-control" /></div>
+                                                    @if (Model.IjazahSMPLama is not null)
+                                                    {
+                                                        <a href="@Model.IjazahSMPLama.OriginalString">Ijazah SMP yang telah diupload</a>
+                                                    }
+                                                    <span asp-validation-for="@Model.IjazahSMP" hidden></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade pt-0" id="kedua" role="tabpanel" aria-labelledby="kedua-tab">
+                                        <partial name="_AlamatFormPartial" model="@Model" />
+                                    </div>
+
+                                    <div class="tab-pane fade pt-0" id="ketiga" role="tabpanel" aria-labelledby="ketiga-tab">
+                                        <div class="row border pt-2">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-12 pb-3">
+                                                        <div class="card-header border-bottom pl-0" style="border-bottom: 2px solid #6777ef !important;">
+                                                            <h4 style="color: #6777ef">Biodata Ayah</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.NamaAyah">Nama Lengkap</label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.NamaAyah" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.NamaAyah" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.NIKAyah"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.NIKAyah" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.NIKAyah" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.PekerjaanAyah"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.PekerjaanAyah" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.PekerjaanAyah" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.AgamaAyah"></label>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <select asp-for="@Model.AgamaAyah" class="form-control">
+                                                            @foreach (var agama in Enum.GetValues<Agama>())
+                                                            {
+                                                                <option value="@agama">@agama.Humanize()</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <span asp-validation-for="@Model.AgamaAyah" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.NoHPAyah"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.NoHPAyah" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.NoHPAyah" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.TanggalLahirAyah"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.TanggalLahirAyah" type="date" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.TanggalLahirAyah" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.StatusHidupAyah"></label>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <select asp-for="@Model.StatusHidupAyah" class="form-control">
+                                                            @foreach (var status in Enum.GetValues<StatusHidup>())
+                                                            {
+                                                                <option value="@status">@status.Humanize()</option>
+                                                            }
+                                                        </select>
+                                                    </div>                                                   
+                                                    <span asp-validation-for="@Model.StatusHidupAyah" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.PendidikanTerakhirAyah"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.PendidikanTerakhirAyah" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.PendidikanTerakhirAyah" hidden></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-12 pb-3">
+                                                        <div class="card-header border-bottom pl-0" style="border-bottom: 2px solid #6777ef !important;">
+                                                            <h4 style="color: #6777ef">Biodata Ibu</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.NamaIbu">Nama Lengkap</label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.NamaIbu" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.NamaIbu" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.NIKIbu"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.NIKIbu" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.NIKIbu" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.PekerjaanIbu"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.PekerjaanIbu" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.PekerjaanIbu" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.AgamaIbu"></label>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <select asp-for="@Model.AgamaIbu" class="form-control">
+                                                            @foreach (var agama in Enum.GetValues<Agama>())
+                                                            {
+                                                                <option value="@agama">@agama.Humanize()</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <span asp-validation-for="@Model.AgamaIbu" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.NoHPIbu"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.NoHPIbu" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.NoHPIbu" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.TanggalLahirIbu"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.TanggalLahirIbu" type="date" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.TanggalLahirIbu" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.StatusHidupIbu"></label>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <select asp-for="@Model.StatusHidupIbu" class="form-control">
+                                                            @foreach (var status in Enum.GetValues<StatusHidup>())
+                                                            {
+                                                                <option value="@status">@status.Humanize()</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <span asp-validation-for="@Model.StatusHidupIbu" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.PendidikanTerakhirIbu"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.PendidikanTerakhirIbu" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.PendidikanTerakhirIbu" hidden></span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade pt-0" id="keempat" role="tabpanel" aria-labelledby="keempat-tab">
+                                        <div class="row border pt-2">
+                                            <div class="col-6">
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.NamaWali">Nama Lengkap</label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.NamaWali" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.NamaWali" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.NIKWali"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.NIKWali" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.NIKWali" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.PekerjaanWali"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.PekerjaanWali" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.PekerjaanWali" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.AgamaWali"></label>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <select asp-for="@Model.AgamaWali" class="form-control">
+                                                            @foreach (var agama in Enum.GetValues<Agama>())
+                                                            {
+                                                                <option value="@agama">@agama.Humanize()</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <span asp-validation-for="@Model.AgamaWali" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.NoHPWali"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.NoHPWali" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.NoHPWali" hidden></span>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.TanggalLahirWali"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.TanggalLahirWali" type="date" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.TanggalLahirWali" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.StatusHidupWali"></label>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <select asp-for="@Model.StatusHidupWali" class="form-control">
+                                                            @foreach (var status in Enum.GetValues<StatusHidup>())
+                                                            {
+                                                                <option value="@status">@status.Humanize()</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <span asp-validation-for="@Model.StatusHidupWali" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.PendidikanTerakhirWali"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.PendidikanTerakhirWali" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.PendidikanTerakhirWali" hidden></span>
+                                                </div>
+
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.HubunganDenganWali"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.HubunganDenganWali" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.HubunganDenganWali" hidden></span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>           
+        </div>
     </div>
-    <div class="row">
-        <label asp-for="@Model.NIKWali"></label>
-        <input asp-for="@Model.NIKWali" />
-        <span asp-validation-for="@Model.NIKWali"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.PekerjaanWali"></label>
-        <input asp-for="@Model.PekerjaanWali" />
-        <span asp-validation-for="@Model.PekerjaanWali"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.AgamaWali"></label>
-        <select asp-for="@Model.AgamaWali">
-            @foreach (var agama in Enum.GetValues<Agama>())
-            {
-                <option value="@agama">@agama.Humanize()</option>
-            }
-        </select>
-        <span asp-validation-for="@Model.AgamaWali"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.NoHPWali"></label>
-        <input asp-for="@Model.NoHPWali" />
-        <span asp-validation-for="@Model.NoHPWali"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.TanggalLahirWali"></label>
-        <input asp-for="@Model.TanggalLahirWali" type="date"/>
-        <span asp-validation-for="@Model.TanggalLahirWali"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.StatusHidupWali"></label>
-        <select asp-for="@Model.StatusHidupWali">
-            @foreach (var status in Enum.GetValues<StatusHidup>())
-            {
-                <option value="@status">@status.Humanize()</option>
-            }
-        </select>
-        <span asp-validation-for="@Model.StatusHidupWali"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.PendidikanTerakhirWali"></label>
-        <input asp-for="@Model.PendidikanTerakhirWali" />
-        <span asp-validation-for="@Model.PendidikanTerakhirWali"></span>
-    </div>
-    <div class="row">
-        <label asp-for="@Model.HubunganDenganWali"></label>
-        <input asp-for="@Model.HubunganDenganWali" />
-        <span asp-validation-for="@Model.HubunganDenganWali"></span>
-    </div>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

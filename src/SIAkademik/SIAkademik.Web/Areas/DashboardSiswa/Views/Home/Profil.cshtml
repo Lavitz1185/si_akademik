@@ -7,14 +7,48 @@
                 <div class="card-header border-bottom pb-3">
                     <h4>Profil Siswa</h4>
                     <div class="ml-auto">
-                        <a asp-action="EditProfil" class="btn btn-warning"><i class="fas fa-pencil-alt"></i><span class="pl-2">Edit Profil</span></a>
-                        <a asp-action="UbahPassword" class="btn btn-primary"><i class="fas fa-pencil-alt"></i><span class="pl-2">Ubah Password</span></a>
+                        <a asp-action="EditProfil" class="btn btn-warning" data-toggle="tooltip" title="Edit Profil"><i class="fas fa-pencil-alt"></i><span class="pl-2">Edit Profil</span></a>
+                        <button type="button" class="btn btn-primary btn-ubah-pw" data-toggle="tooltip" title="Ubah Password"><i class="fas fa-pencil-alt"></i><span class="pl-2">Ubah Password</span></button>
+
+                        <div class="form-ubah-pw" style="display:none">
+                            <form asp-action="UbahPassword" method="post">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalUbahPW">Ubah Password</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="passwordlama">Password Lama</label>
+                                        <input id="passwordlama" name="passwordlama" class="form-control" />
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="passwordbaru">Password Baru</label>
+                                        <input id="passwordbaru" name="passwordbaru" class="form-control" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="konfirmasipasswordbaru">Konfirmasi Password Baru</label>
+                                        <input id="konfirmasipasswordbaru" name="konfirmasipasswordbaru" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                </div>
+                            </form>
+                        </div>
+
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-2 border-right text-center">
-                            <div id="foto-container">
+                            <div id="foto-container" class="d-flex justify-content-center">
                                 @if (Model.FotoProfil is not null)
                                 {
                                     <img id="foto-profil" src="@Model.FotoProfil.OriginalString" alt="Foto Profil" style="width: 100%;" />
@@ -32,7 +66,7 @@
                                 }
                             </div>
 
-                            <button id="btn-ganti-foto" type="button" class="btn btn-secondary mt-2">Ganti Foto Profil</button>
+                            <button id="btn-ganti-foto" type="button" class="btn btn-secondary mt-2" data-toggle="tooltip" title="Ganti Foto Profil">Ganti Foto Profil</button>
 
                             <input type="file" id="input-foto" accept=".jpg,.jpeg" style="display:none" />
                         </div>
@@ -88,19 +122,19 @@
                             <ul class="nav nav-tabs pt-2" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
-                                       aria-controls="home" aria-selected="true">Data Diri</a>
+                                       aria-controls="home" aria-selected="true" title="Data Diri">Data Diri</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="kedua-tab" data-toggle="tab" href="#kedua" role="tab"
-                                       aria-controls="kedua" aria-selected="false">Alamat</a>
+                                       aria-controls="kedua" aria-selected="false" title="Alamat">Alamat</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="ketiga-tab" data-toggle="tab" href="#ketiga" role="tab"
-                                       aria-controls="ketiga" aria-selected="false">Orang Tua</a>
+                                       aria-controls="ketiga" aria-selected="false" title="Orang Tua">Orang Tua</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="keempat-tab" data-toggle="tab" href="#keempat" role="tab"
-                                       aria-controls="keempat" aria-selected="false">Wali</a>
+                                       aria-controls="keempat" aria-selected="false" title="Wali">Wali</a>
                                 </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
@@ -297,9 +331,6 @@
                                                 else
                                                 {
                                                     <div class="col-md-7"><a href="@Model.IjazahSMP.OriginalString">Ijazah SMP</a></div>
-                                                    <div class="col-6">
-                                                        <a href="@Model.IjazahSMP.OriginalString">Ijazah SMP</a>
-                                                    </div>
                                                 }
                                             </div>
                                         </div>
@@ -308,21 +339,9 @@
 
                                 <div class="tab-pane fade pt-0" id="kedua" role="tabpanel" aria-labelledby="kedua-tab">
                                     <div class="row border pt-2">
-                                        <div class="col-6">
+                                        <div class="col-6">                                            
                                             <div class="row mb-3 border-bottom pb-1">
-                                                <div class="col-md-5" style="font-weight:600;">Kode Pos</div>
-                                                @if (Model.AlamatLengkap.KodePos == Alamat.Empty.KodePos)
-                                                {
-                                                    <div class="col-md-7">Belum Diisi</div>
-                                                }
-                                                else
-                                                {
-                                                    <div class="col-md-7">@Model.AlamatLengkap.KodePos</div>
-                                                }
-                                            </div>
-
-                                            <div class="row mb-3 border-bottom pb-1">
-                                                <div class="col-md-5" style="font-weight:600;">Jalan</div>
+                                                <div class="col-md-5" style="font-weight:600;">Alamat</div>
                                                 @if (Model.AlamatLengkap.Jalan == Alamat.Empty.Jalan)
                                                 {
                                                     <div class="col-md-7">Belum Diisi</div>
@@ -334,8 +353,13 @@
                                             </div>
 
                                             <div class="row mb-3 border-bottom pb-1">
-                                                <div class="col-md-5" style="font-weight:600;">RT / RW</div>
-                                                <div class="col-md-7">@Model.AlamatLengkap.RT / @Model.AlamatLengkap.RW</div>
+                                                <div class="col-md-5" style="font-weight:600;">RT</div>
+                                                <div class="col-md-7">@Model.AlamatLengkap.RT</div>
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">RW</div>
+                                                <div class="col-md-7">@Model.AlamatLengkap.RW</div>
                                             </div>
 
                                             <div class="row mb-3 pb-1">
@@ -348,8 +372,7 @@
                                                 {
                                                     <div class="col-md-7"> @Model.AlamatLengkap.KelurahanDesa</div>
                                                 }
-                                            </div>
-
+                                            </div>                                           
                                         </div>
 
                                         <div class="col-6">
@@ -386,6 +409,18 @@
                                                 else
                                                 {
                                                     <div class="col-md-7"> @Model.AlamatLengkap.Provinsi</div>
+                                                }
+                                            </div>
+
+                                            <div class="row mb-3 pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Kode Pos</div>
+                                                @if (Model.AlamatLengkap.KodePos == Alamat.Empty.KodePos)
+                                                {
+                                                    <div class="col-md-7">Belum Diisi</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-7">@Model.AlamatLengkap.KodePos</div>
                                                 }
                                             </div>
 
@@ -775,17 +810,31 @@
                         // misalnya controller mengembalikan URL foto baru
                         if (res && res.newFotoUrl) {
                             $('#foto-profil').attr('src', res.newFotoUrl);
-                        }
-                        alert('Foto profil berhasil diperbarui!');
+                        }                        
+                            // reload halaman 
+                            setTimeout(function () {
+                                location.reload();
+                            });
                     },
                     error: function () {
-                        alert('Gagal mengganti foto profil.');
+                        // alert('Gagal mengganti foto profil.');
                     },
                     complete: function () {
                         $('#btn-ganti-foto').prop('disabled', false).text('Ganti Foto Profil');
                     }
                 });
             });
+        });
+
+        //modal ubah pw
+        $(function () {
+            $('.form-ubah-pw').each(function () {
+                const formUbahPW = $(this);
+                formUbahPW.siblings('.btn-ubah-pw').on('click', () => {
+                    $('#modalUbahPWContent').html($(formUbahPW).html());
+                    $('#modalUbahPW').modal('show');
+                });
+            });            
         });
     </script>
 }

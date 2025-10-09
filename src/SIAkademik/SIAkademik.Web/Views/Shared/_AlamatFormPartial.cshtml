@@ -2,52 +2,76 @@
 
 @model IHaveAlamat
 
-<div class="">
-    <div class="form-group">
-        <label asp-for="@Model.Alamat.KodePos"></label>
-        <input asp-for="@Model.Alamat.KodePos" class="form-control"/>
-        <span asp-validation-for="@Model.Alamat.KodePos"></span>
+<div class="row border pt-2">
+    <div class="col-6">       
+
+        <div class="row mb-3 border-bottom pb-1">
+            <div class="col-md-5" style="font-weight:600;">
+                <label asp-for="@Model.Alamat.Jalan">Alamat</label>
+            </div>
+            <div class="col-md-7"><input asp-for="@Model.Alamat.Jalan" class="form-control" /></div>
+            <span asp-validation-for="@Model.Alamat.Jalan" hidden></span>
+        </div>
+
+        <div class="row mb-3 border-bottom pb-1">
+            <div class="col-md-5" style="font-weight:600;">
+                <label asp-for="@Model.Alamat.RT"></label>
+            </div>
+            <div class="col-md-7"><input asp-for="@Model.Alamat.RT" class="form-control" /></div>
+            <span asp-validation-for="@Model.Alamat.RT" hidden></span>
+        </div>
+
+        <div class="row mb-3 border-bottom pb-1">
+            <div class="col-md-5" style="font-weight:600;">
+                <label asp-for="@Model.Alamat.RW"></label>
+            </div>
+            <div class="col-md-7"><input asp-for="@Model.Alamat.RW" class="form-control" /></div>
+            <span asp-validation-for="@Model.Alamat.RW" hidden></span>
+        </div>
+
+        <div class="row mb-3 pb-1">
+            <div class="col-md-5" style="font-weight:600;">
+                <label asp-for="@Model.Alamat.KelurahanDesa"></label>
+            </div>
+            <div class="col-md-7"><input asp-for="@Model.Alamat.KelurahanDesa" class="form-control" /></div>
+            <span asp-validation-for="@Model.Alamat.KelurahanDesa" hidden></span>
+        </div>
+
     </div>
 
-    <div class="form-group">
-        <label asp-for="@Model.Alamat.Jalan"></label>
-        <input asp-for="@Model.Alamat.Jalan" class="form-control" />
-        <span asp-validation-for="@Model.Alamat.Jalan"></span>
-    </div>
+    <div class="col-6">        
 
-    <div class="form-group">
-        <label asp-for="@Model.Alamat.RW"></label>
-        <input asp-for="@Model.Alamat.RW" class="form-control" />
-        <span asp-validation-for="@Model.Alamat.RW"></span>
-    </div>
+        <div class="row mb-3 border-bottom pb-1">
+            <div class="col-md-5" style="font-weight:600;">
+                <label asp-for="@Model.Alamat.Kecamatan"></label>
+            </div>
+            <div class="col-md-7"><input asp-for="@Model.Alamat.Kecamatan" class="form-control" /></div>
+            <span asp-validation-for="@Model.Alamat.Kecamatan" hidden></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="@Model.Alamat.RT"></label>
-        <input asp-for="@Model.Alamat.RT" class="form-control" />
-        <span asp-validation-for="@Model.Alamat.RT"></span>
-    </div>
+        <div class="row mb-3 border-bottom pb-1">
+            <div class="col-md-5" style="font-weight:600;">
+                <label asp-for="@Model.Alamat.KotaKabupaten"></label>
+            </div>
+            <div class="col-md-7"><input asp-for="@Model.Alamat.KotaKabupaten" class="form-control" /></div>
+            <span asp-validation-for="@Model.Alamat.KotaKabupaten" hidden></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="@Model.Alamat.KelurahanDesa"></label>
-        <input asp-for="@Model.Alamat.KelurahanDesa" class="form-control" />
-        <span asp-validation-for="@Model.Alamat.KelurahanDesa"></span>
-    </div>
+        <div class="row border-bottom mb-3 pb-1">
+            <div class="col-md-5" style="font-weight:600;">
+                <label asp-for="@Model.Alamat.Provinsi"></label>
+            </div>
+            <div class="col-md-7"><input asp-for="@Model.Alamat.Provinsi" class="form-control" /></div>
+            <span asp-validation-for="@Model.Alamat.Provinsi" hidden></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="@Model.Alamat.Kecamatan"></label>
-        <input asp-for="@Model.Alamat.Kecamatan" class="form-control" />
-        <span asp-validation-for="@Model.Alamat.Kecamatan"></span>
-    </div>
+        <div class="row mb-3 pb-1">
+            <div class="col-md-5" style="font-weight:600;">
+                <label asp-for="@Model.Alamat.KodePos"></label>
+            </div>
+            <div class="col-md-7"><input asp-for="@Model.Alamat.KodePos" class="form-control" /></div>
+            <span asp-validation-for="@Model.Alamat.KodePos" hidden></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="@Model.Alamat.KotaKabupaten"></label>
-        <input asp-for="@Model.Alamat.KotaKabupaten" class="form-control" />
-        <span asp-validation-for="@Model.Alamat.KotaKabupaten"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="@Model.Alamat.Provinsi"></label>
-        <input asp-for="@Model.Alamat.Provinsi" class="form-control" />
-        <span asp-validation-for="@Model.Alamat.Provinsi"></span>
     </div>
 </div>
