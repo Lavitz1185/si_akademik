@@ -21,7 +21,14 @@
                                 }
                                 else
                                 {
-                                    <img id="foto-profil" src="/images/default-profile.png" alt="Foto Profil" style="width: 100%;" />
+                                    var inisial = string.Join("", Model.Nama?.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                                    .Select(n => n[0]))
+                                    .ToUpperInvariant();
+                                    if (inisial.Length > 2) inisial = inisial.Substring(0, 2);
+
+                                    <div class="fotoprofil">
+                                        @inisial
+                                    </div>
                                 }
                             </div>
 
