@@ -876,6 +876,18 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
     font-size: 3rem;
 }
 
+.fotoprofilkecil {
+    width: 35px;
+    height: 35px;
+    background-color: #1E3A8A; /* biru gelap */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
 .remove-caret:after {
     display: none
 }
