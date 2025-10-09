@@ -1,0 +1,175 @@
+﻿@model Pegawai
+
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-12" >
+            <div class="card card-primary mt-3">
+                <div class="card-header border-bottom pb-3">
+                    <h4>Profil Siswa</h4>
+                    <div class="ml-auto">
+                        <a asp-action="EditProfil" class="btn btn-warning"><i class="fas fa-pencil-alt"></i><span class="pl-2">Edit Profil</span></a>
+                        <a asp-action="UbahPassword" class="btn btn-primary"><i class="fas fa-pencil-alt"></i><span class="pl-2">Ubah Password</span></a>
+                    </div>                  
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-2">
+                            @if(Model.FotoProfil is not null)
+                            {
+                                <img src="@Model.FotoProfil?.OriginalString" alt="foto profil" />
+                            }
+                            <a asp-action="EditFotoProfil">Ganti Foto Profil</a>
+                        </div>
+                        <div class="col-10">
+                            <div class="row">
+
+                                <div class="col-6">
+                                    <div class="row mb-3 border-bottom pb-1">
+                                        <div class="col-md-5" style="font-weight:600;">NIP</div>
+                                        <div class="col-md-7">@Model.Id</div>
+                                    </div>
+                                    <div class="row mb-3 border-bottom pb-1">
+                                        <div class="col-md-5" style="font-weight:600;">Tanggal Masuk</div>
+                                        <div class="col-md-7">@Model.TanggalMasuk.ToString("dd MMMM yyyy", CultureInfos.CI)</div>
+                                    </div>
+                                    <div class="row mb-3 border-bottom pb-1">
+                                        <div class="col-md-5" style="font-weight:600;">Jabatan</div>
+                                        <div class="col-md-7">@Model.Jabatan.Nama - @Model.Jabatan.Jenis.Humanize()</div>
+                                    </div>
+                                    <div class="row mb-3 border-bottom pb-1">
+                                        <div class="col-md-5" style="font-weight:600;">Divisi</div>
+                                        <div class="col-md-7">@Model.Divisi.Nama</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @* Ini Desain Tab *@
+                            <ul class="nav nav-tabs pt-2" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                       aria-controls="home" aria-selected="true">Data Diri</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="kedua-tab" data-toggle="tab" href="#kedua" role="tab"
+                                       aria-controls="kedua" aria-selected="false">Alamat</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active pt-0" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="row border pt-2">
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-12 pb-3">
+                                                    <div class="card-header border-bottom pl-0" style="border-bottom: 2px solid #6777ef !important;">
+                                                        <h4 style="color: #6777ef">Umum</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Nama</div>
+                                                <div class="col-md-7">@Model.Nama</div>      
+                                            </div>
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">NIK</div>
+                                                <div class="col-md-7">@Model.NIK</div>      
+                                            </div>
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Jenis Kelamin</div>
+                                                <div class="col-md-7">@Model.JenisKelamin.Humanize()</div>
+                                            </div>
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">TTL</div>
+                                                <div class="col-md-7">@Model.TTL</div>
+                                            </div>
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Status Perkawinan</div>
+                                                <div class="col-md-7">@Model.StatusPerkawinan.Humanize()</div>
+                                            </div>
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">TTL</div>
+                                                <div class="col-md-7">@Model.GolonganDarah.Humanize()</div>
+                                            </div>
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">No. Rekening</div>
+                                                <div class="col-md-7">@Model.NoRekening</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-12 pb-3">
+                                                    <div class="card-header border-bottom pl-0" style="border-bottom: 2px solid #6777ef !important;">
+                                                        <h4 style="color: #6777ef">Kontak</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">No. HP/WA</div>
+                                                <div class="col-md-7">@Model.NoHP.Value</div>
+                                            </div>
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Email</div>
+                                                <div class="col-md-7">@Model.Email</div>
+                                            </div>
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Nama Instagram</div>
+                                                <div class="col-md-7">@Model.NamaInstagram</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade pt-0" id="kedua" role="tabpanel" aria-labelledby="kedua-tab">
+                                    <div class="row border pt-2">
+                                        <div class="col-6">                                            
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Kode Pos</div>
+                                                <div class="col-md-7">@Model.AlamatKTP.KodePos</div>
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Jalan</div>
+                                                <div class="col-md-7"> @Model.AlamatKTP.Jalan</div>
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">RT / RW</div>
+                                                <div class="col-md-7">@Model.AlamatKTP.RT / @Model.AlamatKTP.RW</div>
+                                            </div>
+
+                                            <div class="row mb-3 pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Kelurahan / Desa</div>
+                                                <div class="col-md-7"> @Model.AlamatKTP.KelurahanDesa</div>                                                   
+                                            </div>                                          
+                                            
+                                        </div>
+
+                                        <div class="col-6">                                           
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Kecamatan</div>
+                                                <div class="col-md-7"> @Model.AlamatKTP.Kecamatan</div>                                                   
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Kabupaten / Kota</div>
+                                                <div class="col-md-7">@Model.AlamatKTP.KotaKabupaten</div>                                                  
+                                            </div>
+
+                                            <div class="row mb-3 border-bottom pb-1">
+                                                <div class="col-md-5" style="font-weight:600;">Provinsi</div>
+                                                <div class="col-md-7"> @Model.AlamatKTP.Provinsi</div>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

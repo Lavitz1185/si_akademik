@@ -48,11 +48,6 @@ public class EditProfilVM : IHaveAlamat
     [DataType(DataType.EmailAddress)]
     public required string Email { get; set; }
 
-    [Display(Name = "Tanggal Masuk")]
-    [Required(ErrorMessage = "{0} harus diisi")]
-    [DataType(DataType.Date)]
-    public required DateOnly TanggalMasuk { get; set; }
-
     [Display(Name = "NIK")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public required string NIK { get; set; }
@@ -63,16 +58,4 @@ public class EditProfilVM : IHaveAlamat
     [Display(Name = "No. Rekening")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public required string NoRekening { get; set; }
-
-    [Display(Name = "Divisi")]
-    [Required(ErrorMessage = "{0} harus diisi")]
-    public required int DivisiId { get; set; }
-
-    [Display(Name = "Jabatan")]
-    [Required(ErrorMessage = "{0} harus diisi")]
-    public required int JabatanId { get; set; }
-
-    [Display(Name = "Password")]
-    [DataType(DataType.Password)]
-    public string? Password { get; set; } = string.Empty;
 }

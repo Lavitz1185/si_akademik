@@ -32,6 +32,7 @@ public class Pegawai : Entity<string>
     public required string NIK { get; set; }
     public required string NamaInstagram { get; set; }
     public required string NoRekening { get; set; }
+    public Uri? FotoProfil { get; set; }
 
     public List<Rombel> DaftarRombelWali { get; set; } = [];
     public List<JadwalMengajar> DaftarJadwalMengajar { get; set; } = [];

@@ -2,19 +2,22 @@
 
 <div class="section-body">
     <div class="row" style="justify-content: center;">
-        <div class="col-12 col-md-6 col-lg-12" >
+        <div class="col-12 col-md-6 col-lg-12">
             <div class="card card-primary mt-3">
                 <div class="card-header border-bottom pb-3">
                     <h4>Profil Siswa</h4>
                     <div class="ml-auto">
                         <a asp-action="EditProfil" class="btn btn-warning"><i class="fas fa-pencil-alt"></i><span class="pl-2">Edit Profil</span></a>
                         <a asp-action="UbahPassword" class="btn btn-primary"><i class="fas fa-pencil-alt"></i><span class="pl-2">Ubah Password</span></a>
-                    </div>                  
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-2">
-                           @*  <img src="@Model.FotoProfil?.OriginalString" alt="Foto Profil" /> *@
+                            @if (Model.FotoProfil is not null)
+                            {
+                                <img src="@Model.FotoProfil.OriginalString" alt="Foto Profil" />
+                            }
                             <a asp-action="EditFotoProfil">Ganti Foto Profil</a>
                         </div>
                         <div class="col-10">
@@ -104,7 +107,7 @@
                                                 else
                                                 {
                                                     <div class="col-md-7">@Model.Suku</div>
-                                                }                                                
+                                                }
                                             </div>
 
                                             <div class="row mb-3 border-bottom pb-1">
@@ -116,7 +119,7 @@
                                                 else
                                                 {
                                                     <div class="col-md-7">@Model.GolonganDarah</div>
-                                                }                                               
+                                                }
                                             </div>
 
                                             <div class="row mb-3 border-bottom pb-1">
@@ -128,7 +131,7 @@
                                                 else
                                                 {
                                                     <div class="col-md-7">@Model.TinggiBadan cm</div>
-                                                }                                                
+                                                }
                                             </div>
 
                                             <div class="row mb-3 border-bottom pb-1">
@@ -140,7 +143,7 @@
                                                 else
                                                 {
                                                     <div class="col-md-7">@Model.BeratBadan kg</div>
-                                                }                                               
+                                                }
                                             </div>
 
                                             <div class="row mb-3 border-bottom pb-1">
@@ -153,7 +156,7 @@
                                                 {
                                                     <div class="col-md-7">@Model.Hobi</div>
                                                 }
-                                            </div>                                           
+                                            </div>
 
                                             <div class="row mb-3 border-bottom pb-1">
                                                 <div class="col-md-5" style="font-weight:600;">Jumlah Saudara</div>
@@ -163,7 +166,7 @@
                                                 }
                                                 else
                                                 {
-                                                    <div class="col-md-7"> @Model.JumlahSaudara orang</div>                                                  
+                                                    <div class="col-md-7"> @Model.JumlahSaudara orang</div>
                                                 }
                                             </div>
 
@@ -225,7 +228,7 @@
                                                 <div class="col-md-5" style="font-weight:600;">No. KK</div>
                                                 @if (Model.NomorKartuKeluarga is null)
                                                 {
-                                                    <div class="col-md-7">Belum Diisi</div>                                                
+                                                    <div class="col-md-7">Belum Diisi</div>
                                                 }
                                                 else
                                                 {
@@ -281,7 +284,7 @@
                                                     <div class="col-6">
                                                         <a href="@Model.IjazahSMP.OriginalString">Ijazah SMP</a>
                                                     </div>
-                                                }                                                
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -289,7 +292,7 @@
 
                                 <div class="tab-pane fade pt-0" id="kedua" role="tabpanel" aria-labelledby="kedua-tab">
                                     <div class="row border pt-2">
-                                        <div class="col-6">                                            
+                                        <div class="col-6">
                                             <div class="row mb-3 border-bottom pb-1">
                                                 <div class="col-md-5" style="font-weight:600;">Kode Pos</div>
                                                 @if (Model.AlamatLengkap.KodePos == Alamat.Empty.KodePos)
@@ -299,7 +302,7 @@
                                                 else
                                                 {
                                                     <div class="col-md-7">@Model.AlamatLengkap.KodePos</div>
-                                                }                                               
+                                                }
                                             </div>
 
                                             <div class="row mb-3 border-bottom pb-1">
@@ -327,13 +330,13 @@
                                                 }
                                                 else
                                                 {
-                                                    <div class="col-md-7"> @Model.AlamatLengkap.KelurahanDesa</div>                                                   
-                                                }                                              
-                                            </div>                                          
-                                            
+                                                    <div class="col-md-7"> @Model.AlamatLengkap.KelurahanDesa</div>
+                                                }
+                                            </div>
+
                                         </div>
 
-                                        <div class="col-6">                                           
+                                        <div class="col-6">
                                             <div class="row mb-3 border-bottom pb-1">
                                                 <div class="col-md-5" style="font-weight:600;">Kecamatan</div>
                                                 @if (Model.AlamatLengkap.Kecamatan == Alamat.Empty.Kecamatan)
@@ -342,8 +345,8 @@
                                                 }
                                                 else
                                                 {
-                                                    <div class="col-md-7"> @Model.AlamatLengkap.Kecamatan</div>                                                   
-                                                }                                              
+                                                    <div class="col-md-7"> @Model.AlamatLengkap.Kecamatan</div>
+                                                }
                                             </div>
 
                                             <div class="row mb-3 border-bottom pb-1">
@@ -354,8 +357,8 @@
                                                 }
                                                 else
                                                 {
-                                                    <div class="col-md-7">@Model.AlamatLengkap.KotaKabupaten</div>                                                  
-                                                }                                              
+                                                    <div class="col-md-7">@Model.AlamatLengkap.KotaKabupaten</div>
+                                                }
                                             </div>
 
                                             <div class="row mb-3 border-bottom pb-1">
@@ -367,9 +370,9 @@
                                                 else
                                                 {
                                                     <div class="col-md-7"> @Model.AlamatLengkap.Provinsi</div>
-                                                }                                              
+                                                }
                                             </div>
-                                           
+
                                         </div>
                                     </div>
                                 </div>
@@ -405,7 +408,7 @@
                                                 else
                                                 {
                                                     <div class="col-md-7">  @Model.NIKAyah</div>
-                                                }                                              
+                                                }
                                             </div>
 
                                             <div class="row mb-3 border-bottom pb-1">
@@ -417,7 +420,7 @@
                                                 else
                                                 {
                                                     <div class="col-md-7"> @Model.PekerjaanAyah</div>
-                                                }                                                                                        
+                                                }
                                             </div>
 
                                             <div class="row mb-3 border-bottom pb-1">
@@ -429,7 +432,7 @@
                                                 else
                                                 {
                                                     <div class="col-md-7">@Model.AgamaAyah.Humanize()</div>
-                                                }                                               
+                                                }
                                             </div>
 
                                             <div class="row mb-3 border-bottom pb-1">
@@ -477,7 +480,7 @@
                                                 else
                                                 {
                                                     <div class="col-md-7"> @Model.PendidikanTerakhirAyah</div>
-                                                }                                            
+                                                }
                                             </div>
                                         </div>
 
@@ -584,7 +587,7 @@
                                                     <div class="col-md-7"> @Model.PendidikanTerakhirIbu</div>
                                                 }
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -650,7 +653,7 @@
                                                 {
                                                     <div class="col-md-7">@Model.NoHPWali.Value</div>
                                                 }
-                                            </div>                                            
+                                            </div>
 
                                         </div>
 
@@ -706,7 +709,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
 
                         </div>
                     </div>

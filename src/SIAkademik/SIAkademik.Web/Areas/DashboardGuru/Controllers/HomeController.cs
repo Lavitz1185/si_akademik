@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SIAkademik.Domain.Abstracts;
 using SIAkademik.Domain.Authentication;
@@ -6,6 +7,7 @@ using SIAkademik.Domain.Enums;
 using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Domain.ValueObjects;
+using SIAkademik.Infrastructure.Services.FileServices;
 using SIAkademik.Web.Areas.DashboardGuru.Models.Home;
 using SIAkademik.Web.Authentication;
 using SIAkademik.Web.Models;
@@ -26,6 +28,8 @@ public class HomeController : Controller
     private readonly ITahunAjaranRepository _tahunAjaranRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IToastrNotificationService _toastrNotificationService;
+    private readonly IPasswordHasher<AppUser> _passwordHasher;
+    private readonly IFileService _fileService;
 
     public HomeController(
         ISignInManager signInManager,
@@ -36,7 +40,9 @@ public class HomeController : Controller
         IToastrNotificationService toastrNotificationService,
         IJadwalMengajarRepository jadwalMengajarRepository,
         IRombelRepository rombelRepository,
-        ITahunAjaranRepository tahunAjaranRepository)
+        ITahunAjaranRepository tahunAjaranRepository,
+        IPasswordHasher<AppUser> passwordHasher,
+        IFileService fileService)
     {
         _signInManager = signInManager;
         _pegawaiRepository = pegawaiRepository;
@@ -47,6 +53,8 @@ public class HomeController : Controller
         _jadwalMengajarRepository = jadwalMengajarRepository;
         _rombelRepository = rombelRepository;
         _tahunAjaranRepository = tahunAjaranRepository;
+        _passwordHasher = passwordHasher;
+        _fileService = fileService;
     }
 
     public async Task<IActionResult> Index(DateOnly? tanggal = null)
@@ -87,15 +95,18 @@ public class HomeController : Controller
         return RedirectToAction("Index", "Home", new { Area = AreaNames.Profil });
     }
 
+    public async Task<IActionResult> Profil()
+    {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        return View(pegawai);
+    }
+
     public async Task<IActionResult> EditProfil()
     {
-        var user = await _signInManager.GetUser();
-        if (user is null) return Forbid();
-
-        var guru = user.Guru;
+        var guru = await _signInManager.GetPegawai();
         if (guru is null) return Forbid();
-
-        guru = (await _pegawaiRepository.Get(guru.Id))!;
 
         return View(new EditProfilVM
         {
@@ -111,10 +122,8 @@ public class HomeController : Controller
                 Provinsi = guru.AlamatKTP.Provinsi,
                 KodePos = guru.AlamatKTP.KodePos
             },
-            DivisiId = guru.Divisi.Id,
             Email = guru.Email,
             GolonganDarah = guru.GolonganDarah,
-            JabatanId = guru.Jabatan.Id,
             JenisKelamin = guru.JenisKelamin,
             Nama = guru.Nama,
             NamaInstagram = guru.NamaInstagram,
@@ -123,7 +132,6 @@ public class HomeController : Controller
             NoRekening = guru.NoRekening,
             StatusPerkawinan = guru.StatusPerkawinan,
             TanggalLahir = guru.TanggalLahir,
-            TanggalMasuk = guru.TanggalMasuk,
             TempatLahir = guru.TempatLahir
         });
     }
@@ -133,23 +141,8 @@ public class HomeController : Controller
     {
         if (!ModelState.IsValid) return View(vm);
 
-        var user = await _signInManager.GetUser();
-        var guru = user?.Guru;
-        if (user is null || guru is null) return Forbid();
-
-        var divisi = await _divisiRepository.Get(vm.DivisiId);
-        if (divisi is null)
-        {
-            ModelState.AddModelError(nameof(EditProfilVM.DivisiId), $"Divisi dengan Id '{vm.DivisiId}' tidak ditemukan");
-            return View(vm);
-        }
-
-        var jabatan = await _jabatanRepository.Get(vm.JabatanId);
-        if (jabatan is null)
-        {
-            ModelState.AddModelError(nameof(EditProfilVM.JabatanId), $"Jabatan dengan Id '{vm.JabatanId}' tidak ditemukan");
-            return View(vm);
-        }
+        var guru = await _signInManager.GetPegawai();
+        if (guru is null) return Forbid();
 
         var noHP = NoHP.Create(vm.NoHP);
         if (noHP.IsFailure)
@@ -171,10 +164,8 @@ public class HomeController : Controller
         };
 
         guru.Agama = vm.Agama;
-        guru.Divisi = divisi;
         guru.Email = vm.Email;
         guru.GolonganDarah = vm.GolonganDarah;
-        guru.Jabatan = jabatan;
         guru.JenisKelamin = vm.JenisKelamin;
         guru.Nama = vm.Nama;
         guru.NamaInstagram = vm.NamaInstagram;
@@ -183,7 +174,6 @@ public class HomeController : Controller
         guru.NoRekening = vm.NoRekening;
         guru.StatusPerkawinan = vm.StatusPerkawinan;
         guru.TanggalLahir = vm.TanggalLahir;
-        guru.TanggalMasuk = vm.TanggalMasuk;
         guru.TempatLahir = vm.TempatLahir;
 
         var result = await _unitOfWork.SaveChangesAsync();
@@ -195,6 +185,101 @@ public class HomeController : Controller
 
         _toastrNotificationService.AddSuccess("Profil berhasil diubah!");
 
-        return RedirectToAction(nameof(EditProfil));
+        return RedirectToAction(nameof(Profil));
+    }
+
+    public async Task<IActionResult> UbahPassword()
+    {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        return View(new UbahPasswordVM());
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UbahPassword(UbahPasswordVM vm)
+    {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        if (!ModelState.IsValid) return View(vm);
+
+        if (_passwordHasher.VerifyHashedPassword(null, pegawai.Account!.PasswordHash, vm.PasswordLama) == PasswordVerificationResult.Failed)
+        {
+            ModelState.AddModelError(nameof(UbahPasswordVM.PasswordLama), "Password Lama salah!");
+            return View(vm);
+        }
+
+        if (vm.PasswordLama == vm.PasswordBaru)
+        {
+            ModelState.AddModelError(nameof(UbahPasswordVM.PasswordBaru), "Password baru sama dengan password lama. Ganti dengan password yang berbeda");
+            return View(vm);
+        }
+
+        pegawai.Account.PasswordHash = _passwordHasher.HashPassword(null, vm.PasswordBaru);
+
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsFailure)
+        {
+            ModelState.AddModelError(string.Empty, "Simpan gagal!");
+            return View(vm);
+        }
+
+        _toastrNotificationService.AddSuccess("Password berhasil diganti!");
+        return RedirectToAction(nameof(Profil));
+    }
+
+    public async Task<IActionResult> EditFotoProfil()
+    {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        return View(new EditFotoProfilVM { FotoProfilLama = pegawai.FotoProfil });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> EditFotoProfil(EditFotoProfilVM vm)
+    {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        if (!ModelState.IsValid) return View(vm);
+
+        if (vm.FotoProfil is not null)
+        {
+            var fotoProfil = await _fileService.UploadFile<EditFotoProfilVM>(
+                vm.FotoProfil,
+                "FotoProfil",
+                [".jpeg", ".jpg"],
+                0,
+                104858);
+
+            if (fotoProfil.IsFailure)
+            {
+                ModelState.AddModelError(nameof(EditFotoProfilVM.FotoProfil), $"Upload Foto Profil Gagal : {fotoProfil.Error.Message}");
+                return View(vm);
+            }
+
+            pegawai.FotoProfil = fotoProfil.Value;
+
+            var result = await _unitOfWork.SaveChangesAsync();
+            if (result.IsFailure)
+            {
+                _toastrNotificationService.AddError("Simpan gagal!");
+                return View(vm);
+            }
+            else
+                _toastrNotificationService.AddSuccess("Simpan Berhasil!");
+
+            if (vm.FotoProfilLama is not null)
+                _fileService.Delete(vm.FotoProfilLama);
+        }
+        else if (vm.FotoProfilLama is not null)
+        {
+            ModelState.AddModelError(nameof(EditFotoProfilVM.FotoProfil), "Foto Profil Harus Diupload!");
+            return View(vm);
+        }
+
+        return RedirectToAction(nameof(Profil));
     }
 }
