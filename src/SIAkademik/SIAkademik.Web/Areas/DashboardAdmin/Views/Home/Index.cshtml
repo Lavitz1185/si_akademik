@@ -21,7 +21,7 @@
         <div class="row g-3 mt-3">
             <!-- Card Total Siswa -->
             <div class="col-md-3">
-                <div class="card">
+                <div class="card shadow-sm">
                     <div class="card-body">
                         <h6 class="text-muted mb-1">Total Siswa</h6>
                         <h3 class="fw-bold">@Model.DaftarSiswa.Count</h3>
@@ -32,7 +32,7 @@
 
             <!-- Card Total Guru -->
             <div class="col-md-3">
-                <div class="card">
+                <div class="card shadow-sm">
                     <div class="card-body">
                         <h6 class="text-muted mb-1">Total Guru</h6>
                         <h3 class="fw-bold">@Model.DaftarPegawai.Count</h3>
@@ -45,7 +45,7 @@
             {
                 <!-- Card Kelas Aktif -->
                 <div class="col-md-3">
-                    <div class="card">
+                    <div class="card shadow-sm">
                         <div class="card-body">
                             <h6 class="text-muted mb-1">Kelas Aktif</h6>
                             <h3 class="fw-bold">@Model.DaftarRombel.Count</h3>
@@ -57,7 +57,7 @@
 
             <!-- Card Jumlah Alumni -->
             <div class="col-md-3">
-                <div class="card">
+                <div class="card shadow-sm">
                     <div class="card-body">
                         <h6 class="text-muted mb-1">Jumlah Siswa Lulus</h6>
                         <h3 class="fw-bold">@Model.DaftarSiswa.Where(s => s.StatusAktif == StatusAktifMahasiswa.TidakAktif).Count()</h3>
@@ -71,7 +71,7 @@
         <div class="row g-3 mt-1">
             <!-- Statistik Akademik -->
             <div class="col-md-8">
-                <div class="card border-0 h-100">
+                <div class="card shadow-sm border-0 h-100">
                     <div class="card-body">
                         <h6 class="fw-bold mb-3">Statistik Akademik</h6>
                         <p class="text-muted">Perbandingan jumlah siswa berdasarkan jenjang:</p>
@@ -103,7 +103,7 @@
 
             <!-- Link Akses Cepat-->
             <div class="col-md-4">
-                <div class="card border-0 h-100">
+                <div class="card shadow-sm border-0 h-100">
                     <div class="card-body">
                         <h6 class="fw-bold mb-3">Akses Cepat</h6>
                         <ul class="list-group list-group-flush">
@@ -140,7 +140,7 @@
         <div class="row g-3 mt-5">
             <!-- Jadwal per Hari -->
             <div class="col-lg-3 col-md-6 col-12 pr-1">
-                <div class="card h-100">
+                <div class="card shadow-sm h-100">
                     <div class="card-body">
                         <h6 class="card-title text-center">Jadwal per Hari</h6>
                         <canvas id="chartHari" style="width:100%; height:260px;"></canvas>
@@ -150,7 +150,7 @@
 
             <!-- Siswa per Jenis Kelamin -->
             <div class="col-lg-3 col-md-6 col-12 pr-1">
-                <div class="card h-100">
+                <div class="card shadow-sm h-100">
                     <div class="card-body">
                         <h6 class="card-title text-center">Siswa per Jenis Kelamin</h6>
                         <canvas id="chartGender" style="width:100%; height:260px;"></canvas>
@@ -160,7 +160,7 @@
 
             <!-- Siswa per Kelas -->
             <div class="col-lg-3 col-md-6 col-12 pr-1">
-                <div class="card h-100">
+                <div class="card shadow-sm h-100">
                     <div class="card-body">
                         <h6 class="card-title text-center">Siswa per Kelas</h6>
                         <canvas id="chartKelas" style="width:100%; height:260px;"></canvas>
@@ -170,7 +170,7 @@
 
             <!-- Statistik Guru/Pegawai -->
             <div class="col-lg-3 col-md-6 col-12">
-                <div class="card h-100">
+                <div class="card shadow-sm h-100">
                     <div class="card-body">
                         <h6 class="card-title text-center">Statistik Guru/Pegawai</h6>
                         <canvas id="chartPegawai" style="width:100%; height:260px;"></canvas>
