@@ -23,7 +23,7 @@
         <div class="col-12 col-md-6 col-lg-12">
             <div class="card card-info mb-2">
                 <div class="card-header" style="padding-top: 20px;">
-                    <h4>Nilai Siswa</h4>
+                    <h4>Daftar Nilai</h4>
                 </div>
                 <div class="card-body">
                        <div class="mb-3">
@@ -86,13 +86,13 @@
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-                                    <button type="button" class="btn btn-primary btn-tambah mt-2 mb-3">Tambah</button>
+                                    <button type="button" class="btn btn-primary btn-tambah mt-2 mb-3" data-toggle="tooltip" title="Tambah Tugas"><i class="fas fa-plus"></i> Tambah Tugas</button>
 
                                     <div class="form-tambah" style="display:none">
                                         <form asp-action="Tambah" asp-route-idTahunAjaran="@Model.IdTahunAjaran" asp-route-idJadwalMengajar="@Model.IdJadwalMengajar"
                                               asp-route-jenis="@JenisNilai.Tugas" method="post">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="modalTambah">Tambah Tugas</h5>
+                                                <h5 class="modal-title" id="modalTambah">Tambah Data Tugas</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -106,8 +106,8 @@
                                             </div>
 
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary">Simpan</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                                                <button type="submit" class="btn btn-primary">Simpan</button>                                               
                                             </div>
                                         </form>
                                     </div>
@@ -127,11 +127,11 @@
                                                     <tr>
                                                         <td>@evaluasiSiswa.Deskripsi</td>
                                                         <td>
-                                                            <button type="button" class="btn btn-primary btn-edit">Edit</button>
+                                                            <button type="button" class="btn btn-primary btn-edit" data-toggle="tooltip" title="Edit Tugas"><i class="fas fa-pencil-alt"></i> Edit</button>
                                                             <div class="form-edit" style="display:none">
                                                                 <form asp-action="Edit" asp-route-id="@evaluasiSiswa.Id">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title" id="modalTambah">Edit Tugas</h5>
+                                                                        <h5 class="modal-title" id="modalTambah">Edit Data Tugas</h5>
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
@@ -145,17 +145,17 @@
                                                                     </div>
 
                                                                     <div class="modal-footer">
-                                                                        <button type="submit" class="btn btn-primary">Simpan</button>
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                                                                        <button type="submit" class="btn btn-primary">Simpan</button>                                                                      
                                                                     </div>
                                                                 </form>
                                                             </div>
 
                                                             <form asp-action="Hapus" asp-route-id="@evaluasiSiswa.Id" title="Hapus" style="display: inline;">
-                                                                <button type="submit" class="btn btn-danger btn-action swal-confirm">Hapus</button>
+                                                                <button type="submit" class="btn btn-danger btn-action swal-confirm" data-toggle="tooltip" title="Hapus Tugas"><i class="fas fa-trash"></i> Hapus</button>
                                                             </form>
 
-                                                            <a asp-action="DetailNilai" asp-route-id="@evaluasiSiswa.Id" class="btn btn-success">Isi Nilai</a>
+                                                            <a asp-action="DetailNilai" asp-route-id="@evaluasiSiswa.Id" class="btn btn-success" data-toggle="tooltip" title="Isi Nilai Tugas"><i class="fas fa-check-circle"></i> Isi Nilai</a>
                                                         </td>
                                                     </tr>
                                                 }
@@ -167,13 +167,13 @@
                                 </div>
                                 <div class="tab-pane fade" id="kedua" role="tabpanel" aria-labelledby="kedua-tab">
 
-                                    <button type="button" class="btn btn-primary btn-tambah mt-2 mb-3">Tambah</button>
+                                    <button type="button" class="btn btn-primary btn-tambah mt-2 mb-3" data-toggle="tooltip" title="Tambah Ulangan Harian"><i class="fas fa-plus"></i> Tambah Ulangan Harian</button>
 
                                     <div class="form-tambah" style="display:none">
                                         <form asp-action="Tambah" asp-route-idTahunAjaran="@Model.IdTahunAjaran" asp-route-idJadwalMengajar="@Model.IdJadwalMengajar"
                                               asp-route-jenis="@JenisNilai.UH" method="post">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="modalTambah">Tambah Ulangan Harian</h5>
+                                                <h5 class="modal-title" id="modalTambah">Tambah Data Ulangan Harian</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -187,8 +187,8 @@
                                             </div>
 
                                             <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
                                                 <button type="submit" class="btn btn-primary">Simpan</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                                             </div>
                                         </form>
                                     </div>
@@ -208,11 +208,11 @@
                                                     <tr>
                                                         <td>@evaluasiSiswa.Deskripsi</td>
                                                         <td>
-                                                            <button type="button" class="btn btn-primary btn-edit">Edit</button>
+                                                            <button type="button" class="btn btn-primary btn-edit" data-toggle="tooltip" title="Edit Ulangan Harian"><i class="fas fa-pencil-alt"></i> Edit</button>
                                                             <div class="form-edit" style="display:none">
                                                                 <form asp-action="Edit" asp-route-id="@evaluasiSiswa.Id">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title" id="modalTambah">Edit Ulangan Harian</h5>
+                                                                        <h5 class="modal-title" id="modalTambah">Edit Data Ulangan Harian</h5>
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
@@ -226,17 +226,17 @@
                                                                     </div>
 
                                                                     <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
                                                                         <button type="submit" class="btn btn-primary">Simpan</button>
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
 
                                                             <form asp-action="Hapus" asp-route-id="@evaluasiSiswa.Id" title="Hapus" style="display: inline">
-                                                                <button type="submit" class="btn btn-danger btn-action swal-confirm">Hapus</button>
+                                                                <button type="submit" class="btn btn-danger btn-action swal-confirm" data-toggle="tooltip" title="Hapus Ulangan Harian"><i class="fas fa-trash"></i> Hapus</button>
                                                             </form>
 
-                                                            <a asp-action="IsiNilai" asp-route-id="@evaluasiSiswa.Id" class="btn btn-success">Isi Nilai</a>
+                                                            <a asp-action="IsiNilai" asp-route-id="@evaluasiSiswa.Id" class="btn btn-success" data-toggle="tooltip" title="Isi Nilai Ulangan Harian"><i class="fas fa-check-circle"></i> Isi Nilai</a>
                                                         </td>
                                                     </tr>
                                                 }
@@ -290,11 +290,11 @@
                                                     <tr>
                                                         <td>@evaluasiSiswa.Deskripsi</td>
                                                         <td>
-                                                            <button type="button" class="btn btn-primary btn-edit">Edit</button>
+                                                            <button type="button" class="btn btn-primary btn-edit" data-toggle="tooltip" title="Edit Ujian Tengah Semester"><i class="fas fa-pencil-alt"></i> Edit</button>
                                                             <div class="form-edit" style="display:none">
                                                                 <form asp-action="Edit" asp-route-id="@evaluasiSiswa.Id">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title" id="modalTambah">Edit Ujian Tengah Semester</h5>
+                                                                        <h5 class="modal-title" id="modalTambah">Edit Data Ujian Tengah Semester</h5>
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
@@ -308,13 +308,13 @@
                                                                     </div>
 
                                                                     <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
                                                                         <button type="submit" class="btn btn-primary">Simpan</button>
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
 
-                                                            <a asp-action="IsiNilai" asp-route-id="@evaluasiSiswa.Id" class="btn btn-success">Isi Nilai</a>
+                                                            <a asp-action="IsiNilai" asp-route-id="@evaluasiSiswa.Id" class="btn btn-success" data-toggle="tooltip" title="Isi Nilai Ujian Tengah Semester"><i class="fas fa-check-circle"></i> Isi Nilai</a>
                                                         </td>
                                                     </tr>
                                                 }
@@ -368,11 +368,11 @@
                                                     <tr>
                                                         <td>@evaluasiSiswa.Deskripsi</td>
                                                         <td>
-                                                            <button type="button" class="btn btn-primary btn-edit">Edit</button>
+                                                            <button type="button" class="btn btn-primary btn-edit" data-toggle="tooltip" title="Edit Ujian Akhir Semester"><i class="fas fa-pencil-alt"></i> Edit</button>
                                                             <div class="form-edit" style="display:none">
                                                                 <form asp-action="Edit" asp-route-id="@evaluasiSiswa.Id">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title" id="modalTambah">Edit Ujian Akhir Semester</h5>
+                                                                        <h5 class="modal-title" id="modalTambah">Edit Data Ujian Akhir Semester</h5>
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
@@ -386,13 +386,13 @@
                                                                     </div>
 
                                                                     <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
                                                                         <button type="submit" class="btn btn-primary">Simpan</button>
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
 
-                                                            <a asp-action="IsiNilai" asp-route-id="@evaluasiSiswa.Id" class="btn btn-success">Isi Nilai</a>
+                                                            <a asp-action="IsiNilai" asp-route-id="@evaluasiSiswa.Id" class="btn btn-success" data-toggle="tooltip" title="Isi Nilai Ujian Akhir Semester"><i class="fas fa-check-circle"></i> Isi Nilai</a>
                                                         </td>
                                                     </tr>
                                                 }
