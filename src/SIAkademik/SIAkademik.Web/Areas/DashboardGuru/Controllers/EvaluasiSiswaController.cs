@@ -126,7 +126,7 @@ public class EvaluasiSiswaController : Controller
 
         var jadwalMengajar = await _jadwalMengajarRepository.Get(idJadwalMengajar);
         if (jadwalMengajar is null) return NotFound();
-        if (jadwalMengajar.Rombel.Kelas.TahunAjaran != tahunAjaran || jadwalMengajar.Rombel.Wali != pegawai)
+        if (jadwalMengajar.Rombel.Kelas.TahunAjaran != tahunAjaran || jadwalMengajar.Pegawai != pegawai)
             return BadRequest();
 
         if (jenis == JenisNilai.UAS || jenis == JenisNilai.UTS)
@@ -181,7 +181,7 @@ public class EvaluasiSiswaController : Controller
         var evaluasiSiswa = await _evaluasiSiswaRepository.Get(id);
         if (evaluasiSiswa is null) return NotFound();
 
-        if (evaluasiSiswa.JadwalMengajar.Rombel.Wali != pegawai)
+        if (evaluasiSiswa.JadwalMengajar.Pegawai != pegawai)
             return BadRequest();
 
         if (evaluasiSiswa.JadwalMengajar.DaftarEvaluasiSiswa.Any(e => e.Deskripsi.ToLower() == deskripsi.ToLower()))
@@ -215,7 +215,7 @@ public class EvaluasiSiswaController : Controller
         var evaluasiSiswa = await _evaluasiSiswaRepository.Get(id);
         if (evaluasiSiswa is null) return NotFound();
 
-        if (evaluasiSiswa.JadwalMengajar.Rombel.Wali != pegawai) return BadRequest();
+        if (evaluasiSiswa.JadwalMengajar.Pegawai != pegawai) return BadRequest();
 
         _evaluasiSiswaRepository.Delete(evaluasiSiswa);
 
@@ -242,7 +242,7 @@ public class EvaluasiSiswaController : Controller
 
         var evaluasiSiswa = await _evaluasiSiswaRepository.Get(id);
         if (evaluasiSiswa is null) return NotFound();
-        if (evaluasiSiswa.JadwalMengajar.Rombel.Wali != pegawai) return BadRequest();
+        if (evaluasiSiswa.JadwalMengajar.Pegawai != pegawai) return BadRequest();
 
         return View(new IsiNilaiVM
         {
@@ -267,7 +267,7 @@ public class EvaluasiSiswaController : Controller
 
         var evaluasiSiswa = await _evaluasiSiswaRepository.Get(id);
         if (evaluasiSiswa is null) return NotFound();
-        if (evaluasiSiswa.JadwalMengajar.Rombel.Wali != pegawai) return BadRequest();
+        if (evaluasiSiswa.JadwalMengajar.Pegawai != pegawai) return BadRequest();
 
         return View(new IsiNilaiVM
         {
@@ -288,7 +288,7 @@ public class EvaluasiSiswaController : Controller
 
         var evaluasiSiswa = await _evaluasiSiswaRepository.Get(vm.Id);
         if (evaluasiSiswa is null) return NotFound();
-        if (evaluasiSiswa.JadwalMengajar.Rombel.Wali != pegawai) return BadRequest();
+        if (evaluasiSiswa.JadwalMengajar.Pegawai != pegawai) return BadRequest();
 
         foreach (var entry in vm.DaftarIsiNilaiEntry)
         {
