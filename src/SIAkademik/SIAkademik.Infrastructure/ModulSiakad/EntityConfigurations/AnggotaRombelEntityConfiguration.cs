@@ -31,5 +31,18 @@ internal class AnggotaRombelEntityConfiguration : IEntityTypeConfiguration<Anggo
                 TanggalMasuk = new DateOnly(2025, 08, 01)
             }
         );
+
+        for (int i = 0; i < 27; i++)
+        {
+            builder.HasData(
+                new AnggotaRombel
+                {
+                    Id = 3 + i,
+                    IdRombel = 1,
+                    IdSiswa = 4 + i,
+                    TanggalMasuk = new DateOnly(2025, 08, 01)
+                }
+            );
+        }
     }
 }

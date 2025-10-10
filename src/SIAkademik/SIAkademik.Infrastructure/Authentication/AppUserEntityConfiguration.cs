@@ -141,6 +141,195 @@ internal class AppUserEntityConfiguration : IEntityTypeConfiguration<AppUser>
                 UserName = "252601",
                 PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
                 Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 20,
+                UserName = "252602",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 21,
+                UserName = "252603",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 22,
+                UserName = "252605",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 23,
+                UserName = "252606",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 24,
+                UserName = "252607",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 25,
+                UserName = "252608",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 26,
+                UserName = "252609",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 27,
+                UserName = "252610",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 28,
+                UserName = "252611",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 29,
+                UserName = "252612",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 30,
+                UserName = "252613",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 31,
+                UserName = "252614",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 32,
+                UserName = "252615",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 33,
+                UserName = "252616",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 34,
+                UserName = "252617",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 35,
+                UserName = "252618",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 36,
+                UserName = "252619",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 37,
+                UserName = "252620",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 38,
+                UserName = "252621",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 39,
+                UserName = "252622",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 40,
+                UserName = "252623",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 41,
+                UserName = "252624",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 42,
+                UserName = "252625",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 43,
+                UserName = "252626",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 44,
+                UserName = "252627",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 45,
+                UserName = "252628",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
+            },
+            new
+            {
+                Id = 46,
+                UserName = "252629",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Siswa
             }
         );
     }
