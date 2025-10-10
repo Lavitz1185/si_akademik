@@ -332,7 +332,7 @@
                                                         <select asp-for="@Model.AgamaAyah" class="form-control">
                                                             @foreach (var agama in Enum.GetValues<Agama>())
                                                             {
-                                                                <option value="@agama">@agama.Humanize()</option>
+                                                                <option value="@agama">@agama.Humanize(LetterCasing.Title)</option>
                                                             }
                                                         </select>
                                                     </div>
@@ -419,7 +419,7 @@
                                                         <select asp-for="@Model.AgamaIbu" class="form-control">
                                                             @foreach (var agama in Enum.GetValues<Agama>())
                                                             {
-                                                                <option value="@agama">@agama.Humanize()</option>
+                                                                <option value="@agama">@agama.Humanize(LetterCasing.Title)</option>
                                                             }
                                                         </select>
                                                     </div>
@@ -504,7 +504,7 @@
                                                         <select asp-for="@Model.AgamaWali" class="form-control">
                                                             @foreach (var agama in Enum.GetValues<Agama>())
                                                             {
-                                                                <option value="@agama">@agama.Humanize()</option>
+                                                                <option value="@agama">@agama.Humanize(LetterCasing.Title)</option>
                                                             }
                                                         </select>
                                                     </div>
