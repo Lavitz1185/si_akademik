@@ -1,6 +1,10 @@
-﻿namespace SIAkademik.Domain.Enums;
+﻿using System.ComponentModel;
+
+namespace SIAkademik.Domain.Enums;
 
 public enum JenisKelamin
 {
-    LakiLaki, Perempuan
+    [Description("Laki-laki")]
+    LakiLaki, 
+    Perempuan
 }
