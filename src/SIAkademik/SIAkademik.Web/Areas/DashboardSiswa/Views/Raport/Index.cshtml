@@ -93,10 +93,24 @@
                             </select>
                         </form>
 
-                        @if (Model.AnggotaRombel is not null)
-                        {
-                            <a asp-action="Cetak" asp-route-idRombel="@Model.AnggotaRombel.IdRombel" class="btn btn-warning"><i class="fas fa-print"></i> Cetak Rapor</a>
-                        }
+                        <div class="d-flex">
+                            @if (Model.AnggotaRombel is not null)
+                            {
+                                <a asp-action="RaportPDF"
+                                   asp-route-idRombel="@Model.AnggotaRombel.IdRombel"
+                                   asp-route-download="false"
+                                   target="_blank"
+                                   class="btn btn-warning mr-2">
+                                    <i class="fas fa-print"></i> Cetak Rapor
+                                </a>
+
+                                <a asp-action="Cetak"
+                                   asp-route-idRombel="@Model.AnggotaRombel.IdRombel"
+                                   class="btn btn-secondary">
+                                    <i class="fas fa-eye"></i> Lihat Halaman Cetak
+                                </a>
+                            }
+                        </div>                       
                     </div>
 
                     <div class="card-header pr-0 pl-0" style="padding-top: 20px;">
