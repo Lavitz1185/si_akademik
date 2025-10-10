@@ -163,9 +163,52 @@
                             </div>
 
                             <div class="form-group">
-                                <partial name="_AlamatFormPartial" />
-                                <span asp-validation-for="@Model.Alamat"></span>
+                                <label asp-for="@Model.Alamat.Jalan">Alamat</label>
+                                <input asp-for="@Model.Alamat.Jalan" type="text" class="form-control" />
+                                <span asp-validation-for="@Model.Alamat.Jalan"></span>
                             </div>
+
+                            <div class="form-group">
+                                <label asp-for="@Model.Alamat.RT"></label>
+                                <input asp-for="@Model.Alamat.RT" type="text" class="form-control" />
+                                <span asp-validation-for="@Model.Alamat.RT"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="@Model.Alamat.RW"></label>
+                                <input asp-for="@Model.Alamat.RW" type="text" class="form-control" />
+                                <span asp-validation-for="@Model.Alamat.RW"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="@Model.Alamat.KelurahanDesa"></label>
+                                <input asp-for="@Model.Alamat.KelurahanDesa" type="text" class="form-control" />
+                                <span asp-validation-for="@Model.Alamat.KelurahanDesa"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="@Model.Alamat.Kecamatan"></label>
+                                <input asp-for="@Model.Alamat.Kecamatan" type="text" class="form-control" />
+                                <span asp-validation-for="@Model.Alamat.Kecamatan"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="@Model.Alamat.KotaKabupaten"></label>
+                                <input asp-for="@Model.Alamat.KotaKabupaten" type="text" class="form-control" />
+                                <span asp-validation-for="@Model.Alamat.KotaKabupaten"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="@Model.Alamat.Provinsi"></label>
+                                <input asp-for="@Model.Alamat.Provinsi" type="text" class="form-control" />
+                                <span asp-validation-for="@Model.Alamat.Provinsi"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="@Model.Alamat.KodePos"></label>
+                                <input asp-for="@Model.Alamat.KodePos" type="text" class="form-control" />
+                                <span asp-validation-for="@Model.Alamat.KodePos"></span>
+                            </div>                       
 
                             <div class="form-group">
                                 <label asp-for="@Model.NoHP"></label>
