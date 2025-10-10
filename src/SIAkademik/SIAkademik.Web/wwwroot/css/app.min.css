@@ -263,8 +263,20 @@ input[type=checkbox], input[type=radio] {
     padding: 0
 }
 
-input[type=date], input[type=datetime-local], input[type=month], input[type=time] {
+input[type=datetime-local], input[type=month], input[type=time] {
     -webkit-appearance: listbox
+}
+
+/* Hilangkan ikon kalender bawaan browser */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+/* Hilangkan tampilan spinner di beberapa browser */
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-clear-button {
+    display: none;
 }
 
 textarea {

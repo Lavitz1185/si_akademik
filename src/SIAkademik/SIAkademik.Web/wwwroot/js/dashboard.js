@@ -506,11 +506,40 @@ $(function () {
 
     // Daterangepicker
     if (jQuery().daterangepicker) {
-        if ($(".datepicker").length) {
-            $(".datepicker").daterangepicker({
-                locale: { format: "YYYY-MM-DD" },
-                singleDatePicker: true
-            });
+        // Daterangepicker
+        if (jQuery().daterangepicker) {
+            if ($(".datepicker").length) {
+                $(".datepicker").each(function () {
+                    const $input = $(this);
+                    const oldValue = $input.val(); // nilai dari model (jika ada)
+
+                    $input.daterangepicker({
+                        locale: { format: "YYYY-MM-DD" },
+                        singleDatePicker: true,
+                        autoUpdateInput: false
+                    });
+
+                    const picker = $input.data("daterangepicker");
+
+                    if (oldValue && oldValue !== "0001-01-01") {
+                        // kalau ada tanggal valid dari model, pakai itu
+                        picker.setStartDate(moment(oldValue));
+                        picker.setEndDate(moment(oldValue));
+                        $input.val(moment(oldValue).format("YYYY-MM-DD"));
+                    } else {
+                        // kalau tidak ada data, set default ke hari ini
+                        const today = moment();
+                        picker.setStartDate(today);
+                        picker.setEndDate(today);
+                        $input.val(today.format("YYYY-MM-DD"));
+                    }
+
+                    // saat user pilih tanggal baru
+                    $input.on("apply.daterangepicker", function (ev, picker) {
+                        $(this).val(picker.startDate.format("YYYY-MM-DD"));
+                    });
+                });
+            }
         }
         if ($(".datetimepicker").length) {
             $(".datetimepicker").daterangepicker({
