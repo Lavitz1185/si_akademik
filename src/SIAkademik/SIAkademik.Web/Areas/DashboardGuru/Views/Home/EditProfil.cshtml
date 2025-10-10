@@ -8,6 +8,13 @@
 }
 
 <form asp-action="EditProfil">
+
+    <input asp-for="@Model.Nama" readonly hidden />
+    <input asp-for="@Model.TanggalLahir" readonly hidden />
+    <input asp-for="@Model.TempatLahir" readonly hidden />
+    <input asp-for="@Model.Agama" readonly hidden />
+    <input asp-for="@Model.JenisKelamin" readonly hidden />
+
     <div class="section-body">
         <div class="row" style="justify-content: center;">
             <div class="col-12 col-md-6 col-lg-12">
@@ -53,6 +60,21 @@
                                             <div class="col-md-7">@pegawai.Id</div>
                                         </div>
                                         <div class="row mb-3 border-bottom pb-1">
+                                            <div class="col-md-5" style="font-weight:600;">Nama Lengkap</div>
+                                            <div class="col-md-7">@Model.Nama</div>
+                                        </div>
+                                        <div class="row mb-3 border-bottom pb-1">
+                                            <div class="col-md-5" style="font-weight:600;">Jenis Kelamin</div>
+                                            <div class="col-md-7">@Model.JenisKelamin</div>
+                                        </div>
+                                        <div class="row mb-3 border-bottom pb-1">
+                                            <div class="col-md-5" style="font-weight:600;">Tempat / Tanggal Lahir</div>
+                                            <div class="col-md-7">@Model.TempatLahir / @Model.TanggalLahir</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="row mb-3 border-bottom pb-1">
                                             <div class="col-md-5" style="font-weight:600;">Tanggal Masuk</div>
                                             <div class="col-md-7">@pegawai.TanggalMasuk.ToString("dd MMMM yyyy", CultureInfos.CI)</div>
                                         </div>
@@ -64,6 +86,10 @@
                                             <div class="col-md-5" style="font-weight:600;">Divisi</div>
                                             <div class="col-md-7">@pegawai.Divisi.Nama</div>
                                         </div>
+                                        <div class="row mb-3 border-bottom pb-1">
+                                            <div class="col-md-5" style="font-weight:600;">Agama</div>
+                                            <div class="col-md-7">@Model.Agama</div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -74,11 +100,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
                                            aria-controls="home" aria-selected="true">Data Diri</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="kedua-tab" data-toggle="tab" href="#kedua" role="tab"
-                                           aria-controls="kedua" aria-selected="false">Alamat</a>
-                                    </li>
+                                    </li>                                   
                                 </ul>
                                 <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade show active pt-0" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -91,56 +113,17 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                               
                                                 <div class="row mb-3 border-bottom pb-1">
                                                     <div class="col-md-5" style="font-weight:600;">
-                                                        <label asp-for="@Model.Nama"></label>
-                                                    </div>
-                                                    <div class="col-md-7">
-                                                        <input asp-for="@Model.Nama" class="form-control"/>
-                                                        <span asp-validation-for="@Model.Nama" hidden></span>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-3 border-bottom pb-1">
-                                                    <div class="col-md-5" style="font-weight:600;">
-                                                        <label asp-for="@Model.NIK"></label>
+                                                        <label asp-for="@Model.NIK">NIK<span style="color:red">*</span></label>
                                                     </div>
                                                     <div class="col-md-7">
                                                         <input asp-for="@Model.NIK" class="form-control" />
                                                         <span asp-validation-for="@Model.NIK" hidden></span>
                                                     </div>
                                                 </div>
-                                                <div class="row mb-3 border-bottom pb-1">
-                                                    <div class="col-md-5" style="font-weight:600;">
-                                                        <label asp-for="@Model.JenisKelamin" hidden></label>
-                                                    </div>
-                                                    <div class="col-md-7">
-                                                        <select asp-for="@Model.JenisKelamin" class="form-control">
-                                                            @foreach (var jenisKelamin in Enum.GetValues<JenisKelamin>())
-                                                            {
-                                                                <option value="@jenisKelamin">@jenisKelamin.Humanize()</option>
-                                                            }
-                                                        </select>
-                                                        <span asp-validation-for="@Model.JenisKelamin" hidden></span>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-3 border-bottom pb-1">
-                                                    <div class="col-md-5" style="font-weight:600;">
-                                                        <label asp-for="@Model.TempatLahir"></label>
-                                                    </div>
-                                                    <div class="col-md-7">
-                                                        <input asp-for="@Model.TempatLahir" class="form-control" />
-                                                        <span asp-validation-for="@Model.TempatLahir" hidden></span>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-3 border-bottom pb-1">
-                                                    <div class="col-md-5" style="font-weight:600;">
-                                                        <label asp-for="@Model.TanggalLahir"></label>
-                                                    </div>
-                                                    <div class="col-md-7">
-                                                        <input asp-for="@Model.TanggalLahir" type="date" class="form-control" />
-                                                        <span asp-validation-for="@Model.TanggalLahir" hidden></span>
-                                                    </div>
-                                                </div>
+                                                                                              
                                                 <div class="row mb-3 border-bottom pb-1">
                                                     <div class="col-md-5" style="font-weight:600;">
                                                         <label asp-for="@Model.StatusPerkawinan"></label>
@@ -178,9 +161,7 @@
                                                         <span asp-validation-for="@Model.NoRekening" hidden></span>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="col-6">
                                                 <div class="row">
                                                     <div class="col-12 pb-3">
                                                         <div class="card-header border-bottom pl-0" style="border-bottom: 2px solid #6777ef !important;">
@@ -191,7 +172,7 @@
 
                                                 <div class="row mb-3 border-bottom pb-1">
                                                     <div class="col-md-5" style="font-weight:600;">
-                                                        <label asp-for="@Model.NoHP"></label>
+                                                        <label asp-for="@Model.NoHP">No. HP<span style="color:red">*</span></label>
                                                     </div>
                                                     <div class="col-md-7">
                                                         <input asp-for="@Model.NoHP" class="form-control" />
@@ -200,14 +181,14 @@
                                                 </div>
                                                 <div class="row mb-3 border-bottom pb-1">
                                                     <div class="col-md-5" style="font-weight:600;">
-                                                        <label asp-for="@Model.Email"></label>
+                                                        <label asp-for="@Model.Email">Email<span style="color:red">*</span></label>
                                                     </div>
                                                     <div class="col-md-7">
                                                         <input asp-for="@Model.Email" class="form-control" />
                                                         <span asp-validation-for="@Model.Email" hidden></span>
                                                     </div>
                                                 </div>
-                                                <div class="row mb-3 border-bottom pb-1">
+                                                <div class="row mb-3 pb-1">
                                                     <div class="col-md-5" style="font-weight:600;">
                                                         <label asp-for="@Model.NamaInstagram"></label>
                                                     </div>
@@ -217,12 +198,15 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="tab-pane fade pt-0" id="kedua" role="tabpanel" aria-labelledby="kedua-tab">
-                                        <div class="row border pt-2">
-                                            <div class="col-6">
+                                            <div class="col-6">                                                
+                                                <div class="row">
+                                                    <div class="col-12 pb-3">
+                                                        <div class="card-header border-bottom pl-0" style="border-bottom: 2px solid #6777ef !important;">
+                                                            <h4 style="color: #6777ef">Alamat</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                                 <div class="row mb-3 border-bottom pb-1">
                                                     <div class="col-md-5" style="font-weight:600;">
@@ -260,9 +244,6 @@
                                                     </div>
                                                 </div>
 
-                                            </div>
-
-                                            <div class="col-6">
                                                 <div class="row mb-3 border-bottom pb-1">
                                                     <div class="col-md-5" style="font-weight:600;">
                                                         <label asp-for="@Model.Alamat.Kecamatan"></label>
@@ -304,7 +285,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>                                   
                                 </div>
                             </div>
                         </div>
