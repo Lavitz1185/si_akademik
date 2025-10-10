@@ -101,7 +101,7 @@
                                 <select asp-for="@Model.Agama" class="form-control">
                                     @foreach (var a in Enum.GetValues<Agama>())
                                     {
-                                        <option value="@a">@a.Humanize()</option>
+                                        <option value="@a">@a.Humanize(LetterCasing.Title)</option>
                                     }
                                 </select>
                                 <span asp-validation-for="@Model.Agama"></span>
