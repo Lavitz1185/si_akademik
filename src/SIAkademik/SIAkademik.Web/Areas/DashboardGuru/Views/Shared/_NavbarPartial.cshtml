@@ -117,15 +117,21 @@
         </li> *@
         <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                @if(guru.FotoProfil is not null)
+                @if (guru.FotoProfil is not null)
                 {
-                    <img alt="image" src="@guru.FotoProfil.OriginalString" class="user-img-radious-style">
+                    <img alt="Foto Profil" src="@guru.FotoProfil.OriginalString" class="user-img-radious-style">
                 }
                 else
                 {
-                    <img alt="image" src="~/images/contoh/foto_dashboard.png" class="user-img-radious-style">
+                    var inisial = string.Join("", guru.Nama?.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(n => n[0]))
+                    .ToUpperInvariant();
+                    if (inisial.Length > 2) inisial = inisial.Substring(0, 2);
+
+                    <div class="fotoprofilkecil user-img-radious-style">
+                        @inisial
+                    </div>
                 }
-                <span class="d-sm-none d-lg-inline-block"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right pullDown">
                 @* <div class="dropdown-title pb-0">Hello GURU</div> *@

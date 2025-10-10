@@ -15,18 +15,36 @@
                     <div class="card-header border-bottom pb-3">
                         <h4>Profil Pegawai</h4>
                         <div class="ml-auto">
-                            <button type="submit" asp-action="EditProfil" class="btn btn-primary"><i class="fas fa-pencil-alt"></i><span class="pl-2">Simpan</span></button>
-                            <a asp-action="Profil" class="btn btn-warning"><i class="fas fa-pencil-alt"></i><span class="pl-2">Batal</span></a>
+                            <button type="submit" asp-action="EditProfil" class="btn btn-success" data-toggle="tooltip" title="Simpan"><i class="fas fa-pencil-alt"></i><span class="pl-2">Simpan</span></button>
+                            <a asp-action="Profil" class="btn btn-warning" data-toggle="tooltip" title="Batal"><i class="fas fa-sync"></i><span class="pl-2">Batal</span></a>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-2">
-                                @if (pegawai.FotoProfil is not null)
-                                {
-                                    <img src="@pegawai.FotoProfil?.OriginalString" alt="foto profil" />
-                                }
+                            <div class="col-2 border-right text-center">
+                                <div id="foto-container" class="d-flex justify-content-center">
+                                    @if (pegawai.FotoProfil is not null)
+                                    {
+                                        <img id="foto-profil" src="@pegawai.FotoProfil.OriginalString" alt="Foto Profil" style="width: 100%;" />
+                                    }
+                                    else
+                                    {
+                                        var inisial = string.Join("", Model.Nama?.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                                        .Select(n => n[0]))
+                                        .ToUpperInvariant();
+                                        if (inisial.Length > 2) inisial = inisial.Substring(0, 2);
+
+                                        <div class="fotoprofil">
+                                            @inisial
+                                        </div>
+                                    }
+                                </div>
+
+                                <button id="btn-ganti-foto" type="button" class="btn btn-secondary mt-2" data-toggle="tooltip" title="Ganti Foto Profil">Ganti Foto Profil</button>
+
+                                <input type="file" id="input-foto" accept=".jpg,.jpeg" style="display:none" />
                             </div>
+
                             <div class="col-10">
                                 <div class="row">
                                     <div class="col-6">
@@ -49,8 +67,8 @@
                                     </div>
                                 </div>
 
-                                <div asp-validation-summary="All"></div>
-
+@*                                 <div asp-validation-summary="All"></div>
+ *@
                                 @* Ini Desain Tab *@
                                 <ul class="nav nav-tabs pt-2" id="myTab" role="tablist">
                                     <li class="nav-item">
@@ -79,7 +97,7 @@
                                                     </div>
                                                     <div class="col-md-7">
                                                         <input asp-for="@Model.Nama" class="form-control"/>
-                                                        <span asp-validation-for="@Model.Nama"></span>
+                                                        <span asp-validation-for="@Model.Nama" hidden></span>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-3 border-bottom pb-1">
@@ -88,12 +106,12 @@
                                                     </div>
                                                     <div class="col-md-7">
                                                         <input asp-for="@Model.NIK" class="form-control" />
-                                                        <span asp-validation-for="@Model.NIK"></span>
+                                                        <span asp-validation-for="@Model.NIK" hidden></span>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-3 border-bottom pb-1">
                                                     <div class="col-md-5" style="font-weight:600;">
-                                                        <label asp-for="@Model.JenisKelamin"></label>
+                                                        <label asp-for="@Model.JenisKelamin" hidden></label>
                                                     </div>
                                                     <div class="col-md-7">
                                                         <select asp-for="@Model.JenisKelamin" class="form-control">
@@ -102,7 +120,7 @@
                                                                 <option value="@jenisKelamin">@jenisKelamin.Humanize()</option>
                                                             }
                                                         </select>
-                                                        <span asp-validation-for="@Model.JenisKelamin"></span>
+                                                        <span asp-validation-for="@Model.JenisKelamin" hidden></span>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-3 border-bottom pb-1">
@@ -111,7 +129,7 @@
                                                     </div>
                                                     <div class="col-md-7">
                                                         <input asp-for="@Model.TempatLahir" class="form-control" />
-                                                        <span asp-validation-for="@Model.TempatLahir"></span>
+                                                        <span asp-validation-for="@Model.TempatLahir" hidden></span>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-3 border-bottom pb-1">
@@ -120,7 +138,7 @@
                                                     </div>
                                                     <div class="col-md-7">
                                                         <input asp-for="@Model.TanggalLahir" type="date" class="form-control" />
-                                                        <span asp-validation-for="@Model.TanggalLahir"></span>
+                                                        <span asp-validation-for="@Model.TanggalLahir" hidden></span>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-3 border-bottom pb-1">
@@ -134,7 +152,7 @@
                                                                 <option value="@statusKawin">@statusKawin.Humanize()</option>
                                                             }
                                                         </select>
-                                                        <span asp-validation-for="@Model.StatusPerkawinan"></span>
+                                                        <span asp-validation-for="@Model.StatusPerkawinan" hidden></span>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-3 border-bottom pb-1">
@@ -148,7 +166,7 @@
                                                                 <option value="@golonganDarah">@golonganDarah.Humanize()</option>
                                                             }
                                                         </select>
-                                                        <span asp-validation-for="@Model.GolonganDarah"></span>
+                                                        <span asp-validation-for="@Model.GolonganDarah" hidden></span>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-3 border-bottom pb-1">
@@ -157,7 +175,7 @@
                                                     </div>
                                                     <div class="col-md-7">
                                                         <input asp-for="@Model.NoRekening" class="form-control" />
-                                                        <span asp-validation-for="@Model.NoRekening"></span>
+                                                        <span asp-validation-for="@Model.NoRekening" hidden></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -177,7 +195,7 @@
                                                     </div>
                                                     <div class="col-md-7">
                                                         <input asp-for="@Model.NoHP" class="form-control" />
-                                                        <span asp-validation-for="@Model.NoHP"></span>
+                                                        <span asp-validation-for="@Model.NoHP" hidden></span>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-3 border-bottom pb-1">
@@ -186,7 +204,7 @@
                                                     </div>
                                                     <div class="col-md-7">
                                                         <input asp-for="@Model.Email" class="form-control" />
-                                                        <span asp-validation-for="@Model.Email"></span>
+                                                        <span asp-validation-for="@Model.Email" hidden></span>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-3 border-bottom pb-1">
@@ -195,7 +213,7 @@
                                                     </div>
                                                     <div class="col-md-7">
                                                         <input asp-for="@Model.NamaInstagram" class="form-control" />
-                                                        <span asp-validation-for="@Model.NamaInstagram"></span>
+                                                        <span asp-validation-for="@Model.NamaInstagram" hidden></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -205,44 +223,31 @@
                                     <div class="tab-pane fade pt-0" id="kedua" role="tabpanel" aria-labelledby="kedua-tab">
                                         <div class="row border pt-2">
                                             <div class="col-6">
-                                                <div class="row mb-3 border-bottom pb-1">
-                                                    <div class="col-md-5" style="font-weight:600;">
-                                                        <label asp-for="@Model.Alamat.KodePos"></label>
-                                                    </div>
-                                                    <div class="col-md-7">
-                                                        <input asp-for="@Model.Alamat.KodePos" class="form-control" />
-                                                        <span asp-validation-for="@Model.Alamat.KodePos"></span>
-                                                    </div>
-                                                </div>
 
                                                 <div class="row mb-3 border-bottom pb-1">
                                                     <div class="col-md-5" style="font-weight:600;">
-                                                        <label asp-for="@Model.Alamat.Jalan"></label>
+                                                        <label asp-for="@Model.Alamat.Jalan">Alamat</label>
                                                     </div>
                                                     <div class="col-md-7">
                                                         <input asp-for="@Model.Alamat.Jalan" class="form-control" />
-                                                        <span asp-validation-for="@Model.Alamat.Jalan"></span>
+                                                        <span asp-validation-for="@Model.Alamat.Jalan" hidden></span>
                                                     </div>
                                                 </div>
 
                                                 <div class="row mb-3 border-bottom pb-1">
                                                     <div class="col-md-5" style="font-weight:600;">
-                                                        <label asp-for="@Model.Alamat.RT">RT/RW</label>
+                                                        <label asp-for="@Model.Alamat.RT"></label>
                                                     </div>
-                                                    <div class="d-flex col-md-7 justify-content-center align-items-center">
-                                                        <div>
-                                                            <input asp-for="@Model.Alamat.RT" class="form-control" />
-                                                            <span asp-validation-for="@Model.Alamat.RT"></span>
-                                                        </div>
-                                                        <div class="mx-2">
-                                                            <p style="font-size: 20px;" class="mb-0">/</p>
-                                                        </div>
-                                                        <div>
-                                                            <input asp-for="@Model.Alamat.RW" class="form-control" />
-                                                            <span asp-validation-for="@Model.Alamat.RW"></span>
-                                                        </div>
-                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.Alamat.RT" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.Alamat.RT" hidden></span>
+                                                </div>
 
+                                                <div class="row mb-3 border-bottom pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.Alamat.RW"></label>
+                                                    </div>
+                                                    <div class="col-md-7"><input asp-for="@Model.Alamat.RW" class="form-control" /></div>
+                                                    <span asp-validation-for="@Model.Alamat.RW" hidden></span>
                                                 </div>
 
                                                 <div class="row mb-3 pb-1">
@@ -251,7 +256,7 @@
                                                     </div>
                                                     <div class="col-md-7">
                                                         <input asp-for="@Model.Alamat.KelurahanDesa" class="form-control" />
-                                                        <span asp-validation-for="@Model.Alamat.KelurahanDesa"></span>
+                                                        <span asp-validation-for="@Model.Alamat.KelurahanDesa" hidden></span>
                                                     </div>
                                                 </div>
 
@@ -264,7 +269,7 @@
                                                     </div>
                                                     <div class="col-md-7">
                                                         <input asp-for="@Model.Alamat.Kecamatan" class="form-control" />
-                                                        <span asp-validation-for="@Model.Alamat.Kecamatan"></span>
+                                                        <span asp-validation-for="@Model.Alamat.Kecamatan" hidden></span>
                                                     </div>
                                                 </div>
 
@@ -274,7 +279,7 @@
                                                     </div>
                                                     <div class="col-md-7">
                                                         <input asp-for="@Model.Alamat.KotaKabupaten" class="form-control" />
-                                                        <span asp-validation-for="@Model.Alamat.KotaKabupaten"></span>
+                                                        <span asp-validation-for="@Model.Alamat.KotaKabupaten" hidden></span>
                                                     </div>
                                                 </div>
 
@@ -284,7 +289,17 @@
                                                     </div>
                                                     <div class="col-md-7">
                                                         <input asp-for="@Model.Alamat.Provinsi" class="form-control" />
-                                                        <span asp-validation-for="@Model.Alamat.Provinsi"></span>
+                                                        <span asp-validation-for="@Model.Alamat.Provinsi" hidden></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-3 pb-1">
+                                                    <div class="col-md-5" style="font-weight:600;">
+                                                        <label asp-for="@Model.Alamat.KodePos"></label>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <input asp-for="@Model.Alamat.KodePos" class="form-control" />
+                                                        <span asp-validation-for="@Model.Alamat.KodePos" hidden></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -302,4 +317,59 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(document).ready(function () {
+            // ketika tombol diklik, buka file picker
+            $('#btn-ganti-foto').on('click', function () {
+                $('#input-foto').click();
+            });
+
+            // ketika user memilih file
+            $('#input-foto').on('change', function () {
+                var file = this.files[0];
+                if (!file) return;
+
+                // validasi ukuran & tipe file
+                if (!['image/jpeg', 'image/jpg'].includes(file.type)) {
+                    alert('Hanya file .jpg atau .jpeg yang diperbolehkan.');
+                    return;
+                }
+                if (file.size > 100 * 1024) {
+                    alert('Ukuran file maksimal 100 KB.');
+                    return;
+                }
+
+                var formData = new FormData();
+                formData.append('FotoProfil', file);
+
+                // tampilkan indikator loading
+                $('#btn-ganti-foto').prop('disabled', true).text('Mengunggah...');
+                +
+                    $.ajax({
+                        url: '@Url.Action("EditFotoProfil", "Home", new { area = "DashboardSiswa" })',
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function (res) {
+                            // misalnya controller mengembalikan URL foto baru
+                            if (res && res.newFotoUrl) {
+                                $('#foto-profil').attr('src', res.newFotoUrl);
+                            }
+                            // reload halaman
+                            setTimeout(function () {
+                                location.reload();
+                            });
+                        },
+                        error: function () {
+                            // alert('Gagal mengganti foto profil.');
+                        },
+                        complete: function () {
+                            $('#btn-ganti-foto').prop('disabled', false).text('Ganti Foto Profil');
+                        }
+                    });
+            });
+        });
+    </script>
 }

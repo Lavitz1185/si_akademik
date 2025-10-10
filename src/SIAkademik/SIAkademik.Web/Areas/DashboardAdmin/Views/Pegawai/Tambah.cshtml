@@ -160,6 +160,12 @@
 
                             <div class="form-group">
 
+                                <div class="form-group">
+                                    <label asp-for="@Model.Alamat.Jalan">Alamat</label>
+                                    <input asp-for="@Model.Alamat.Jalan" type="text" class="form-control" />
+                                    <span asp-validation-for="@Model.Alamat.Jalan"></span>
+                                </div>
+
                                 <partial name="_AlamatFormPartial" />
 
                                 <span asp-validation-for="@Model.Alamat"></span>
