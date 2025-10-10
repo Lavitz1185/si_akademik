@@ -262,13 +262,13 @@
                 datasets: [
                     {
                         label: 'Guru',
-                        data: [19], // data dummy jumlah guru per kelas
+                        data: [@Model.DaftarPegawai.Where(p => p.Jabatan.Jenis == JenisJabatan.Guru).Count()], // data dummy jumlah guru per kelas
                         backgroundColor: 'rgba(54, 162, 235, 0.6)', // biru
                         borderRadius: 6
                     },
                     {
                         label: 'Pegawai',
-                        data: [9], // data dummy jumlah pegawai per kelas
+                        data: [@Model.DaftarPegawai.Where(p => p.Jabatan.Jenis == JenisJabatan.Pegawai).Count()], // data dummy jumlah pegawai per kelas
                         backgroundColor: 'rgba(255, 159, 64, 0.6)', // oranye
                         borderRadius: 6
                     }

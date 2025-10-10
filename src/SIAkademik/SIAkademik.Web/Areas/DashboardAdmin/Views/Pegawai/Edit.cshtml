@@ -61,6 +61,7 @@
                                         <option value="@divisi.Id">@divisi.Nama</option>
                                     }
                                 </select>
+                                <a asp-action="Tambah" asp-controller="Divisi">Tambah Divisi</a>
                                 <span asp-validation-for="@Model.DivisiId"></span>
                             </div>
 
@@ -72,6 +73,7 @@
                                         <option value="@jabatan.Id">@jabatan.Nama</option>
                                     }
                                 </select>
+                                <a asp-action="Tambah" asp-controller="Jabatan">Tambah Jabatan</a>
                                 <span asp-validation-for="@Model.JabatanId"></span>
                             </div>
 
