@@ -51,7 +51,7 @@
         gap: 10px;
     }
 
-        #isinformasi-home .isinformasi-judul .isinformasi-breadcumbs a {
+        #isinformasi-home .isinformasi-judul .isinformasi-breadcumbs ::deep a {
             text-decoration: none;
             text-transform: uppercase;
             color: #ffffff;
@@ -60,7 +60,7 @@
             transition: 0.3s ease;
         }
 
-            #isinformasi-home .isinformasi-judul .isinformasi-breadcumbs a:hover {
+            #isinformasi-home .isinformasi-judul .isinformasi-breadcumbs ::deep a:hover {
                 color: #fdc93b;
             }
 

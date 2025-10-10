@@ -26,7 +26,7 @@
         gap: 10px;
     }
 
-        #kurikulum-home .kurikulum-breadcumbs a {
+        #kurikulum-home .kurikulum-breadcumbs ::deep a {
             text-decoration: none;
             text-transform: uppercase;
             color: #ffffff;
@@ -35,7 +35,7 @@
             transition: 0.3s ease;
         }
 
-            #kurikulum-home .kurikulum-breadcumbs a:hover {
+            #kurikulum-home .kurikulum-breadcumbs ::deep a:hover {
                 color: #fdc93b;
             }
 

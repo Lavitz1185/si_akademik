@@ -27,7 +27,7 @@
         gap: 5px;
     }
 
-        #value-home .value-breadcumbs a {
+        #value-home .value-breadcumbs ::deep a {
             text-decoration: none;
             text-transform: uppercase;
             color: #ffffff;
@@ -36,7 +36,7 @@
             transition: 0.3s ease;
         }
 
-            #value-home .value-breadcumbs a:hover {
+            #value-home .value-breadcumbs ::deep a:hover {
                 color: #fdc93b;
             }
 
