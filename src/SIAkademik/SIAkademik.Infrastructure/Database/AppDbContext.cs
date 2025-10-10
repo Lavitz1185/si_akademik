@@ -45,4 +45,5 @@ internal class AppDbContext(DbContextOptions<AppDbContext> dbContextOptions) : D
     public DbSet<Rombel> TblRombel { get; set; }
     public DbSet<Siswa> TblSiswa { get; set; }
     public DbSet<TahunAjaran> TblTahunAjaran { get; set; }
+    public DbSet<TujuanPembelajaran> TblTujuanPembelajaran { get; set; }
 }

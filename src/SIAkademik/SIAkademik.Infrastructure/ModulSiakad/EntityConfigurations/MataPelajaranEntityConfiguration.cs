@@ -12,6 +12,7 @@ internal class MataPelajaranEntityConfiguration : IEntityTypeConfiguration<MataP
         builder.HasKey(x => x.Id);
         builder.HasMany(x => x.DaftarJadwalMengajar).WithOne(y => y.MataPelajaran);
         builder.HasOne(x => x.Peminatan).WithMany(p => p.DaftarMataPelajaran);
+        builder.HasMany(x => x.DaftarTujuanPembelajaran).WithOne(t => t.MataPelajaran);
 
         builder.HasData(
             new
@@ -73,7 +74,7 @@ internal class MataPelajaranEntityConfiguration : IEntityTypeConfiguration<MataP
             new
             {
                 Id = 11,
-                Nama = "Matematika",
+                Nama = "Matematika Tingkat Lanjut",
                 PeminatanId = 5,
                 KKM = 75d
             },

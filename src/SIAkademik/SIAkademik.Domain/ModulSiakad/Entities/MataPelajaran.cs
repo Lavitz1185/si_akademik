@@ -10,4 +10,5 @@ public class MataPelajaran : Entity<int>
 
     public Peminatan Peminatan { get; set; }
     public List<JadwalMengajar> DaftarJadwalMengajar { get; set; } = [];
+    public List<TujuanPembelajaran> DaftarTujuanPembelajaran { get; set; } = [];
 }

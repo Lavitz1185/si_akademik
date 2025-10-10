@@ -45,6 +45,7 @@ public static class DepedencyInjection
         services.AddScoped<IRombelRepository, RombelRepository>();
         services.AddScoped<ISiswaRepository, SiswaRepository>();
         services.AddScoped<ITahunAjaranRepository, TahunAjaranRepository>();
+        services.AddScoped<ITujuanPembelajaranRepository, TujuanPembelajaranRepository>();
 
         services.Configure<FileConfigurationOptions>(configuration.GetSection(FileConfigurationOptions.FileConfiguration));
         services.AddScoped(sp => sp.GetRequiredService<IOptionsSnapshot<FileConfigurationOptions>>().Value);
