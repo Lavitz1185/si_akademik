@@ -119,7 +119,6 @@ $(document).on("click", ".swal-confirm", function (e) {
     });
 });
 
-
 $(document).on("click", ".swal-cancel", function (e) {
     e.preventDefault();
 

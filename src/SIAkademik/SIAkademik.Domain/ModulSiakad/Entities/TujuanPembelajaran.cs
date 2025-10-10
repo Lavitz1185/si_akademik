@@ -5,6 +5,7 @@ namespace SIAkademik.Domain.ModulSiakad.Entities;
 
 public class TujuanPembelajaran : Entity<int>
 {
+    public required int Nomor { get; set; }
     public required string Deskripsi { get; set; }
     public required Fase Fase { get; set; }
 

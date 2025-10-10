@@ -1,0 +1,82 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.TujuanPembelajaranModels
+@model EditVM
+@inject IMataPelajaranRepository MataPelajaranRepository
+
+@{
+    var daftarMataPelajaran = await MataPelajaranRepository.GetAll();
+}
+
+<!-- Breadcrumb -->
+<div class="row" style="justify-content: center;">
+    <div class="col-12 col-md-6 col-lg-6" style="padding: 0;">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Manajemen Akademik</a></li>
+                <li class="breadcrumb-item"><a asp-action="Index" asp-route-idMataPelajaran="@Model.idMataPelajaran" asp-route-fase="@Model.fase">Tujuan Pembelajaran (TP)</a></li>
+                <li class="breadcrumb-item" aria-current="page">Edit Data</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<!-- Isi Konten -->
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-6 col-lg-6">
+            <div class="card card-success">
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Edit Tujuan Pembelajaran</h4>
+                </div>
+
+                <form asp-action="Edit" asp-route-id="@Model.Id" asp-route-idMataPelajaran="@Model.idMataPelajaran" asp-route-fase="@Model.fase" method="post">
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly"></div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.IdMataPelajaran"></label>
+                            <select asp-for="@Model.IdMataPelajaran" class="form-control">
+                                <option value="@null">--</option>
+
+                                @foreach (var mataPelajaran in daftarMataPelajaran)
+                                {
+                                    <option value="@mataPelajaran.Id">@mataPelajaran.Nama @mataPelajaran.Peminatan.Nama</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Fase"></label>
+                            <select asp-for="@Model.Fase" class="form-control">
+                                @foreach (var fase in Enum.GetValues<Fase>())
+                                {
+                                    <option value="@fase">@fase.Humanize()</option>
+                                }
+                            </select>
+                            <span asp-validation-for="@Model.Fase"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Deskripsi"></label>
+                            <textarea asp-for="@Model.Deskripsi" type="text" class="form-control"></textarea>
+                            <span asp-validation-for="@Model.Deskripsi"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Nomor"></label>
+                            <input asp-for="@Model.Nomor" type="number" class="form-control" />
+                            <span asp-validation-for="@Model.Nomor"></span>
+                        </div>                       
+                    </div>
+                    <div class="card-footer text-right pt-0">
+                        <a href="javascript:void(0)" class="btn btn-danger text-white swal-cancel">Batal</a>
+                        <button class="btn btn-primary mr-1" type="submit">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

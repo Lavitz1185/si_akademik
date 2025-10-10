@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SIAkademik.Infrastructure.Database;
@@ -12,9 +13,11 @@ using SIAkademik.Infrastructure.Database;
 namespace SIAkademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251010152529_SelesaiSeedingTPPendidikanAgamaFaseE")]
+    partial class SelesaiSeedingTPPendidikanAgamaFaseE
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -4136,9 +4139,6 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Property<int>("MataPelajaranId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Nomor")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("MataPelajaranId");
@@ -4151,264 +4151,231 @@ namespace SIAkademik.Infrastructure.Migrations
                             Id = 1,
                             Deskripsi = "Memahami arti dewasa secara fisik, intelektual, emosional, sosial, moral dan spiritual",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 1
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 2,
                             Deskripsi = "Menghayati makna perilaku dewasa dan tidak dewasa dilingkungan keluarga dan masyarakat",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 2
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 3,
                             Deskripsi = "Meyakini pesan Alkitab dalam Lukas 2:42-52, I Korintus 14: 20 dan Kolose 1:10,serta memiliki tekad untuk bertumbuh semakin dewasa.",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 3
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 4,
                             Deskripsi = "Menghayati teks Alkitab tentang pemeliharaan Allah dalam kehidupan",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 4
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 5,
                             Deskripsi = "Memahami cara Allah memelihara ciptaan-Nya diberbagai dinamika kehidupan",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 5
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 6,
                             Deskripsi = "Meyakini kemahakuasaan Allah dalam memelihara kehidupan melalui puisi, cerita pendek atau narasi",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 6
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 7,
                             Deskripsi = "Merancang sebuah kegiatan sebagi bentuk rasa syukur atas pemeliharaan Allah dalam suka maupun duka.",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 7
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 8,
                             Deskripsi = "Memahami peran dan tanggungjawab orangtua sebagai pendidik utama dalam keluarga",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 8
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 9,
                             Deskripsi = "Menghayati nilai-nilai iman Kristen sebagai dasar hidup keluarga",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 9
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 10,
                             Deskripsi = "Mensyukuri kehadiaran orangtua sebagai pendidik utama",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 10
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 11,
                             Deskripsi = "Memahami makna hidup baru.",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 11
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 12,
                             Deskripsi = "Meyakini proses perubahan hidup seseorang menjadi pribadi yang lebih baik.",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 12
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 13,
                             Deskripsi = "Menghayati pemeliharaan Allah dalam kehidupan Nuh.",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 13
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 14,
                             Deskripsi = "Meyakini isi Alkitab Yeremia 1: 4-10 mengenai Allah membaharui hidup manusia.",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 14
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 15,
                             Deskripsi = "Membuat komitmen kepada Allah untuk hidup kudus atas pembaharuan hidup yang dialaminya.",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 15
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 16,
                             Deskripsi = "Memahami ciri-ciri manusia dewasa dalam pergaulan menurut Alkitab/beberapa teks Alkitab.",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 16
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 17,
                             Deskripsi = "Meyakini pandangan Alkitab terhadap interaksi manusia dewasa dengan sesamanya",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 17
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 18,
                             Deskripsi = "Menghayati manfaat pertemanan, persahabatan, dan pacaran sebagai manusia dewasa.",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 18
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 19,
                             Deskripsi = "Membuat karya kreatif berdasarkan pengajaran iman Kristen terkait pertemanan, persahabatan dan pacaran.",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 19
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 20,
                             Deskripsi = "Menghayati sikap kesetian, kasih dan keadilan sebagai dasar nilai-nilai Kristen dalam kehidupan keluarga dan masyarakat.",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 20
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 21,
                             Deskripsi = "Memahami berbagai perilaku yang menyimpang dari nilai kesetian, kasih dan keadilan. dalam keluarga dan masyarakat.",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 21
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 22,
                             Deskripsi = "Merancang sebuah kegiatan sebagai wujud kesetian, kasih dan keadilan dalam hidup sehari-hari dalam keluarga dan lingkungan masyarakat.",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 22
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 23,
                             Deskripsi = "Membuat karya kreatif sebagai bentuk kesetian, kasih dan keadilan dalam hidup sehari-hari dalam keluarga dan lingkungan masyarakat",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 23
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 24,
                             Deskripsi = "Memahami makna diskriminasi dan menganalisis bukti - bukti perlakuan diskriminatif terhadap perbedaan ras/etnis, gender dan budaya dalam lingkup lokal, nasional dan internasional.",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 24
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 25,
                             Deskripsi = "Meyakini teks Alkitab yang berhubungan dengan kepekaan dan belarasa terhadap manusia.",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 25
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 26,
                             Deskripsi = "Membuat karya kreatif tentang kepekaan dan belarasa dalam kehidupan sehari-hari",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 26
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 27,
                             Deskripsi = "Memahami sekolah dan keluarga sebagai lembagai Pendidikan.",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 27
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 28,
                             Deskripsi = "Memahami peran sekolah dalam membantu orang tua mendidik anak anak.",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 28
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 29,
                             Deskripsi = "Menghayati peran sekolah dan keluarga dalam mendidik serta melatih siswa hidup dalam kemajemukan",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 29
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 30,
                             Deskripsi = "Memahami berbagai bentuk kerusakan alam yang disebabkan oleh manusia serta cara untuk mencegah dan mengatasi.",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 30
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 31,
                             Deskripsi = "Menghayati peran berbagai pihak dalam menjaga dan melestarikan alam ciptaan Tuhan serta membuat karya kreatif yang berkaitan dengan upaya pencegahan kerusakan alam.",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 31
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 32,
                             Deskripsi = "Menyakini teks alkitab yang berkaitan dengan memelihara dan melestarikan alam ciptaan Tuhan",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 32
+                            MataPelajaranId = 3
                         },
                         new
                         {
                             Id = 33,
                             Deskripsi = "Membuat karya nyata yang berkaitan dengan tanggung jawabnya memelihara alam ciptaan Allah",
                             Fase = 0,
-                            MataPelajaranId = 3,
-                            Nomor = 33
+                            MataPelajaranId = 3
                         });
                 });
 

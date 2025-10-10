@@ -1,6 +1,11 @@
-﻿namespace SIAkademik.Domain.Enums;
+﻿using System.ComponentModel;
+
+namespace SIAkademik.Domain.Enums;
 
 public enum Fase
 {
-    E, F
+    [Description("Fase E (Kelas 10)")]
+    E,
+    [Description("Fase F (Kelas 11-12)")]
+    F
 }
