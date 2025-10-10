@@ -54,7 +54,7 @@ public class EvaluasiSiswaController : Controller
         if (tahunAjaran is null) return View(new IndexVM { Pegawai = pegawai });
 
         var daftarJadwalMengajar = await _jadwalMengajarRepository.GetAllByTahunAjaran(tahunAjaran.Id);
-        daftarJadwalMengajar = daftarJadwalMengajar.Where(j => j.Rombel.Wali == pegawai).ToList();
+        daftarJadwalMengajar = daftarJadwalMengajar.Where(j => j.Pegawai == pegawai).ToList();
 
         var jadwalMengajar = idJadwalMengajar is null ?
             daftarJadwalMengajar.FirstOrDefault() :
