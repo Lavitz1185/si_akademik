@@ -7,8 +7,8 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Wali Kelas</a></li>
             <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="KelasWali" asp-action="Index">Kelas Wali</a></li>
-            <li class="breadcrumb-item"><a href="">Detail Data</a></li>
-            <li class="breadcrumb-item" aria-current="page">Absen Kelas Siswa</li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="KelasWali" asp-action="Detail">Detail Data</a></li>
+            <li class="breadcrumb-item" aria-current="page">Presensi Kelas Siswa</li>
         </ol>
     </nav>
 </div>
@@ -17,14 +17,14 @@
 <div class="card card-primary">
     <!-- Judul -->
     <div class="card-header">
-        <h4>Absen Kelas Wali</h4>
+        <h4>Presensi Kelas Wali</h4>
     </div>
     <div class="padding-20">
         <!-- Tombol Tambah dan Filter -->
         <div class="d-flex justify-content-start align-items-center ml-auto mb-3">
             <div class="mb-0">
                 <form asp-action="Absen" asp-route-id="@Model.Id" method="get" class="d-flex align-items-center" style="gap: 8px;">
-                    <label for="showTidakAktif" class="mb-0" style="font-weight: 600;">Tanggal Absen:</label>
+                    <label for="showTidakAktif" class="mb-0" style="font-weight: 600;">Tanggal Presensi:</label>
                     <input id="tanggal" name="tanggal" value="@Model.Tanggal.ToString("yyyy-MM-dd")" type="date" class="form-control w-auto" />
                 </form>
             </div>
@@ -33,7 +33,7 @@
                 @if (Model.DaftarAbsenEntry.Count == 0)
                 {
                     <form asp-action="BuatAbsen" asp-route-id="@Model.Id" asp-route-tanggal="@Model.Tanggal.ToString("yyyy-MM-dd")">
-                        <button class="btn btn-primary"><i class="fas fa-file-circle-plus"></i> Buat Absen</button>
+                        <button class="btn btn-primary" data-toggle="tooltip" title="Buat Presensi Siswa"><i class="fas fa-file-circle-plus"></i> Buat Presensi</button>
                     </form>
                 }
             </div>
@@ -46,10 +46,10 @@
 
             <div class="d-flex justify-content-between mb-3 mr-3">
                 <div class="mb-0 rounded" style="background-color: #d9edf7; font-weight: 400; padding: 15px; color: #31708f;">
-                    <p class="mb-0">Absen semua siswa lalu tekan tombol "Simpan" untuk menyimpan perubahan</p>
+                    <p class="mb-0">Presensi semua siswa lalu tekan tombol "Simpan" untuk menyimpan perubahan</p>
                 </div>
                 <div class="mb-0">
-                    <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Simpan Absen Siswa"><i class="fas fa-save"></i> Simpan Absen</button>
+                    <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Simpan Presensi Siswa"><i class="fas fa-save"></i> Simpan Presensi</button>
                 </div>                
             </div>
             
@@ -61,7 +61,7 @@
                             <th>NIS</th>
                             <th>NISN</th>
                             <th>Nama</th>
-                            <th>Absensi</th>
+                            <th>Presensi</th>
                             <th>Catatan</th>
                         </tr>
                     </thead>

@@ -135,7 +135,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right pullDown">
                 @* <div class="dropdown-title pb-0">Hello GURU</div> *@
-                <a asp-action="Profil" asp-controller="Home" asp-area="@AreaNames.DashboardGuru" class="dropdown-item has-icon">
+                <a asp-action="Profil" asp-controller="Home" asp-area="@AreaNames.DashboardGuru" class="dropdown-item has-icon" data-toggle="tooltip" title="Lihat Profil">
                     <i class="far fa-user"></i> Profil
                 </a>
                 @* <a href="#" class="dropdown-item has-icon">
@@ -148,7 +148,7 @@
                 </a> *@
                 @* <div class="dropdown-divider"></div> *@
                 <form asp-action="Logout" asp-controller="Home" asp-area="@AreaNames.DashboardGuru">
-                    <button type="submit" class="dropdown-item has-icon text-danger" style="font-size: 13px;">
+                    <button type="submit" class="dropdown-item has-icon text-danger" style="font-size: 13px;" data-toggle="tooltip" title="Keluar">
                         <i class="fas fa-sign-out-alt"></i> Keluar
                     </button>
                 </form>
