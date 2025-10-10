@@ -178,7 +178,7 @@
                                         @foreach (var raport in daftarPengetahun)
                                         {
                                             <tr>
-                                                <td>@raport.Nama</td>
+                                                <td>@raport.JadwalMengajar!.MataPelajaran.Nama</td>
                                                 <td>@Model.AnggotaRombel.NilaiAkhir(raport.JadwalMengajar!)</td>
                                                 <td>@raport.Predikat</td>
                                                 <td>@raport.Deskripsi</td>
@@ -225,7 +225,7 @@
                                         @foreach (var raport in daftarKeterampilan)
                                         {
                                             <tr>
-                                                <td>@raport.Nama</td>
+                                                <td>@raport.JadwalMengajar!.MataPelajaran.Nama</td>
                                                 <td>@Model.AnggotaRombel.NilaiAkhir(raport.JadwalMengajar!)</td>
                                                 <td>@raport.Predikat</td>
                                                 <td>@raport.Deskripsi</td>

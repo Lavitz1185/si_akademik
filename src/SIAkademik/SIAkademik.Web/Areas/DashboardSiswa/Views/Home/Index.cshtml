@@ -22,27 +22,31 @@
 
                         <!-- Card Jadwal -->
                         <div class="row g-3">
+                            @if(Model.AnggotaRombel is null)
+                            {
+                                <h1>Anda tidak memiliki kelas di tahun ajaran ini</h1>
+                            }
+                            else if(Model.DaftarHariMengajar.Count == 0)
+                            {
+                                <h1>Tidak Ada Aktivitas Belajar Saat Ini</h1>
+                            }
 
-                            @* <div class="col-12 text-center py-4">
-                            <p class="text-center">Tidak ada aktivitas mengajar saat ini</p>
-                            </div> *@
-
-
-
-                            <!-- Loop foreach pelajaran -->
-                            <div class="col-md-12 mb-3">
-                                <div class="border rounded p-3 d-flex justify-content-between align-items-center" style="background-color:#f9fafb;">
-                                    <div class="col-8">
-                                        <h6 class="fw-bold mb-3">Matematika</h6>
-                                        <div class="row text-muted">
-                                            <div class="col-6 mb-3">
-                                                <i class="fas fa-clock mr-1"></i> 10.30 - 13.00
-                                            </div>
-                                            <div class="d-flex col-6 mb-3">
-                                                <div><i class="fas fa-user mr-2"></i></div>
-                                                <div>Dr. Oswaldus Putra Fernando</div>                                               
-                                            </div>
-                                            @* <div class="col-6 mb-3">
+                            @foreach(var hari in Model.DaftarHariMengajar)
+                            {
+                                <!-- Loop foreach pelajaran -->
+                                <div class="col-md-12 mb-3">
+                                    <div class="border rounded p-3 d-flex justify-content-between align-items-center" style="background-color:#f9fafb;">
+                                        <div class="col-8">
+                                            <h6 class="fw-bold mb-3">@hari.JadwalMengajar.MataPelajaran.Nama</h6>
+                                            <div class="row text-muted">
+                                                <div class="col-6 mb-3">
+                                                    <i class="fas fa-clock mr-1"></i> @hari.JamMulai.ToShortTimeString() - @hari.JamAkhir.ToShortTimeString()
+                                                </div>
+                                                <div class="d-flex col-6 mb-3">
+                                                    <div><i class="fas fa-user mr-2"></i></div>
+                                                    <div>@hari.JadwalMengajar.Pegawai.Nama</div>
+                                                </div>
+                                                @* <div class="col-6 mb-3">
                                             <i class="fas fa-book mr-1"></i> Pertemuan ke 1
                                             </div>
                                             <div class="col-6 mb-3">
@@ -51,20 +55,20 @@
                                             <div class="col-12 mb-3">
                                             <i class="fas fa-check-circle mr-1"></i> Kehadiran Belum Tercatat
                                             </div> *@
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-4 d-flex flex-column align-items-end">
-                                        <a href="" class="btn btn-outline-success btn-sm w-100 mb-1 text-end">
-                                            <i class="bi bi-box-arrow-up-right me-1"></i> Lihat Jadwal Kelas
-                                        </a>
-                                        <a href="#" class="btn btn-outline-success btn-sm w-100 mb-1 text-end">
-                                            <i class="bi bi-box-arrow-up-right me-1"></i> Lihat Nilai Siswa
-                                        </a>
-                                    </div>
+                                        <div class="col-4 d-flex flex-column align-items-end">
+                                            <a asp-action="Detail" asp-route-id="@hari.JadwalMengajar.Id" asp-controller="JadwalMengajar" class="btn btn-outline-success btn-sm w-100 mb-1 text-end">
+                                                <i class="bi bi-box-arrow-up-right me-1"></i> Lihat Jadwal Kelas
+                                            </a>
+                                            @* <a href="#" class="btn btn-outline-success btn-sm w-100 mb-1 text-end">
+                                                <i class="bi bi-box-arrow-up-right me-1"></i> Lihat Nilai Siswa
+                                            </a> *@
+                                        </div>
 
+                                    </div>
                                 </div>
-                            </div>
-
+                            }
                         </div>
                     </div>
                 </div>
@@ -75,12 +79,18 @@
                 <!-- Row Atas: Kelas Wali -->
                 <div class="card shadow-sm mb-3">
                     <div class="card-body">
-                        <h6>Hai, Oswaldus Putra Fernando</h6>
-                        <p style="color: #7a848e;">Saat ini anda berada di kelas X MIPA 2</p>
-                        <div class="rounded" style="background-color: #fff3cd; padding: .5rem .5rem;">
-                            <p style="color: #664d03;" class="mb-0">Siswa belum melengkapi biodata.</p>
-                            <a style="text-decoration: underline; color: #001B36" href=""> Lengkapi di sini</a>
-                        </div>
+                        <h6>Hai, @Model.Siswa.Nama</h6>
+                        @if(Model.AnggotaRombel is not null)
+                        {
+                            <p style="color: #7a848e;">Saat ini anda berada di kelas @Model.AnggotaRombel.Rombel.Kelas.Jenjang.Humanize() @Model.AnggotaRombel.Rombel.Kelas.Peminatan.Nama @Model.AnggotaRombel.Rombel.Nama</p>
+                        }
+                        @if(!Model.Siswa.IsBiodataComplete())
+                        {
+                            <div class="rounded" style="background-color: #fff3cd; padding: .5rem .5rem;">
+                                <p style="color: #664d03;" class="mb-0">Siswa belum melengkapi biodata.</p>
+                                <a asp-action="Profil" style="text-decoration: underline; color: #001B36"> Lengkapi di sini</a>
+                            </div>
+                        }
                     </div>
                 </div>
 
