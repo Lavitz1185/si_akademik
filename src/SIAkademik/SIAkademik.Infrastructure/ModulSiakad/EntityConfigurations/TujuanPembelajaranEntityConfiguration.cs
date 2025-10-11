@@ -283,6 +283,151 @@ internal class TujuanPembelajaranEntityConfiguration : IEntityTypeConfiguration<
                 MataPelajaranId = 3,
                 Fase = Fase.E,
                 Nomor = 33,
+            },
+            new
+            {
+                Id = 34,
+                Deskripsi = "Memahami secara kritis perkembangan kebudayaan, ilmu pengetahuan dan tehnologi sebagai anugerah Allah.",
+                MataPelajaranId = 3,
+                Fase = Fase.F,
+                Nomor = 1,
+            },
+            new
+            {
+                Id = 35,
+                Deskripsi = "Memahami Demokrasi dan HAM sebagai anugerah Allah serta mewujudkan dalam praktik.",
+                MataPelajaranId = 3,
+                Fase = Fase.F,
+                Nomor = 2,
+            },
+            new
+            {
+                Id = 36,
+                Deskripsi = "Mengembangkan serta memanfaatkan talenta untuk kepentingan bangsa dan negara.",
+                MataPelajaranId = 3,
+                Fase = Fase.F,
+                Nomor = 3,
+            },
+            new
+            {
+                Id = 37,
+                Deskripsi = "Mengembangkan serta memanfaatkan talenta untuk kepentingan bangsa dan negara.",
+                MataPelajaranId = 3,
+                Fase = Fase.F,
+                Nomor = 4,
+            },
+            new
+            {
+                Id = 38,
+                Deskripsi = "Memahami tantangan dalam kehidupan keluarga masa kini dan solusinya berdasarkan teks Alkitab.",
+                MataPelajaranId = 3,
+                Fase = Fase.F,
+                Nomor = 5,
+            },
+            new
+            {
+                Id = 39,
+                Deskripsi = "Mengembangkan komunikasi dalam konteks lokal dan global.",
+                MataPelajaranId = 3,
+                Fase = Fase.F,
+                Nomor = 6,
+            },
+            new
+            {
+                Id = 40,
+                Deskripsi = "Memahami Allah membarui serta memulihkan kehidupan keluarga Kristen, gereja dan bangsa",
+                MataPelajaranId = 3,
+                Fase = Fase.F,
+                Nomor = 7,
+            },
+            new
+            {
+                Id = 41,
+                Deskripsi = "Mewujudkan tanggung jawab sebagai manusia dewasa dalam konteks yang lebih luas.",
+                MataPelajaranId = 3,
+                Fase = Fase.F,
+                Nomor = 8,
+            },
+            new
+            {
+                Id = 42,
+                Deskripsi = "Memahami keadilan sebagai dasar demokrasi dan HAM.",
+                MataPelajaranId = 3,
+                Fase = Fase.F,
+                Nomor = 9,
+            },
+            new
+            {
+                Id = 43,
+                Deskripsi = "Memahami nilai iman sebagai landasan hidup berkeluarga.",
+                MataPelajaranId = 3,
+                Fase = Fase.F,
+                Nomor = 10,
+            },
+            new
+            {
+                Id = 44,
+                Deskripsi = "Menerapkan sikap proaktif sebagai pembawa damai sejahtera menurut Alkitab",
+                MataPelajaranId = 3,
+                Fase = Fase.F,
+                Nomor = 11,
+            },
+            new
+            {
+                Id = 45,
+                Deskripsi = "Memahami karakter tokoh-tokoh agama yang mengabdikan hidupnya bagi persaudaraan dan solidaritas antar umat " +
+                            "beragama serta menerapkannya dalam kehidupan sehari-hari.",
+                MataPelajaranId = 3,
+                Fase = Fase.F,
+                Nomor = 12,
+            },
+            new
+            {
+                Id = 46,
+                Deskripsi = "Memahami issu-issu ras, etnis dan gender dalam rangka mewujudkan keadilan.",
+                MataPelajaranId = 3,
+                Fase = Fase.F,
+                Nomor = 13,
+            },
+            new
+            {
+                Id = 47,
+                Deskripsi = "Menerapkan transformasi sosial dalam lingkup masyarakat majemuk.",
+                MataPelajaranId = 3,
+                Fase = Fase.F,
+                Nomor = 14,
+            },
+            new
+            {
+                Id = 48,
+                Deskripsi = "Menerapkan moderasi beragama di tengah kehidupan masyarakat",
+                MataPelajaranId = 3,
+                Fase = Fase.F,
+                Nomor = 15,
+            },
+            new
+            {
+                Id = 49,
+                Deskripsi = "Memahami prinsip pemeliharaan dan pelestarian alam serta keutuhan ciptaan Allah",
+                MataPelajaranId = 3,
+                Fase = Fase.F,
+                Nomor = 16,
+            },
+            new
+            {
+                Id = 50,
+                Deskripsi = "Menerapkan tanggung-jawab memelihara alam",
+                MataPelajaranId = 3,
+                Fase = Fase.F,
+                Nomor = 17,
+            },
+            new
+            {
+                Id = 51,
+                Deskripsi = "Menerapkan sikap ugahari demi kelestarian alam.",
+                MataPelajaranId = 3,
+                Fase = Fase.F,
+                Nomor = 18,
             }
         );
     }
