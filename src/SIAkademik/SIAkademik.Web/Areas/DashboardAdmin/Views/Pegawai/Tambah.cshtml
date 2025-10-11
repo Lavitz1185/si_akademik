@@ -55,7 +55,7 @@
 
                             <div class="form-group">
                                 <label asp-for="@Model.DivisiId"></label>
-                                <select asp-for="@Model.DivisiId" class="form-control">
+                                <select asp-for="@Model.DivisiId" class="form-control mb-2">
                                     @foreach (var divisi in daftarDivisi)
                                     {
                                         <option value="@divisi.Id">@divisi.Nama</option>
@@ -67,7 +67,7 @@
 
                             <div class="form-group">
                                 <label asp-for="@Model.JabatanId"></label>
-                                <select asp-for="@Model.JabatanId" class="form-control">
+                                <select asp-for="@Model.JabatanId" class="form-control mb-2">
                                     @foreach (var jabatan in daftarJabatan)
                                     {
                                         <option value="@jabatan.Id" data-jenis="@jabatan.Jenis.Humanize()">@jabatan.Nama</option>
