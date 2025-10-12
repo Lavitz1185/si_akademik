@@ -32,7 +32,7 @@ internal class EvaluasiSiswaEntityConfiguration : IEntityTypeConfiguration<Evalu
                 {
                     Id = 2 + i * 2,
                     Deskripsi = "Ulangan Harian",
-                    Jenis = JenisNilai.UH,
+                    Jenis = JenisNilai.UlanganHarian,
                     AsesmenSumatifId = 1 + i
                 }
             );

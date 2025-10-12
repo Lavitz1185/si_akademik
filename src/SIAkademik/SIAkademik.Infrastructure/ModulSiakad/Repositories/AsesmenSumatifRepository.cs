@@ -19,21 +19,24 @@ internal class AsesmenSumatifRepository : IAsesmenSumatifRepository
     public void Delete(AsesmenSumatif asesmenSumatif) => _appDbContext.TblAsesmenSumatif.Remove(asesmenSumatif);
 
     public async Task<AsesmenSumatif?> Get(int id) => await _appDbContext.TblAsesmenSumatif
-        .Include(a => a.JadwalMengajar)
+        .Include(a => a.JadwalMengajar).ThenInclude(j => j.Pegawai)
+        .Include(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.DaftarAnggotaRombel)
+        .Include(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(a => a.JadwalMengajar).ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
         .Include(a => a.TujuanPembelajaran)
-        .Include(a => a.DaftarEvaluasiSiswa)
+        .Include(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarNilaiEvaluasiSiswa)
         .FirstOrDefaultAsync(a => a.Id == id);
 
     public async Task<List<AsesmenSumatif>> GetAll() => await _appDbContext.TblAsesmenSumatif
         .Include(a => a.JadwalMengajar)
         .Include(a => a.TujuanPembelajaran)
-        .Include(a => a.DaftarEvaluasiSiswa)
+        .Include(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarNilaiEvaluasiSiswa)
         .ToListAsync();
 
     public async Task<List<AsesmenSumatif>> GetAll(int idTujuanPembelajaran, int idJadwalMengajar) => await _appDbContext.TblAsesmenSumatif
         .Include(a => a.JadwalMengajar)
         .Include(a => a.TujuanPembelajaran)
-        .Include(a => a.DaftarEvaluasiSiswa)
+        .Include(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarNilaiEvaluasiSiswa)
         .Where(a => a.IdTujuanPembelajaran == idTujuanPembelajaran && a.IdJadwalMengajar == idJadwalMengajar)
         .ToListAsync();
 }
