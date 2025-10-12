@@ -53,13 +53,19 @@
 
                         <div class="form-group">
                             <label asp-for="@Model.TanggalMulai"></label>
-                            <input asp-for="@Model.TanggalMulai" type="date" class="form-control datepicker" />
+                            <input asp-for="@Model.TanggalMulai" type="date" class="form-control"
+                                   value="@(Model.TanggalMulai == default(DateOnly)
+                               ? DateTime.Now.ToString("yyyy-MM-dd")
+                               : Model.TanggalMulai.ToString("yyyy-MM-dd"))" />
                             <span asp-validation-for="@Model.TanggalMulai"></span>
                         </div>
 
                         <div class="form-group">
                             <label asp-for="@Model.TanggalSelesai"></label>
-                            <input asp-for="@Model.TanggalSelesai" type="date" class="form-control datepicker" />
+                            <input asp-for="@Model.TanggalSelesai" type="date" class="form-control"
+                                   value="@(Model.TanggalSelesai == default(DateOnly)
+                               ? DateTime.Now.ToString("yyyy-MM-dd")
+                               : Model.TanggalSelesai.ToString("yyyy-MM-dd"))" />
                             <span asp-validation-for="@Model.TanggalSelesai"></span>
                         </div>                     
                     </div>

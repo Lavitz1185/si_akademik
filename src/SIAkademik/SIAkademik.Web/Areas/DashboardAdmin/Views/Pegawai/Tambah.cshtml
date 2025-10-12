@@ -49,7 +49,7 @@
 
                             <div class="form-group">
                                 <label asp-for="@Model.TanggalMasuk"></label>
-                                <input asp-for="@Model.TanggalMasuk" type="date" class="form-control datepicker" fdprocessedid="v2nenb" />
+                                <input asp-for="@Model.TanggalMasuk" type="date" class="form-control" fdprocessedid="v2nenb" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
                                 <span asp-validation-for="@Model.TanggalMasuk"></span>
                             </div>
 
@@ -117,7 +117,7 @@
 
                             <div class="form-group">
                                 <label asp-for="@Model.TanggalLahir"></label>
-                                <input asp-for="@Model.TanggalLahir" type="date" class="form-control datepicker" fdprocessedid="v2nenb" />
+                                <input asp-for="@Model.TanggalLahir" type="date" class="form-control" fdprocessedid="v2nenb" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
                                 <span asp-validation-for="@Model.TanggalLahir"></span>
                             </div>
 
