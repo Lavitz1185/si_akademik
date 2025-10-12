@@ -432,7 +432,7 @@ public class RaportController : Controller
         var anggotaRombel = rombel.DaftarAnggotaRombel.FirstOrDefault(a => a.Siswa == siswa);
         if (anggotaRombel is null) return NotFound();
 
-        var html = await _razorTemplateEngine.RenderAsync("Areas/DashboardGuru/Views/Raport/_RaportPartial.cshtml", anggotaRombel);
+        var html = await _razorTemplateEngine.RenderAsync("Views/Shared/_Format1RaportPartial.cshtml", anggotaRombel);
 
         var fileName = $"Raport_{siswa.Nama}({siswa.NISN})_{rombel.Kelas.Jenjang.Humanize()}" +
             $"_{rombel.Kelas.TahunAjaran.Periode.Replace("/", "-")}" +

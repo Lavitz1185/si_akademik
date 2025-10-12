@@ -28,10 +28,12 @@ internal class RombelRepository : IRombelRepository
         .Include(r => r.DaftarJadwalMengajar).ThenInclude(j => j.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarAnggotaRombel)
         .Include(r => r.DaftarJadwalMengajar).ThenInclude(j => j.DaftarHariMengajar)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.Siswa)
-        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarNilaiEvaluasiSiswa)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarRaport).ThenInclude(r => r.JadwalMengajar).ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarNilaiEvaluasiSiswa)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAsesmenSumatifAkhirSemester).ThenInclude(a => a.JadwalMengajar)
         .FirstOrDefaultAsync(r => r.Id == id);
 
     public async Task<List<Rombel>> GetAll() => await _appDbContext
@@ -43,10 +45,12 @@ internal class RombelRepository : IRombelRepository
         .Include(r => r.DaftarJadwalMengajar).ThenInclude(j => j.MataPelajaran)
         .Include(r => r.DaftarJadwalMengajar).ThenInclude(j => j.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarAnggotaRombel)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.Siswa)
-        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarNilaiEvaluasiSiswa)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarRaport).ThenInclude(r => r.JadwalMengajar)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarNilaiEvaluasiSiswa)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAsesmenSumatifAkhirSemester).ThenInclude(a => a.JadwalMengajar)
         .ToListAsync();
 
     public async Task<List<Rombel>> GetAllByKelas(int idKelas) => await _appDbContext
@@ -58,10 +62,12 @@ internal class RombelRepository : IRombelRepository
         .Include(r => r.DaftarJadwalMengajar).ThenInclude(j => j.MataPelajaran)
         .Include(r => r.DaftarJadwalMengajar).ThenInclude(j => j.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarAnggotaRombel)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.Siswa)
-        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarNilaiEvaluasiSiswa)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarRaport).ThenInclude(r => r.JadwalMengajar)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarNilaiEvaluasiSiswa)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAsesmenSumatifAkhirSemester).ThenInclude(a => a.JadwalMengajar)
         .Where(r => r.Kelas.Id == idKelas)
         .ToListAsync();
 
@@ -74,10 +80,12 @@ internal class RombelRepository : IRombelRepository
         .Include(r => r.DaftarJadwalMengajar).ThenInclude(j => j.MataPelajaran)
         .Include(r => r.DaftarJadwalMengajar).ThenInclude(j => j.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarAnggotaRombel)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.Siswa)
-        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarNilaiEvaluasiSiswa)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
         .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarRaport).ThenInclude(r => r.JadwalMengajar)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarNilaiEvaluasiSiswa)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAsesmenSumatifAkhirSemester).ThenInclude(a => a.JadwalMengajar)
         .Where(r => r.Kelas.TahunAjaran.Id == idTahunAjaran)
         .ToListAsync();
 }

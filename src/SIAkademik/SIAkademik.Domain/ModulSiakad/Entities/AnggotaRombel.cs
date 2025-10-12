@@ -16,48 +16,22 @@ public class AnggotaRombel : Entity<int>
     public List<Absen> DaftarAbsen { get; set; } = [];
     public List<AbsenKelas> DaftarAbsenKelas { get; set; } = [];
     public List<Raport> DaftarRaport { get; set; } = [];
+
     public List<EvaluasiSiswa> DaftarEvaluasiSiswa { get; set; } = [];
     public List<NilaiEvaluasiSiswa> DaftarNilaiEvaluasiSiswa { get; set; } = [];
 
-    public double RataTugas(JadwalMengajar jadwalMengajar)
-    {
-        var daftarNilai = DaftarEvaluasiSiswa
-            .Where(e => e.JadwalMengajar == jadwalMengajar && e.Jenis == JenisNilai.Tugas)
-            .SelectMany(e => e.DaftarNilaiEvaluasiSiswa)
-            .Where(f => f.AnggotaRombel == this)
-            .Select(f => f.Nilai);
-
-        return daftarNilai.Count() == 0 ? 0 : daftarNilai.Average();
-    }
-
-    public double RataUH(JadwalMengajar jadwalMengajar)
-    {
-        var daftarNilai = DaftarEvaluasiSiswa
-            .Where(e => e.JadwalMengajar == jadwalMengajar && e.Jenis == JenisNilai.UH)
-            .SelectMany(e => e.DaftarNilaiEvaluasiSiswa)
-            .Where(f => f.AnggotaRombel == this)
-            .Select(f => f.Nilai);
-
-        return daftarNilai.Count() == 0 ? 0 : daftarNilai.Average();
-    }
+    public List<JadwalMengajar> DaftarJadwalMengajar { get; set; } = [];
+    public List<AsesmenSumatifAkhirSemester> DaftarAsesmenSumatifAkhirSemester { get; set; } = [];
 
     public double NilaiAkhir(JadwalMengajar jadwalMengajar)
     {
-        var rataTugas = RataTugas(jadwalMengajar);
-        var rataUH = RataUH(jadwalMengajar);
-        var nilaiUTS = NilaiUTS(jadwalMengajar);
-        var nilaiUAS = NilaiUAS(jadwalMengajar);
+        var asesmenSumatif = DaftarNilaiEvaluasiSiswa
+            .GroupBy(n => n.EvaluasiSiswa.AsesmenSumatif)
+            .Where(g => g.Key.JadwalMengajar == jadwalMengajar)
+            .Select(g => g.Count() == 0 ? 0 : g.Average(n => n.Nilai)).Average();
 
-        return (rataTugas + rataUH + nilaiUTS + nilaiUAS) / 4;
+        var asesmenSumatifAkhirSemester = DaftarAsesmenSumatifAkhirSemester.FirstOrDefault(a => a.JadwalMengajar == jadwalMengajar)?.Nilai ?? 0;
+
+        return (asesmenSumatif + asesmenSumatifAkhirSemester) / 2;
     }
-
-    public double NilaiUTS(JadwalMengajar jadwalMengajar) => DaftarEvaluasiSiswa
-            .Where(e => e.JadwalMengajar == jadwalMengajar && e.Jenis == JenisNilai.UTS)
-            .SelectMany(e => e.DaftarNilaiEvaluasiSiswa)
-            .FirstOrDefault(e => e.AnggotaRombel == this)?.Nilai ?? 0;
-
-    public double NilaiUAS(JadwalMengajar jadwalMengajar) => DaftarEvaluasiSiswa
-            .Where(e => e.JadwalMengajar == jadwalMengajar && e.Jenis == JenisNilai.UTS)
-            .SelectMany(e => e.DaftarNilaiEvaluasiSiswa)
-            .FirstOrDefault(e => e.AnggotaRombel == this)?.Nilai ?? 0;
 }

@@ -11,423 +11,236 @@ internal class TujuanPembelajaranEntityConfiguration : IEntityTypeConfiguration<
     {
         builder.HasKey(a => a.Id);
         builder.HasOne(a => a.MataPelajaran).WithMany(m => m.DaftarTujuanPembelajaran);
+        builder.HasMany(a => a.DaftarJadwalMengajar).WithMany(j => j.DaftarTujuanPembelajaran)
+            .UsingEntity<AsesmenSumatif>(
+                l => l.HasOne(x => x.JadwalMengajar).WithMany(x => x.DaftarAsesmenSumatif).HasForeignKey(a => a.IdJadwalMengajar),
+                r => r.HasOne(x => x.TujuanPembelajaran).WithMany(x => x.DaftarAsesmenSumatif).HasForeignKey(a => a.IdTujuanPembelajaran)
+            );
 
         builder.HasData(
             new
             {
                 Id = 1,
                 Deskripsi = "Memahami arti dewasa secara fisik, intelektual, emosional, sosial, moral dan spiritual",
-                MataPelajaranId = 3,
+                MataPelajaranId = 1,
                 Fase = Fase.E,
                 Nomor = 1,
             },
             new
             {
                 Id = 2,
-                Deskripsi = "Menghayati makna perilaku dewasa dan tidak dewasa dilingkungan keluarga dan masyarakat",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 2,
+                Deskripsi = "Memahami secara kritis perkembangan kebudayaan, ilmu pengetahuan dan tehnologi sebagai anugerah Allah.",
+                MataPelajaranId = 1,
+                Fase = Fase.F,
+                Nomor = 1,
             },
             new
             {
                 Id = 3,
-                Deskripsi = "Meyakini pesan Alkitab dalam Lukas 2:42-52, I Korintus 14: 20 dan Kolose 1:10,serta memiliki tekad untuk bertumbuh " +
-                            "semakin dewasa.",
-                MataPelajaranId = 3,
+                Deskripsi = "Menganalisis cara pandang para pendiri negara tentang dasar negara",
+                MataPelajaranId = 2,
                 Fase = Fase.E,
-                Nomor = 3,
+                Nomor = 1,
             },
             new
             {
                 Id = 4,
-                Deskripsi = "Menghayati teks Alkitab tentang pemeliharaan Allah dalam kehidupan",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 4,
+                Deskripsi = "Mendeskripsikan rumusan dan keterkaitan sila-sila dalam Pancasila",
+                MataPelajaranId = 2,
+                Fase = Fase.F,
+                Nomor = 1,
             },
             new
             {
                 Id = 5,
-                Deskripsi = "Memahami cara Allah memelihara ciptaan-Nya diberbagai dinamika kehidupan",
+                Deskripsi = "Memahami dan menganalisis gagasan teks, makna kata, dan informasi faktual yang dibaca untuk dapat dievaluasi " +
+                            "keakuratan informasinya. (menyimak dan membaca)",
                 MataPelajaranId = 3,
                 Fase = Fase.E,
-                Nomor = 5,
+                Nomor = 1,
             },
             new
             {
                 Id = 6,
-                Deskripsi = "Meyakini kemahakuasaan Allah dalam memelihara kehidupan melalui puisi, cerita pendek atau narasi",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 6,
-            },
-            new
-            {
-                Id = 7,
-                Deskripsi = "Merancang sebuah kegiatan sebagi bentuk rasa syukur atas pemeliharaan Allah dalam suka maupun duka.",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 7,
-            },
-            new
-            {
-                Id = 8,
-                Deskripsi = "Memahami peran dan tanggungjawab orangtua sebagai pendidik utama dalam keluarga",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 8,
-            },
-            new
-            {
-                Id = 9,
-                Deskripsi = "Menghayati nilai-nilai iman Kristen sebagai dasar hidup keluarga",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 9,
-            },
-            new
-            {
-                Id = 10,
-                Deskripsi = "Mensyukuri kehadiaran orangtua sebagai pendidik utama",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 10,
-            },
-            new
-            {
-                Id = 11,
-                Deskripsi = "Memahami makna hidup baru.",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 11,
-            },
-            new
-            {
-                Id = 12,
-                Deskripsi = "Meyakini proses perubahan hidup seseorang menjadi pribadi yang lebih baik.",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 12,
-            },
-            new
-            {
-                Id = 13,
-                Deskripsi = "Menghayati pemeliharaan Allah dalam kehidupan Nuh.",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 13,
-            },
-            new
-            {
-                Id = 14,
-                Deskripsi = "Meyakini isi Alkitab Yeremia 1: 4-10 mengenai Allah membaharui hidup manusia.",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 14,
-            },
-            new
-            {
-                Id = 15,
-                Deskripsi = "Membuat komitmen kepada Allah untuk hidup kudus atas pembaharuan hidup yang dialaminya.",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 15,
-            },
-            new
-            {
-                Id = 16,
-                Deskripsi = "Memahami ciri-ciri manusia dewasa dalam pergaulan menurut Alkitab/beberapa teks Alkitab.",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 16,
-            },
-            new
-            {
-                Id = 17,
-                Deskripsi = "Meyakini pandangan Alkitab terhadap interaksi manusia dewasa dengan sesamanya",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 17,
-            },
-            new
-            {
-                Id = 18,
-                Deskripsi = "Menghayati manfaat pertemanan, persahabatan, dan pacaran sebagai manusia dewasa.",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 18,
-            },
-            new
-            {
-                Id = 19,
-                Deskripsi = "Membuat karya kreatif berdasarkan pengajaran iman Kristen terkait pertemanan, persahabatan dan pacaran.",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 19,
-            },
-            new
-            {
-                Id = 20,
-                Deskripsi = "Menghayati sikap kesetian, kasih dan keadilan sebagai dasar nilai-nilai Kristen dalam kehidupan keluarga dan" +
-                            " masyarakat.",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 20,
-            },
-            new
-            {
-                Id = 21,
-                Deskripsi = "Memahami berbagai perilaku yang menyimpang dari nilai kesetian, kasih dan keadilan. dalam keluarga dan" +
-                            " masyarakat.",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 21,
-            },
-            new
-            {
-                Id = 22,
-                Deskripsi = "Merancang sebuah kegiatan sebagai wujud kesetian, kasih dan keadilan dalam hidup sehari-hari dalam keluarga " +
-                            "dan lingkungan masyarakat.",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 22,
-            },
-            new
-            {
-                Id = 23,
-                Deskripsi = "Membuat karya kreatif sebagai bentuk kesetian, kasih dan keadilan dalam hidup sehari-hari dalam keluarga dan" +
-                            " lingkungan masyarakat",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 23,
-            },
-            new
-            {
-                Id = 24,
-                Deskripsi = "Memahami makna diskriminasi dan menganalisis bukti - bukti perlakuan diskriminatif terhadap perbedaan " +
-                            "ras/etnis, gender dan budaya dalam lingkup lokal, nasional dan internasional.",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 24,
-            },
-            new
-            {
-                Id = 25,
-                Deskripsi = "Meyakini teks Alkitab yang berhubungan dengan kepekaan dan belarasa terhadap manusia.",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 25,
-            },
-            new
-            {
-                Id = 26,
-                Deskripsi = "Membuat karya kreatif tentang kepekaan dan belarasa dalam kehidupan sehari-hari",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 26,
-            },
-            new
-            {
-                Id = 27,
-                Deskripsi = "Memahami sekolah dan keluarga sebagai lembagai Pendidikan.",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 27,
-            },
-            new
-            {
-                Id = 28,
-                Deskripsi = "Memahami peran sekolah dalam membantu orang tua mendidik anak anak.",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 28,
-            },
-            new
-            {
-                Id = 29,
-                Deskripsi = "Menghayati peran sekolah dan keluarga dalam mendidik serta melatih siswa hidup dalam kemajemukan",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 29,
-            },
-            new
-            {
-                Id = 30,
-                Deskripsi = "Memahami berbagai bentuk kerusakan alam yang disebabkan oleh manusia serta cara untuk mencegah dan mengatasi.",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 30,
-            },
-            new
-            {
-                Id = 31,
-                Deskripsi = "Menghayati peran berbagai pihak dalam menjaga dan melestarikan alam ciptaan Tuhan serta membuat karya kreatif yang" +
-                            " berkaitan dengan upaya pencegahan kerusakan alam.",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 31,
-            },
-            new
-            {
-                Id = 32,
-                Deskripsi = "Menyakini teks alkitab yang berkaitan dengan memelihara dan melestarikan alam ciptaan Tuhan",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 32,
-            },
-            new
-            {
-                Id = 33,
-                Deskripsi = "Membuat karya nyata yang berkaitan dengan tanggung jawabnya memelihara alam ciptaan Allah",
-                MataPelajaranId = 3,
-                Fase = Fase.E,
-                Nomor = 33,
-            },
-            new
-            {
-                Id = 34,
-                Deskripsi = "Memahami secara kritis perkembangan kebudayaan, ilmu pengetahuan dan tehnologi sebagai anugerah Allah.",
+                Deskripsi = "Mengidentifikasi ide pokok dan pendukung teks yang dibaca serta menulis opini untuk berbagai tujuan secara logis, " +
+                            "kritis, dan kreatif.",
                 MataPelajaranId = 3,
                 Fase = Fase.F,
                 Nomor = 1,
             },
             new
             {
-                Id = 35,
-                Deskripsi = "Memahami Demokrasi dan HAM sebagai anugerah Allah serta mewujudkan dalam praktik.",
-                MataPelajaranId = 3,
-                Fase = Fase.F,
-                Nomor = 2,
+                Id = 7,
+                Deskripsi = "Menggeneralisasi sifat-sifat bilangan berpangkat",
+                MataPelajaranId = 4,
+                Fase = Fase.E,
+                Nomor = 1,
             },
             new
             {
-                Id = 36,
-                Deskripsi = "Mengembangkan serta memanfaatkan talenta untuk kepentingan bangsa dan negara.",
-                MataPelajaranId = 3,
+                Id = 8,
+                Deskripsi = "Memodelkan pinjaman dan investasi dengan bunga majemuk dan anuitas.",
+                MataPelajaranId = 4,
                 Fase = Fase.F,
-                Nomor = 3,
+                Nomor = 1,
             },
             new
             {
-                Id = 37,
-                Deskripsi = "Mengembangkan serta memanfaatkan talenta untuk kepentingan bangsa dan negara.",
-                MataPelajaranId = 3,
-                Fase = Fase.F,
-                Nomor = 4,
+                Id = 9,
+                Deskripsi = "Memahami konsep-konsep dasar ilmu sejarah yaitu: manusia, ruang, waktu, diakronik (kronologi), sinkronik, dan " +
+                            "penelitian sejarah",
+                MataPelajaranId = 5,
+                Fase = Fase.E,
+                Nomor = 1,
             },
             new
             {
-                Id = 38,
-                Deskripsi = "Memahami tantangan dalam kehidupan keluarga masa kini dan solusinya berdasarkan teks Alkitab.",
-                MataPelajaranId = 3,
+                Id = 10,
+                Deskripsi = "Memahami berbagai peristiwa sejarah pada masa penjajahan bangsa barat.",
+                MataPelajaranId = 5,
                 Fase = Fase.F,
-                Nomor = 5,
+                Nomor = 1,
             },
             new
             {
-                Id = 39,
-                Deskripsi = "Mengembangkan komunikasi dalam konteks lokal dan global.",
-                MataPelajaranId = 3,
-                Fase = Fase.F,
-                Nomor = 6,
+                Id = 11,
+                Deskripsi = "Menggunakan bahasa Inggris untuk memproduksi teks deskripsi lisan, tulisan, dan visual.",
+                MataPelajaranId = 6,
+                Fase = Fase.E,
+                Nomor = 1,
             },
             new
             {
-                Id = 40,
-                Deskripsi = "Memahami Allah membarui serta memulihkan kehidupan keluarga Kristen, gereja dan bangsa",
-                MataPelajaranId = 3,
+                Id = 12,
+                Deskripsi = "Menganalisis ekspresi di berbagai konteks dalam bentuk percakapan transaksional lisan.",
+                MataPelajaranId = 6,
                 Fase = Fase.F,
-                Nomor = 7,
+                Nomor = 1,
             },
             new
             {
-                Id = 41,
-                Deskripsi = "Mewujudkan tanggung jawab sebagai manusia dewasa dalam konteks yang lebih luas.",
-                MataPelajaranId = 3,
-                Fase = Fase.F,
-                Nomor = 8,
+                Id = 13,
+                Deskripsi = "Menggunakan dan mengembangkan unsur-unsur bunyi musik berupa nada, irama, melodi, harmoni, timbre," +
+                            " tempo, dan dinamika menggunakan instrumen atau teknologi yang tersedia",
+                MataPelajaranId = 7,
+                Fase = Fase.E,
+                Nomor = 1,
             },
             new
             {
-                Id = 42,
-                Deskripsi = "Memahami keadilan sebagai dasar demokrasi dan HAM.",
-                MataPelajaranId = 3,
+                Id = 14,
+                Deskripsi = "Memahami bunyi musik dan elemen musik dengan melibatkan diri secara aktif.",
+                MataPelajaranId = 7,
                 Fase = Fase.F,
-                Nomor = 9,
+                Nomor = 1,
             },
             new
             {
-                Id = 43,
-                Deskripsi = "Memahami nilai iman sebagai landasan hidup berkeluarga.",
-                MataPelajaranId = 3,
-                Fase = Fase.F,
-                Nomor = 10,
+                Id = 15,
+                Deskripsi = "Menemutunjukkan bahan, alat, teknik, prosedur, dan sistem budidaya produk bernilai ekonomis dari berbagai " +
+                            "sumber",
+                MataPelajaranId = 8,
+                Fase = Fase.E,
+                Nomor = 1,
             },
             new
             {
-                Id = 44,
-                Deskripsi = "Menerapkan sikap proaktif sebagai pembawa damai sejahtera menurut Alkitab",
-                MataPelajaranId = 3,
+                Id = 16,
+                Deskripsi = "Menganalisis potensi internal dan eksternal produk budi daya.",
+                MataPelajaranId = 8,
                 Fase = Fase.F,
-                Nomor = 11,
+                Nomor = 1,
             },
             new
             {
-                Id = 45,
-                Deskripsi = "Memahami karakter tokoh-tokoh agama yang mengabdikan hidupnya bagi persaudaraan dan solidaritas antar umat " +
-                            "beragama serta menerapkannya dalam kehidupan sehari-hari.",
-                MataPelajaranId = 3,
-                Fase = Fase.F,
-                Nomor = 12,
+                Id = 17,
+                Deskripsi = "Merancang, menerapkan, dan menghaluskan keterampilan gerak dalam situasi gerak yang menantang.",
+                MataPelajaranId = 9,
+                Fase = Fase.E,
+                Nomor = 1,
             },
             new
             {
-                Id = 46,
-                Deskripsi = "Memahami issu-issu ras, etnis dan gender dalam rangka mewujudkan keadilan.",
-                MataPelajaranId = 3,
+                Id = 18,
+                Deskripsi = "Merancang, menerapkan, menghaluskan dan mengevaluasi keterampilan gerak spesifik di dalam berbagai situasi gerak" +
+                            " yang menantang untuk meningkatkan kinerja gerak.",
+                MataPelajaranId = 9,
                 Fase = Fase.F,
-                Nomor = 13,
+                Nomor = 1,
             },
             new
             {
-                Id = 47,
-                Deskripsi = "Menerapkan transformasi sosial dalam lingkup masyarakat majemuk.",
-                MataPelajaranId = 3,
+                Id = 19,
+                Deskripsi = "Melakukan operasi aritmetika pada polinomial (suku banyak), menentukan faktor polinomial, dan menggunakan identitas " +
+                            "polinomial untuk menyelesaikan masalah",
+                MataPelajaranId = 10,
                 Fase = Fase.F,
-                Nomor = 14,
+                Nomor = 1,
             },
             new
             {
-                Id = 48,
-                Deskripsi = "Menerapkan moderasi beragama di tengah kehidupan masyarakat",
-                MataPelajaranId = 3,
-                Fase = Fase.F,
-                Nomor = 15,
+                Id = 20,
+                Deskripsi = "Mendeskripsikan gejala alam dalam cakupan keterampilan proses dalam pengukuran",
+                MataPelajaranId = 11,
+                Fase = Fase.E,
+                Nomor = 1,
             },
             new
             {
-                Id = 49,
-                Deskripsi = "Memahami prinsip pemeliharaan dan pelestarian alam serta keutuhan ciptaan Allah",
-                MataPelajaranId = 3,
+                Id = 21,
+                Deskripsi = "Menganalisis konsep gerak menggunakan vektor untuk menjelaskan berbagai fenomena.",
+                MataPelajaranId = 11,
                 Fase = Fase.F,
-                Nomor = 16,
+                Nomor = 1,
             },
             new
             {
-                Id = 50,
-                Deskripsi = "Menerapkan tanggung-jawab memelihara alam",
-                MataPelajaranId = 3,
-                Fase = Fase.F,
-                Nomor = 17,
+                Id = 22,
+                Deskripsi = "Mengidentifikasi jenis-jenis interaksi pada ekosistem dan aliran  energi dalam ekositemual",
+                MataPelajaranId = 12,
+                Fase = Fase.E,
+                Nomor = 1,
             },
             new
             {
-                Id = 51,
-                Deskripsi = "Menerapkan sikap ugahari demi kelestarian alam.",
-                MataPelajaranId = 3,
+                Id = 23,
+                Deskripsi = "Memahami struktur sel dan organel sel beserta fungsinya sebagai unit fungsional terintegrasi",
+                MataPelajaranId = 12,
                 Fase = Fase.F,
-                Nomor = 18,
+                Nomor = 1,
+            },
+            new
+            {
+                Id = 24,
+                Deskripsi = "Menerapkan  konsep kimia dalam pengelolaan lingkungan termasuk menjelaskan  fenomena pemanasan global",
+                MataPelajaranId = 13,
+                Fase = Fase.E,
+                Nomor = 1,
+            },
+            new
+            {
+                Id = 25,
+                Deskripsi = "Menganalisis proses terjadinya ikatan kimia dari unsur-unsur pembentuknya dan implikasinya terhadap " +
+                            "sifat-sifat fisik senyawa yang dihasilkan.",
+                MataPelajaranId = 13,
+                Fase = Fase.F,
+                Nomor = 1,
+            },
+            new
+            {
+                Id = 26,
+                Deskripsi = "Menguasai ukuran pemusatan dan penyebaran data yang disajikan dalam bentuk tabel distribusi frekuensi dan histogram",
+                MataPelajaranId = 14,
+                Fase = Fase.F,
+                Nomor = 1,
+            },
+            new
+            {
+                Id = 27,
+                Deskripsi = "Menguasai perbedaan fungsi sosial struktur teks news item lisan dan tulis dari radio, koran, dan TV",
+                MataPelajaranId = 15,
+                Fase = Fase.F,
+                Nomor = 1,
             }
         );
     }

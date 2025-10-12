@@ -34,7 +34,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
         builder.HasData(
             new
             {
-                Id = 2,
+                Id = 1,
                 NISN = "0047892929",
                 Nama = "Anlidua Lua Hingmadi",
                 NIS = "192005",
@@ -49,7 +49,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 3,
+                Id = 2,
                 NISN = "252601",
                 Nama = "Ajesta Winarti Banamtuan",
                 NIS = "252601",
@@ -64,7 +64,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 4,
+                Id = 3,
                 NISN = "252602",
                 Nama = "Alfa Alfino Tunbonat",
                 NIS = "252602",
@@ -79,7 +79,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 5,
+                Id = 4,
                 NISN = "252603",
                 Nama = "Alfiko Musa Manekat Duka",
                 NIS = "252603",
@@ -94,7 +94,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 6,
+                Id = 5,
                 NISN = "252605",
                 Nama = "Anastasya Anin",
                 NIS = "252605",
@@ -109,7 +109,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 7,
+                Id = 6,
                 NISN = "252606",
                 Nama = "Aprian Lorenso Bauky",
                 NIS = "252606",
@@ -124,7 +124,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 8,
+                Id = 7,
                 NISN = "252607",
                 Nama = "Aryo Arjuna Ekaputra Bili",
                 NIS = "252607",
@@ -139,7 +139,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 9,
+                Id = 8,
                 NISN = "252608",
                 Nama = "Benediktus G. Araujo",
                 NIS = "252608",
@@ -154,7 +154,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 10,
+                Id = 9,
                 NISN = "252609",
                 Nama = "Brigida Frida Tampani",
                 NIS = "252609",
@@ -169,7 +169,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 11,
+                Id = 10,
                 NISN = "252610",
                 Nama = "Chenaniah Bona Ventura Buling",
                 NIS = "252610",
@@ -184,7 +184,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 12,
+                Id = 11,
                 NISN = "252611",
                 Nama = "Christian Alvaro Ufi",
                 NIS = "252611",
@@ -199,7 +199,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 13,
+                Id = 12,
                 NISN = "252612",
                 Nama = "Cici Novelita Tung Lily",
                 NIS = "252612",
@@ -214,7 +214,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 14,
+                Id = 13,
                 NISN = "252613",
                 Nama = "Deviltha Andini Landupari",
                 NIS = "252613",
@@ -229,7 +229,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 15,
+                Id = 14,
                 NISN = "252614",
                 Nama = "Efranto Mesa",
                 NIS = "252614",
@@ -244,7 +244,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 16,
+                Id = 15,
                 NISN = "252615",
                 Nama = "Gracia Prita Pandie",
                 NIS = "252615",
@@ -259,7 +259,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 17,
+                Id = 16,
                 NISN = "252616",
                 Nama = "Guenerva Kristivan Pieter Tauk",
                 NIS = "252616",
@@ -274,7 +274,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 18,
+                Id = 17,
                 NISN = "252617",
                 Nama = "Helder Yahya Lopes Beka",
                 NIS = "252617",
@@ -289,7 +289,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 19,
+                Id = 18,
                 NISN = "252618",
                 Nama = "Jenesty Elbitry Appu",
                 NIS = "252618",
@@ -304,7 +304,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 20,
+                Id = 19,
                 NISN = "252619",
                 Nama = "Kesyia Jetika Humsibu",
                 NIS = "252619",
@@ -319,7 +319,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 21,
+                Id = 20,
                 NISN = "252620",
                 Nama = "Lady Grace Julius",
                 NIS = "252620",
@@ -334,7 +334,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 22,
+                Id = 21,
                 NISN = "252621",
                 Nama = "Mean Grenaldi Aditia Dawa",
                 NIS = "252621",
@@ -349,7 +349,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 23,
+                Id = 22,
                 NISN = "252622",
                 Nama = "Michelle Paulina Alwara",
                 NIS = "252622",
@@ -364,7 +364,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 24,
+                Id = 23,
                 NISN = "252623",
                 Nama = "Natanael U. T. Ngudang",
                 NIS = "252623",
@@ -379,7 +379,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 25,
+                Id = 24,
                 NISN = "252624",
                 Nama = "Natasia Desta Moto",
                 NIS = "252624",
@@ -394,7 +394,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 26,
+                Id = 25,
                 NISN = "252625",
                 Nama = "Nicholyn Rambu Lunga",
                 NIS = "252625",
@@ -409,7 +409,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 27,
+                Id = 26,
                 NISN = "252626",
                 Nama = "Salomi Meriyanti Bekamau",
                 NIS = "252626",
@@ -424,7 +424,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 28,
+                Id = 27,
                 NISN = "252627",
                 Nama = "Sanjuan Heiland Lado",
                 NIS = "252627",
@@ -439,7 +439,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 29,
+                Id = 28,
                 NISN = "252628",
                 Nama = "Yodirson Dimas Jogoritno Kause",
                 NIS = "252628",
@@ -454,7 +454,7 @@ internal class SiswaEntityConfiguration : IEntityTypeConfiguration<Siswa>
             },
             new
             {
-                Id = 30,
+                Id = 29,
                 NISN = "252629",
                 Nama = "Zhailla Hiama",
                 NIS = "252629",

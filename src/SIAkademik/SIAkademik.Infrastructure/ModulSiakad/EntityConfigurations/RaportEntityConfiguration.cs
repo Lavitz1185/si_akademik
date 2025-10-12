@@ -55,7 +55,7 @@ internal class RaportEntityConfiguration : IEntityTypeConfiguration<Raport>
                 KategoriNilai = KategoriNilaiRaport.Pengetahuan,
                 Predikat = "A",
                 AnggotaRombelId = 1,
-                JadwalMengajarId = 3
+                JadwalMengajarId = 1
             },
             new
             {
@@ -66,7 +66,7 @@ internal class RaportEntityConfiguration : IEntityTypeConfiguration<Raport>
                 KategoriNilai = KategoriNilaiRaport.Pengetahuan,
                 Predikat = "A",
                 AnggotaRombelId = 1,
-                JadwalMengajarId = 4
+                JadwalMengajarId = 2
             },
             new
             {
@@ -76,7 +76,7 @@ internal class RaportEntityConfiguration : IEntityTypeConfiguration<Raport>
                 KategoriNilai = KategoriNilaiRaport.Pengetahuan,
                 Predikat = "B",
                 AnggotaRombelId = 1,
-                JadwalMengajarId = 5
+                JadwalMengajarId = 3
             },
             new
             {
@@ -87,7 +87,7 @@ internal class RaportEntityConfiguration : IEntityTypeConfiguration<Raport>
                 KategoriNilai = KategoriNilaiRaport.Pengetahuan,
                 Predikat = "B",
                 AnggotaRombelId = 1,
-                JadwalMengajarId = 6
+                JadwalMengajarId = 4
             },
             new
             {
@@ -98,7 +98,7 @@ internal class RaportEntityConfiguration : IEntityTypeConfiguration<Raport>
                 KategoriNilai = KategoriNilaiRaport.Pengetahuan,
                 Predikat = "B",
                 AnggotaRombelId = 1,
-                JadwalMengajarId = 7
+                JadwalMengajarId = 5
             },
             new
             {
@@ -110,7 +110,7 @@ internal class RaportEntityConfiguration : IEntityTypeConfiguration<Raport>
                 KategoriNilai = KategoriNilaiRaport.Pengetahuan,
                 Predikat = "B",
                 AnggotaRombelId = 1,
-                JadwalMengajarId = 8
+                JadwalMengajarId = 6
             },
             new
             {
@@ -121,89 +121,11 @@ internal class RaportEntityConfiguration : IEntityTypeConfiguration<Raport>
                 KategoriNilai = KategoriNilaiRaport.Pengetahuan,
                 Predikat = "A",
                 AnggotaRombelId = 1,
-                JadwalMengajarId = 9
+                JadwalMengajarId = 7
             },
             new
             {
                 Id = 11,
-                Nama = string.Empty,
-                Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai atletik jalan cepat, lompat tinggi, lari jarak pendek, sangat menguasai " +
-                            "permainan bulu tangkis, softball, tenis meja",
-                KategoriNilai = KategoriNilaiRaport.Pengetahuan,
-                Predikat = "B",
-                AnggotaRombelId = 1,
-                JadwalMengajarId = 10
-            },
-            new
-            {
-                Id = 12,
-                Nama = string.Empty,
-                Deskripsi = "Kompetensi pengetahuan sangat baik, sangat menguasai limit di ketakhinggaan fungsi aljabar dan trigonometri," +
-                            "menguasai limit fungsi trigonometri",
-                KategoriNilai = KategoriNilaiRaport.Pengetahuan,
-                Predikat = "B",
-                AnggotaRombelId = 1,
-                JadwalMengajarId = 11
-            },
-            new
-            {
-                Id = 13,
-                Nama = string.Empty,
-                Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai rangkaian arus bolak balik, cukup menguasai prinsip kerja peralatan " +
-                            "listrik searah",
-                KategoriNilai = KategoriNilaiRaport.Pengetahuan,
-                Predikat = "A",
-                AnggotaRombelId = 1,
-                JadwalMengajarId = 12
-            },
-            new
-            {
-                Id = 14,
-                Nama = string.Empty,
-                Deskripsi = "Kompetensi pengetahuan sangat baik, sangat menguasai pola-pola hereditas, menguasai pengaruh faktor internal dan faktor " +
-                            "eksternal terhadap pertumbuhan dan perkembangan",
-                KategoriNilai = KategoriNilaiRaport.Pengetahuan,
-                Predikat = "B",
-                AnggotaRombelId = 1,
-                JadwalMengajarId = 13
-            },
-            new
-            {
-                Id = 15,
-                Nama = string.Empty,
-                Deskripsi = "Kompetensi pengetahuan sangat baik, sangat menguasai analisis gejala yang terjadi sel elektrolisis yang digunakan dalam " +
-                            "kehidupan, sangat menguasai penyebab adanya fenomena sifat koligatif larutan, dan tekanan osmosis",
-                KategoriNilai = KategoriNilaiRaport.Pengetahuan,
-                Predikat = "A",
-                AnggotaRombelId = 1,
-                JadwalMengajarId = 14
-            },
-            new
-            {
-                Id = 16,
-                Nama = string.Empty,
-                Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai ukuran pemusatan dan penyebaran data yang disajikan dalam bentuk tabel " +
-                            "distribusi frekuensi dan histogram, menguasai jarak dalam ruang",
-                KategoriNilai = KategoriNilaiRaport.Pengetahuan,
-                Predikat = "A",
-                AnggotaRombelId = 1,
-                JadwalMengajarId = 15
-            },
-            new
-            {
-                Id = 17,
-                Nama = string.Empty,
-                Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai perbedaan fungsi sosial struktur teks news item lisan dan tulis dari " +
-                            "radio, koran, dan TV, menguasai penerapan fungsi sosial, struktur teks dan unsur kebahasaan teks dalam tindakan " +
-                            "menawarkan jasa",
-                KategoriNilai = KategoriNilaiRaport.Pengetahuan,
-                Predikat = "B",
-                AnggotaRombelId = 1,
-                JadwalMengajarId = 16
-            },
-            new
-            {
-                Id = 18,
                 Nama = string.Empty,
                 Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai sistem produksi kerajinan inovatif sesuai kebutuhan pasar global " +
                             "berdasarkan daya dukung yang dimiliki oleh daerah setempat, sangat menguasai perencanaan usaha kerajinan inovatif " +
@@ -211,36 +133,136 @@ internal class RaportEntityConfiguration : IEntityTypeConfiguration<Raport>
                 KategoriNilai = KategoriNilaiRaport.Pengetahuan,
                 Predikat = "A",
                 AnggotaRombelId = 1,
-                JadwalMengajarId = 31
+                JadwalMengajarId = 8
+            },
+            new
+            {
+                Id = 12,
+                Nama = string.Empty,
+                Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai atletik jalan cepat, lompat tinggi, lari jarak pendek, sangat menguasai " +
+                            "permainan bulu tangkis, softball, tenis meja",
+                KategoriNilai = KategoriNilaiRaport.Pengetahuan,
+                Predikat = "B",
+                AnggotaRombelId = 1,
+                JadwalMengajarId = 9
+            },
+            new
+            {
+                Id = 13,
+                Nama = string.Empty,
+                Deskripsi = "Kompetensi pengetahuan sangat baik, sangat menguasai limit di ketakhinggaan fungsi aljabar dan trigonometri," +
+                            "menguasai limit fungsi trigonometri",
+                KategoriNilai = KategoriNilaiRaport.Pengetahuan,
+                Predikat = "B",
+                AnggotaRombelId = 1,
+                JadwalMengajarId = 10
+            },
+            new
+            {
+                Id = 14,
+                Nama = string.Empty,
+                Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai rangkaian arus bolak balik, cukup menguasai prinsip kerja peralatan " +
+                            "listrik searah",
+                KategoriNilai = KategoriNilaiRaport.Pengetahuan,
+                Predikat = "A",
+                AnggotaRombelId = 1,
+                JadwalMengajarId = 11
+            },
+            new
+            {
+                Id = 15,
+                Nama = string.Empty,
+                Deskripsi = "Kompetensi pengetahuan sangat baik, sangat menguasai pola-pola hereditas, menguasai pengaruh faktor internal dan faktor " +
+                            "eksternal terhadap pertumbuhan dan perkembangan",
+                KategoriNilai = KategoriNilaiRaport.Pengetahuan,
+                Predikat = "B",
+                AnggotaRombelId = 1,
+                JadwalMengajarId = 12
+            },
+            new
+            {
+                Id = 16,
+                Nama = string.Empty,
+                Deskripsi = "Kompetensi pengetahuan sangat baik, sangat menguasai analisis gejala yang terjadi sel elektrolisis yang digunakan dalam " +
+                            "kehidupan, sangat menguasai penyebab adanya fenomena sifat koligatif larutan, dan tekanan osmosis",
+                KategoriNilai = KategoriNilaiRaport.Pengetahuan,
+                Predikat = "A",
+                AnggotaRombelId = 1,
+                JadwalMengajarId = 13
+            },
+            new
+            {
+                Id = 17,
+                Nama = string.Empty,
+                Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai ukuran pemusatan dan penyebaran data yang disajikan dalam bentuk tabel " +
+                            "distribusi frekuensi dan histogram, menguasai jarak dalam ruang",
+                KategoriNilai = KategoriNilaiRaport.Pengetahuan,
+                Predikat = "A",
+                AnggotaRombelId = 1,
+                JadwalMengajarId = 14
+            },
+            new
+            {
+                Id = 18,
+                Nama = string.Empty,
+                Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai perbedaan fungsi sosial struktur teks news item lisan dan tulis dari " +
+                            "radio, koran, dan TV, menguasai penerapan fungsi sosial, struktur teks dan unsur kebahasaan teks dalam tindakan " +
+                            "menawarkan jasa",
+                KategoriNilai = KategoriNilaiRaport.Pengetahuan,
+                Predikat = "B",
+                AnggotaRombelId = 1,
+                JadwalMengajarId = 15
             },
             new
             {
                 Id = 19,
                 Nama = string.Empty,
-                Deskripsi = "Kompetensi keterampilan sangat baik, sangat menguasai peran dan fungsi pria dan wanita dalam rumah tangga, sangat " +
+                Deskripsi = "Kompetensi pengetahuan sangat baik, sangat menguasai peran dan fungsi pria dan wanita dalam rumah tangga, sangat " +
                             "menguasai peran dan fungsi pria dan wanita dalam rumah tangga, sangat menguasai prinsip dasar pernikahan dan rumah " +
                             "tangga Kristen",
                 KategoriNilai = KategoriNilaiRaport.Keterampilan,
                 Predikat = "A",
                 AnggotaRombelId = 1,
-                JadwalMengajarId = 3
+                JadwalMengajarId = 1
             },
             new
             {
                 Id = 20,
                 Nama = string.Empty,
-                Deskripsi = "Kompetensi keterampilan sangat baik, sangat menguasai perlindungan dan penegakan hukum di Indonesia, menguasai kasus-" +
+                Deskripsi = "Kompetensi pengetahuan sangat baik, sangat menguasai perlindungan dan penegakan hukum di Indonesia, menguasai kasus-" +
                             "kasus pelanggaran hak dan pengikaran kewajiban warga negara",
                 KategoriNilai = KategoriNilaiRaport.Keterampilan,
                 Predikat = "A",
                 AnggotaRombelId = 1,
-                JadwalMengajarId = 4
+                JadwalMengajarId = 2
             },
             new
             {
                 Id = 21,
                 Nama = string.Empty,
-                Deskripsi = "Kompetensi keterampilan baik, sangat menguasai teks editorial, cukup menguasai teks lamaran pekerjaan",
+                Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai teks editorial, cukup menguasai teks lamaran pekerjaan",
+                KategoriNilai = KategoriNilaiRaport.Keterampilan,
+                Predikat = "B",
+                AnggotaRombelId = 1,
+                JadwalMengajarId = 3
+            },
+            new
+            {
+                Id = 22,
+                Nama = string.Empty,
+                Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai ukuran pemusatan dan penyebaran data yang disajikan dalam bentuk tabel " +
+                            "distribusi frekuensi dan histogram, menguasai jarak dalam ruang",
+                KategoriNilai = KategoriNilaiRaport.Keterampilan,
+                Predikat = "B",
+                AnggotaRombelId = 1,
+                JadwalMengajarId = 4
+            },
+            new
+            {
+                Id = 23,
+                Nama = string.Empty,
+                Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai peran dan nilai-nilai perjuangan tokoh nasional dan daerah dalam " +
+                            "mempertahankan keutuhan negara, menguasai upaya bangsa indonesia menghadapi ancaman disintegrasi negara",
                 KategoriNilai = KategoriNilaiRaport.Keterampilan,
                 Predikat = "B",
                 AnggotaRombelId = 1,
@@ -248,10 +270,11 @@ internal class RaportEntityConfiguration : IEntityTypeConfiguration<Raport>
             },
             new
             {
-                Id = 22,
+                Id = 24,
                 Nama = string.Empty,
-                Deskripsi = "Kompetensi keterampilan baik, sangat menguasai ukuran pemusatan dan penyebaran data yang disajikan dalam bentuk tabel " +
-                            "distribusi frekuensi dan histogram, menguasai jarak dalam ruang",
+                Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai perbedaan fungsi sosial, struktur teks dan kebahasaan dalam teks " +
+                            "news item lisan dan tulis dari radio, koran, dan TV, menguasai penerapan fungsi sosial, struktur teks, dan unsur " +
+                            "kebahasan teks dalam tindakan menawarkan jasa",
                 KategoriNilai = KategoriNilaiRaport.Keterampilan,
                 Predikat = "B",
                 AnggotaRombelId = 1,
@@ -259,44 +282,44 @@ internal class RaportEntityConfiguration : IEntityTypeConfiguration<Raport>
             },
             new
             {
-                Id = 23,
+                Id = 25,
                 Nama = string.Empty,
-                Deskripsi = "Kompetensi keterampilan baik, sangat menguasai peran dan nilai-nilai perjuangan tokoh nasional dan daerah dalam " +
-                            "mempertahankan keutuhan negara, menguasai upaya bangsa indonesia menghadapi ancaman disintegrasi negara",
+                Deskripsi = "Kompetensi pengetahuan sangat baik, sangat menguasai teknik menyusun naskah teater kontemporer, sangat menguasai " +
+                            "perencangan pemetasan teater kontemporer",
                 KategoriNilai = KategoriNilaiRaport.Keterampilan,
-                Predikat = "B",
+                Predikat = "A",
                 AnggotaRombelId = 1,
                 JadwalMengajarId = 7
             },
             new
             {
-                Id = 24,
+                Id = 26,
                 Nama = string.Empty,
-                Deskripsi = "Kompetensi keterampilan baik, sangat menguasai perbedaan fungsi sosial, struktur teks dan kebahasaan dalam teks " +
-                            "news item lisan dan tulis dari radio, koran, dan TV, menguasai penerapan fungsi sosial, struktur teks, dan unsur " +
-                            "kebahasan teks dalam tindakan menawarkan jasa",
+                Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai sistem produksi kerajinan inovatif sesuai kebutuhan pasar global " +
+                            "berdasarkan daya dukung yang dimiliki oleh daerah setempat, sangat menguasai perencanaan usaha kerajinan inovatif " +
+                            "berdasarkan kebutuhan pasar global",
                 KategoriNilai = KategoriNilaiRaport.Keterampilan,
-                Predikat = "B",
+                Predikat = "A",
                 AnggotaRombelId = 1,
                 JadwalMengajarId = 8
             },
             new
             {
-                Id = 25,
+                Id = 27,
                 Nama = string.Empty,
-                Deskripsi = "Kompetensi keterampilan sangat baik, sangat menguasai teknik menyusun naskah teater kontemporer, sangat menguasai " +
-                            "perencangan pemetasan teater kontemporer",
+                Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai atletik jalan cepat, lompat tinggi, lari jarak pendek, sangat menguasai " +
+                            "permainan bulu tangkis, softball, tenis meja",
                 KategoriNilai = KategoriNilaiRaport.Keterampilan,
-                Predikat = "A",
+                Predikat = "B",
                 AnggotaRombelId = 1,
                 JadwalMengajarId = 9
             },
             new
             {
-                Id = 26,
+                Id = 28,
                 Nama = string.Empty,
-                Deskripsi = "Kompetensi keterampilan baik, sangat menguasai atletik jalan cepat, lompat tinggi, lari jarak pendek, sangat menguasai " +
-                            "permainan bulu tangkis, softball, tenis meja",
+                Deskripsi = "Kompetensi pengetahuan sangat baik, sangat menguasai limit di ketakhinggaan fungsi aljabar dan trigonometri," +
+                            "menguasai limit fungsi trigonometri",
                 KategoriNilai = KategoriNilaiRaport.Keterampilan,
                 Predikat = "B",
                 AnggotaRombelId = 1,
@@ -304,43 +327,43 @@ internal class RaportEntityConfiguration : IEntityTypeConfiguration<Raport>
             },
             new
             {
-                Id = 27,
+                Id = 29,
                 Nama = string.Empty,
-                Deskripsi = "Kompetensi keterampilan sangat baik, sangat menguasai limit di ketakhinggaan fungsi aljabar dan trigonometri," +
-                            "menguasai limit fungsi trigonometri",
+                Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai rangkaian arus bolak balik, cukup menguasai prinsip kerja peralatan " +
+                            "listrik searah",
                 KategoriNilai = KategoriNilaiRaport.Keterampilan,
-                Predikat = "B",
+                Predikat = "A",
                 AnggotaRombelId = 1,
                 JadwalMengajarId = 11
             },
             new
             {
-                Id = 28,
+                Id = 30,
                 Nama = string.Empty,
-                Deskripsi = "Kompetensi keterampilan baik, sangat menguasai rangkaian arus bolak balik, cukup menguasai prinsip kerja peralatan " +
-                            "listrik searah",
+                Deskripsi = "Kompetensi pengetahuan sangat baik, sangat menguasai pola-pola hereditas, menguasai pengaruh faktor internal dan faktor " +
+                            "eksternal terhadap pertumbuhan dan perkembangan",
                 KategoriNilai = KategoriNilaiRaport.Keterampilan,
-                Predikat = "A",
+                Predikat = "B",
                 AnggotaRombelId = 1,
                 JadwalMengajarId = 12
             },
             new
             {
-                Id = 29,
+                Id = 31,
                 Nama = string.Empty,
-                Deskripsi = "Kompetensi keterampilan sangat baik, sangat menguasai pola-pola hereditas, menguasai pengaruh faktor internal dan faktor " +
-                            "eksternal terhadap pertumbuhan dan perkembangan",
+                Deskripsi = "Kompetensi pengetahuan sangat baik, sangat menguasai analisis gejala yang terjadi sel elektrolisis yang digunakan dalam " +
+                            "kehidupan, sangat menguasai penyebab adanya fenomena sifat koligatif larutan, dan tekanan osmosis",
                 KategoriNilai = KategoriNilaiRaport.Keterampilan,
-                Predikat = "B",
+                Predikat = "A",
                 AnggotaRombelId = 1,
                 JadwalMengajarId = 13
             },
             new
             {
-                Id = 30,
+                Id = 32,
                 Nama = string.Empty,
-                Deskripsi = "Kompetensi keterampilan sangat baik, sangat menguasai analisis gejala yang terjadi sel elektrolisis yang digunakan dalam " +
-                            "kehidupan, sangat menguasai penyebab adanya fenomena sifat koligatif larutan, dan tekanan osmosis",
+                Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai ukuran pemusatan dan penyebaran data yang disajikan dalam bentuk tabel " +
+                            "distribusi frekuensi dan histogram, menguasai jarak dalam ruang",
                 KategoriNilai = KategoriNilaiRaport.Keterampilan,
                 Predikat = "A",
                 AnggotaRombelId = 1,
@@ -348,38 +371,15 @@ internal class RaportEntityConfiguration : IEntityTypeConfiguration<Raport>
             },
             new
             {
-                Id = 31,
+                Id = 33,
                 Nama = string.Empty,
-                Deskripsi = "Kompetensi keterampilan baik, sangat menguasai ukuran pemusatan dan penyebaran data yang disajikan dalam bentuk tabel " +
-                            "distribusi frekuensi dan histogram, menguasai jarak dalam ruang",
-                KategoriNilai = KategoriNilaiRaport.Keterampilan,
-                Predikat = "A",
-                AnggotaRombelId = 1,
-                JadwalMengajarId = 15
-            },
-            new
-            {
-                Id = 32,
-                Nama = string.Empty,
-                Deskripsi = "Kompetensi keterampilan baik, sangat menguasai perbedaan fungsi sosial struktur teks news item lisan dan tulis dari " +
+                Deskripsi = "Kompetensi pengetahuan baik, sangat menguasai perbedaan fungsi sosial struktur teks news item lisan dan tulis dari " +
                             "radio, koran, dan TV, menguasai penerapan fungsi sosial, struktur teks dan unsur kebahasaan teks dalam tindakan " +
                             "menawarkan jasa",
                 KategoriNilai = KategoriNilaiRaport.Keterampilan,
                 Predikat = "B",
                 AnggotaRombelId = 1,
-                JadwalMengajarId = 16
-            },
-            new
-            {
-                Id = 33,
-                Nama = string.Empty,
-                Deskripsi = "Kompetensi keterampilan baik, sangat menguasai sistem produksi kerajinan inovatif sesuai kebutuhan pasar global " +
-                            "berdasarkan daya dukung yang dimiliki oleh daerah setempat, sangat menguasai perencanaan usaha kerajinan inovatif " +
-                            "berdasarkan kebutuhan pasar global",
-                KategoriNilai = KategoriNilaiRaport.Keterampilan,
-                Predikat = "A",
-                AnggotaRombelId = 1,
-                JadwalMengajarId = 31
+                JadwalMengajarId = 15
             }
         );
     }

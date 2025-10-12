@@ -68,28 +68,86 @@
                     <tr>
                         <th>Mata Pelajaran</th>
                         <th>Fase</th>
-                        <th>Nomor</th>
-                        <th>Dekripsi</th>
-                        <th>Aksi</th>
+                        <th style="min-width: 500px">Dekripsi & Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach (var tujuanPembelajaran in Model.DaftarTujuanPembelajaran)
+                <tbody id="accordionTujuan">
+                    @foreach (var group in Model.DaftarTujuanPembelajaran
+                    .GroupBy(tp => new
                     {
+                       tp.MataPelajaran.Id,
+                       tp.MataPelajaran.Nama,
+                       Peminatan = tp.MataPelajaran.Peminatan.Nama,
+                       tp.Fase
+                    })
+                    .OrderBy(g => g.Key.Nama))
+                    {
+                        var groupId = $"{group.Key.Id}-{group.Key.Fase}";
                         <tr>
-                            <td>@tujuanPembelajaran.MataPelajaran.Nama @tujuanPembelajaran.MataPelajaran.Peminatan.Nama</td>
-                            <td>@tujuanPembelajaran.Fase.Humanize()</td>
-                            <td>@tujuanPembelajaran.Nomor</td>
-                            <td>@tujuanPembelajaran.Deskripsi</td>
+                            <td>@group.Key.Nama @group.Key.Peminatan</td>
+                            <td>@group.Key.Fase.Humanize()</td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@tujuanPembelajaran.Id" asp-route-idMataPelajaran="@Model.IdMataPelajaran"
-                                    asp-route-fase="@Model.Fase" class="btn btn-primary" data-toggle="tooltip" title="Edit Tujuan Pembelajaran">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </a>
-                                <form asp-action="Hapus" asp-route-id="@tujuanPembelajaran.Id" asp-route-idMataPelajaran="@Model.IdMataPelajaran"
-                                      asp-route-fase="@Model.Fase" style="display:inline" method="post">
-                                    <button type="button" class="btn btn-danger swal-confirm" data-toggle="tooltip" title="Hapus Tujuan Pembelajaran"><i class="fas fa-trash"></i></button>
-                                </form>
+                                <p>
+                                    <button class="btn btn-outline-info btn-sm"
+                                            type="button"
+                                            data-toggle="collapse"
+                                            data-target="#collapse-@groupId"
+                                            aria-expanded="false"
+                                            aria-controls="collapse-@groupId"
+                                            data-parent="#accordionTujuan">
+                                        Lihat Deskripsi <i class="fas fa-chevron-down ml-1"></i>
+                                    </button>
+                                </p>
+
+                                <div id="collapse-@groupId"
+                                     class="collapse mt-2"
+                                     data-parent="#accordionTujuan">
+                                    <div class="">
+                                        <table class="table table-sm table-bordered mb-0 bg-white">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th style="width: 80px;">Nomor</th>
+                                                    <th>Deskripsi</th>
+                                                    <th style="width: 120px;">Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="color: black">
+                                                @foreach (var tp in group.OrderBy(tp => tp.Nomor))
+                                                {
+                                                    <tr>
+                                                        <td>@tp.Nomor</td>
+                                                        <td>@tp.Deskripsi</td>
+                                                        <td class="text-center">
+                                                            <a asp-action="Edit"
+                                                               asp-route-id="@tp.Id"
+                                                               asp-route-idMataPelajaran="@Model.IdMataPelajaran"
+                                                               asp-route-fase="@Model.Fase"
+                                                               class="btn btn-sm btn-primary"
+                                                               data-toggle="tooltip"
+                                                               title="Edit Tujuan Pembelajaran">
+                                                                <i class="fas fa-pencil-alt"></i>
+                                                            </a>
+
+                                                            <form asp-action="Hapus"
+                                                                  asp-route-id="@tp.Id"
+                                                                  asp-route-idMataPelajaran="@Model.IdMataPelajaran"
+                                                                  asp-route-fase="@Model.Fase"
+                                                                  method="post"
+                                                                  class="d-inline">
+                                                                <button type="button"
+                                                                        class="btn btn-sm btn-danger swal-confirm"
+                                                                        data-toggle="tooltip"
+                                                                        title="Hapus Tujuan Pembelajaran">
+                                                                    <i class="fas fa-trash"></i>
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     }

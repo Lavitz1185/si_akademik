@@ -8,7 +8,7 @@ public class EvaluasiSiswa : Entity<int>
     public required string Deskripsi { get; set; }
     public required JenisNilai Jenis { get; set; }
 
-    public JadwalMengajar JadwalMengajar { get; set; }
+    public AsesmenSumatif AsesmenSumatif { get; set; }
     public List<AnggotaRombel> DaftarAnggotaRombel { get; set; } = [];
     public List<NilaiEvaluasiSiswa> DaftarNilaiEvaluasiSiswa { get; set; } = [];
 }
