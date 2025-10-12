@@ -26,9 +26,11 @@ internal class SiswaRepository : ISiswaRepository
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
-        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(a => a.DaftarNilaiEvaluasiSiswa)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarRaport).ThenInclude(r => r.JadwalMengajar)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.AsesmenSumatif)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(a => a.DaftarNilaiEvaluasiSiswa)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAsesmenSumatifAkhirSemester).ThenInclude(a => a.JadwalMengajar)
         .Include(s => s.Account)
         .FirstOrDefaultAsync(s => s.Id == id);
 
@@ -38,9 +40,11 @@ internal class SiswaRepository : ISiswaRepository
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
-        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(a => a.DaftarNilaiEvaluasiSiswa)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarRaport).ThenInclude(r => r.JadwalMengajar)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.AsesmenSumatif).ThenInclude(e => e.JadwalMengajar)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(a => a.DaftarNilaiEvaluasiSiswa)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAsesmenSumatifAkhirSemester).ThenInclude(a => a.JadwalMengajar)
         .Include(s => s.Account)
         .FirstOrDefaultAsync(s => s.NISN == nisn);
 
@@ -50,9 +54,11 @@ internal class SiswaRepository : ISiswaRepository
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
-        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(a => a.DaftarNilaiEvaluasiSiswa)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarRaport).ThenInclude(r => r.JadwalMengajar)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.AsesmenSumatif).ThenInclude(e => e.JadwalMengajar)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(a => a.DaftarNilaiEvaluasiSiswa)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAsesmenSumatifAkhirSemester).ThenInclude(a => a.JadwalMengajar)
         .Include(s => s.Account)
         .FirstOrDefaultAsync(s => s.NIS == nis);
 
@@ -62,9 +68,11 @@ internal class SiswaRepository : ISiswaRepository
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
-        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(a => a.DaftarNilaiEvaluasiSiswa)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarRaport).ThenInclude(r => r.JadwalMengajar)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.AsesmenSumatif).ThenInclude(e => e.JadwalMengajar)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(a => a.DaftarNilaiEvaluasiSiswa)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAsesmenSumatifAkhirSemester).ThenInclude(a => a.JadwalMengajar)
         .Include(s => s.Account)
         .ToListAsync();
 
@@ -74,9 +82,11 @@ internal class SiswaRepository : ISiswaRepository
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsen)
-        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(a => a.DaftarNilaiEvaluasiSiswa)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAbsenKelas)
         .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarRaport).ThenInclude(r => r.JadwalMengajar)
+        .Include(r => r.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.AsesmenSumatif).ThenInclude(e => e.JadwalMengajar)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(a => a.DaftarNilaiEvaluasiSiswa)
+        .Include(s => s.DaftarAnggotaRombel).ThenInclude(a => a.DaftarAsesmenSumatifAkhirSemester).ThenInclude(a => a.JadwalMengajar)
         .Include(s => s.Account)
         .Where(s => s.StatusAktif == StatusAktifMahasiswa.Aktif)
         .ToListAsync();

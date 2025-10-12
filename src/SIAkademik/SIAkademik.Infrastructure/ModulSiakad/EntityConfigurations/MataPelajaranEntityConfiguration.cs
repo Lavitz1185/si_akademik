@@ -17,162 +17,148 @@ internal class MataPelajaranEntityConfiguration : IEntityTypeConfiguration<MataP
         builder.HasData(
             new
             {
-                Id = 3,
+                Id = 1,
                 Nama = "Pendidikan Agama dan Budi Pekerti",
                 PeminatanId = 1,
                 KKM = 75d
             },
             new
             {
-                Id = 4,
+                Id = 2,
                 Nama = "Pendidikan Pancasila dan Kewarganegaraan",
                 PeminatanId = 1,
                 KKM = 75d
             },
             new
             {
-                Id = 5,
+                Id = 3,
                 Nama = "Bahasa Indonesia",
                 PeminatanId = 1,
                 KKM = 75d
             },
             new
             {
-                Id = 6,
+                Id = 4,
                 Nama = "Matematika",
                 PeminatanId = 1,
                 KKM = 75d
             },
             new
             {
-                Id = 7,
+                Id = 5,
                 Nama = "Sejarah Indonesia",
                 PeminatanId = 1,
                 KKM = 75d
             },
             new
             {
-                Id = 8,
+                Id = 6,
                 Nama = "Bahasa Inggris",
                 PeminatanId = 1,
                 KKM = 75d
             },
             new
             {
-                Id = 9,
+                Id = 7,
                 Nama = "Seni Budaya",
                 PeminatanId = 1,
                 KKM = 75d
             },
             new
             {
-                Id = 10,
+                Id = 8,
+                Nama = "Prakarya dan Kewirausahaan",
+                PeminatanId = 1,
+                KKM = 75d
+            },
+            new
+            {
+                Id = 9,
                 Nama = "Pendidikan Jasmani Olah Raga Kesehatan",
                 PeminatanId = 1,
                 KKM = 75d
             },
             new
             {
-                Id = 11,
+                Id = 10,
                 Nama = "Matematika Tingkat Lanjut",
                 PeminatanId = 5,
                 KKM = 75d
             },
             new
             {
-                Id = 12,
+                Id = 11,
                 Nama = "Fisika",
                 PeminatanId = 5,
                 KKM = 75d
             },
             new
             {
-                Id = 13,
+                Id = 12,
                 Nama = "Biologi",
                 PeminatanId = 5,
                 KKM = 75d
             },
             new
             {
-                Id = 14,
+                Id = 13,
                 Nama = "Kimia",
                 PeminatanId = 5,
                 KKM = 75d
             },
             new
             {
-                Id = 15,
+                Id = 14,
                 Nama = "Pendalaman Minat Matematika",
                 PeminatanId = 5,
                 KKM = 75d
             },
             new
             {
-                Id = 16,
+                Id = 15,
                 Nama = "Pendalaman Minat Bahasa Inggris",
                 PeminatanId = 5,
                 KKM = 75d
             },
             new
             {
-                Id = 17,
-                Nama = "Prakarya dan Kewirausahaan",
-                PeminatanId = 1,
-                KKM = 75d
-            },
-            new
-            {
-                Id = 18,
+                Id = 16,
                 Nama = "Pendidikan Pancasila",
                 PeminatanId = 1,
                 KKM = 75d
             },
             new
             {
-                Id = 20,
+                Id = 17,
                 Nama = "Coding",
                 PeminatanId = 1,
                 KKM = 75d
             },
             new
             {
-                Id = 21,
-                Nama = "Sejarah",
-                PeminatanId = 1,
-                KKM = 75d
-            },
-            new
-            {
-                Id = 22,
+                Id = 18,
                 Nama = "Sosiologi",
                 PeminatanId = 1,
                 KKM = 75d
             },
             new
             {
-                Id = 23,
-                Nama = "Pendidikan Jasmani, Olah Raga dan Kesehatan",
-                PeminatanId = 1,
-                KKM = 75d
-            },
-            new
-            {
-                Id = 25,
+                Id = 19,
                 Nama = "Ekonomi",
                 PeminatanId = 1,
                 KKM = 75d
             },
             new
             {
-                Id = 26,
+                Id = 20,
                 Nama = "Geografi",
                 PeminatanId = 1,
                 KKM = 75d
             },
             new
             {
-                Id = 32,
-                Nama = "Prakarya dan Kewirausahaan",
+                Id = 21,
+                Nama = "Seni Tari, Teater, dan Rupa",
                 PeminatanId = 1,
                 KKM = 75d
             }

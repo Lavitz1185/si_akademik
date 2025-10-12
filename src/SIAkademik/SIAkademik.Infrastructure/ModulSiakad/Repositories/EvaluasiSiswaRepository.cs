@@ -22,10 +22,11 @@ internal class EvaluasiSiswaRepository : IEvaluasiSiswaRepository
         .TblEvaluasiSiswa
         .Include(a => a.DaftarAnggotaRombel).ThenInclude(r => r.Rombel)
         .Include(a => a.DaftarAnggotaRombel).ThenInclude(r => r.Siswa)
-        .Include(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
-        .Include(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
-        .Include(a => a.JadwalMengajar).ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
-        .Include(a => a.JadwalMengajar).ThenInclude(j => j.Pegawai)
+        .Include(a => a.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(a => a.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
+        .Include(a => a.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar).ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
+        .Include(a => a.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar).ThenInclude(j => j.Pegawai)
+        .Include(a => a.AsesmenSumatif).ThenInclude(a => a.TujuanPembelajaran).ThenInclude(t => t.MataPelajaran).ThenInclude(m => m.Peminatan)
         .Include(a => a.DaftarNilaiEvaluasiSiswa)
         .FirstOrDefaultAsync(a => a.Id == id);
 
@@ -33,10 +34,11 @@ internal class EvaluasiSiswaRepository : IEvaluasiSiswaRepository
         .TblEvaluasiSiswa
         .Include(a => a.DaftarAnggotaRombel).ThenInclude(r => r.Rombel)
         .Include(a => a.DaftarAnggotaRombel).ThenInclude(r => r.Siswa)
-        .Include(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
-        .Include(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
-        .Include(a => a.JadwalMengajar).ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
-        .Include(a => a.JadwalMengajar).ThenInclude(j => j.Pegawai)
+        .Include(a => a.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(a => a.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
+        .Include(a => a.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar).ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
+        .Include(a => a.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar).ThenInclude(j => j.Pegawai)
+        .Include(a => a.AsesmenSumatif).ThenInclude(a => a.TujuanPembelajaran).ThenInclude(t => t.MataPelajaran).ThenInclude(m => m.Peminatan)
         .Include(a => a.DaftarNilaiEvaluasiSiswa)
         .ToListAsync();
 }

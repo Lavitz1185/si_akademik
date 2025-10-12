@@ -1,6 +1,8 @@
-﻿namespace SIAkademik.Domain.ModulSiakad.Entities;
+﻿using SIAkademik.Domain.Abstracts;
 
-public class NilaiEvaluasiSiswa
+namespace SIAkademik.Domain.ModulSiakad.Entities;
+
+public class NilaiEvaluasiSiswa : JoinEntity
 {
     public int IdAnggotaRombel { get; set; }
     public int IdEvaluasiSiswa { get; set; }
@@ -8,4 +10,6 @@ public class NilaiEvaluasiSiswa
 
     public EvaluasiSiswa EvaluasiSiswa { get; set; }
     public AnggotaRombel AnggotaRombel { get; set; }
+
+    protected override IEnumerable<object> GetJoinKeys() => [IdAnggotaRombel, IdEvaluasiSiswa];
 }

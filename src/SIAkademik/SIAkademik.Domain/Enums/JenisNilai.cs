@@ -2,5 +2,5 @@
 
 public enum JenisNilai
 {
-   Tugas, UH, UTS, UAS
+   Tugas, UH, UTS
 }

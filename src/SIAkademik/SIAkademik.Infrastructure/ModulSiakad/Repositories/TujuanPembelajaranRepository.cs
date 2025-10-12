@@ -22,20 +22,24 @@ internal class TujuanPembelajaranRepository : ITujuanPembelajaranRepository
 
     public async Task<TujuanPembelajaran?> Get(int id) => await _appDbContext.TblTujuanPembelajaran
         .Include(t => t.MataPelajaran).ThenInclude(m => m.Peminatan)
+        .Include(t => t.DaftarJadwalMengajar)
         .FirstOrDefaultAsync(t => t.Id == id);
 
     public async Task<List<TujuanPembelajaran>> GetAll() => await _appDbContext.TblTujuanPembelajaran
         .Include(t => t.MataPelajaran).ThenInclude(m => m.Peminatan)
+        .Include(t => t.DaftarJadwalMengajar)
         .ToListAsync();
 
     public async Task<List<TujuanPembelajaran>> GetAll(int idMataPelajaran) => await _appDbContext.TblTujuanPembelajaran
         .Include(t => t.MataPelajaran).ThenInclude(m => m.Peminatan)
         .Where(t => t.MataPelajaran.Id == idMataPelajaran)
+        .Include(t => t.DaftarJadwalMengajar)
         .ToListAsync();
 
     public async Task<List<TujuanPembelajaran>> GetAll(int idMataPelajaran, Fase fase) => await _appDbContext.TblTujuanPembelajaran
         .Include(t => t.MataPelajaran).ThenInclude(m => m.Peminatan)
         .Where(t => t.MataPelajaran.Id == idMataPelajaran && t.Fase == fase)
+        .Include(t => t.DaftarJadwalMengajar)
         .ToListAsync();
 
     public async Task<List<TujuanPembelajaran>> GetAll(int idMataPelajaran, Jenjang jenjang) => 
@@ -43,6 +47,7 @@ internal class TujuanPembelajaranRepository : ITujuanPembelajaranRepository
 
     public async Task<List<TujuanPembelajaran>> GetAll(Fase fase) => await _appDbContext.TblTujuanPembelajaran
         .Include(t => t.MataPelajaran).ThenInclude(m => m.Peminatan)
+        .Include(t => t.DaftarJadwalMengajar)
         .Where(t => t.Fase == fase)
         .ToListAsync();
 

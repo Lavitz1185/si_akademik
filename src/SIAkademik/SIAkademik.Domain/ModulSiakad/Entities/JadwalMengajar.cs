@@ -11,4 +11,10 @@ public class JadwalMengajar : Entity<int>
     public List<HariMengajar> DaftarHariMengajar { get; set; } = [];
     public List<EvaluasiSiswa> DaftarEvaluasiSiswa { get; set; } = [];
     public List<Pertemuan> DaftarPertemuan { get; set; } = [];
+
+    public List<TujuanPembelajaran> DaftarTujuanPembelajaran { get; set; } = [];
+    public List<AsesmenSumatif> DaftarAsesmenSumatif { get; set; } = [];
+
+    public List<AnggotaRombel> DaftarAnggotaRombel { get; set; } = [];
+    public List<AsesmenSumatifAkhirSemester> DaftarAsesmenSumatifAkhirSemester { get; set; } = [];
 }

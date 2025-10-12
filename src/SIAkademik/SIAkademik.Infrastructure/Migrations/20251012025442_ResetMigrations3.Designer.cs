@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SIAkademik.Infrastructure.Database;
@@ -12,9 +13,11 @@ using SIAkademik.Infrastructure.Database;
 namespace SIAkademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251012025442_ResetMigrations3")]
+    partial class ResetMigrations3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -771,116 +774,6 @@ namespace SIAkademik.Infrastructure.Migrations
                             Id = 15,
                             IdJadwalMengajar = 15,
                             IdTujuanPembelajaran = 27
-                        });
-                });
-
-            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.AsesmenSumatifAkhirSemester", b =>
-                {
-                    b.Property<int>("AnggotaRombelId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("JadwalMengajarId")
-                        .HasColumnType("integer");
-
-                    b.Property<double>("Nilai")
-                        .HasColumnType("double precision");
-
-                    b.HasKey("AnggotaRombelId", "JadwalMengajarId");
-
-                    b.HasIndex("JadwalMengajarId");
-
-                    b.ToTable("TblAsesmenSumatifAkhirSemester");
-
-                    b.HasData(
-                        new
-                        {
-                            AnggotaRombelId = 1,
-                            JadwalMengajarId = 1,
-                            Nilai = 100.0
-                        },
-                        new
-                        {
-                            AnggotaRombelId = 1,
-                            JadwalMengajarId = 2,
-                            Nilai = 91.0
-                        },
-                        new
-                        {
-                            AnggotaRombelId = 1,
-                            JadwalMengajarId = 3,
-                            Nilai = 90.0
-                        },
-                        new
-                        {
-                            AnggotaRombelId = 1,
-                            JadwalMengajarId = 4,
-                            Nilai = 90.0
-                        },
-                        new
-                        {
-                            AnggotaRombelId = 1,
-                            JadwalMengajarId = 5,
-                            Nilai = 89.0
-                        },
-                        new
-                        {
-                            AnggotaRombelId = 1,
-                            JadwalMengajarId = 6,
-                            Nilai = 87.0
-                        },
-                        new
-                        {
-                            AnggotaRombelId = 1,
-                            JadwalMengajarId = 7,
-                            Nilai = 93.0
-                        },
-                        new
-                        {
-                            AnggotaRombelId = 1,
-                            JadwalMengajarId = 8,
-                            Nilai = 86.0
-                        },
-                        new
-                        {
-                            AnggotaRombelId = 1,
-                            JadwalMengajarId = 9,
-                            Nilai = 90.0
-                        },
-                        new
-                        {
-                            AnggotaRombelId = 1,
-                            JadwalMengajarId = 10,
-                            Nilai = 92.0
-                        },
-                        new
-                        {
-                            AnggotaRombelId = 1,
-                            JadwalMengajarId = 11,
-                            Nilai = 86.0
-                        },
-                        new
-                        {
-                            AnggotaRombelId = 1,
-                            JadwalMengajarId = 12,
-                            Nilai = 95.0
-                        },
-                        new
-                        {
-                            AnggotaRombelId = 1,
-                            JadwalMengajarId = 13,
-                            Nilai = 97.0
-                        },
-                        new
-                        {
-                            AnggotaRombelId = 1,
-                            JadwalMengajarId = 14,
-                            Nilai = 90.0
-                        },
-                        new
-                        {
-                            AnggotaRombelId = 1,
-                            JadwalMengajarId = 15,
-                            Nilai = 87.0
                         });
                 });
 
@@ -3926,25 +3819,6 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Navigation("TujuanPembelajaran");
                 });
 
-            modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.AsesmenSumatifAkhirSemester", b =>
-                {
-                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.AnggotaRombel", "AnggotaRombel")
-                        .WithMany("DaftarAsesmenSumatifAkhirSemester")
-                        .HasForeignKey("AnggotaRombelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.JadwalMengajar", "JadwalMengajar")
-                        .WithMany("DaftarAsesmenSumatifAkhirSemester")
-                        .HasForeignKey("JadwalMengajarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AnggotaRombel");
-
-                    b.Navigation("JadwalMengajar");
-                });
-
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.EvaluasiSiswa", b =>
                 {
                     b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.AsesmenSumatif", "AsesmenSumatif")
@@ -4154,8 +4028,6 @@ namespace SIAkademik.Infrastructure.Migrations
 
                     b.Navigation("DaftarAbsenKelas");
 
-                    b.Navigation("DaftarAsesmenSumatifAkhirSemester");
-
                     b.Navigation("DaftarNilaiEvaluasiSiswa");
 
                     b.Navigation("DaftarRaport");
@@ -4184,8 +4056,6 @@ namespace SIAkademik.Infrastructure.Migrations
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.JadwalMengajar", b =>
                 {
                     b.Navigation("DaftarAsesmenSumatif");
-
-                    b.Navigation("DaftarAsesmenSumatifAkhirSemester");
 
                     b.Navigation("DaftarEvaluasiSiswa");
 

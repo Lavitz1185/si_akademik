@@ -19,14 +19,14 @@ internal class RombelEntityConfiguration : IEntityTypeConfiguration<Rombel>
                 Id = 1,
                 Nama = "A",
                 KelasId = 1,
-                WaliId = "PJ22-024"
+                WaliId = "PJ17-010"
             },
             new
             {
                 Id = 2,
                 Nama = "A",
                 KelasId = 2,
-                WaliId = "PJ17-010"
+                WaliId = "PJ22-024"
             },
             new
             {
