@@ -10,5 +10,6 @@ public class TambahVM
 
     [Display(Name = "Nomor")]
     [Required(ErrorMessage = "{0} harus diisi")]
+    [Range(1, int.MaxValue, ErrorMessage = "{0} harus lebih besar dari 0")]
     public int Nomor { get; set; }
 }

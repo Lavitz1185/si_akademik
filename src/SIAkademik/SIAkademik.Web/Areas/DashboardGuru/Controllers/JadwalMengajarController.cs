@@ -70,6 +70,9 @@ public class JadwalMengajarController : Controller
 
         if (jadwalMengajar is null) return NotFound();
 
+        if (jadwalMengajar.DaftarAsesmenSumatif.Count == 0)
+            _toastrNotificationService.AddWarning("Belum ada target capaian TP. Silahkan pilih minimal 1 TP");
+
         return View(jadwalMengajar);
     }
 

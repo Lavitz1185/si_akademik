@@ -29,6 +29,9 @@
 
   <ItemGroup>
     <Folder Include="Areas\Pendaftaran\Models\" />
+    <Folder Include="wwwroot\fileaktaKelahiran\" />
+    <Folder Include="wwwroot\fileFotoProfil\" />
+    <Folder Include="wwwroot\fileijazahSMP\" />
     <Folder Include="wwwroot\file\pdf\" />
   </ItemGroup>
 

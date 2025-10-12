@@ -21,13 +21,3 @@ public class TujuanPembelajaran : Entity<int>
         _ => throw new ArgumentOutOfRangeException(nameof(jenjang), $"Not expected Jenjang value: {jenjang}")
     };
 }
-
-public class AsesmenSumatif : Entity<int>
-{
-    public required int IdTujuanPembelajaran { get; set; }
-    public required int IdJadwalMengajar { get; set; }
-
-    public TujuanPembelajaran TujuanPembelajaran { get; set; }
-    public JadwalMengajar JadwalMengajar { get; set; }
-    public List<EvaluasiSiswa> DaftarEvaluasiSiswa { get; set; } = [];
-}

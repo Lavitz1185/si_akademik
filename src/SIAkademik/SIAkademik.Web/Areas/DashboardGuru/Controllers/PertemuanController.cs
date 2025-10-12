@@ -160,6 +160,9 @@ public class PertemuanController : Controller
     [HttpPost]
     public async Task<IActionResult> Tambah(TambahVM vm)
     {
+        if (!ModelState.IsValid) 
+            return RedirectToAction(nameof(JadwalMengajarController.Detail), "JadwalMengajar", new { id = vm.IdJadwalMengajar });
+
         var jadwalMengajar = await _jadwalMengajarRepository.Get(vm.IdJadwalMengajar);
         if (jadwalMengajar is null) return NotFound();
 
