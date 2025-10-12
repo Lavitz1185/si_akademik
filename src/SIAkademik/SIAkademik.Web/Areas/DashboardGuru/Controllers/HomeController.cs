@@ -193,7 +193,14 @@ public class HomeController : Controller
         var pegawai = await _signInManager.GetPegawai();
         if (pegawai is null) return Forbid();
 
-        return View(new UbahPasswordVM());
+        return View(new UbahPasswordVM
+        {
+            Nama = pegawai.Nama,
+            Agama = pegawai.Agama,
+            JenisKelamin = pegawai.JenisKelamin,
+            TanggalLahir = pegawai.TanggalLahir,
+            TempatLahir = pegawai.TempatLahir
+        });
     }
 
     [HttpPost]

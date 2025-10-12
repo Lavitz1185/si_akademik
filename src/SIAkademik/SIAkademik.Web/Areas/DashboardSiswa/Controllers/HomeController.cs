@@ -400,7 +400,20 @@ public class HomeController : Controller
         var siswa = await _signInManager.GetSiswa();
         if (siswa is null) return Forbid();
 
-        return View(new UbahPasswordVM());
+        return View(new UbahPasswordVM
+        {
+            Nama = siswa.Nama,
+            Agama = siswa.Agama,
+            FotoProfil = siswa.FotoProfil,
+            StatusAktif = siswa.StatusAktif,
+            JenisKelamin = siswa.JenisKelamin,
+            Jenjang = siswa.Jenjang,
+            NIS = siswa.NIS,
+            NISN = siswa.NISN,
+            TanggalLahir = siswa.TanggalLahir,
+            TanggalMasuk = siswa.TanggalMasuk,
+            TempatLahir = siswa.TempatLahir
+        });
     }
 
     [HttpPost]

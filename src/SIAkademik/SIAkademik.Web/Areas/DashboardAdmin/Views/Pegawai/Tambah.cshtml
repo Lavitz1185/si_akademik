@@ -49,13 +49,13 @@
 
                             <div class="form-group">
                                 <label asp-for="@Model.TanggalMasuk"></label>
-                                <input asp-for="@Model.TanggalMasuk" type="date" class="form-control datepicker" fdprocessedid="v2nenb" />
+                                <input asp-for="@Model.TanggalMasuk" type="date" class="form-control" fdprocessedid="v2nenb" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
                                 <span asp-validation-for="@Model.TanggalMasuk"></span>
                             </div>
 
                             <div class="form-group">
                                 <label asp-for="@Model.DivisiId"></label>
-                                <select asp-for="@Model.DivisiId" class="form-control">
+                                <select asp-for="@Model.DivisiId" class="form-control mb-2">
                                     @foreach (var divisi in daftarDivisi)
                                     {
                                         <option value="@divisi.Id">@divisi.Nama</option>
@@ -67,7 +67,7 @@
 
                             <div class="form-group">
                                 <label asp-for="@Model.JabatanId"></label>
-                                <select asp-for="@Model.JabatanId" class="form-control">
+                                <select asp-for="@Model.JabatanId" class="form-control mb-2">
                                     @foreach (var jabatan in daftarJabatan)
                                     {
                                         <option value="@jabatan.Id" data-jenis="@jabatan.Jenis.Humanize()">@jabatan.Nama</option>
@@ -117,7 +117,7 @@
 
                             <div class="form-group">
                                 <label asp-for="@Model.TanggalLahir"></label>
-                                <input asp-for="@Model.TanggalLahir" type="date" class="form-control datepicker" fdprocessedid="v2nenb" />
+                                <input asp-for="@Model.TanggalLahir" type="date" class="form-control" fdprocessedid="v2nenb" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
                                 <span asp-validation-for="@Model.TanggalLahir"></span>
                             </div>
 

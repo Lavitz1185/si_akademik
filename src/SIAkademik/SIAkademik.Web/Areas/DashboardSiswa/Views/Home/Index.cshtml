@@ -24,11 +24,15 @@
                         <div class="row g-3">
                             @if(Model.AnggotaRombel is null)
                             {
-                                <h1>Anda tidak memiliki kelas di tahun ajaran ini</h1>
+                                <div class="col-12 text-center py-4">
+                                    <p class="text-center">Anda tidak memiliki kelas di tahun ajaran ini</p>
+                                </div>
                             }
                             else if(Model.DaftarHariMengajar.Count == 0)
                             {
-                                <h1>Tidak Ada Aktivitas Belajar Saat Ini</h1>
+                                <div class="col-12 text-center py-4">
+                                    <p class="text-center">Tidak Ada Aktivitas Belajar Saat Ini</p>
+                                </div>
                             }
 
                             @foreach(var hari in Model.DaftarHariMengajar)

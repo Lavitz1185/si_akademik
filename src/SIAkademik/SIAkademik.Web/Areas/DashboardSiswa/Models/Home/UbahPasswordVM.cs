@@ -1,9 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SIAkademik.Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace SIAkademik.Web.Areas.DashboardSiswa.Models.Home;
 
 public class UbahPasswordVM
 {
+    public string Nama { get; set; }
+    public string NISN { get; set; }
+    public string NIS { get; set; }
+    public JenisKelamin JenisKelamin { get; set; }
+    public DateOnly TanggalLahir { get; set; }
+    public string TempatLahir { get; set; }
+    public Agama Agama { get; set; }
+    public DateOnly TanggalMasuk { get; set; }
+    public StatusAktifMahasiswa StatusAktif { get; set; }
+    public Jenjang Jenjang { get; set; }
+    public Uri? FotoProfil { get; set; }
+
     [Display(Name = "Password Lama")]
     [DataType(DataType.Password)]
     [Required(ErrorMessage = "{0} harus diisi")]

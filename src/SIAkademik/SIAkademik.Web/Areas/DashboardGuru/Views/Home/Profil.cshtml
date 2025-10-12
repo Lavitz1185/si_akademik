@@ -8,42 +8,8 @@
                     <h4>Profil Pegawai</h4>
                     <div class="ml-auto">
                         <a asp-action="EditProfil" class="btn btn-warning"><i class="fas fa-pencil-alt"></i><span class="pl-2">Edit Profil</span></a>
-                        <button type="button" class="btn btn-primary btn-ubah-pw" data-toggle="tooltip" title="Ubah Password"><i class="fas fa-pencil-alt"></i><span class="pl-2">Ubah Password</span></button>
-
-                        <div class="form-ubah-pw" style="display:none">
-                            <form asp-action="UbahPassword" method="post">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalUbahPW">Ubah Password</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="passwordlama">Password Lama</label>
-                                        <input id="passwordlama" name="passwordlama" class="form-control" />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="passwordbaru">Password Baru</label>
-                                        <input id="passwordbaru" name="passwordbaru" class="form-control" />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="konfirmasipasswordbaru">Konfirmasi Password Baru</label>
-                                        <input id="konfirmasipasswordbaru" name="konfirmasipasswordbaru" class="form-control" />
-                                    </div>
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                </div>
-                            </form>
-                        </div>
-
-                    </div>                  
+                        <a asp-action="UbahPassword" class="btn btn-primary" data-toggle="tooltip" title="Ubah Password"><i class="fas fa-pencil-alt"></i><span class="pl-2">Ubah Password</span></a>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -285,17 +251,6 @@
                         }
                     });
             });
-        });
-
-        //modal ubah pw
-        $(function () {
-            $('.form-ubah-pw').each(function () {
-                const formUbahPW = $(this);
-                formUbahPW.siblings('.btn-ubah-pw').on('click', () => {
-                    $('#modalUbahPWContent').html($(formUbahPW).html());
-                    $('#modalUbahPW').modal('show');
-                });
-            });
-        });
+        });        
     </script>
 }
