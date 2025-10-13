@@ -36,7 +36,7 @@
                     <div class="card-body">
                         <h6 class="text-muted mb-1">Total Guru</h6>
                         <h3 class="fw-bold">@Model.DaftarPegawai.Count</h3>
-                        <small class="text-success">+@Model.DaftarPegawai.Where(p => p.TanggalMasuk.Year == CultureInfos.DateTimeNow.Year).Count() guru baru</small>
+                        <small class="text-success">+@Model.DaftarPegawai.Where(p => p.TanggalMasuk.Year == CultureInfos.DateTimeNow.Year).Count() guru baru semester ini</small>
                     </div>
                 </div>
             </div>
