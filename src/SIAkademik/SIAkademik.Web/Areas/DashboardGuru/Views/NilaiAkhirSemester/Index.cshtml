@@ -1,0 +1,114 @@
+﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.NilaiAkhirSemesterModels
+@model IndexVM
+
+@inject ITahunAjaranRepository TahunAjaranRepository
+
+@{
+    var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
+}
+
+<!-- Breadcrumb -->
+<div class="row">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Akademik</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="NilaiAkhirSemester" asp-action="Index"></a>Asesmen Sumatif</li>
+        </ol>
+    </nav>
+</div>
+
+<!-- Isi Konten -->
+<div class="card card-primary">
+    <div class="card-header">
+        <h4>Asesmen Sumatif Akhir Semester</h4>
+    </div>
+    <div class="padding-20">
+        <div class="d-flex justify-content-start mb-3">
+            <form method="get" class="d-flex align-items-center" style="gap: 8px;">
+                <label asp-for="@Model.IdTahunAjaran" class="mb-0" style="font-weight: 600;">Tahun Ajaran:</label>
+                <select asp-for="@Model.IdTahunAjaran" class="submit-on-change form-control form-control-sm w-auto">
+                    @if (Model.TahunAjaran is null)
+                    {
+                        <option value="@null">-- Pilih Tahun Ajaran --</option>
+                    }
+
+                    @foreach (var tahunAjaran in daftarTahunAjaran)
+                    {
+                        <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+                    }
+                </select>
+
+                <label asp-for="@Model.IdJadwalMengajar" class="mb-0" style="font-weight: 600;">Jadwal Mengajar:</label>
+                <select asp-for="@Model.IdJadwalMengajar" class="submit-on-change form-control form-control-sm w-auto">
+                    @if (Model.IdJadwalMengajar is null)
+                    {
+                        <option value="@null">-- Pilih Jadwal Mengajar --</option>
+                    }
+
+                    @if (Model.TahunAjaran is not null)
+                    {
+                        @foreach (var jadwal in Model.Pegawai.DaftarJadwalMengajar.Where(j => j.Rombel.Kelas.TahunAjaran == Model.TahunAjaran))
+                        {
+                            <option value="@jadwal.Id">@jadwal.MataPelajaran.Nama @jadwal.Rombel.Kelas.Jenjang.Humanize() @jadwal.Rombel.Kelas.Peminatan.Nama @jadwal.Rombel.Nama</option>
+                        }
+                    }
+                </select>
+            </form>
+        </div>
+
+        <form asp-action="Simpan" asp-route-idJadwalMengajar="@Model.IdJadwalMengajar" asp-route-idTahunAjaran="@Model.IdTahunAjaran"
+              method="post">
+            <div class="mb-3 mt-2">
+                @if (Model.TahunAjaran is not null && Model.JadwalMengajar is not null)
+                {
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save mr-2"></i>Simpan
+                    </button>
+                }
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped" id="table-akun">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Nilai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.TahunAjaran is not null && Model.JadwalMengajar is not null)
+                        {
+                            @for (int i = 0; i < Model.DaftarNilaiEntryVM.Count; i++)
+                            {
+                                <tr>
+                                    <input asp-for="@Model.DaftarNilaiEntryVM[@i].IdAnggotaRombel" hidden readonly />
+                                    <td>@Model.DaftarNilaiEntryVM[@i].Nama</td>
+                                    <td>
+                                        <input asp-for="@Model.DaftarNilaiEntryVM[@i].Nilai" class="form-control" />
+                                        <span asp-validation-for="@Model.DaftarNilaiEntryVM[@i].Nilai" class="text-danger"></span>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else if (Model.TahunAjaran is null)
+                        {
+                            <tr>
+                                <td colspan="2" align="center">Pilih Tahun Ajaran</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="2" align="center">Pilih Jadwal Mengajar</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
