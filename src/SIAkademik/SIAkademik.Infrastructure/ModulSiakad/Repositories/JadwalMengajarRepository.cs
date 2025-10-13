@@ -34,6 +34,7 @@ internal class JadwalMengajarRepository : IJadwalMengajarRepository
         .Include(j => j.DaftarAsesmenSumatifAkhirSemester).ThenInclude(a => a.AnggotaRombel)
         .Include(j => j.DaftarTujuanPembelajaran)
         .Include(j => j.DaftarAsesmenSumatif).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarNilaiEvaluasiSiswa)
+        .Include(j => j.DaftarAsesmenSumatif).ThenInclude(a => a.TujuanPembelajaran)
         .FirstOrDefaultAsync(j => j.Id == id);
 
     public async Task<List<JadwalMengajar>> GetAll() => await _appDbContext
@@ -51,6 +52,7 @@ internal class JadwalMengajarRepository : IJadwalMengajarRepository
         .Include(j => j.DaftarEvaluasiSiswa).ThenInclude(n => n.DaftarNilaiEvaluasiSiswa)
         .Include(j => j.DaftarAsesmenSumatifAkhirSemester).ThenInclude(a => a.AnggotaRombel)
         .Include(j => j.DaftarAsesmenSumatif).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarNilaiEvaluasiSiswa)
+        .Include(j => j.DaftarAsesmenSumatif).ThenInclude(a => a.TujuanPembelajaran)
         .ToListAsync();
 
     public async Task<List<JadwalMengajar>> GetAllByTahunAjaran(int idTahunAjaran) => await _appDbContext
@@ -68,6 +70,7 @@ internal class JadwalMengajarRepository : IJadwalMengajarRepository
         .Include(j => j.DaftarEvaluasiSiswa).ThenInclude(n => n.DaftarNilaiEvaluasiSiswa)
         .Include(j => j.DaftarAsesmenSumatifAkhirSemester).ThenInclude(a => a.AnggotaRombel)
         .Include(j => j.DaftarAsesmenSumatif).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarNilaiEvaluasiSiswa)
+        .Include(j => j.DaftarAsesmenSumatif).ThenInclude(a => a.TujuanPembelajaran)
         .Where(j => j.Rombel.Kelas.TahunAjaran.Id == idTahunAjaran)
         .ToListAsync();
 
@@ -86,6 +89,7 @@ internal class JadwalMengajarRepository : IJadwalMengajarRepository
         .Include(j => j.DaftarEvaluasiSiswa).ThenInclude(n => n.DaftarNilaiEvaluasiSiswa)
         .Include(j => j.DaftarAsesmenSumatifAkhirSemester).ThenInclude(a => a.AnggotaRombel)
         .Include(j => j.DaftarAsesmenSumatif).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarNilaiEvaluasiSiswa)
+        .Include(j => j.DaftarAsesmenSumatif).ThenInclude(a => a.TujuanPembelajaran)
         .Where(j => j.Rombel.Kelas.TahunAjaran.Id == idTahunAjaran && j.Rombel.Id == idRombel)
         .ToListAsync();
 
