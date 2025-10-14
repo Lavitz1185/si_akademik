@@ -464,11 +464,11 @@
     }
 
 /* ------------------------------------ RESPONSIVE ------------------------------------ */
-@media (max-width: 1024px) {
+@media (max-width: 1050px) {
     
 }
 
-@media (max-width: 768px) {
+@media (max-width: 780px) {
     /* ------------------------------------ SECTION PROFIL SINGKAT SMA ------------------------------------ */
     #sambutan .sambutan-wrapper .sambutan-image iframe {
         width: 100%;
@@ -479,5 +479,78 @@
     }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 500px) {
+
+    h1 {
+        font-size: 1.9rem;
+        line-height: 1.3;
+    }
+
+
+    /* ------------------------------------ SECTION LANDING ------------------------------------ */
+    #home p {
+        width: 70%;
+    }
+
+    /* ------------------------------------ SECTION PROFIL SINGKAT SMA ------------------------------------ */
+    #sambutan .sambutan-wrapper {
+        gap: 20px;
+    }
+
+    #sambutan .sambutan-wrapper .sambutan-image {
+        width: 100%;
+        height: 100%;
+    }
+
+        #sambutan .sambutan-wrapper .sambutan-content .sambutan-statistik {
+            gap: 0px;
+        }
+
+            #sambutan .sambutan-wrapper .sambutan-content .sambutan-statistik[b-5k926p3mh8] {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0px 0px;
+                gap: 25px;
+                flex-wrap: wrap;
+            }
+
+            #sambutan
+            .sambutan-wrapper
+            .sambutan-content
+            .sambutan-statistik
+            .stat-box[b-5k926p3mh8]::before {
+                display: none;
+            }
+
+            #sambutan .sambutan-wrapper .sambutan-content h1 {
+                font-size: 2rem;
+            }
+
+    /* ------------------------------------ SECTION EKSTRAKURIKULER ------------------------------------ */
+        #ekskul .ekskul-base {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-gap: 1rem;
+            margin-top: 50px;
+        }
+
+    /* ------------------------------------ SECTION GALERI ------------------------------------ */
+
+        #galeri .galeri-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-gap: 1.5rem;
+            margin-top: 50px;
+        }
+
+    /* ------------------------------------ SECTION MAP ------------------------------------ */
+    #map {
+        padding: 10vw 0 3vw;
+    }
+
+        #map .map-sekolah iframe {
+            width: 100%;
+            height: 450px;
+        }
 }
