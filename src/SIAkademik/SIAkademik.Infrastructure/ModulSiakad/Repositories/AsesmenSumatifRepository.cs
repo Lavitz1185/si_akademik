@@ -24,7 +24,7 @@ internal class AsesmenSumatifRepository : IAsesmenSumatifRepository
         .Include(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
         .Include(a => a.JadwalMengajar).ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
         .Include(a => a.TujuanPembelajaran)
-        .Include(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarNilaiEvaluasiSiswa)
+        .Include(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarNilaiEvaluasiSiswa).ThenInclude(n => n.AnggotaRombel)
         .FirstOrDefaultAsync(a => a.Id == id);
 
     public async Task<List<AsesmenSumatif>> GetAll() => await _appDbContext.TblAsesmenSumatif

@@ -23,15 +23,15 @@ public class AnggotaRombel : Entity<int>
     public List<JadwalMengajar> DaftarJadwalMengajar { get; set; } = [];
     public List<AsesmenSumatifAkhirSemester> DaftarAsesmenSumatifAkhirSemester { get; set; } = [];
 
-    public double NilaiAkhir(JadwalMengajar jadwalMengajar)
-    {
-        var asesmenSumatif = DaftarNilaiEvaluasiSiswa
+    public double RataNilai(JadwalMengajar jadwalMengajar) => DaftarNilaiEvaluasiSiswa
             .GroupBy(n => n.EvaluasiSiswa.AsesmenSumatif)
             .Where(g => g.Key.JadwalMengajar == jadwalMengajar)
             .Select(g => g.Count() == 0 ? 0 : g.Average(n => n.Nilai)).Average();
 
+    public double NilaiAkhir(JadwalMengajar jadwalMengajar)
+    {
         var asesmenSumatifAkhirSemester = DaftarAsesmenSumatifAkhirSemester.FirstOrDefault(a => a.JadwalMengajar == jadwalMengajar)?.Nilai ?? 0;
 
-        return (asesmenSumatif + asesmenSumatifAkhirSemester) / 2;
+        return (RataNilai(jadwalMengajar) + asesmenSumatifAkhirSemester) / 2;
     }
 }

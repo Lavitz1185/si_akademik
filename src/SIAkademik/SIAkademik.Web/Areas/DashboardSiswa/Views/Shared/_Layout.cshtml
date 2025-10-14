@@ -92,6 +92,12 @@
                 }
             });
         });
+
+        $(function() {
+            $('.submit-on-change').on('change', function() {
+                $(this).closest('form').trigger('submit');
+            });
+        });
     </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
