@@ -232,7 +232,6 @@ public class AsesmenSumatifController : Controller
                 };
 
                 _nilaiEvaluasiSiswaRepository.Add(nilaiEvaluasiSiswa);
-                evaluasiSiswa.DaftarNilaiEvaluasiSiswa.Add(nilaiEvaluasiSiswa);
             }
         }
 

@@ -67,7 +67,6 @@ public class NilaiAkhirSemesterController : Controller
                 };
 
                 _asesmenSumatifAkhirSemesterRepository.Add(asesmenSumatifAkhirSemester);
-                jadwalMengajar.DaftarAsesmenSumatifAkhirSemester.Add(asesmenSumatifAkhirSemester);
             }
         }
 
