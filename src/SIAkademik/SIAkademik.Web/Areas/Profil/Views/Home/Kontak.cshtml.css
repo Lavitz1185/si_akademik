@@ -172,3 +172,27 @@
         width: 100%;
         height: 450px;
     }
+
+/* ------------------------------------ RESPONSIVE ------------------------------------ */
+@media (max-width: 1050px) {
+}
+
+@media (max-width: 780px) {
+}
+
+@media (max-width: 500px) {
+    #kontak .contact[b-bmjxfi04rh] {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 30px;
+    }
+
+    #kontak .contact .form[b-bmjxfi04rh] {
+        width: 100%;
+        background: #f0eff5;
+        padding: 40px;
+        border-radius: 10px;
+    }
+}
