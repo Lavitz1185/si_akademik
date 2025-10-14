@@ -65,3 +65,27 @@
                 color: #333333;
                 max-width: 400px;
             }
+
+
+/* ==================================== RESPONSIVE ==================================== */
+/* ------------------------------------ SECTION PENGANTAR ------------------------------------ */
+
+/* Responsive 968px */
+@media (max-width:968px) {
+    #fasilitas .fasilitas-box {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    #fasilitas .rev {     
+        flex-direction: column-reverse;      
+    }
+
+        #fasilitas .fasilitas-box ::deep img {
+            width: 100%;
+            border-radius: 10px;
+        }
+}
+
+    
