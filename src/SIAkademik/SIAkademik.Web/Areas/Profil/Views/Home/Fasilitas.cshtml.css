@@ -72,6 +72,12 @@
 
 /* Responsive 968px */
 @media (max-width:968px) {
+
+    #fasilitas[b-6jjj4hifhu] {
+        padding: 10vw 8vw 8vw;
+        gap: 20px;
+    }
+
     #fasilitas .fasilitas-box {
         display: flex;
         flex-direction: column;
