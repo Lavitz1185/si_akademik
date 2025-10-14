@@ -3,14 +3,9 @@
 namespace SIAkademik.Web.Areas.Profil.Controllers;
 
 [Area(AreaNames.Profil)]
-public class BeritaController : Controller
+public class StatistikController : Controller
 {
     public IActionResult Index()
-    {
-        return View();
-    }
-
-    public IActionResult Detail()
     {
         return View();
     }

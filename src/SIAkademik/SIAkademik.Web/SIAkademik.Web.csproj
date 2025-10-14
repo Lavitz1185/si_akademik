@@ -7,27 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Areas\Profil\Views\Berita\Index.cshtml.css" />
-    <None Remove="Areas\Profil\Views\Home\CoreValue.cshtml.css" />
-    <None Remove="Areas\Profil\Views\Home\Index.cshtml.css" />
-    <None Remove="Areas\Profil\Views\Home\Kontak.cshtml.css" />
-    <None Remove="Areas\Profil\Views\Home\Kurikulum - Copy.cshtml.css" />
-    <None Remove="Areas\Profil\Views\Home\Kurikulum.cshtml.css" />
-    <None Remove="Areas\Profil\Views\Home\TentangKami.cshtml.css" />
-    <None Remove="Areas\Profil\Views\Shared\_NavbarPartial.cshtml.css" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Areas\Profil\Views\Berita\Index.cshtml.css" />
-    <Content Include="Areas\Profil\Views\Home\CoreValue.cshtml.css" />
-    <Content Include="Areas\Profil\Views\Home\Index.cshtml.css" />
-    <Content Include="Areas\Profil\Views\Home\Kontak.cshtml.css" />
-    <Content Include="Areas\Profil\Views\Home\Kurikulum.cshtml.css" />
-    <Content Include="Areas\Profil\Views\Home\TentangKami.cshtml.css" />
-    <Content Include="Areas\Profil\Views\Shared\_NavbarPartial.cshtml.css" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Areas\Pendaftaran\Models\" />
     <Folder Include="wwwroot\fileaktaKelahiran\" />
     <Folder Include="wwwroot\fileFotoProfil\" />
