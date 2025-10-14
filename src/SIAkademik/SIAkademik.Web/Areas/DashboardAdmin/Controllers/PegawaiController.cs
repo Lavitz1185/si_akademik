@@ -304,9 +304,13 @@ public class PegawaiController : Controller
     {
         var pegawai = await _pegawaiRepository.Get(nip);
 
-        if (pegawai == null) return NotFound();
+        if (pegawai is null) return NotFound();
 
         _pegawaiRepository.Delete(pegawai);
+
+        if(pegawai.Account is not null)
+            _appUserRepository.Delete(pegawai.Account);
+
         var result = await _unitOfWork.SaveChangesAsync();
         if (result.IsFailure)
             _toastrNotificationService.AddError("Gagal Menghapus Data Pegawai");

@@ -185,6 +185,7 @@ public class SiswaController : Controller
         if (siswa is null) return NotFound();
 
         _siswaRepository.Delete(siswa);
+        _appUserRepository.Delete(siswa.Account);
         var result = await _unitOfWork.SaveChangesAsync();
         if (result.IsFailure)
             _toastrNotificationService.AddError("Hapus data siswa gagal!");
