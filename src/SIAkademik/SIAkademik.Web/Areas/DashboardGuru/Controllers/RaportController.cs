@@ -95,6 +95,41 @@ public class RaportController : Controller
                 IdRombel = rombel.Id
             });
 
+        foreach(var anggota in rombel.DaftarAnggotaRombel)
+        {
+            if(!anggota.DaftarRaport.Any(r => r.KategoriNilai == KategoriNilaiRaport.Pengetahuan && r.JadwalMengajar == jadwalMengajar))
+            {
+                var raport = new Raport
+                {
+                    Deskripsi = string.Empty,
+                    KategoriNilai = KategoriNilaiRaport.Pengetahuan,
+                    Nama = string.Empty,
+                    Predikat = string.Empty,
+                    JadwalMengajar = jadwalMengajar,
+                    AnggotaRombel = anggota
+                };
+
+                _raportRepository.Add(raport);
+            }
+
+            if (!anggota.DaftarRaport.Any(r => r.KategoriNilai == KategoriNilaiRaport.Keterampilan && r.JadwalMengajar == jadwalMengajar))
+            {
+                var raport = new Raport
+                {
+                    Deskripsi = string.Empty,
+                    KategoriNilai = KategoriNilaiRaport.Keterampilan,
+                    Nama = string.Empty,
+                    Predikat = string.Empty,
+                    JadwalMengajar = jadwalMengajar,
+                    AnggotaRombel = anggota
+                };
+
+                _raportRepository.Add(raport);
+            }
+        }
+
+        await _unitOfWork.SaveChangesAsync();
+
         return View(new IndexVM
         {
             Pegawai = pegawai,
@@ -290,7 +325,41 @@ public class RaportController : Controller
         return RedirectToAction(nameof(NilaiEkstrakulikuler), new { vm.IdTahunAjaran, vm.IdRombel });
     }
 
-    public async Task<IActionResult> Cetak(int idSiswa, int idRombel)
+    [Route("[Area]/Cetak")]
+    public async Task<IActionResult> Cetak(int? idTahunAjaran = null, int? idRombel = null)
+    {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        var tahunAjaran = idTahunAjaran is null ?
+            await _tahunAjaranRepository.GetNewest() :
+            await _tahunAjaranRepository.Get(idTahunAjaran.Value);
+
+        if (tahunAjaran is null) return View(new CetakVM { Pegawai = pegawai });
+
+        if (idRombel is null) return View(new CetakVM { Pegawai = pegawai, IdTahunAjaran = tahunAjaran.Id, TahunAjaran = tahunAjaran });
+
+        var rombel = await _rombelRepository.Get(idRombel.Value);
+        if (rombel is null) return View(new CetakVM { Pegawai = pegawai, IdTahunAjaran = tahunAjaran.Id, TahunAjaran = tahunAjaran });
+
+        if (rombel.Wali != pegawai)
+        {
+            _toastrNotificationService.AddError("Anda bukan wali kelas untuk kelas ini!");
+            return View(new CetakVM { Pegawai = pegawai, IdTahunAjaran = tahunAjaran.Id, TahunAjaran = tahunAjaran });
+        }
+
+        return View(new CetakVM
+        {
+            Pegawai = pegawai,
+            IdTahunAjaran = tahunAjaran.Id,
+            IdRombel = rombel.Id,
+            TahunAjaran = tahunAjaran,
+            Rombel = rombel
+        });
+    }
+
+    [Route("[Area]/Cetak/Detail")]
+    public async Task<IActionResult> DetailCetak(int idSiswa, int idRombel)
     {
         var pegawai = await _signInManager.GetPegawai();
         if (pegawai is null) return Forbid();
