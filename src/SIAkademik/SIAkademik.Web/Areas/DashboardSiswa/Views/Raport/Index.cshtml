@@ -29,39 +29,43 @@
                 <div class="card-header" style="padding-top: 20px;">
                     <h4>Rapor Siswa</h4>
                 </div>
-                <div class="card-body rounded" style="background-color: #f0f7fd; margin-left: 25px; margin-right: 25px; margin-bottom: 20px;">
-                    <div class="row">
+                <div class="card-body rounded" style="background-color: #f0f7fd; margin: 0 25px 20px;">
+                    <div class="row gy-3">
                         <!-- Kolom kiri -->
-                        <div class="col-md-6">
-                            <div class="row mb-1">
-                                <div class="col-3" style="font-weight:600;">NISN/NIS</div>
-                                <div class="col">@Model.Siswa.NISN/@Model.Siswa.NIS</div>
+                        <div class="col-12 col-lg-6">
+                            <div class="row mb-2">
+                                <div class="col-12 col-sm-4" style="font-weight: 600">NISN/NIS</div>
+                                <div class="col-12 col-sm-8">@Model.Siswa.NISN / @Model.Siswa.NIS</div>
                             </div>
-                            <div class="row mb-1">
-                                <div class="col-3" style="font-weight:600;">Nama</div>
-                                <div class="col">@Model.Siswa.Nama</div>
+                            <div class="row mb-2">
+                                <div class="col-12 col-sm-4" style="font-weight: 600">Nama</div>
+                                <div class="col-12 col-sm-8">@Model.Siswa.Nama</div>
                             </div>
-                            <div class="row mb-1">
-                                <div class="col-3" style="font-weight:600;">Status</div>
-                                <div class="col">@Model.Siswa.StatusAktif.Humanize()</div>
+                            <div class="row mb-2">
+                                <div class="col-12 col-sm-4" style="font-weight: 600">Status</div>
+                                <div class="col-12 col-sm-8">@Model.Siswa.StatusAktif.Humanize()</div>
                             </div>
                         </div>
 
                         <!-- Kolom kanan -->
-                        <div class="col-md-6">
-                            <div class="row mb-1">
-                                <div class="col-3" style="font-weight:600;">Jenjang</div>
-                                <div class="col">@Model.Siswa.Jenjang.Humanize()</div>
+                        <div class="col-12 col-lg-6">
+                            <div class="row mb-2">
+                                <div class="col-12 col-sm-4" style="font-weight: 600">Jenjang</div>
+                                <div class="col-12 col-sm-8">@Model.Siswa.Jenjang.Humanize()</div>
                             </div>
                             @if (Model.AnggotaRombel is not null)
                             {
-                                <div class="row mb-1">
-                                    <div class="col-3" style="font-weight:600;">Wali Kelas</div>
-                                    <div class="col">@Model.AnggotaRombel.Rombel.Wali.Nama</div>
+                                <div class="row mb-2">
+                                    <div class="col-12 col-sm-4" style="font-weight: 600">Wali Kelas</div>
+                                    <div class="col-12 col-sm-8">@Model.AnggotaRombel.Rombel.Wali.Nama</div>
                                 </div>
-                                <div class="row mb-1">
-                                    <div class="col-3" style="font-weight:600;">Kelas</div>
-                                    <div class="col">@Model.AnggotaRombel.Rombel.Kelas.Jenjang.Humanize() @Model.AnggotaRombel.Rombel.Kelas.Peminatan.Nama @Model.AnggotaRombel.Rombel.Nama</div>
+                                <div class="row mb-2">
+                                    <div class="col-12 col-sm-4" style="font-weight: 600">Kelas</div>
+                                    <div class="col-12 col-sm-8">
+                                        @Model.AnggotaRombel.Rombel.Kelas.Jenjang.Humanize()
+                                        @Model.AnggotaRombel.Rombel.Kelas.Peminatan.Nama
+                                        @Model.AnggotaRombel.Rombel.Nama
+                                    </div>
                                 </div>
                             }
                         </div>
@@ -118,43 +122,45 @@
                     </div>
 
                     <div class="card-body pr-0 pl-0">
-                        <table class="table table-striped table-hover" id="table-akun">
-                            <thead>
-                                <tr>
-                                    <th>Sikap</th>
-                                    <th>Predikat</th>
-                                    <th>Dekripsi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (Model.TahunAjaran is null)
-                                {
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" id="table-akun">
+                                <thead>
                                     <tr>
-                                        <td colspan="3">Belum ada tahun ajaran yang dibuka</td>
+                                        <th>Sikap</th>
+                                        <th>Predikat</th>
+                                        <th>Dekripsi</th>
                                     </tr>
-                                }
-                                else
-                                {
-                                    @if (Model.AnggotaRombel is null)
+                                </thead>
+                                <tbody>
+                                    @if (Model.TahunAjaran is null)
                                     {
                                         <tr>
-                                            <td colspan="3">Tidak ada kelas di tahun ajaran ini</td>
+                                            <td colspan="3">Belum ada tahun ajaran yang dibuka</td>
                                         </tr>
                                     }
                                     else
                                     {
-                                        @foreach (var raport in daftarSikap)
+                                        @if (Model.AnggotaRombel is null)
                                         {
                                             <tr>
-                                                <td>@raport.Nama</td>
-                                                <td>@raport.Predikat</td>
-                                                <td>@raport.Deskripsi</td>
+                                                <td colspan="3">Tidak ada kelas di tahun ajaran ini</td>
                                             </tr>
                                         }
+                                        else
+                                        {
+                                            @foreach (var raport in daftarSikap)
+                                            {
+                                                <tr>
+                                                    <td>@raport.Nama</td>
+                                                    <td>@raport.Predikat</td>
+                                                    <td>@raport.Deskripsi</td>
+                                                </tr>
+                                            }
+                                        }
                                     }
-                                }
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>                        
                     </div>     
                     
 
@@ -163,45 +169,47 @@
                     </div>
 
                     <div class="card-body pr-0 pl-0">
-                        <table class="table table-striped table-hover" id="table-akunn">
-                            <thead>
-                                <tr>
-                                    <th>Mata Pelajaran</th>
-                                    <th>Nilai</th>
-                                    <th>Predikat</th>
-                                    <th>Dekripsi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (Model.TahunAjaran is null)
-                                {
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" id="table-akunn">
+                                <thead>
                                     <tr>
-                                        <td colspan="4">Belum ada tahun ajaran yang dibuka</td>
+                                        <th>Mata Pelajaran</th>
+                                        <th>Nilai</th>
+                                        <th>Predikat</th>
+                                        <th>Dekripsi</th>
                                     </tr>
-                                }
-                                else
-                                {
-                                    @if (Model.AnggotaRombel is null)
+                                </thead>
+                                <tbody>
+                                    @if (Model.TahunAjaran is null)
                                     {
                                         <tr>
-                                            <td colspan="4">Tidak ada kelas di tahun ajaran ini</td>
+                                            <td colspan="4">Belum ada tahun ajaran yang dibuka</td>
                                         </tr>
                                     }
                                     else
                                     {
-                                        @foreach (var raport in daftarPengetahun)
+                                        @if (Model.AnggotaRombel is null)
                                         {
                                             <tr>
-                                                <td>@raport.JadwalMengajar!.MataPelajaran.Nama</td>
-                                                <td>@Model.AnggotaRombel.NilaiAkhir(raport.JadwalMengajar!)</td>
-                                                <td>@raport.Predikat</td>
-                                                <td>@raport.Deskripsi</td>
+                                                <td colspan="4">Tidak ada kelas di tahun ajaran ini</td>
                                             </tr>
                                         }
+                                        else
+                                        {
+                                            @foreach (var raport in daftarPengetahun)
+                                            {
+                                                <tr>
+                                                    <td>@raport.JadwalMengajar!.MataPelajaran.Nama</td>
+                                                    <td>@Model.AnggotaRombel.NilaiAkhir(raport.JadwalMengajar!)</td>
+                                                    <td>@raport.Predikat</td>
+                                                    <td>@raport.Deskripsi</td>
+                                                </tr>
+                                            }
+                                        }
                                     }
-                                }
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>                        
                     </div>
 
 
@@ -210,90 +218,94 @@
                     </div>
 
                     <div class="card-body pr-0 pl-0">
-                        <table class="table table-striped table-hover" id="table-akun0">
-                            <thead>
-                                <tr>
-                                    <th>Mata Pelajaran</th>
-                                    <th>Nilai</th>
-                                    <th>Predikat</th>
-                                    <th>Dekripsi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (Model.TahunAjaran is null)
-                                {
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" id="table-akun0">
+                                <thead>
                                     <tr>
-                                        <td colspan="4">Belum ada tahun ajaran yang dibuka</td>
+                                        <th>Mata Pelajaran</th>
+                                        <th>Nilai</th>
+                                        <th>Predikat</th>
+                                        <th>Dekripsi</th>
                                     </tr>
-                                }
-                                else
-                                {
-                                    @if (Model.AnggotaRombel is null)
+                                </thead>
+                                <tbody>
+                                    @if (Model.TahunAjaran is null)
                                     {
                                         <tr>
-                                            <td colspan="4">Tidak ada kelas di tahun ajaran ini</td>
+                                            <td colspan="4">Belum ada tahun ajaran yang dibuka</td>
                                         </tr>
                                     }
                                     else
                                     {
-                                        @foreach (var raport in daftarKeterampilan)
+                                        @if (Model.AnggotaRombel is null)
                                         {
                                             <tr>
-                                                <td>@raport.JadwalMengajar!.MataPelajaran.Nama</td>
-                                                <td>@Model.AnggotaRombel.NilaiAkhir(raport.JadwalMengajar!)</td>
-                                                <td>@raport.Predikat</td>
-                                                <td>@raport.Deskripsi</td>
+                                                <td colspan="4">Tidak ada kelas di tahun ajaran ini</td>
                                             </tr>
                                         }
+                                        else
+                                        {
+                                            @foreach (var raport in daftarKeterampilan)
+                                            {
+                                                <tr>
+                                                    <td>@raport.JadwalMengajar!.MataPelajaran.Nama</td>
+                                                    <td>@Model.AnggotaRombel.NilaiAkhir(raport.JadwalMengajar!)</td>
+                                                    <td>@raport.Predikat</td>
+                                                    <td>@raport.Deskripsi</td>
+                                                </tr>
+                                            }
+                                        }
                                     }
-                                }
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>                        
                     </div>
 
 
                     <div class="card-header pr-0 pl-0" style="padding-top: 20px;">
-                        <h4>Ekstrakulikuler</h4>
+                        <h4>Ekstrakurikuler</h4>
                     </div>
 
                     <div class="card-body pr-0 pl-0">
-                        <table class="table table-striped table-hover" id="table-akun1">
-                            <thead>
-                                <tr>
-                                    <th>Ekstrakulikuler</th>
-                                    <th>Predikat</th>
-                                    <th>Dekripsi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (Model.TahunAjaran is null)
-                                {
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" id="table-akun1">
+                                <thead>
                                     <tr>
-                                        <td colspan="3">Belum ada tahun ajaran yang dibuka</td>
+                                        <th>Ekstrakurikuler</th>
+                                        <th>Predikat</th>
+                                        <th>Dekripsi</th>
                                     </tr>
-                                }
-                                else
-                                {
-                                    @if (Model.AnggotaRombel is null)
+                                </thead>
+                                <tbody>
+                                    @if (Model.TahunAjaran is null)
                                     {
                                         <tr>
-                                            <td colspan="3">Tidak ada kelas di tahun ajaran ini</td>
+                                            <td colspan="3">Belum ada tahun ajaran yang dibuka</td>
                                         </tr>
                                     }
                                     else
                                     {
-                                        @foreach (var raport in daftarEkstrakulikuler)
+                                        @if (Model.AnggotaRombel is null)
                                         {
                                             <tr>
-                                                <td>@raport.Nama</td>
-                                                <td>@raport.Predikat</td>
-                                                <td>@raport.Deskripsi</td>
+                                                <td colspan="3">Tidak ada kelas di tahun ajaran ini</td>
                                             </tr>
                                         }
+                                        else
+                                        {
+                                            @foreach (var raport in daftarEkstrakulikuler)
+                                            {
+                                                <tr>
+                                                    <td>@raport.Nama</td>
+                                                    <td>@raport.Predikat</td>
+                                                    <td>@raport.Deskripsi</td>
+                                                </tr>
+                                            }
+                                        }
                                     }
-                                }
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>                        
                     </div>
 
 

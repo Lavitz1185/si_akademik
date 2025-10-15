@@ -26,39 +26,43 @@
                     <h4>Daftar Presensi Kelas</h4>
                 </div>
 
-                <div class="card-body rounded" style="background-color: #f0f7fd; margin-left: 25px; margin-right: 25px; margin-bottom: 20px;">
-                    <div class="row">
+                <div class="card-body rounded" style="background-color: #f0f7fd; margin: 0 25px 20px;">
+                    <div class="row gy-3">
                         <!-- Kolom kiri -->
-                        <div class="col-md-6">
-                            <div class="row mb-1">
-                                <div class="col-3" style="font-weight:600;">NISN/NIS</div>
-                                <div class="col">@Model.Siswa.NISN/@Model.Siswa.NIS</div>
+                        <div class="col-12 col-lg-6">
+                            <div class="row mb-2">
+                                <div class="col-12 col-sm-4" style="font-weight: 600">NISN/NIS</div>
+                                <div class="col-12 col-sm-8">@Model.Siswa.NISN / @Model.Siswa.NIS</div>
                             </div>
-                            <div class="row mb-1">
-                                <div class="col-3" style="font-weight:600;">Nama</div>
-                                <div class="col">@Model.Siswa.Nama</div>
+                            <div class="row mb-2">
+                                <div class="col-12 col-sm-4" style="font-weight: 600">Nama</div>
+                                <div class="col-12 col-sm-8">@Model.Siswa.Nama</div>
                             </div>
-                            <div class="row mb-1">
-                                <div class="col-3" style="font-weight:600;">Status</div>
-                                <div class="col">@Model.Siswa.StatusAktif.Humanize()</div>
+                            <div class="row mb-2">
+                                <div class="col-12 col-sm-4" style="font-weight: 600">Status</div>
+                                <div class="col-12 col-sm-8">@Model.Siswa.StatusAktif.Humanize()</div>
                             </div>
                         </div>
 
                         <!-- Kolom kanan -->
-                        <div class="col-md-6">
-                            <div class="row mb-1">
-                                <div class="col-3" style="font-weight:600;">Jenjang</div>
-                                <div class="col">@Model.Siswa.Jenjang.Humanize()</div>
+                        <div class="col-12 col-lg-6">
+                            <div class="row mb-2">
+                                <div class="col-12 col-sm-4" style="font-weight: 600">Jenjang</div>
+                                <div class="col-12 col-sm-8">@Model.Siswa.Jenjang.Humanize()</div>
                             </div>
                             @if (Model.AnggotaRombel is not null)
                             {
-                                <div class="row mb-1">
-                                    <div class="col-3" style="font-weight:600;">Wali Kelas</div>
-                                    <div class="col">@Model.AnggotaRombel.Rombel.Wali.Nama</div>
+                                <div class="row mb-2">
+                                    <div class="col-12 col-sm-4" style="font-weight: 600">Wali Kelas</div>
+                                    <div class="col-12 col-sm-8">@Model.AnggotaRombel.Rombel.Wali.Nama</div>
                                 </div>
-                                <div class="row mb-1">
-                                    <div class="col-3" style="font-weight:600;">Kelas</div>
-                                    <div class="col">@Model.AnggotaRombel.Rombel.Kelas.Jenjang.Humanize() @Model.AnggotaRombel.Rombel.Kelas.Peminatan.Nama @Model.AnggotaRombel.Rombel.Nama</div>
+                                <div class="row mb-2">
+                                    <div class="col-12 col-sm-4" style="font-weight: 600">Kelas</div>
+                                    <div class="col-12 col-sm-8">
+                                        @Model.AnggotaRombel.Rombel.Kelas.Jenjang.Humanize()
+                                        @Model.AnggotaRombel.Rombel.Kelas.Peminatan.Nama
+                                        @Model.AnggotaRombel.Rombel.Nama
+                                    </div>
                                 </div>
                             }
                         </div>
@@ -69,21 +73,31 @@
             <div class="card">
 
                 <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <form asp-action="Index" method="get" class="d-flex align-items-center" style="gap: 8px;">
-                            <label for="idTahunAjaran" class="mb-0" style="font-weight: 600;">Tahun Ajaran:</label>
-                            <select asp-for="@Model.IdTahunAjaran" class="form-control form-control-sm w-auto">
-                                @if (Model.IdTahunAjaran is null)
-                                {
-                                    <option value="@null">-- Pilih Tahun Ajaran</option>
-                                }
-                                @foreach (var tahunAjaran in daftarTahunAjaran)
-                                {
-                                    <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
-                                }
-                            </select>
+                    <div class="d-flex align-items-center justify-content-center mb-3 flex-wrap">
+                        <form asp-action="Index" method="get" class="row align-items-center w-100">
+                            <!-- Label -->
+                            <div class="col-12 col-md-auto p-0 mr-2">
+                                <label for="idTahunAjaran" class="mb-0" style="font-weight: 600">Tahun Ajaran:</label>
+                            </div>
+
+                            <!-- Select -->
+                            <div class="col-12 col-md-auto p-0">
+                                <select asp-for="@Model.IdTahunAjaran" class="form-control form-control-sm w-100 w-md-auto">
+                                    @if (Model.IdTahunAjaran is null)
+                                    {
+                                        <option value="@null">-- Pilih Tahun Ajaran --</option>
+                                    }
+                                    @foreach (var tahunAjaran in daftarTahunAjaran)
+                                    {
+                                        <option value="@tahunAjaran.Id">
+                                            @tahunAjaran.Periode @tahunAjaran.Semester.Humanize()
+                                        </option>
+                                    }
+                                </select>
+                            </div>
                         </form>
                     </div>
+
 
                     <div class="card-body rounded" style="background-color: #f0f7fd; margin-bottom: 20px;">
                         <div class="row">
@@ -146,7 +160,7 @@
                                 @if (Model.TahunAjaran is null)
                                 {
                                     <tr>
-                                        <td colspan="3">Belum ada tahun ajaran yang dibuka</td>
+                                        <td class="text-center" colspan="3">Belum ada tahun ajaran yang dibuka</td>
                                     </tr>
                                 }
                                 else
@@ -154,7 +168,7 @@
                                     @if (Model.AnggotaRombel is null)
                                     {
                                         <tr>
-                                            <td colspan="3">Tidak ada kelas di tahun ajaran ini</td>
+                                            <td class="text-center" colspan="3">Tidak ada kelas di tahun ajaran ini</td>
                                         </tr>
                                     }
                                     else

@@ -4,16 +4,18 @@
 @inject ISignInManager SignInManager
 
 <section class="section">
-    <div class="container-fluid mt-3 mb-3">
+    <div class="container-fluid mt-3 mb-3 p-0">
         <div class="row g-3 mt-3">
             <!-- Kolom Kiri: Jadwal Mengajar -->
-            <div class="col-lg-8 col-md-12">
+            <div class="col-lg-8 col-md-12 mb-3">
                 <div class="card shadow-sm h-100">
-                    <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="card-header d-flex align-items-center">
                         <h4 class="fw-bold mb-0">Jadwal Belajar Hari Ini</h4>
-                        <form asp-action="Index" method="get">
-                            <input asp-for="@Model.Tanggal" type="date" class="form-control" />
-                        </form>
+                        <div class="card-header-form">
+                            <form asp-action="Index" method="get">
+                                <input asp-for="@Model.Tanggal" type="date" class="form-control" />
+                            </form>
+                        </div>                       
                     </div>
                     <div class="card-body">
                         <div class="rounded mb-3" style="background-color: #f5f7f8; color:#4d5f72; padding: 10px; font-size:14px;">
@@ -34,44 +36,46 @@
                                     <p class="text-center">Tidak Ada Aktivitas Belajar Saat Ini</p>
                                 </div>
                             }
+                            else
+                            {
+                                <div class="col-12">
+                                    <p class="text-muted">Anda memiliki @Model.DaftarHariMengajar.Count aktivitas belajar saat ini</p>
+                                </div>
+                            }
 
                             @foreach(var hari in Model.DaftarHariMengajar)
                             {
                                 <!-- Loop foreach pelajaran -->
                                 <div class="col-md-12 mb-3">
-                                    <div class="border rounded p-3 d-flex justify-content-between align-items-center" style="background-color:#f9fafb;">
-                                        <div class="col-8">
-                                            <h6 class="fw-bold mb-3">@hari.JadwalMengajar.MataPelajaran.Nama</h6>
-                                            <div class="row text-muted">
-                                                <div class="col-6 mb-3">
-                                                    <i class="fas fa-clock mr-1"></i> @hari.JamMulai.ToShortTimeString() - @hari.JamAkhir.ToShortTimeString()
+                                    <div class="border rounded p-3" style="background-color:#f9fafb;">
+                                        <div class="row align-items-center g-3">
+                                            <!-- Kiri: Informasi Pelajaran -->
+                                            <div class="col-12 col-md-8">
+                                                <h6 class="fw-bold mb-2 text-md-start">@hari.JadwalMengajar.MataPelajaran.Nama</h6>
+                                                <div class="row text-muted">
+                                                    <div class="col-12 col-sm-6 mb-2 text-md-start">
+                                                        <i class="fas fa-clock me-1 mr-1"></i>
+                                                        @hari.JamMulai.ToShortTimeString() - @hari.JamAkhir.ToShortTimeString()
+                                                    </div>
+                                                    <div class="col-12 col-sm-6 mb-2 d-flex justify-content-md-start align-items-center">
+                                                        <i class="fas fa-user me-2 mr-2"></i>  @hari.JadwalMengajar.Pegawai.Nama
+                                                    </div>
                                                 </div>
-                                                <div class="d-flex col-6 mb-3">
-                                                    <div><i class="fas fa-user mr-2"></i></div>
-                                                    <div>@hari.JadwalMengajar.Pegawai.Nama</div>
-                                                </div>
-                                                @* <div class="col-6 mb-3">
-                                            <i class="fas fa-book mr-1"></i> Pertemuan ke 1
                                             </div>
-                                            <div class="col-6 mb-3">
-                                            <i class="fas fa-door-open mr-1"></i> 55201-205A
-                                            </div>
-                                            <div class="col-12 mb-3">
-                                            <i class="fas fa-check-circle mr-1"></i> Kehadiran Belum Tercatat
-                                            </div> *@
-                                            </div>
-                                        </div>
-                                        <div class="col-4 d-flex flex-column align-items-end">
-                                            <a asp-action="Detail" asp-route-id="@hari.JadwalMengajar.Id" asp-controller="JadwalMengajar" class="btn btn-outline-success btn-sm w-100 mb-1 text-end">
-                                                <i class="bi bi-box-arrow-up-right me-1"></i> Lihat Jadwal Kelas
-                                            </a>
-                                            @* <a href="#" class="btn btn-outline-success btn-sm w-100 mb-1 text-end">
-                                                <i class="bi bi-box-arrow-up-right me-1"></i> Lihat Nilai Siswa
-                                            </a> *@
-                                        </div>
 
+                                            <!-- Kanan: Tombol Aksi -->
+                                            <div class="col-12 col-md-4 text-md-end text-center">
+                                                <a asp-action="Detail"
+                                                   asp-route-id="@hari.JadwalMengajar.Id"
+                                                   asp-controller="JadwalMengajar"
+                                                   class="btn btn-outline-success btn-sm w-100 w-md-auto">
+                                                    <i class="bi bi-box-arrow-up-right me-1"></i> Lihat Jadwal Kelas
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+
                             }
                         </div>
                     </div>
