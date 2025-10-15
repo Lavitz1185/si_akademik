@@ -2,7 +2,7 @@
 
 namespace SIAkademik.Web.Areas.DashboardGuru.Models.RaportModels;
 
-public class IndexVM
+public class NilaiEkstrakulikulerVM
 {
     public required Pegawai Pegawai { get; set; }
 
@@ -10,6 +10,4 @@ public class IndexVM
     public int? IdTahunAjaran { get; set; }
     public Rombel? Rombel { get; set; }
     public int? IdRombel { get; set; }
-    public JadwalMengajar? JadwalMengajar { get; set; }
-    public int? IdJadwalMengajar { get; set; }
 }

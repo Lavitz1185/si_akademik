@@ -52,7 +52,7 @@ public class RaportController : Controller
         _razorTemplateEngine = razorTemplateEngine;
     }
 
-    public async Task<IActionResult> Index(int? idTahunAjaran = null, int? idRombel = null)
+    public async Task<IActionResult> Index(int? idTahunAjaran = null, int? idRombel = null, int? idJadwalMengajar = null)
     {
         var pegawai = await _signInManager.GetPegawai();
         if (pegawai is null) return Forbid();
@@ -61,340 +61,233 @@ public class RaportController : Controller
             await _tahunAjaranRepository.GetNewest() :
             await _tahunAjaranRepository.Get(idTahunAjaran.Value);
 
-        if (tahunAjaran is null) return View(new IndexVM());
+        if (tahunAjaran is null) return View(new IndexVM { Pegawai = pegawai });
 
-        if (idRombel is null) return View(new IndexVM { TahunAjaran = tahunAjaran });
+        if (idRombel is null) return View(new IndexVM { Pegawai = pegawai, IdTahunAjaran = tahunAjaran.Id, TahunAjaran = tahunAjaran });
 
         var rombel = await _rombelRepository.Get(idRombel.Value);
-        if (rombel is null) return NotFound();
+        if (rombel is null) return View(new IndexVM { Pegawai = pegawai, IdTahunAjaran = tahunAjaran.Id, TahunAjaran = tahunAjaran });
 
-        if (!pegawai.DaftarRombelWali.Contains(rombel)) return BadRequest();
-
-        return View(new IndexVM { TahunAjaran = tahunAjaran, Rombel = rombel });
-    }
-
-    public async Task<IActionResult> Detail(int idSiswa, int idRombel)
-    {
-        var pegawai = await _signInManager.GetPegawai();
-        if (pegawai is null) return Forbid();
-
-        var rombel = await _rombelRepository.Get(idRombel);
-        if (rombel is null) return NotFound();
-        if (!pegawai.DaftarRombelWali.Contains(rombel)) return BadRequest();
-
-        var siswa = await _siswaRepository.Get(idSiswa);
-        if (siswa is null) return NotFound();
-
-        var anggotaRombel = rombel.DaftarAnggotaRombel.FirstOrDefault(a => a.Siswa == siswa);
-        if (anggotaRombel is null) return BadRequest();
-
-        var daftarRaport = await _raportRepository.GetAllBy(siswa.Id, rombel.Id);
-
-        return View(new DetailVM { AnggotaRombel = anggotaRombel, DaftarRaport = daftarRaport });
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> IsiNilai(int idSiswa, int idRombel)
-    {
-        var pegawai = await _signInManager.GetPegawai();
-        if (pegawai is null) return Forbid();
-
-        var rombel = await _rombelRepository.Get(idRombel);
-        if (rombel is null) return NotFound();
-        if (!pegawai.DaftarRombelWali.Contains(rombel)) return BadRequest();
-
-        var siswa = await _siswaRepository.Get(idSiswa);
-        if (siswa is null) return NotFound();
-
-        var anggotaRombel = rombel.DaftarAnggotaRombel.FirstOrDefault(a => a.Siswa == siswa);
-        if (anggotaRombel is null) return BadRequest();
-
-        var daftarRaport = await _raportRepository.GetAllBy(siswa.Id, rombel.Id);
-
-        foreach (var jadwal in rombel.DaftarJadwalMengajar)
+        if (rombel.Wali != pegawai)
         {
-            if (!daftarRaport.Any(r => r.JadwalMengajar == jadwal))
-            {
-                var raportPengetahuan = new Raport
-                {
-                    JadwalMengajar = jadwal,
-                    AnggotaRombel = anggotaRombel,
-                    Deskripsi = string.Empty,
-                    KategoriNilai = KategoriNilaiRaport.Pengetahuan,
-                    Nama = jadwal.MataPelajaran.Nama,
-                    Predikat = string.Empty
-                };
-
-                var raportKeterampilan = new Raport
-                {
-                    JadwalMengajar = jadwal,
-                    AnggotaRombel = anggotaRombel,
-                    Deskripsi = string.Empty,
-                    KategoriNilai = KategoriNilaiRaport.Keterampilan,
-                    Nama = jadwal.MataPelajaran.Nama,
-                    Predikat = string.Empty
-                };
-
-                _raportRepository.Add(raportPengetahuan);
-                _raportRepository.Add(raportKeterampilan);
-            }
+            _toastrNotificationService.AddError("Anda bukan wali kelas untuk kelas ini!");
+            return View(new IndexVM { Pegawai = pegawai, IdTahunAjaran = tahunAjaran.Id, TahunAjaran = tahunAjaran });
         }
 
-        var result = await _unitOfWork.SaveChangesAsync();
+        if (idJadwalMengajar is null)
+            return View(new IndexVM
+            {
+                Pegawai = pegawai,
+                IdTahunAjaran = tahunAjaran.Id,
+                TahunAjaran = tahunAjaran,
+                Rombel = rombel,
+                IdRombel = rombel.Id
+            });
 
-        daftarRaport = await _raportRepository.GetAllBy(siswa.Id, rombel.Id);
+        var jadwalMengajar = await _jadwalMengajarRepository.Get(idJadwalMengajar.Value);
+        if (jadwalMengajar is null || jadwalMengajar.Rombel != rombel)
+            return View(new IndexVM
+            {
+                Pegawai = pegawai,
+                IdTahunAjaran = tahunAjaran.Id,
+                TahunAjaran = tahunAjaran,
+                Rombel = rombel,
+                IdRombel = rombel.Id
+            });
 
-        return RedirectToAction(nameof(Detail), new { idSiswa, idRombel });
+        return View(new IndexVM
+        {
+            Pegawai = pegawai,
+            IdTahunAjaran = tahunAjaran.Id,
+            IdRombel = rombel.Id,
+            TahunAjaran = tahunAjaran,
+            Rombel = rombel,
+            JadwalMengajar = jadwalMengajar,
+            IdJadwalMengajar = jadwalMengajar.Id,
+        });
     }
 
-    public async Task<IActionResult> Tambah(int idSiswa, int idRombel, KategoriNilaiRaport kategori)
+    [Route("[Area]/Ekstrakulikuler")]
+    public async Task<IActionResult> NilaiEkstrakulikuler(int? idTahunAjaran = null, int? idRombel = null)
     {
         var pegawai = await _signInManager.GetPegawai();
         if (pegawai is null) return Forbid();
 
-        var siswa = await _siswaRepository.Get(idSiswa);
-        if (siswa is null) return NotFound();
+        var tahunAjaran = idTahunAjaran is null ?
+            await _tahunAjaranRepository.GetNewest() :
+            await _tahunAjaranRepository.Get(idTahunAjaran.Value);
 
-        var rombel = await _rombelRepository.Get(idRombel);
-        if (rombel is null) return NotFound();
+        if (tahunAjaran is null) return View(new NilaiEkstrakulikulerVM { Pegawai = pegawai });
 
-        if (rombel.Wali != pegawai) return BadRequest();
+        if (idRombel is null) return View(new NilaiEkstrakulikulerVM { Pegawai = pegawai, IdTahunAjaran = tahunAjaran.Id, TahunAjaran = tahunAjaran });
 
-        var anggotaRombel = rombel.DaftarAnggotaRombel.FirstOrDefault(a => a.Siswa == siswa);
-        if (anggotaRombel is null) return NotFound();
+        var rombel = await _rombelRepository.Get(idRombel.Value);
+        if (rombel is null) return View(new NilaiEkstrakulikulerVM { Pegawai = pegawai, IdTahunAjaran = tahunAjaran.Id, TahunAjaran = tahunAjaran });
 
-        return View(new TambahVM
+        if (rombel.Wali != pegawai)
         {
+            _toastrNotificationService.AddError("Anda bukan wali kelas untuk kelas ini!");
+            return View(new NilaiEkstrakulikulerVM { Pegawai = pegawai, IdTahunAjaran = tahunAjaran.Id, TahunAjaran = tahunAjaran });
+        }
+
+        return View(new NilaiEkstrakulikulerVM
+        {
+            Pegawai = pegawai,
+            IdTahunAjaran = tahunAjaran.Id,
             IdRombel = rombel.Id,
-            IdSiswa = siswa.Id,
-            Kategori = kategori,
+            TahunAjaran = tahunAjaran,
+            Rombel = rombel
         });
     }
 
     [HttpPost]
-    public async Task<IActionResult> Tambah(TambahVM vm)
+    public async Task<IActionResult> HapusEkstrakulikuler(int idTahunAjaran, int idRombel, int idEkstrakulikuler)
     {
-        if (!ModelState.IsValid) return View(vm);
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        var tahunAjaran = await _tahunAjaranRepository.Get(idTahunAjaran);
+        if (tahunAjaran is null)
+        {
+            _toastrNotificationService.AddError("Tahun Ajaran tidak ditemukan", "Hapus Ekstrakulikuler");
+            return RedirectToAction(nameof(NilaiEkstrakulikuler));
+        }
+
+        var rombel = await _rombelRepository.Get(idRombel);
+        if (rombel is null || rombel.Kelas.TahunAjaran != tahunAjaran || rombel.Wali != pegawai)
+        {
+            _toastrNotificationService.AddError("Rombel tidak ditemukan", "Hapus Ekstrakulikuler");
+            return RedirectToAction(nameof(NilaiEkstrakulikuler), new { idTahunAjaran });
+        }
+
+        var ekstrakulikuler = await _raportRepository.Get(idEkstrakulikuler);
+        if (ekstrakulikuler is null)
+        {
+            _toastrNotificationService.AddError("Ekstrakulikuler tidak ditemukan", "Hapus Ekstrakulikuler");
+            return RedirectToAction(nameof(NilaiEkstrakulikuler), new { idTahunAjaran, idRombel });
+        }
+
+        _raportRepository.Delete(ekstrakulikuler);
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsSuccess)
+            _toastrNotificationService.AddSuccess("Simpan Berhasil", "Hapus Ekstrakulikuler");
+        else
+            _toastrNotificationService.AddError("Simpan Gagal", "Hapus Ekstrakulikuler");
+
+        return RedirectToAction(nameof(NilaiEkstrakulikuler), new { idTahunAjaran, idRombel });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> TambahEkstrakulikuler(TambahEkstrakulikulerVM vm)
+    {
+        if (!ModelState.IsValid)
+        {
+            _toastrNotificationService.AddError("Data tidak valid", "Tambah Ekstrakulikuler");
+            return RedirectToAction(nameof(NilaiEkstrakulikuler), new { vm.IdTahunAjaran, vm.IdRombel });
+        }
 
         var pegawai = await _signInManager.GetPegawai();
         if (pegawai is null) return Forbid();
 
-        var siswa = await _siswaRepository.Get(vm.IdSiswa);
-        if (siswa is null) return NotFound();
+        var tahunAjaran = await _tahunAjaranRepository.Get(vm.IdTahunAjaran);
+        if (tahunAjaran is null)
+        {
+            _toastrNotificationService.AddError("Tahun Ajaran tidak ditemukan", "Tambah Ekstrakulikuler");
+            return RedirectToAction(nameof(NilaiEkstrakulikuler));
+        }
 
         var rombel = await _rombelRepository.Get(vm.IdRombel);
-        if (rombel is null) return NotFound();
-
-        if (rombel.Wali != pegawai) return BadRequest();
-
-        var anggotaRombel = rombel.DaftarAnggotaRombel.FirstOrDefault(a => a.Siswa == siswa);
-        if (anggotaRombel is null) return NotFound();
-
-        if (vm.Kategori == KategoriNilaiRaport.Pengetahuan || vm.Kategori == KategoriNilaiRaport.Keterampilan)
+        if (rombel is null || rombel.Kelas.TahunAjaran != tahunAjaran || rombel.Wali != pegawai)
         {
-            if (vm.IdJadwalMengajar is null)
-            {
-                ModelState.AddModelError(nameof(TambahVM.IdJadwalMengajar), "Jadwal Mengajar harus diisi");
-                return View(vm);
-            }
-
-            var jadwalMengajar = await _jadwalMengajarRepository.Get(vm.IdJadwalMengajar.Value);
-            if (jadwalMengajar is null)
-            {
-                ModelState.AddModelError(nameof(TambahVM.IdJadwalMengajar), $"Jadwal dengan Id '{vm.IdJadwalMengajar}' tidak ditemukan!");
-                return View(vm);
-            }
-
-            if (jadwalMengajar.Rombel != anggotaRombel.Rombel)
-            {
-                ModelState.AddModelError(nameof(TambahVM.IdJadwalMengajar), "Jadwal salah!");
-                return View(vm);
-            }
-
-            if (anggotaRombel.DaftarRaport.Any(r => r.KategoriNilai == vm.Kategori && r.JadwalMengajar == jadwalMengajar))
-            {
-                ModelState.AddModelError(nameof(TambahVM.IdJadwalMengajar),
-                    $"Data Raport kategori {vm.Kategori.Humanize()} dengan mata pelajaran {jadwalMengajar.MataPelajaran.Nama} sudah ada!");
-
-                return View(vm);
-            }
-
-            var raport = new Raport
-            {
-                Nama = jadwalMengajar.MataPelajaran.Nama,
-                Deskripsi = vm.Dekripsi,
-                KategoriNilai = vm.Kategori,
-                Predikat = vm.Predikat,
-                JadwalMengajar = jadwalMengajar,
-                AnggotaRombel = anggotaRombel
-            };
-
-            _raportRepository.Add(raport);
-        }
-        else
-        {
-            if (vm.Nama is null)
-            {
-                ModelState.AddModelError(nameof(TambahVM.Nama), "Nama harus diisi!");
-                return View(vm);
-            }
-
-            if (anggotaRombel.DaftarRaport.Any(r => r.Nama.ToLower() == vm.Nama.ToLower()))
-            {
-                ModelState.AddModelError(nameof(TambahVM.Nama), $"Data raport dengan nama '{vm.Nama}' sudah ada");
-                return View(vm);
-            }
-
-            var raport = new Raport
-            {
-                Nama = vm.Nama,
-                Deskripsi = vm.Dekripsi,
-                AnggotaRombel = anggotaRombel,
-                KategoriNilai = vm.Kategori,
-                Predikat = vm.Predikat
-            };
-
-            _raportRepository.Add(raport);
+            _toastrNotificationService.AddError("Rombel tidak ditemukan", "Tambah Ekstrakulikuler");
+            return RedirectToAction(nameof(NilaiEkstrakulikuler), new { vm.IdTahunAjaran });
         }
 
+        var anggotaRombel = rombel.DaftarAnggotaRombel.FirstOrDefault(a => a.Id == vm.IdAnggotaRombel);
+        if (anggotaRombel is null)
+        {
+            _toastrNotificationService.AddError("Siswa tidak dalam rombel ini", "Tambah Ekstrakulikuler");
+            return RedirectToAction(nameof(NilaiEkstrakulikuler), new { vm.IdTahunAjaran, vm.IdRombel });
+        }
+
+        if (anggotaRombel.DaftarRaport.Any(r => r.KategoriNilai == KategoriNilaiRaport.Ekstrakulikuler && r.Nama.ToLower() == vm.Nama.ToLower()))
+        {
+            _toastrNotificationService.AddError($"Ekstrakulikuler dengan nama {vm.Nama} sudah ada", "Tambah Ekstrakulikuler");
+            return RedirectToAction(nameof(NilaiEkstrakulikuler), new { vm.IdTahunAjaran, vm.IdRombel });
+        }
+
+        var ekstrakulikuler = new Raport
+        {
+            KategoriNilai = KategoriNilaiRaport.Ekstrakulikuler,
+            AnggotaRombel = anggotaRombel,
+            Nama = vm.Nama,
+            Deskripsi = vm.Keterangan,
+            Predikat = vm.Predikat
+        };
+
+        _raportRepository.Add(ekstrakulikuler);
         var result = await _unitOfWork.SaveChangesAsync();
-        if (result.IsFailure)
-        {
-            ModelState.AddModelError(string.Empty, "Simpan Gagal!");
-            return View(vm);
-        }
+        if (result.IsSuccess)
+            _toastrNotificationService.AddSuccess("Simpan Berhasil", "Tambah Ekstrakulikuler");
+        else
+            _toastrNotificationService.AddError("Simpan Gagal", "Tambah Ekstrakulikuler");
 
-        _toastrNotificationService.AddSuccess("Simpan Berhasil!");
-
-        return RedirectToAction(nameof(Detail), new { idSiswa = vm.IdSiswa, idRombel = vm.IdRombel });
-    }
-
-    public async Task<IActionResult> Edit(int id)
-    {
-        var pegawai = await _signInManager.GetPegawai();
-        if (pegawai is null) return Forbid();
-
-        var raport = await _raportRepository.Get(id);
-        if (raport is null) return NotFound();
-
-        if (!pegawai.DaftarRombelWali.Contains(raport.AnggotaRombel.Rombel))
-            return BadRequest();
-
-        return View(new EditVM
-        {
-            Id = raport.Id,
-            Nama = raport.Nama,
-            Kategori = raport.KategoriNilai,
-            Dekripsi = raport.Deskripsi,
-            Predikat = raport.Predikat,
-            IdJadwalMengajar = raport.JadwalMengajar?.Id
-        });
+        return RedirectToAction(nameof(NilaiEkstrakulikuler), new { vm.IdTahunAjaran, vm.IdRombel });
     }
 
     [HttpPost]
-    public async Task<IActionResult> Edit(EditVM vm)
+    public async Task<IActionResult> EditEkstrakulikuler(EditEkstrakulikulerVM vm)
     {
-        if (!ModelState.IsValid) return View(vm);
+        if (!ModelState.IsValid)
+        {
+            _toastrNotificationService.AddError("Data tidak valid", "Edit Ekstrakulikuler");
+            return RedirectToAction(nameof(NilaiEkstrakulikuler), new { vm.IdTahunAjaran, vm.IdRombel });
+        }
 
         var pegawai = await _signInManager.GetPegawai();
         if (pegawai is null) return Forbid();
 
-        var raport = await _raportRepository.Get(vm.Id);
-        if (raport is null) return NotFound();
-
-        if (!pegawai.DaftarRombelWali.Contains(raport.AnggotaRombel.Rombel))
-            return BadRequest();
-
-        if (vm.Kategori == KategoriNilaiRaport.Pengetahuan || vm.Kategori == KategoriNilaiRaport.Keterampilan)
+        var tahunAjaran = await _tahunAjaranRepository.Get(vm.IdTahunAjaran);
+        if (tahunAjaran is null)
         {
-            if (vm.IdJadwalMengajar is null)
-            {
-                ModelState.AddModelError(nameof(EditVM.IdJadwalMengajar), "JadwalMengajar Harus Diisi!");
-                return View(vm);
-            }
-
-            var jadwalMengajar = await _jadwalMengajarRepository.Get(vm.IdJadwalMengajar.Value);
-            if (jadwalMengajar is null)
-            {
-                ModelState.AddModelError(nameof(EditVM.IdJadwalMengajar), $"Jadwal dengan Id '{vm.IdJadwalMengajar}' tidak ditemukan");
-                return View(vm);
-            }
-
-            if (jadwalMengajar.Rombel != raport.AnggotaRombel.Rombel)
-            {
-                ModelState.AddModelError(nameof(EditVM.IdJadwalMengajar), "Jadwal tidak benar");
-                return View(vm);
-            }
-
-            if (raport.AnggotaRombel.DaftarRaport.Any(r => r.KategoriNilai == raport.KategoriNilai && 
-                r != raport && 
-                r.JadwalMengajar == jadwalMengajar)) 
-            {
-                ModelState.AddModelError(nameof(TambahVM.IdJadwalMengajar),
-                    $"Data Raport kategori {vm.Kategori.Humanize()} dengan mata pelajaran {jadwalMengajar.MataPelajaran.Nama} sudah ada!");
-
-                return View(vm);
-            }
-
-            raport.Nama = jadwalMengajar.MataPelajaran.Nama;
-            raport.JadwalMengajar = jadwalMengajar;
-            raport.Deskripsi = vm.Dekripsi;
-            raport.Predikat = vm.Predikat;
+            _toastrNotificationService.AddError("Tahun Ajaran tidak ditemukan", "Edit Ekstrakulikuler");
+            return RedirectToAction(nameof(NilaiEkstrakulikuler));
         }
-        else
+
+        var rombel = await _rombelRepository.Get(vm.IdRombel);
+        if (rombel is null || rombel.Kelas.TahunAjaran != tahunAjaran || rombel.Wali != pegawai)
         {
-            if (vm.Nama is null)
-            {
-                ModelState.AddModelError(nameof(TambahVM.Nama), "Nama harus diisi!");
-                return View(vm);
-            }
-
-            if (raport.AnggotaRombel.DaftarRaport.Any(r => r != raport && r.Nama.ToLower() == vm.Nama.ToLower()))
-            {
-                ModelState.AddModelError(nameof(TambahVM.Nama), $"Data raport dengan nama '{vm.Nama}' sudah ada");
-                return View(vm);
-            }
-
-            raport.Nama = vm.Nama;
-            raport.Deskripsi = vm.Dekripsi;
-            raport.Predikat = vm.Predikat;
+            _toastrNotificationService.AddError("Rombel tidak ditemukan", "Edit Ekstrakulikuler");
+            return RedirectToAction(nameof(NilaiEkstrakulikuler), new { vm.IdTahunAjaran });
         }
+
+        var ekstrakulikuler = await _raportRepository.Get(vm.IdEkstrakulikuler);
+        if (ekstrakulikuler is null)
+        {
+            _toastrNotificationService.AddError("Ekstrakulikuler tidak ditemukan", "Edit Ekstrakulikuler");
+            return RedirectToAction(nameof(NilaiEkstrakulikuler), new { vm.IdTahunAjaran, vm.IdRombel });
+        }
+
+        var anggotaRombel = rombel.DaftarAnggotaRombel.First(a => a == ekstrakulikuler.AnggotaRombel);
+        if (anggotaRombel
+            .DaftarRaport
+            .Any(r => r.Id != vm.IdEkstrakulikuler && r.KategoriNilai == KategoriNilaiRaport.Ekstrakulikuler && r.Nama.ToLower() == vm.Nama.ToLower()))
+        {
+            _toastrNotificationService.AddError($"Ekstrakulikuler dengan nama {vm.Nama} sudah ada", "Edit Ekstrakulikuler");
+            return RedirectToAction(nameof(NilaiEkstrakulikuler), new { vm.IdTahunAjaran, vm.IdRombel });
+        }
+
+        ekstrakulikuler.Nama = vm.Nama;
+        ekstrakulikuler.Predikat = vm.Predikat;
+        ekstrakulikuler.Deskripsi = vm.Keterangan;
 
         var result = await _unitOfWork.SaveChangesAsync();
-        if (result.IsFailure)
-        {
-            ModelState.AddModelError(string.Empty, "Simpan Gagal!");
-            return View(vm);
-        }
-
-        _toastrNotificationService.AddSuccess("Simpan Berhasil!");
-
-        return RedirectToAction(nameof(Detail), new { idSiswa = raport.AnggotaRombel.Siswa.Id, idRombel = raport.AnggotaRombel.Rombel.Id });
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> Hapus(int id)
-    {
-        var pegawai = await _signInManager.GetPegawai();
-        if (pegawai is null) return Forbid();
-
-        var raport = await _raportRepository.Get(id);
-        if (raport is null) return NotFound();
-
-        if (!pegawai.DaftarRombelWali.Contains(raport.AnggotaRombel.Rombel))
-            return BadRequest();
-
-        var idSiswa = raport.AnggotaRombel.Siswa.Id;
-        var idRombel = raport.AnggotaRombel.Rombel.Id;
-
-        _raportRepository.Delete(raport);
-        var result = await _unitOfWork.SaveChangesAsync();
-        if (result.IsFailure)
-            _toastrNotificationService.AddError("Hapus Gagal!");
+        if (result.IsSuccess)
+            _toastrNotificationService.AddSuccess("Simpan Berhasil", "Edit Ekstrakulikuler");
         else
-            _toastrNotificationService.AddSuccess("Hapus Berhasil!");
+            _toastrNotificationService.AddError("Simpan Gagal", "Edit Ekstrakulikuler");
 
-        return RedirectToAction(nameof(Detail), new { idSiswa, idRombel });
+        return RedirectToAction(nameof(NilaiEkstrakulikuler), new { vm.IdTahunAjaran, vm.IdRombel });
     }
 
     public async Task<IActionResult> Cetak(int idSiswa, int idRombel)
