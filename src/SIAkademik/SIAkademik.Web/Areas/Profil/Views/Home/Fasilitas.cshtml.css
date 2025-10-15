@@ -68,11 +68,13 @@
 
 
 /* ==================================== RESPONSIVE ==================================== */
-/* ------------------------------------ SECTION PENGANTAR ------------------------------------ */
+/* ------------------------------------ LAPTOP KECIL ------------------------------------ */
+@media (max-width: 1050px) {
+    
+}
 
-/* Responsive 968px */
-@media (max-width:968px) {
-
+/* ------------------------------------ TABLET ------------------------------------ */
+@media (max-width: 780px) {
     #fasilitas[b-6jjj4hifhu] {
         padding: 10vw 8vw 8vw;
         gap: 20px;
@@ -84,14 +86,17 @@
         gap: 20px;
     }
 
-    #fasilitas .rev {     
-        flex-direction: column-reverse;      
+    #fasilitas .rev {
+        flex-direction: column-reverse;
     }
 
-        #fasilitas .fasilitas-box ::deep img {
-            width: 100%;
-            border-radius: 10px;
-        }
+    #fasilitas .fasilitas-box ::deep img {
+        width: 100%;
+        border-radius: 10px;
+    }
 }
 
+/* ------------------------------------ MOBILE ------------------------------------ */
+@media (max-width: 500px) {
     
+}  
