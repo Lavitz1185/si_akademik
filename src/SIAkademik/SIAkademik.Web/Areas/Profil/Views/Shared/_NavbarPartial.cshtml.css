@@ -88,6 +88,11 @@ nav .navigation ::deep ul {
             }
 
         /* ========== SUBMENU ========== */
+        nav .navigation .submenu {
+            gap: 0px;
+            align-items: start;
+        }
+
         nav .navigation ::deep ul li.has-submenu a {
             cursor: pointer;
         }

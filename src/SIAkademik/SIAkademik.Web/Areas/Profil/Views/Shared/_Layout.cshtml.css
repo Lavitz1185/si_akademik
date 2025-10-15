@@ -93,3 +93,18 @@ footer {
                 background-color: #fdc93b;
                 color: #2c2c2c;
             }
+
+/* ------------------------------------ RESPONSIVE ------------------------------------ */
+@media (max-width: 1050px) {
+
+}
+
+@media (max-width: 780px) {
+
+}
+
+@media (max-width: 500px) {
+    .pro-links {
+        margin-top: 20px;
+    }
+}
