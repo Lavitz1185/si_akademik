@@ -2,6 +2,8 @@
 
 @{
     var siswa = (await SignInManager.GetSiswa())!;
+    var namaLengkap = siswa.Nama;
+    var namaDepan = namaLengkap?.Split(' ', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
 }
 
 <div class="navbar-bg"></div>
@@ -31,122 +33,42 @@
             </li> *@
         </ul>
     </div>
-    <ul class="navbar-nav navbar-right">
-        <div class="text-right mr-auto justify-content-end">
-            <p class="mb-0 mt-1" style="line-height: normal">Halo, <b>@siswa.Nama</b></p>
+    <ul class="navbar-nav d-flex align-items-center">
+        <!-- Info siswa -->
+        <li class="nav-item d-flex flex-column text-right text-md-right me-2">
+            <p class="mb-0 mt-1 fw-semibold" style="line-height: normal">
+                Halo,
+                <b class="nama-lengkap">@siswa.Nama</b>
+                <b class="nama-depan" style="display:none">@namaDepan</b>
+            </p>            
             <p class="mb-0" style="line-height: normal">Siswa</p>
-        </div>
-        <!-- MESSAGES -->
-        @* <li class="dropdown dropdown-list-toggle">
-            <a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle">
-                <i data-feather="mail"></i>
-                <span class="badge headerBadge1">@unreadFeedBacks.Count</span>
-            </a>
-            <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
-                <div class="dropdown-header">
-                    Messages
-                    @if (unreadFeedBacks.Count > 0)
-                    {
-                        <div class="float-right">
-                            <form asp-action="MarkAllAsRead" asp-controller="FeedBack" asp-area="Dashboard" asp-route-url="@Context.Request.Path@Context.Request.QueryString">
-                                <button class="btn btn-primary" href="#">Mark All As Read</button>
-                            </form>
-                        </div>
-                    }
-                </div>
-                <div class="dropdown-list-content dropdown-list-message">
-                    @foreach (var feedback in unreadFeedBacks)
-                    {
-                        <a href="#" class="dropdown-item">
-                            <span class="dropdown-item-desc">
-                                <span class="message-user">@feedback.Nama</span>
-                                <span class="time messege-text">@feedback.Judul</span>
-                                <span class="time">@DateTime.Now.Subtract(feedback.Tanggal).Humanize(culture: cultureInfo, maxUnit: TimeUnit.Year)</span>
-                            </span>
-                        </a>
-                    }
-                </div>
-                <div class="dropdown-footer text-center">
-                    <a asp-area="Dashboard" asp-controller="FeedBack" asp-action="Index">View All <i class="fas fa-chevron-right"></i></a>
-                </div>
-            </div>
-        </li> *@
+        </li>
 
-        @* <!-- NOTIFICATION -->
-        <li class="dropdown dropdown-list-toggle">
-        <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg">
-        <i data-feather="bell" class="bell"></i>
-        </a>
-        <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
-        <div class="dropdown-header">
-        Notifications
-        <div class="float-right">
-        <a href="#">Mark All As Read</a>
-        </div>
-        </div>
-        <div class="dropdown-list-content dropdown-list-icons">
-        <a href="#" class="dropdown-item dropdown-item-unread">
-        <span class="dropdown-item-icon bg-warning text-white"><i class="fas fa-exclamation-circle"></i></span>
-        <span class="dropdown-item-desc">
-        Stok <b>Kopi Flores</b> hampir habis! Tersisa 5 item.
-        <span class="time">10 Menit Lalu</span>
-        </span>
-        </a>
-
-        <a href="#" class="dropdown-item">
-        <span class="dropdown-item-icon bg-success text-white"><i class="fas fa-check"></i></span>
-        <span class="dropdown-item-desc">
-        <b>Oswaldus</b> telah memesan <b>Kain Tenun Ikat</b>.
-        <span class="time">2 Jam Lalu</span>
-        </span>
-        </a>
-
-        <a href="#" class="dropdown-item">
-        <span class="dropdown-item-icon bg-danger text-white"><i class="fas fa-box"></i></span>
-        <span class="dropdown-item-desc">
-        Stok <b>Minyak Sopi</b> hanya tersisa 3 botol. Segera lakukan restock.
-        <span class="time">Kemarin</span>
-        </span>
-        </a>
-        </div>
-        <div class="dropdown-footer text-center">
-        <a href="#">View All <i class="fas fa-chevron-right"></i></a>
-        </div>
-        </div>
-        </li> *@
-        <li class="dropdown">
-            <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                @if(siswa.FotoProfil is not null)
+        <!-- Foto profil dropdown -->
+        <li class="nav-item dropdown">
+            <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user p-0">
+                @if (siswa.FotoProfil is not null)
                 {
                     <img alt="Foto Profil" src="@siswa.FotoProfil.OriginalString" class="user-img-radious-style">
                 }
                 else
                 {
                     var inisial = string.Join("", siswa.Nama?.Split(' ', StringSplitOptions.RemoveEmptyEntries)
-                    .Select(n => n[0]))
-                    .ToUpperInvariant();
+                    .Select(n => n[0])).ToUpperInvariant();
                     if (inisial.Length > 2) inisial = inisial.Substring(0, 2);
 
-                    <div class="fotoprofilkecil user-img-radious-style">
+                    <div class="fotoprofilkecil user-img-radious-style d-flex justify-content-center align-items-center">
                         @inisial
                     </div>
                 }
             </a>
             <div class="dropdown-menu dropdown-menu-right pullDown">
-                @* <div class="dropdown-title pb-0">Hello SISWA</div> *@
                 <a asp-action="Profil" asp-controller="Home" asp-area="@AreaNames.DashboardSiswa" class="dropdown-item has-icon">
                     <i class="far fa-user"></i> Profil
                 </a>
-                <a href="#" class="dropdown-item has-icon" data-toggle="modal"
-                   data-target="#modalKontak">
-                    <i class="fas fa-comments"></i>
-                Kontak
+                <a href="#" class="dropdown-item has-icon" data-toggle="modal" data-target="#modalKontak">
+                    <i class="fas fa-comments"></i> Kontak
                 </a>
-@*                 <a href="#" class="dropdown-item has-icon">
-                <i class="fas fa-cog"></i>
-                Settings
-                </a> *@
-                @* <div class="dropdown-divider"></div> *@
                 <form asp-action="Logout" asp-controller="Home" asp-area="@AreaNames.DashboardSiswa">
                     <button type="submit" class="dropdown-item has-icon text-danger" style="font-size: 13px;">
                         <i class="fas fa-sign-out-alt"></i> Keluar
@@ -155,4 +77,5 @@
             </div>
         </li>
     </ul>
+
 </nav>
