@@ -267,18 +267,12 @@
                 line-height: 1.8;
             }
 
-/* ------------------------------------ RESPONSIVE ------------------------------------ */
+/* ==================================== RESPONSIVE ==================================== */
+/* ------------------------------------ LAPTOP KECIL ------------------------------------ */
 @media (max-width: 1050px) {
-}
-
-@media (max-width: 780px) {
-    
-}
-
-@media (max-width: 500px) {
     #sambutan2 .sambutan2-wrapper .sambutan2-video {
         width: 100%;
-        height: 100%;
+        height: 350px;
     }
 
         #sambutan2 .sambutan2-wrapper .sambutan2-video iframe {
@@ -286,6 +280,18 @@
             height: 100%;
         }
 
+    #mars .mars-container .mars-kiri[b-lh8iyyrbpt] {
+        height: 60vh;
+    }
+
+    #mars .mars-container[b-lh8iyyrbpt] {
+        display: flex;
+        min-height: 60vh;
+    }
+}
+
+/* ------------------------------------ TABLET ------------------------------------ */
+@media (max-width: 780px) {
     #sambutan2 .sambutan2-wrapper[b-lh8iyyrbpt] {
         gap: 20px;
     }
@@ -294,9 +300,87 @@
         gap: 20px;
     }
 
+    #preview-kurikulum .pk-box h2[b-lh8iyyrbpt] {
+        font-size: 25px;
+    }
+
+    #core-kurikulum .ck-box h2[b-lh8iyyrbpt] {
+        font-size: 25px;
+    }
+
+    #mars .mars-container .mars-kiri[b-lh8iyyrbpt][b-lh8iyyrbpt] {
+        height: 65vh;
+    }
+}
+
+/* ------------------------------------ MOBILE ------------------------------------ */
+@media (max-width: 500px) {
+
+    #sambutan2[b-lh8iyyrbpt] {
+        padding: 10vw 8vw 0;
+    }
+
+    #sambutan2 .sambutan2-wrapper[b-lh8iyyrbpt] {
+        margin-top: 10px;
+    }
+
+    #sambutan2 .sambutan2-wrapper .sambutan2-content h1[b-lh8iyyrbpt] {
+        font-size: 25px;
+    }
+
+    #sambutan2 .sambutan2-wrapper .sambutan2-content .pimpinan[b-lh8iyyrbpt][b-lh8iyyrbpt] {
+        flex-direction: column;
+        gap: 0px;
+    }
+
+    #sambutan2 .sambutan2-wrapper .sambutan2-content .sambutan2-nama[b-lh8iyyrbpt] {
+        margin-top: 10px;
+    }
+
+    #sambutan2 .sambutan2-wrapper .sambutan2-video[b-lh8iyyrbpt] {
+        width: 100%;
+        height: 300px;
+    }
+
+    #preview-kurikulum .pk-box h2[b-lh8iyyrbpt][b-lh8iyyrbpt] {
+        font-size: 20px;
+    }
+
+    #core-kurikulum .ck-box h2[b-lh8iyyrbpt][b-lh8iyyrbpt] {
+        font-size: 20px;
+    }
+
+    #visimisi[b-lh8iyyrbpt] {
+        padding: 10vw 8vw 0;
+    }
+
     #mars .mars-container[b-lh8iyyrbpt] {
         display: flex;
         flex-direction: column;
-        min-height: 100vh;
+        min-height: 0vh;
+    }
+
+    #mars .mars-container .mars-kiri[b-lh8iyyrbpt][b-lh8iyyrbpt][b-lh8iyyrbpt] {
+        min-height: 25vh;
+    }
+
+    #mars .mars-container .mars-kanan[b-lh8iyyrbpt] {
+        text-align: start;
+        flex: 1;
+        padding: 7vw 8vw 7vw;
+        background-color: #ffffff;
+    }
+
+    #mars .mars-container .mars-kanan h2[b-lh8iyyrbpt]::after {
+        content: "";
+        display: block;
+        width: 50px;
+        height: 4px;
+        background: #f7c600;
+        margin: 0px; 
+    }
+
+    #mars .mars-container .mars-kanan .mars-lirik[b-lh8iyyrbpt] {
+        padding-left: 0px;
     }
 }
