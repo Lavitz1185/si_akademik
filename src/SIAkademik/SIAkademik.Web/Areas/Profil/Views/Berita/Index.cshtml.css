@@ -1,0 +1,189 @@
+﻿/* ==================================== HALAMAN BERITA ==================================== */
+/* ------------------------------------ SECTION PENGANTAR ------------------------------------ */
+#berita-home {
+    background-image: linear-gradient(rgba(9, 5, 54, 0.4), rgba(5, 4, 46, 0.4)), url("images/siswa2.jpg");
+    width: 100%;
+    height: 60vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    text-align: end;
+    padding: 14vw 8vw 0;
+}
+
+    #berita-home h2 {
+        color: #ffffff;
+        font-size: 2.5rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+/* ------------------------------------ SECTION BERITA & PENGUMUMAN ------------------------------------ */
+#berita {
+    padding: 5vw 8vw;
+    text-align: center;
+}
+
+    #berita .berita-box {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-gap: 1rem;
+        margin-top: 50px;
+    }
+
+        #berita .berita-box .beritas {
+            text-align: start;
+            height: 100%;
+            position: relative;
+        }
+
+            #berita .berita-box .beritas img {
+                width: 100%;
+                height: 60%;
+                background-position: center;
+                object-fit: cover;
+            }
+
+            #berita .berita-box .beritas .berita-details {
+                padding: 5px 10px 0;
+            }
+
+    #berita .beritas .berita-details ::deep .berita-details-judul {
+        text-decoration: none;
+        font-size: 1.1rem;
+        color: rgb(24, 24, 49);
+        font-weight: bold;
+        transition: 0.3s ease;
+        /* 2 baris aturan */
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+        #berita .beritas .berita-details ::deep .berita-details-judul:hover {
+            text-decoration: none;
+            color: #fdc93b;
+        }
+
+    #berita .beritas .berita-details p {
+        color: #333333;
+        padding-top: 5px;
+        font-size: 16px;
+        /* 2 baris aturan */
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    #berita .beritas .berita-details ::deep .berita-details-lanjut {
+        text-decoration: underline;
+        color: #333333;
+        padding-top: 10px;
+        font-size: 15px;
+        transition: 0.3s ease;
+    }
+
+        #berita .beritas .berita-details ::deep .berita-details-lanjut:hover {
+            text-decoration: underline;
+            color: #fdc93b;
+            padding-top: 10px;
+            font-size: 15px;
+        }
+
+    #berita .beritas .berita-tanggal {
+        text-align: start;
+        background-color: rgba(0, 33, 71, 0.9);
+        line-height: 1.3;
+        width: 100px;
+        height: 70px;
+        border-radius: 5px;
+        padding: 5px 0 0 10px;
+        position: absolute;
+        left: 10px;
+        bottom: 180px;
+    }
+
+        #berita .beritas .berita-tanggal h2 {
+            color: #fdc93b;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        #berita .beritas .berita-tanggal h6 {
+            color: #fdc93b;
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+/* ==================================== RESPONSIVE ==================================== */
+/* ------------------------------------ LAPTOP KECIL ------------------------------------ */
+@media (max-width: 1050px) {
+}
+
+/* ------------------------------------ TABLET ------------------------------------ */
+@media (max-width: 780px) {
+    /* ------------------------------------ SECTION BERITA ------------------------------------ */
+    #berita .berita-box[b-5k926p3mh8] {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        grid-gap: 1rem;
+        margin-top: 50px;
+    }
+}
+
+/* ------------------------------------ MOBILE ------------------------------------ */
+@media (max-width: 500px) {
+    #berita-home[b-td5gxfqine] {
+        background-image: linear-gradient(rgba(9, 5, 54, 0.4), rgba(5, 4, 46, 0.4)), url("images/siswa2.jpg");
+        width: 100%;
+        height: 60vh;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 14vw 8vw 0;
+    }
+
+    #berita-home h2[b-td5gxfqine] {
+        font-size: 2rem;
+        letter-spacing: .2px;
+    }
+
+    /* ------------------------------------ SECTION BERITA ------------------------------------ */
+    #berita[b-td5gxfqine] {
+        padding: 12vw 8vw;
+        text-align: center;
+    }
+
+    #berita .berita-box[b-td5gxfqine] {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-gap: 1rem;
+        margin-top: 30px;
+    }
+
+    .para-berita {
+        margin-top: 10px;
+    }
+
+    .judul-garis h2 {
+        color: #2c234d;
+        font-size: 25px;
+        font-weight: bold;
+        line-height: 0.8;
+        margin-bottom: 0px;
+        text-transform: uppercase;
+    }
+}  
