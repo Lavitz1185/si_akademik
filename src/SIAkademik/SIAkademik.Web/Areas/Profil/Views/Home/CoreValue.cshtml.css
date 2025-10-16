@@ -47,21 +47,18 @@
 
 /* ------------------------------------ SECTION CORE VALUE ------------------------------------ */
 #value {
-    padding: 5vw 8vw 5vw;
+    padding: 5vw 8vw;
     background-color: #ffffff;
 }
 
     #value .value-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
         padding-top: 30px;
     }
 
         #value .value-container .value-box {
-            width: 300px;
-            height: 300px;
             background-size: cover;
             background-position: center;
             position: relative;
@@ -71,16 +68,23 @@
             flex-direction: column;
             justify-content: center;
             padding: 20px;
-            color: #000000;
+            color: #ffffff;
             text-align: center;
             font-family: sans-serif;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 300px; /* default height untuk layar besar */
         }
+
+            #value .value-container .value-box:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            }
 
             #value .value-container .value-box::before {
                 content: "";
                 position: absolute;
                 inset: 0;
-                background-color: rgb(21, 21, 100, 0.75);
+                background-color: rgba(21, 21, 100, 0.75);
                 z-index: 0;
             }
 
@@ -92,23 +96,20 @@
             }
 
             #value .value-container .value-box h3 {
-                font-size: 1.1rem;
+                font-size: clamp(1rem, 1.5vw, 1.3rem);
                 font-weight: 700;
                 margin-bottom: 10px;
-                color: #ffffff;
             }
 
             #value .value-container .value-box h4 {
-                font-size: 0.95rem;
+                font-size: clamp(0.9rem, 1.2vw, 1rem);
                 font-weight: 600;
                 margin-bottom: 10px;
-                color: #ffffff;
             }
 
             #value .value-container .value-box p {
-                font-size: 0.9rem;
+                font-size: clamp(0.8rem, 1vw, 0.95rem);
                 line-height: 1.4;
-                color: #ffffff;
             }
 
 /* ------------------------------------ SECTION KETERAMPILAN ------------------------------------ */
@@ -119,25 +120,90 @@
 
     #features .fea-base {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        grid-gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1.5rem;
         margin-top: 50px;
     }
 
         #features .fea-base .fea-box {
             background: #f9f9ff;
             text-align: start;
-            padding: 15px 15px 0 15px;
+            padding: 15px;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
+            #features .fea-base .fea-box:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+
             #features .fea-base .fea-box i {
-                font-size: 2.3rem;
+                font-size: 2.2rem;
                 color: #000000;
             }
 
             #features .fea-base .fea-box h3 {
-                font-size: 1rem;
+                font-size: clamp(0.9rem, 1vw, 1.1rem);
                 font-weight: 600;
                 color: rgb(46, 46, 59);
-                padding: 13px 0 7px 0;
+                margin-top: 10px;
             }
+
+/* ==================================== RESPONSIVE ==================================== */
+/* ------------------------------------ LAPTOP KECIL ------------------------------------ */
+@media (max-width: 1050px) {
+}
+
+/* ------------------------------------ TABLET ------------------------------------ */
+@media (max-width: 780px) {
+    #value[b-gmf9714s5z] {
+        padding: 5vw 8vw 8vw;
+        background-color: #ffffff;
+    }
+}
+
+/* ------------------------------------ MOBILE ------------------------------------ */
+@media (max-width: 500px) {
+    #value-home {
+        background-image: linear-gradient(rgba(9, 5, 54, 0.4), rgba(5, 4, 46, 0.4)), url("images/siswa2.jpg");
+        width: 100%;
+        height: 60vh;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 14vw 8vw 0;
+    }
+
+        #value-home h2 {
+            font-size: 2rem;
+            letter-spacing: .2px;
+        }
+
+    #value[b-gmf9714s5z] {
+        padding: 10vw 8vw;
+        background-color: #ffffff;
+    }
+}
+
+/* ------------------------------------ ATUR KHUSUS UNTUK 425–953px ------------------------------------ */
+@media (min-width: 425px) and (max-width: 953px) {
+    #value .value-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+        #value .value-container .value-box {
+            height: 270px;
+        }
+}
+
+/* ------------------------------------ MOBILE DI BAWAH 425px (1 box per baris) ------------------------------------ */
+@media (max-width: 424px) {
+    #value .value-container {
+        grid-template-columns: 1fr;
+    }
+}
