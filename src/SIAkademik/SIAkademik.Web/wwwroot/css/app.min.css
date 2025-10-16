@@ -4528,6 +4528,14 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
         padding-right: 0;
         padding-left: 0
     }
+
+    .nama-lengkap {
+        display: none;
+    }
+
+    .nama-depan {
+        display: inline !important;
+    }
 }
 
 @media(min-width: 768px) {
