@@ -28,3 +28,40 @@
         <img id="menu-btn" src="/images/menu.png" alt="Menu Button" />
     </div>
 </nav>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuBtn = document.getElementById('menu-btn');
+            const menuClose = document.getElementById('menu-close');
+            const navUl = document.querySelector('nav .navigation ul');
+            const submenuToggles = document.querySelectorAll('nav .has-submenu > a');
+
+            // buka/tutup menu utama
+            if (menuBtn) {
+                menuBtn.addEventListener('click', () => navUl.classList.add('active'));
+            }
+            if (menuClose) {
+                menuClose.addEventListener('click', () => navUl.classList.remove('active'));
+            }
+
+            // buka/tutup submenu
+            submenuToggles.forEach(toggle => {
+                toggle.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const parent = this.parentElement;
+
+                    // Tutup submenu lain (jika ingin hanya satu terbuka)
+                    document.querySelectorAll('nav .has-submenu').forEach(item => {
+                        if (item !== parent) item.classList.remove('active');
+                    });
+
+                    // Toggle submenu aktif
+                    parent.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+
+}

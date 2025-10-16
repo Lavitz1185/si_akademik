@@ -107,10 +107,9 @@ nav .navigation ::deep ul {
             top: 100%;
             left: 0;
             background-color: #ffffff;
-            padding: 30px 0 10px;
+            padding: 0px 0 10px;
             flex-direction: column;
-            min-width: 250px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            min-width: 250px;            
             border-radius: 5px;
             transition: 0.1s ease-in-out;
             z-index: 1000;
@@ -156,8 +155,7 @@ nav .navigation ::deep ul {
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
-        padding: 80px 30px;
-        box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+        padding: 80px 30px;        
         transition: right 0.3s ease;
     }
 
@@ -173,21 +171,43 @@ nav .navigation ::deep ul {
         margin: 20px 0;
     }
 
-        nav .navigation ::deep ul li.has-submenu .submenu {
-            position: static;
-            box-shadow: none;
-            padding: 10px 0;
-            display: none;
+        /* --- SUBMENU --- */
+        nav .navigation ::deep ul li.has-submenu {
             width: 100%;
+            padding-bottom: 10px;
         }
 
-        nav .navigation ::deep ul li.has-submenu.active .submenu {
-            display: flex;
-        }
+            nav .navigation ::deep ul li.has-submenu.active {
+                padding-bottom: 0; /* ✅ jarak hilang */
+            }
 
-        nav .navigation ::deep ul li.has-submenu .submenu li a {
-            padding-left: 30px;
-        }
+            nav .navigation ::deep ul li.has-submenu .submenu {
+                position: static;
+                display: none; /* default tertutup */
+                flex-direction: column; /* biar list turun ke bawah */
+                width: 100%;
+                margin-top: 10px;
+
+                overflow: hidden;
+                max-height: 0;
+                transform: translateY(-10px);
+                opacity: 0;
+                transition: max-height 0.4s ease, transform 0.4s ease, opacity 0.4s ease;
+            }
+
+            nav .navigation ::deep ul li.has-submenu:hover .submenu {
+                position: static;
+                display: none; /* default tertutup */
+                flex-direction: column; /* biar list turun ke bawah */
+                width: 100%;
+            }
+
+            nav .navigation ::deep ul li.has-submenu.active .submenu {
+                display: flex; /* tampilkan submenu saat aktif */
+                max-height: 300px; /* sesuaikan tinggi submenu */
+                opacity: 1;
+                transform: translateY(0);
+            }
 }
 
 @media (max-width: 768px) {
