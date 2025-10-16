@@ -396,7 +396,7 @@ public class RaportController : Controller
 
         var html = await _razorTemplateEngine.RenderAsync("Views/Shared/_Format2RaportPartial.cshtml", anggotaRombel);
         var header = await _razorTemplateEngine.RenderAsync("Views/Shared/_Header2LaporanPartial.cshtml", anggotaRombel);
-        var footer = await _razorTemplateEngine.RenderAsync("Views/Shared/_Footer2LaporanPartial.cshtml");
+        var footer = await _razorTemplateEngine.RenderAsync("Views/Shared/_Footer2LaporanPartial.cshtml", anggotaRombel);
 
         var fileName = $"Raport_{siswa.Nama}({siswa.NISN})_{rombel.Kelas.Jenjang.Humanize()}" +
             $"_{rombel.Kelas.TahunAjaran.Periode.Replace("/", "-")}" +

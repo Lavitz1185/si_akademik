@@ -72,7 +72,7 @@ public class PDFGeneratorService : IPDFGeneratorService
             MarginOptions = new MarginOptions
             {
                 Bottom = "50px",
-                Top = "170px",
+                Top = "120px",
                 Left = "80px",
                 Right = "80px",
             }
