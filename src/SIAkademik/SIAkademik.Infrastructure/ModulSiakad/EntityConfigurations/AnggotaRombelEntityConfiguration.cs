@@ -26,7 +26,9 @@ internal class AnggotaRombelEntityConfiguration : IEntityTypeConfiguration<Anggo
                 Id = 1,
                 IdRombel = 1,
                 IdSiswa = 1,
-                TanggalMasuk = new DateOnly(2021, 08, 01)
+                TanggalMasuk = new DateOnly(2021, 08, 01),
+                NaikKelasLulus = true,
+                CatatanWaliKelas = "Luar biasa tingkatkan"
             }
         );
 

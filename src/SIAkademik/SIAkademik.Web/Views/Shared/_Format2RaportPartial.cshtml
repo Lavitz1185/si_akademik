@@ -34,6 +34,18 @@
     th, td {
         padding: 10px;
     }
+
+    h1, h2 {
+        font-family:Calibri
+    }
+
+    h1 {
+        font-size:16px
+    }
+
+    h2 {
+        font-size:14px
+    }
 </style>
 
 
@@ -52,28 +64,13 @@
         @for (int i = 0; i < daftarPengetahuan.Count; i++)
         {
             var pengetahuan = daftarPengetahuan[i];
-            var daftarAsesmenSumatif = (await JadwalMengajarRepository.Get(pengetahuan.JadwalMengajar!.Id))!
-            .DaftarAsesmenSumatif
-            .OrderBy(a => a.TujuanPembelajaran.Nomor);
-
-            var firstAsesmenSumatif = daftarAsesmenSumatif.FirstOrDefault();
+            var jadwalMengajar = (await JadwalMengajarRepository.Get(pengetahuan.JadwalMengajar!.Id))!;
 
             <tr>
                 <td style="text-align:center">@(i + 1)</td>
                 <td style="text-align:left">@pengetahuan.JadwalMengajar!.MataPelajaran.Nama</td>
                 <td style="text-align:center">@Model.NilaiAkhir(pengetahuan.JadwalMengajar!).ToString("F0")</td>
-                @if (firstAsesmenSumatif is not null)
-                {
-
-                    <td>
-                        Menunjukan penguasaan yang @firstAsesmenSumatif.Predikat(Model).ToLower() dalam hal
-                        @(firstAsesmenSumatif.TujuanPembelajaran.Deskripsi.Substring(0, 1).ToLower() + firstAsesmenSumatif.TujuanPembelajaran.Deskripsi.Substring(1).TrimEnd('.').Trim() + (daftarAsesmenSumatif.Count() > 1 ? "," : "."))
-                        @foreach (var asesmensSumatif in daftarAsesmenSumatif.Skip(1))
-                        {
-                            @($" serta menunjukan penguasaan yang {asesmensSumatif.Predikat(Model).ToLower()} dalam hal {asesmensSumatif.TujuanPembelajaran.Deskripsi.Substring(0, 1).ToLower() + asesmensSumatif.TujuanPembelajaran.Deskripsi.Substring(1).TrimEnd('.').Trim() + (daftarAsesmenSumatif.ElementAtOrDefault(Index.End) == asesmensSumatif ? "," : ".")}")
-                        }
-                    </td>
-                }
+                <td>@Model.CapaianKompentensi(jadwalMengajar)</td>
             </tr>
         }
     </tbody>
@@ -130,6 +127,21 @@
     </tbody>
 </table>
 
+<h2>Catatan Wali Kelas</h2>
+<table>
+    <tr>
+        <td>@Model.CatatanWaliKelas</td>
+    </tr>
+</table>
+
+<br />
+
+<table>
+    <tr>
+        <td style="text-align:center"><h1><b>@Model.KeteranganNaikKelasLulus</b></h1></td>
+    </tr>
+</table>
+
 <div style="display:flex;justify-content:center;align-content:end;width:100%;font-size:11px;font-family:Calibri">
     <div style="margin-right:auto">
         <p>Mengetahui</p>
@@ -146,7 +158,7 @@
     </div>
 
 </div>
-<div style="display:flex;justify-content:center;align-content:center;width:100%;font-size:11px;;font-family:Calibri">
+<div style="display:flex;justify-content:center;align-content:center;width:100%;font-size:11px;font-family:Calibri">
     <div>
         <p style="text-align:center">Mengetahui</p>
         <p style="text-align:center">Kepala Sekolah</p>

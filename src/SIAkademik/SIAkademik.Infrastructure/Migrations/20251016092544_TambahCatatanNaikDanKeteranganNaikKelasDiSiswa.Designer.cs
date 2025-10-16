@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SIAkademik.Infrastructure.Database;
@@ -12,9 +13,11 @@ using SIAkademik.Infrastructure.Database;
 namespace SIAkademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251016092544_TambahCatatanNaikDanKeteranganNaikKelasDiSiswa")]
+    partial class TambahCatatanNaikDanKeteranganNaikKelasDiSiswa
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -464,10 +467,10 @@ namespace SIAkademik.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CatatanWaliKelas = "Luar biasa tingkatkan",
+                            CatatanWaliKelas = "",
                             IdRombel = 1,
                             IdSiswa = 1,
-                            NaikKelasLulus = true,
+                            NaikKelasLulus = false,
                             TanggalMasuk = new DateOnly(2021, 8, 1)
                         },
                         new
