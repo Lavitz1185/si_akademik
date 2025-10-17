@@ -1,7 +1,7 @@
 ﻿/* ==================================== HALAMAN BERANDA ==================================== */
 /* ------------------------------------ SECTION LANDING ------------------------------------ */
 #home {
-    background-image: linear-gradient(rgba(9, 5, 54, 0.4), rgba(5, 4, 46, 0.4)), url("images/siswa2.jpg");
+    background-image: linear-gradient(rgba(9, 5, 54, 0.3), rgba(5, 4, 46, 0.55)), url("images/pandhega/sekolah_pandhega.jpg");
     width: 100%;
     height: 100vh;
     background-size: cover;
