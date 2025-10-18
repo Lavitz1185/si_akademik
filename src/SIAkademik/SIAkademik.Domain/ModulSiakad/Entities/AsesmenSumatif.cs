@@ -18,9 +18,10 @@ public class AsesmenSumatif : Entity<int>
     {
         var daftarNilaiEvaluasiSiswa = DaftarEvaluasiSiswa
             .SelectMany(e => e.DaftarNilaiEvaluasiSiswa)
-            .Where(n => n.AnggotaRombel == anggotaRombel);
+            .Where(n => n.AnggotaRombel == anggotaRombel)
+            .Select(n => n.Nilai);
 
-        return daftarNilaiEvaluasiSiswa.Count() == 0 ? 0 : daftarNilaiEvaluasiSiswa.Average(n => n.Nilai);
+        return daftarNilaiEvaluasiSiswa.Count() == 0 ? 0 : daftarNilaiEvaluasiSiswa.Average();
     }
 
     public string Predikat(AnggotaRombel anggotaRombel)

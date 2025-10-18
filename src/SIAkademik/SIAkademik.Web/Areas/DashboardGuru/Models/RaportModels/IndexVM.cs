@@ -10,6 +10,14 @@ public class IndexVM
     public int? IdTahunAjaran { get; set; }
     public Rombel? Rombel { get; set; }
     public int? IdRombel { get; set; }
-    public JadwalMengajar? JadwalMengajar { get; set; }
-    public int? IdJadwalMengajar { get; set; }
+
+    public List<IndexEntryVM> DaftarEntryVM { get; set; } = [];
+}
+
+public class IndexEntryVM
+{
+    public required int IdAnggotaRombel { get; set; }
+    public required AnggotaRombel AnggotaRombel { get; set; }
+
+    public bool Selected { get; set; } = false;
 }

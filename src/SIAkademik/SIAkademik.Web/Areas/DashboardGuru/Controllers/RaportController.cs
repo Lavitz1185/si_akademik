@@ -52,7 +52,7 @@ public class RaportController : Controller
         _razorTemplateEngine = razorTemplateEngine;
     }
 
-    public async Task<IActionResult> Index(int? idTahunAjaran = null, int? idRombel = null, int? idJadwalMengajar = null)
+    public async Task<IActionResult> Index(int? idTahunAjaran = null, int? idRombel = null)
     {
         var pegawai = await _signInManager.GetPegawai();
         if (pegawai is null) return Forbid();
@@ -74,62 +74,6 @@ public class RaportController : Controller
             return View(new IndexVM { Pegawai = pegawai, IdTahunAjaran = tahunAjaran.Id, TahunAjaran = tahunAjaran });
         }
 
-        if (idJadwalMengajar is null)
-            return View(new IndexVM
-            {
-                Pegawai = pegawai,
-                IdTahunAjaran = tahunAjaran.Id,
-                TahunAjaran = tahunAjaran,
-                Rombel = rombel,
-                IdRombel = rombel.Id
-            });
-
-        var jadwalMengajar = await _jadwalMengajarRepository.Get(idJadwalMengajar.Value);
-        if (jadwalMengajar is null || jadwalMengajar.Rombel != rombel)
-            return View(new IndexVM
-            {
-                Pegawai = pegawai,
-                IdTahunAjaran = tahunAjaran.Id,
-                TahunAjaran = tahunAjaran,
-                Rombel = rombel,
-                IdRombel = rombel.Id
-            });
-
-        foreach(var anggota in rombel.DaftarAnggotaRombel)
-        {
-            if(!anggota.DaftarRaport.Any(r => r.KategoriNilai == KategoriNilaiRaport.Pengetahuan && r.JadwalMengajar == jadwalMengajar))
-            {
-                var raport = new Raport
-                {
-                    Deskripsi = string.Empty,
-                    KategoriNilai = KategoriNilaiRaport.Pengetahuan,
-                    Nama = string.Empty,
-                    Predikat = string.Empty,
-                    JadwalMengajar = jadwalMengajar,
-                    AnggotaRombel = anggota
-                };
-
-                _raportRepository.Add(raport);
-            }
-
-            if (!anggota.DaftarRaport.Any(r => r.KategoriNilai == KategoriNilaiRaport.Keterampilan && r.JadwalMengajar == jadwalMengajar))
-            {
-                var raport = new Raport
-                {
-                    Deskripsi = string.Empty,
-                    KategoriNilai = KategoriNilaiRaport.Keterampilan,
-                    Nama = string.Empty,
-                    Predikat = string.Empty,
-                    JadwalMengajar = jadwalMengajar,
-                    AnggotaRombel = anggota
-                };
-
-                _raportRepository.Add(raport);
-            }
-        }
-
-        await _unitOfWork.SaveChangesAsync();
-
         return View(new IndexVM
         {
             Pegawai = pegawai,
@@ -137,8 +81,7 @@ public class RaportController : Controller
             IdRombel = rombel.Id,
             TahunAjaran = tahunAjaran,
             Rombel = rombel,
-            JadwalMengajar = jadwalMengajar,
-            IdJadwalMengajar = jadwalMengajar.Id,
+            DaftarEntryVM = rombel.DaftarAnggotaRombel.Select(a => new IndexEntryVM { IdAnggotaRombel = a.Id, AnggotaRombel = a }).ToList()
         });
     }
 

@@ -128,6 +128,16 @@
                 });
             });
         });
+
+        $(function() {
+            $('input[type="checkbox"].select-all').each(function() {
+                const id = $(this).attr('id');
+
+                $(this).on('change', function() {
+                    $(`input[type="checkbox"][data-checkbox-all="#${id}"]`).attr('checked', $(this).is(':checked'));
+                });
+            });
+        });
     </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

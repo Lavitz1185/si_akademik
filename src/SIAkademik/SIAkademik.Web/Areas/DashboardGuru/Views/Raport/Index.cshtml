@@ -62,65 +62,118 @@
                         }
                     </select>
                 </div>
-
-                <div class="d-flex align-items-center mr-2" style="gap: 8px;">
-                    <label asp-for="@Model.IdJadwalMengajar" class="mb-0" style="font-weight: 600;">Kelas:</label>
-                    <select asp-for="@Model.IdJadwalMengajar" class="form-control w-auto submit-on-change">
-                        @if (Model.JadwalMengajar is null)
-                        {
-                            <option value="@null">-- Pilih Mata Pelajaran --</option>
-                        }
-
-                        @if (Model.TahunAjaran is not null && Model.Rombel is not null)
-                        {
-                            @foreach (var jadwal in await JadwalMengajarRepository.GetAllByTahunAjaranAndRombel(Model.TahunAjaran.Id, Model.Rombel.Id))
-                            {
-                                <option value="@jadwal.Id">@jadwal.MataPelajaran.Nama</option>
-                            }
-                        }
-                    </select>
-                </div>
             </form>
         </div>
 
-        <div class="table-responsive">
-            <table class="table table-striped table-hover" id="table-akun">
-                <thead>
-                    <tr>
-                        <th rowspan="2">NIS/NISN</th>
-                        <th rowspan="2">Nama</th>
-                        <th rowspan="2">Nilai Akhir</th>
-                        <th colspan="3">Capaian Kompetensi</th>
-                    </tr>
-                    <tr>
-                        <th>Nomor</th>
-                        <th>Deskripsi</th>
-                        <th>Predikat</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model.TahunAjaran is not null && Model.Rombel is not null && Model.JadwalMengajar is not null)
-                    {
-                        @foreach (var anggota in Model.Rombel.DaftarAnggotaRombel)
-                        {
-                            var rowSpan = Model.JadwalMengajar.DaftarAsesmenSumatif.Count + 1;
+        @if (Model.TahunAjaran is not null && Model.Rombel is not null)
+        {
+            var daftarJadwalMengajar = await JadwalMengajarRepository.GetAllByTahunAjaranAndRombel(Model.TahunAjaran.Id, Model.Rombel.Id);
+
+            <form asp-action="ProsesNaikKelasLulus" asp-route-idTahunAjaran="@Model.TahunAjaran.Id" asp-route-idRombel="@Model.Rombel.Id">
+                <button type="submit" class="btn btn-primary">Proses @(Model.Rombel.Kelas.Jenjang == Jenjang.XII ? "Lulus" : "Naik Kelas")</button>
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="table-akun">
+                        <thead>
                             <tr>
-                                <td rowspan="@rowSpan">@anggota.Siswa.NIS/@anggota.Siswa.NISN</td>
-                                <td rowspan="@rowSpan">@anggota.Siswa.Nama</td>
-                                <td rowspan="@rowSpan">@anggota.NilaiAkhir(Model.JadwalMengajar)</td>
+                                <th rowspan="2" width="5%"><input type="checkbox" id="selectAll" class="select-all" /></th>
+                                <th rowspan="2">NIS/NISN</th>
+                                <th rowspan="2">Nama</th>
+                                <th rowspan="2">Catatan Wali Kelas</th>
+                                <th rowspan="2">
+                                    @if (Model.Rombel.Kelas.Jenjang == Jenjang.XII)
+                                    {
+                                        @("Kelulusan")
+                                    }
+                                    else
+                                    {
+                                        @("Kenaikan Kelas")
+                                    }
+                                </th>
+                                <th colspan="3">Nilai</th>
+                                <th colspan="4">Kehadiran</th>
+                                <th rowspan="2">Aksi</th>
                             </tr>
-                            @foreach (var asesmenSumatif in Model.JadwalMengajar.DaftarAsesmenSumatif.OrderBy(a => a.TujuanPembelajaran.Nomor))
+                            <tr>
+                                <th>Mata Pelajaran</th>
+                                <th>Guru</th>
+                                <th>Nilai</th>
+                                <th>Hadir</th>
+                                <th>Sakit</th>
+                                <th>Ijin</th>
+                                <th>Tanpa Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.DaftarEntryVM.Count; i++)
                             {
+                                var anggota = Model.DaftarEntryVM[i].AnggotaRombel;
                                 <tr>
-                                    <td>@asesmenSumatif.TujuanPembelajaran.Nomor</td>
-                                    <td>@asesmenSumatif.TujuanPembelajaran.Deskripsi</td>
-                                    <td>@asesmenSumatif.Predikat(anggota)</td>
+                                    <td>
+                                        <input asp-for="@Model.DaftarEntryVM[@i].Selected" type="checkbox" data-checkbox-all="#selectAll" />
+                                        <input asp-for="@Model.DaftarEntryVM[@i].IdAnggotaRombel" readonly hidden />
+                                    </td>
+                                    <td>@anggota.Siswa.NIS/@anggota.Siswa.NISN</td>
+                                    <td>@anggota.Siswa.Nama</td>
+                                    <td>@anggota.CatatanWaliKelas</td>
+                                    <td>
+                                        @if (Model.Rombel.Kelas.Jenjang == Jenjang.XII)
+                                        {
+                                            @if (anggota.NaikKelasLulus)
+                                            {
+                                                @($"Lulus")
+                                            }
+                                            else
+                                            {
+                                                @($"Tidak lulus")
+                                            }
+                                        }
+                                        else
+                                        {
+                                            @if (anggota.NaikKelasLulus)
+                                            {
+                                                @($"Naik Kelas")
+                                            }
+                                            else
+                                            {
+                                                @($"Tidak naik Kelas")
+                                            }
+                                        }
+                                    </td>
+                                    <td colspan="3" style="padding: 0 !important">
+                                        <table>
+                                            <tbody>
+                                                @foreach (var jadwal in daftarJadwalMengajar)
+                                                {
+                                                    <tr>
+                                                        <td>@jadwal.MataPelajaran.Nama</td>
+                                                        <td>@jadwal.Pegawai.Nama</td>
+                                                        <td>@anggota.NilaiAkhir(jadwal)</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td>@anggota.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Hadir).Count()</td>
+                                    <td>@anggota.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Sakit).Count()</td>
+                                    <td>@anggota.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Ijin).Count()</td>
+                                    <td>@anggota.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Alpa).Count()</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-edit" data-toggle="tooltip" title="Edit Ekstrakulikuler">
+                                            <i class="fas fa-pencil-alt mr-2"></i>Edit
+                                        </button>
+                                        <div class="form-edit" style="display:none"></div>
+                                    </td>
                                 </tr>
                             }
-                        }
-                    }
-                </tbody>
-            </table>
-        </div>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        }
+        else
+        {
+            <h1>Pilih Tahun Ajaran atau Kelas</h1>
+        }
     </div>
 </div>
