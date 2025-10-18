@@ -29,38 +29,42 @@
                 </div>
 
                 <div class="card-body rounded" style="background-color: #f0f7fd; margin-left: 25px; margin-right: 25px; margin-bottom: 20px;">
-                    <div class="row">
+                    <div class="row gy-3">
                         <!-- Kolom kiri -->
-                        <div class="col-md-6">
-                            <div class="row mb-1">
-                                <div class="col-3" style="font-weight:600;">NISN/NIS</div>
-                                <div class="col">@Model.Siswa.NISN/@Model.Siswa.NIS</div>
+                        <div class="col-12 col-lg-6">
+                            <div class="row mb-2">
+                                <div class="col-12 col-sm-4" style="font-weight: 600">NISN/NIS</div>
+                                <div class="col-12 col-sm-8">@Model.Siswa.NISN / @Model.Siswa.NIS</div>
                             </div>
-                            <div class="row mb-1">
-                                <div class="col-3" style="font-weight:600;">Nama</div>
-                                <div class="col">@Model.Siswa.Nama</div>
+                            <div class="row mb-2">
+                                <div class="col-12 col-sm-4" style="font-weight: 600">Nama</div>
+                                <div class="col-12 col-sm-8">@Model.Siswa.Nama</div>
                             </div>
-                            <div class="row mb-1">
-                                <div class="col-3" style="font-weight:600;">Status</div>
-                                <div class="col">@Model.Siswa.StatusAktif.Humanize()</div>
+                            <div class="row mb-2">
+                                <div class="col-12 col-sm-4" style="font-weight: 600">Status</div>
+                                <div class="col-12 col-sm-8">@Model.Siswa.StatusAktif.Humanize()</div>
                             </div>
                         </div>
 
                         <!-- Kolom kanan -->
-                        <div class="col-md-6">
-                            <div class="row mb-1">
-                                <div class="col-3" style="font-weight:600;">Jenjang</div>
-                                <div class="col">@Model.Siswa.Jenjang.Humanize()</div>
+                        <div class="col-12 col-lg-6">
+                            <div class="row mb-2">
+                                <div class="col-12 col-sm-4" style="font-weight: 600">Jenjang</div>
+                                <div class="col-12 col-sm-8">@Model.Siswa.Jenjang.Humanize()</div>
                             </div>
                             @if (Model.AnggotaRombel is not null)
                             {
-                                <div class="row mb-1">
-                                    <div class="col-3" style="font-weight:600;">Wali Kelas</div>
-                                    <div class="col">@Model.AnggotaRombel.Rombel.Wali.Nama</div>
+                                <div class="row mb-2">
+                                    <div class="col-12 col-sm-4" style="font-weight: 600">Wali Kelas</div>
+                                    <div class="col-12 col-sm-8">@Model.AnggotaRombel.Rombel.Wali.Nama</div>
                                 </div>
-                                <div class="row mb-1">
-                                    <div class="col-3" style="font-weight:600;">Kelas</div>
-                                    <div class="col">@Model.AnggotaRombel.Rombel.Kelas.Jenjang.Humanize() @Model.AnggotaRombel.Rombel.Kelas.Peminatan.Nama @Model.AnggotaRombel.Rombel.Nama</div>
+                                <div class="row mb-2">
+                                    <div class="col-12 col-sm-4" style="font-weight: 600">Kelas</div>
+                                    <div class="col-12 col-sm-8">
+                                        @Model.AnggotaRombel.Rombel.Kelas.Jenjang.Humanize()
+                                        @Model.AnggotaRombel.Rombel.Kelas.Peminatan.Nama
+                                        @Model.AnggotaRombel.Rombel.Nama
+                                    </div>
                                 </div>
                             }
                         </div>
