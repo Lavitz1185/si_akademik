@@ -20,6 +20,32 @@
 </head>
 
 <body>
+
+    <style>
+        /* tombol mata transparan dan sejajar tengah */
+        .btn-toggle-password {
+            background: transparent !important;
+            border: none !important;
+            color: #6c757d; /* warna ikon abu-abu netral */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 10px;
+        }
+
+            .btn-toggle-password:hover {
+                color: #007bff; /* warna saat hover (biru) */
+            }
+
+            .btn-toggle-password:focus {
+                box-shadow: none !important;
+            }
+
+        /* atur tinggi agar pas di tengah */
+        .input-group .btn-toggle-password i {
+            font-size: 1rem;
+        }
+    </style>
     <div class="loader"></div>
     <div id="app">
         <section class="section">
@@ -63,7 +89,17 @@
                                                             <i class="fas fa-lock"></i>
                                                         </div>
                                                     </div>
+
+                                                    <!-- password input -->
                                                     <input asp-for="@Model.Password" type="password" class="form-control" placeholder="Password">
+
+                                                    <!-- tombol mata -->
+                                                    <div class="input-group-append" style="margin-top: 11px">
+                                                        <button class="btn btn-toggle-password" type="button"
+                                                                aria-label="Show password" aria-pressed="false" title="Tampilkan / Sembunyikan password">
+                                                            <i class="fas fa-eye" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                                 <span class="text-danger form-text" asp-validation-for="@Model.Password"></span>
                                             </div>
@@ -104,6 +140,34 @@
     <script src="~/lib/datatables/datatables.min.js" asp-append-version="true"></script>
     <script src="~/js/datatables.js" asp-append-version="true"></script>
     <script src="~/js/dashboard.js" asp-append-version="true"></script>
+
+    <script type="text/javascript">
+        document.querySelectorAll('.btn-toggle-password').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var input = btn.closest('.input-group').querySelector('input');
+                if (!input) return;
+
+                var icon = btn.querySelector('i');
+                var wasPassword = (input.type === 'password');
+                input.type = wasPassword ? 'text' : 'password';
+
+                if (wasPassword) {
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                    btn.setAttribute('aria-label', 'Hide password');
+                    btn.setAttribute('aria-pressed', 'true');
+                } else {
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                    btn.setAttribute('aria-label', 'Show password');
+                    btn.setAttribute('aria-pressed', 'false');
+                }
+
+                input.focus();
+                try { input.setSelectionRange(input.value.length, input.value.length); } catch (e) { }
+            });
+        });
+    </script>
 </body>
 
 @section Scripts {

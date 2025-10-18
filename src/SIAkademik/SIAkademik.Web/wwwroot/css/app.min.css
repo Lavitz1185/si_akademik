@@ -2647,6 +2647,30 @@ textarea.form-control {
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out
 }
 
+/* tombol mata transparan dan sejajar tengah */
+.btn-toggle-password {
+    background: transparent !important;
+    border: none !important;
+    color: #6c757d; /* warna ikon abu-abu netral */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+}
+
+    .btn-toggle-password:hover {
+        color: #007bff; /* warna saat hover (biru) */
+    }
+
+    .btn-toggle-password:focus {
+        box-shadow: none !important;
+    }
+
+/* atur tinggi agar pas di tengah */
+.input-group .btn-toggle-password i {
+    font-size: 1rem;
+}
+
 @media(prefers-reduced-motion:reduce) {
     .btn {
         -webkit-transition: none;
