@@ -41,7 +41,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label asp-for="@Model.Semester"></label>
+                            <label asp-for="@Model.Semester">Semester</label>
                             <select asp-for="@Model.Semester" class="form-control">
                                 @foreach (var semester in Enum.GetValues<Semester>())
                                 {

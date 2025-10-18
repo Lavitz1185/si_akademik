@@ -95,7 +95,7 @@
                     link.parentNode.classList.remove('active');
                 }
             });
-        });        
+        });
 
         $(function() {
             $('input[type="checkbox"].select-all').each(function() {
@@ -136,6 +136,32 @@
                         $(selectAll).prop("indeterminate", true);
                     }
                 });
+            });
+        });
+
+        document.querySelectorAll('.btn-toggle-password').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var input = btn.closest('.input-group').querySelector('input');
+                if (!input) return;
+
+                var icon = btn.querySelector('i');
+                var wasPassword = (input.type === 'password');
+                input.type = wasPassword ? 'text' : 'password';
+
+                if (wasPassword) {
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                    btn.setAttribute('aria-label', 'Hide password');
+                    btn.setAttribute('aria-pressed', 'true');
+                } else {
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                    btn.setAttribute('aria-label', 'Show password');
+                    btn.setAttribute('aria-pressed', 'false');
+                }
+
+                input.focus();
+                try { input.setSelectionRange(input.value.length, input.value.length); } catch (e) { }
             });
         });
     </script>
