@@ -18,15 +18,15 @@
                 <a asp-area="@AreaNames.DashboardAdmin" asp-controller="Siswa" asp-action="Index" data-match="partial" class="nav-link"><i data-feather="users"></i><span>Siswa</span></a>
             </li>
             <li>
-                <a asp-area="@AreaNames.DashboardAdmin" asp-controller="Siswa" asp-action="ProsesKelulusan" data-match="partial" class="nav-link"><i data-feather="award"></i><span>Kelulusan</span></a>
+                <a asp-area="@AreaNames.DashboardAdmin" asp-controller="Siswa" asp-action="NaikKelas" data-match="partial" class="nav-link"><i data-feather="trending-up"></i><span>Naik Kelas</span></a>
             </li>
             <li>
-                <a asp-area="@AreaNames.DashboardAdmin" asp-controller="Siswa" asp-action="NaikKelas" data-match="partial" class="nav-link"><i data-feather="trending-up"></i><span>Naik Kelas</span></a>
+                <a asp-area="@AreaNames.DashboardAdmin" asp-controller="Siswa" asp-action="ProsesKelulusan" data-match="partial" class="nav-link"><i data-feather="award"></i><span>Kelulusan</span></a>
             </li>
 
             <li class="menu-header">Manajemen SDM</li>
             <li>
-                <a asp-area="@AreaNames.DashboardAdmin" asp-controller="Pegawai" asp-action="Index" data-match="partial" class="nav-link"><i data-feather="users"></i><span>Guru/Pegawai</span></a>
+                <a asp-area="@AreaNames.DashboardAdmin" asp-controller="Pegawai" asp-action="Index" data-match="partial" class="nav-link"><i data-feather="users"></i><span>Guru/Tendik</span></a>
             </li>
             <li>
                 <a asp-area="@AreaNames.DashboardAdmin" asp-controller="Divisi" asp-action="Index" data-match="partial" class="nav-link"><i data-feather="grid"></i><span>Divisi</span></a>
@@ -40,6 +40,9 @@
                 <a asp-area="@AreaNames.DashboardAdmin" asp-controller="TahunAjaran" asp-action="Index" data-match="partial" class="nav-link"><i data-feather="calendar"></i><span>Tahun Ajaran</span></a>
             </li>
             <li>
+                <a asp-area="@AreaNames.DashboardAdmin" asp-controller="Peminatan" asp-action="Index" data-match="partial" class="nav-link"><i data-feather="bookmark"></i><span>Peminatan</span></a>
+            </li>
+            <li>
                 <a asp-area="@AreaNames.DashboardAdmin" asp-controller="Kelas" asp-action="Index" data-match="partial" class="nav-link"><i data-feather="book"></i><span>Kelas</span></a>
             </li>
             <li>
@@ -50,9 +53,6 @@
             </li>
             <li>
                 <a asp-area="@AreaNames.DashboardAdmin" asp-controller="JadwalMengajar" asp-action="Index" data-match="partial" class="nav-link"><i data-feather="clock"></i><span>Jadwal Mengajar</span></a>
-            </li>
-            <li>
-                <a asp-area="@AreaNames.DashboardAdmin" asp-controller="Peminatan" asp-action="Index" data-match="partial" class="nav-link"><i data-feather="bookmark"></i><span>Peminatan</span></a>
             </li>
             <li>
                 <a asp-area="@AreaNames.DashboardAdmin" asp-controller="TujuanPembelajaran" asp-action="Index" data-match="partial" class="nav-link"><i data-feather="target"></i><span>Tujuan Pembelajaran (TP)</span></a>

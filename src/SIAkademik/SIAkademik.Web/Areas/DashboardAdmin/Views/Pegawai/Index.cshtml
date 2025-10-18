@@ -5,7 +5,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Manajemen SDM</a></li>
-            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Pegawai" asp-action="Index"></a>Guru & Pegawai</li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Pegawai" asp-action="Index"></a>Guru & Tendik</li>
         </ol>
     </nav>
 </div>
@@ -13,15 +13,15 @@
 <!-- Isi Konten -->
 <div class="card card-primary">
     <div class="card-header">
-        <h4>Daftar Guru & Pegawai</h4>
+        <h4>Daftar Guru & Tenaga Kependidikan</h4>
     </div>
     <div class="padding-20">
         <div class="d-flex justify-content-start ml-auto mb-3">
 
             <div class="mb-0">
                 <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah"
-                    data-toggle="tooltip" title="Tambah Guru/Pegawai">
-                    <i class="fas fa-plus"></i> Tambah Guru/Pegawai
+                    data-toggle="tooltip" title="Tambah Guru/Tendik">
+                    <i class="fas fa-plus"></i> Tambah Guru/Tendik
                 </a>
             </div>                               
         </div>
@@ -70,11 +70,11 @@
                             <td>@item.Divisi.Nama</td>
                             <td>@item.Jabatan.Nama</td>
                             <td>
-                                <a asp-action="Edit" asp-route-nip="@item.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit Guru/Pegawai">
+                                <a asp-action="Edit" asp-route-nip="@item.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit Guru/Tendik">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
                                 <form style="display:inline" asp-action="Hapus" asp-route-nip="@item.Id" method="post">
-                                    <button type="button" class="btn btn-danger btn-action swal-confirm" data-toggle="tooltip" title="Hapus Guru/Pegawai">
+                                    <button type="button" class="btn btn-danger btn-action swal-confirm" data-toggle="tooltip" title="Hapus Guru/Tendik">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
