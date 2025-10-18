@@ -21,6 +21,7 @@ internal class JadwalMengajarRepository : IJadwalMengajarRepository
     public async Task<JadwalMengajar?> Get(int id) => await _appDbContext
         .TblJadwalMengajar
         .Include(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
+        .Include(j => j.Rombel).ThenInclude(r => r.Wali)
         .Include(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
         .Include(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(j => j.Rombel).ThenInclude(r => r.DaftarAnggotaRombel).ThenInclude(a => a.Siswa)
