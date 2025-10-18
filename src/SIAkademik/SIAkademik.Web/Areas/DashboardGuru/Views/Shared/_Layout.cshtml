@@ -136,6 +136,8 @@
                 $(this).on('change', function() {
                     $(`input[type="checkbox"][data-checkbox-all="#${id}"]`).attr('checked', $(this).is(':checked'));
                 });
+
+                $(`input[type="checkbox"][data-checkbox-all="#${id}"]`)
             });
         });
     </script>
