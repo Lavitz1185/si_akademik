@@ -69,6 +69,10 @@
         {
             var daftarJadwalMengajar = await JadwalMengajarRepository.GetAllByTahunAjaranAndRombel(Model.TahunAjaran.Id, Model.Rombel.Id);
 
+            <form asp-action="RefreshNilai" asp-route-idTahunAjaran="@Model.TahunAjaran.Id" asp-route-idRombel="@Model.Rombel.Id">
+                <button type="submit" class="btn btn-success">Refresh Nilai</button>
+            </form>
+
             <form asp-action="ProsesNaikKelasLulus" asp-route-idTahunAjaran="@Model.TahunAjaran.Id" asp-route-idRombel="@Model.Rombel.Id">
                 <button type="submit" class="btn btn-primary">Proses @(Model.Rombel.Kelas.Jenjang == Jenjang.XII ? "Lulus" : "Naik Kelas")</button>
 
@@ -159,11 +163,9 @@
                                     <td>@anggota.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Ijin).Count()</td>
                                     <td>@anggota.DaftarAbsenKelas.Where(a => a.Absensi == Absensi.Alpa).Count()</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary btn-edit" data-toggle="tooltip" title="Edit Ekstrakulikuler">
+                                        <button type="button" class="btn btn-primary" onclick="openEditModal(@anggota.Id)" data-toggle="tooltip" title="Edit">
                                             <i class="fas fa-pencil-alt mr-2"></i>Edit
                                         </button>
-                                        <div class="form-edit" style="display:none"></div>
-                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -177,3 +179,24 @@
         }
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script type="text/javascript">
+        function openEditModal(id) {
+            const url = '@Html.Raw(Url.Action("EditCatatanWaliKelasPartial", "Raport", new { idTahunAjaran = Model.IdTahunAjaran, idRombel = Model.IdRombel }))' + '&idAnggotaRombel=' + id;
+            $('#modalEditContent').load(url, function(response, status, xhr) {
+                if (status == "error") {
+                    console.log("Gagal Load form edit catatan wali kelas!");
+                }
+                else {
+                    $("form").removeData("validator").removeData("unobtrusiveValidation");
+                    $.validator.unobtrusive.parse("form");
+
+                    $("#modalEdit").modal("show");
+                }
+            });
+        }
+    </script>
+}

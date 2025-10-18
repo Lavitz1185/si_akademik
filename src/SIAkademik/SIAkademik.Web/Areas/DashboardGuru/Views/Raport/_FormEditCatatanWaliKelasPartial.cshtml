@@ -1,0 +1,39 @@
+﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.RaportModels
+@model EditCatatanWaliKelasVM
+
+<form asp-action="EditCatatanWaliKelas" asp-controller="Raport" asp-route-idTahunAjaran="@Model.IdTahunAjaran"
+      asp-route-idRombel="@Model.IdRombel" asp-route-idAnggotaRombel="@Model.IdAnggotaRombel" asp-route-lulus="@Model.Lulus" method="post">
+    <div class="modal-header">
+        <h5 class="modal-title" id="modalTambahTitle">Edit</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div asp-validation-summary="All"></div>
+
+        <div class="form-group">
+            <label asp-for="@Model.CatatanWaliKelas"></label>
+            <input asp-for="@Model.CatatanWaliKelas" class="form-control" />
+            <span asp-validation-for="@Model.CatatanWaliKelas" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.NaikKelasLulus"></label>
+            <div class="pt-4">
+                <input asp-for="@Model.NaikKelasLulus" class="form form-control-sm" />
+            </div>
+            
+            <span asp-validation-for="@Model.NaikKelasLulus" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

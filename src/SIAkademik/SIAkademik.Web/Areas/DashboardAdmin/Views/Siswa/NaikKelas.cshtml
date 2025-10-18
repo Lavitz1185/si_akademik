@@ -58,7 +58,7 @@
                     <thead>
                         <tr>
                             <th style="min-width: 60px; text-align: center;">
-                                <input id="pilihSemua" type="checkbox" style="cursor:pointer;" />
+                                <input id="pilihSemua" class="select-all" type="checkbox" style="cursor:pointer;" />
                             </th>
                             <th>Id</th>
                             <th>NISN</th>
@@ -79,7 +79,7 @@
                             var siswa = Model.DaftarSiswa[i];
                             <tr>
                                 <td style="text-align: center; padding-right: 28px;">
-                                    <input asp-for="@Model.DaftarEntry[@i].NaikKelas" type="checkbox" />
+                                    <input asp-for="@Model.DaftarEntry[@i].NaikKelas" data-checkbox-all="#pilihSemua" type="checkbox" />
                                     <input asp-for="@Model.DaftarEntry[@i].IdSiswa" hidden readonly />
                                 </td>
                                 <td>@siswa.Id</td>
@@ -116,13 +116,6 @@
         $(function() {
             $('select#jenjang').on('change', function() {
                 $(this).closest('form').trigger('submit');
-            });
-
-            $('input#pilihSemua[type="checkbox"]').on('change', function() {
-               const checked = $(this).is(':checked');
-               $('form#naikKelas input[type="checkbox"]').each(function() {
-                   $(this).attr('checked', checked)
-               });
             });
         })
     </script>

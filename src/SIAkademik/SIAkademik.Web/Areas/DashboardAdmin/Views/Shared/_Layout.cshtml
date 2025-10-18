@@ -96,6 +96,48 @@
                 }
             });
         });        
+
+        $(function() {
+            $('input[type="checkbox"].select-all').each(function() {
+                const selectAll = $(this);
+                const id = $(selectAll).attr('id');
+
+                if($(`input[type="checkbox"][data-checkbox-all="#${id}"]:checked`).length ==
+                    $(`input[type="checkbox"][data-checkbox-all="#${id}"]`).length) {
+                    $(selectAll).prop('checked', true);
+                    $(selectAll).prop("indeterminate", false);
+                }
+                else if ($(`input[type="checkbox"][data-checkbox-all="#${id}"]:not(:checked)`).length ==
+                    $(`input[type="checkbox"][data-checkbox-all="#${id}"]`).length) {
+                    $(selectAll).prop('checked', false);
+                    $(selectAll).prop("indeterminate", false);
+                }
+                else {
+                    $(selectAll).prop("indeterminate", true);
+                }
+
+                $(selectAll).on('change', function() {
+                    $(`input[type="checkbox"][data-checkbox-all="#${id}"]`).prop('checked', $(selectAll).is(':checked'));
+                    $(selectAll).prop("indeterminate", false);
+                });
+
+                $(`input[type="checkbox"][data-checkbox-all="#${id}"]`).on('change', function() {
+                    if($(`input[type="checkbox"][data-checkbox-all="#${id}"]:checked`).length ==
+                        $(`input[type="checkbox"][data-checkbox-all="#${id}"]`).length) {
+                        $(selectAll).prop('checked', true);
+                        $(selectAll).prop("indeterminate", false);
+                    }
+                    else if ($(`input[type="checkbox"][data-checkbox-all="#${id}"]:not(:checked)`).length ==
+                        $(`input[type="checkbox"][data-checkbox-all="#${id}"]`).length) {
+                        $(selectAll).prop('checked', false);
+                        $(selectAll).prop("indeterminate", false);
+                    }
+                    else {
+                        $(selectAll).prop("indeterminate", true);
+                    }
+                });
+            });
+        });
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)
