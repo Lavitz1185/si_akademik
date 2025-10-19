@@ -95,4 +95,12 @@ internal class SiswaRepository : ISiswaRepository
         .Include(s => s.Account)
         .Where(s => s.StatusAktif == StatusAktifMahasiswa.Aktif)
         .ToListAsync();
+
+    public async Task<bool> IsExistByNISN(string nisn, int? id = null) => await _appDbContext
+        .TblSiswa
+        .AnyAsync(s => s.NISN == nisn && s.Id == id);
+
+    public async Task<bool> IsExistByNIS(string nis, int? id = null) => await _appDbContext
+        .TblSiswa
+        .AnyAsync(s => s.NIS == nis && s.Id == id);
 }

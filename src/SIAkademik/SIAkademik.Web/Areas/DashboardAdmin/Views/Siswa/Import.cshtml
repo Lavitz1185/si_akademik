@@ -1,0 +1,16 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.SiswaModels
+@model ImportVM
+
+<a asp-action="DownloadTemplateImport" target="_blank">Download Template</a>
+
+<form asp-action="Import" enctype="multipart/form-data">
+    <label asp-for="@Model.FormFile"></label>
+    <input asp-for="@Model.FormFile" />
+    <span asp-validation-for="@Model.FormFile"></span>
+
+    <button type="submit">Upload</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
