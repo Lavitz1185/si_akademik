@@ -140,7 +140,7 @@ internal class FileService : IFileService
             Directory.CreateDirectory(folderPath);
     }
 
-    private async Task<Result<byte[]>> ProcessFormFile<TModel>(IFormFile formFile,
+    public async Task<Result<byte[]>> ProcessFormFile<TModel>(IFormFile formFile,
             string[] permittedExtensions,
             long minSizeLimit,
             long maxSizeLimit)

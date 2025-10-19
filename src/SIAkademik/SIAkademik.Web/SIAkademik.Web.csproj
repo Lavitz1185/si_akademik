@@ -11,6 +11,7 @@
     <Folder Include="wwwroot\fileaktaKelahiran\" />
     <Folder Include="wwwroot\fileFotoProfil\" />
     <Folder Include="wwwroot\fileijazahSMP\" />
+    <Folder Include="wwwroot\file\importTemplate\" />
     <Folder Include="wwwroot\file\pdf\" />
   </ItemGroup>
 
