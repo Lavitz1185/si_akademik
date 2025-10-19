@@ -88,13 +88,15 @@ public class RaportController : Controller
         var anggotaRombel = rombel.DaftarAnggotaRombel.FirstOrDefault(a => a.Siswa == siswa);
         if (anggotaRombel is null) return NotFound();
 
-        var html = await _razorTemplateEngine.RenderAsync("Views/Shared/_Format1RaportPartial.cshtml", anggotaRombel);
+        var html = await _razorTemplateEngine.RenderAsync("Views/Shared/_Format2RaportPartial.cshtml", anggotaRombel);
+        var header = await _razorTemplateEngine.RenderAsync("Views/Shared/_Header2LaporanPartial.cshtml", anggotaRombel);
+        var footer = await _razorTemplateEngine.RenderAsync("Views/Shared/_Footer2LaporanPartial.cshtml", anggotaRombel);
 
         var fileName = $"Raport_{siswa.Nama}({siswa.NISN})_{rombel.Kelas.Jenjang.Humanize()}" +
             $"_{rombel.Kelas.TahunAjaran.Periode.Replace("/", "-")}" +
             $"_{rombel.Kelas.TahunAjaran.Semester.Humanize()}";
 
-        var pdfBinary = await _pDFGeneratorService.GeneratePDF(html, fileName);
+        var pdfBinary = await _pDFGeneratorService.GeneratePDF(html, header, footer, fileName);
 
         if (download)
             return File(pdfBinary, "application/pdf", fileDownloadName: fileName);
