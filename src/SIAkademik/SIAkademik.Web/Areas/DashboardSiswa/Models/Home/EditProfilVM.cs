@@ -21,27 +21,21 @@ public class EditProfilVM : IHaveAlamat
 
     // Biodata Siswa
     [Display(Name = "Suku")]
-    [Required(ErrorMessage = "{0} harus diisi")]
     public required string? Suku { get; set; }
 
     [Display(Name = "Alamat")]
-    [Required(ErrorMessage = "{0} harus diisi")]
-    public required AlamatVM Alamat { get; set; }
+    public required AlamatVM? Alamat { get; set; }
 
     [Display(Name = "Golongan Darah")]
-    [Required(ErrorMessage = "{0} harus diisi")]
     public required GolonganDarah? GolonganDarah { get; set; }
 
     [Display(Name = "Tinggi Badan")]
-    [Required(ErrorMessage = "{0} harus diisi")]
     public required double? TinggiBadan { get; set; }
 
     [Display(Name = "Berat Badan")]
-    [Required(ErrorMessage = "{0} harus diisi")]
     public required double? BeratBadan { get; set; }
 
     [Display(Name = "Hobi")]
-    [Required(ErrorMessage = "{0} harus diisi")]
     public required string? Hobi { get; set; }
 
     [Display(Name = "No. HP/WA")]
@@ -86,64 +80,49 @@ public class EditProfilVM : IHaveAlamat
     public required string? NamaAyah { get; set; }
 
     [Display(Name = "NIK")]
-    [Required(ErrorMessage = "{0} harus diisi")]
     public required string? NIKAyah { get; set; }
 
     [Display(Name = "Pekerjaan")]
-    [Required(ErrorMessage = "{0} harus diisi")]
     public required string? PekerjaanAyah { get; set; }
 
     [Display(Name = "Agama")]
-    [Required(ErrorMessage = "{0} harus diisi")]
     public required Agama? AgamaAyah { get; set; }
 
     [Display(Name = "No. HP/WA")]
-    [Required(ErrorMessage = "{0} harus diisi")]
     public required string? NoHPAyah { get; set; }
 
     [Display(Name = "Tanggal Lahir")]
-    [Required(ErrorMessage = "{0} harus diisi")]
     public required DateOnly? TanggalLahirAyah { get; set; }
 
     [Display(Name = "Status Hidup")]
-    [Required(ErrorMessage = "{0} harus diisi")]
     public required StatusHidup? StatusHidupAyah { get; set; }
 
     [Display(Name = "Pendidikan Terakhir")]
-    [Required(ErrorMessage = "{0} harus diisi")]
     public required string? PendidikanTerakhirAyah { get; set; }
 
     // Biodata Ibu
     [Display(Name = "Nama")]
-    [Required(ErrorMessage = "{0} harus diisi")]
     public required string? NamaIbu { get; set; }
 
     [Display(Name = "NIK")]
-    [Required(ErrorMessage = "{0} harus diisi")]
     public required string? NIKIbu { get; set; }
 
     [Display(Name = "Pekerjaan")]
-    [Required(ErrorMessage = "{0} harus diisi")]
     public required string? PekerjaanIbu { get; set; }
 
     [Display(Name = "Agama")]
-    [Required(ErrorMessage = "{0} harus diisi")]
     public required Agama? AgamaIbu { get; set; }
 
     [Display(Name = "No. HP/WA")]
-    [Required(ErrorMessage = "{0} harus diisi")]
     public required string? NoHPIbu { get; set; }
 
     [Display(Name = "Tanggal Lahir")]
-    [Required(ErrorMessage = "{0} harus diisi")]
     public required DateOnly? TanggalLahirIbu { get; set; }
 
     [Display(Name = "Status Hidup")]
-    [Required(ErrorMessage = "{0} harus diisi")]
     public required StatusHidup? StatusHidupIbu { get; set; }
 
     [Display(Name = "Pendidikan Terakhir")]
-    [Required(ErrorMessage = "{0} harus diisi")]
     public required string? PendidikanTerakhirIbu { get; set; }
 
     // Biodata Wali

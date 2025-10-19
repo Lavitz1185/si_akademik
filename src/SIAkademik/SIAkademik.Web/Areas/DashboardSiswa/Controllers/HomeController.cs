@@ -255,11 +255,6 @@ public class HomeController : Controller
 
             siswa.AktaKelahiran = aktaKelahiran.Value;
         }
-        else if (siswa.AktaKelahiran is null)
-        {
-            ModelState.AddModelError(nameof(EditProfilVM.AktaKelahiran), "Akta Kelahiran Harus Diisi");
-            return View(vm);
-        }
 
         if (vm.IjazahSMP is not null)
         {
@@ -278,23 +273,21 @@ public class HomeController : Controller
 
             siswa.IjazahSMP = ijazahSMP.Value;
         }
-        else if (siswa.IjazahSMP is null)
-        {
-            ModelState.AddModelError(nameof(EditProfilVM.IjazahSMP), "Ijazah SMP Harus Diisi");
-            return View(vm);
-        }
 
-        siswa.AlamatLengkap = new Alamat
+        if(vm.Alamat is not null)
         {
-            KodePos = vm.Alamat.KodePos,
-            Jalan = vm.Alamat.Jalan,
-            RT = vm.Alamat.RT,
-            RW = vm.Alamat.RW,
-            KelurahanDesa = vm.Alamat.KelurahanDesa,
-            Kecamatan = vm.Alamat.Kecamatan,
-            KotaKabupaten = vm.Alamat.KotaKabupaten,
-            Provinsi = vm.Alamat.Provinsi,
-        };
+            siswa.AlamatLengkap = new Alamat
+            {
+                KodePos = vm.Alamat.KodePos,
+                Jalan = vm.Alamat.Jalan,
+                RT = vm.Alamat.RT,
+                RW = vm.Alamat.RW,
+                KelurahanDesa = vm.Alamat.KelurahanDesa,
+                Kecamatan = vm.Alamat.Kecamatan,
+                KotaKabupaten = vm.Alamat.KotaKabupaten,
+                Provinsi = vm.Alamat.Provinsi,
+            };
+        }
 
         //Data Ayah
         siswa.NamaAyah = vm.NamaAyah;

@@ -44,7 +44,7 @@
                                     }
                                     else
                                     {
-                                        var inisial = string.Join("", Model.Nama?.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                                        var inisial = string.Join("", Model.Nama.Split(' ', StringSplitOptions.RemoveEmptyEntries)
                                         .Select(n => n[0]))
                                         .ToUpperInvariant();
                                         if (inisial.Length > 2) inisial = inisial.Substring(0, 2);
@@ -268,7 +268,7 @@
                                                     {
                                                         <a href="@Model.AktaKelahiranLama.OriginalString">Akta Kelahiran yang telah diupload</a>
                                                     }
-                                                    <span asp-validation-for="@Model.AktaKelahiran" hidden></span>
+                                                    <span asp-validation-for="@Model.AktaKelahiran"></span>
                                                 </div>
 
                                                 <div class="row mb-3 pb-1">
@@ -280,7 +280,7 @@
                                                     {
                                                         <a href="@Model.IjazahSMPLama.OriginalString">Ijazah SMP yang telah diupload</a>
                                                     }
-                                                    <span asp-validation-for="@Model.IjazahSMP" hidden></span>
+                                                    <span asp-validation-for="@Model.IjazahSMP"></span>
                                                 </div>
                                             </div>
                                         </div>
