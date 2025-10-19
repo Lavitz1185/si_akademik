@@ -60,7 +60,7 @@
                   
                     <div class="card-footer text-right pt-0">
                         <a href="javascript:void(0)" class="btn btn-danger text-white swal-cancel">Batal</a>
-                        <button class="btn btn-primary mr-1" type="submit">Simpan</button>
+                        <button class="btn btn-primary mr-1" type="submit" disabled>Simpan</button>
                     </div>
                 </form>
             </div>
@@ -70,4 +70,99 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(document).ready(function () {
+            const $tahun = $('#Tahun');
+            const $semester = $('#Semester');
+            const $tglMulai = $('#TanggalMulai');
+            const $tglSelesai = $('#TanggalSelesai');
+            const $btnSimpan = $('button[type="submit"]');
+
+            // Tambahkan elemen pesan error di bawah input (jika belum ada)
+            if ($tglMulai.next('.text-danger').length === 0) {
+                $tglMulai.after('<span class="text-danger small d-block" id="errorMulai"></span>');
+            }
+            if ($tglSelesai.next('.text-danger').length === 0) {
+                $tglSelesai.after('<span class="text-danger small d-block" id="errorSelesai"></span>');
+            }
+
+            function updateTanggal() {
+                var tahun = parseInt($tahun.val());
+                var semester = $semester.val();
+
+                if (!tahun || !semester) return;
+
+                let startDate, endDate;
+
+                if (semester.toLowerCase() === 'ganjil') {
+                    startDate = `${tahun}-07-01`;
+                    endDate = `${tahun}-12-31`;
+                } else {
+                    startDate = `${tahun + 1}-01-01`;
+                    endDate = `${tahun + 1}-06-30`;
+                }
+
+                $tglMulai.val(startDate);
+                $tglSelesai.val(endDate);
+
+                validateTanggal(); // langsung validasi setelah update
+            }
+
+            function validateTanggal() {
+                var tahun = parseInt($tahun.val());
+                var semester = $semester.val();
+                var tglMulai = new Date($tglMulai.val());
+                var tglSelesai = new Date($tglSelesai.val());
+
+                let minDate, maxDate, errMulai = '', errSelesai = '';
+
+                if (semester.toLowerCase() === 'ganjil') {
+                    minDate = new Date(`${tahun}-07-01`);
+                    maxDate = new Date(`${tahun}-12-31`);
+                } else {
+                    minDate = new Date(`${tahun + 1}-01-01`);
+                    maxDate = new Date(`${tahun + 1}-06-30`);
+                }
+
+                // 🔹 Validasi tanggal mulai
+                if (tglMulai < minDate || tglMulai > maxDate) {
+                    errMulai = `Tanggal mulai harus antara ${minDate.toLocaleDateString('id-ID')} dan ${maxDate.toLocaleDateString('id-ID')}`;
+                }
+
+                // 🔹 Validasi tanggal selesai
+                if (tglSelesai < minDate || tglSelesai > maxDate) {
+                    errSelesai = `Tanggal selesai harus antara ${minDate.toLocaleDateString('id-ID')} dan ${maxDate.toLocaleDateString('id-ID')}`;
+                }
+
+                // 🔹 Tampilkan pesan error tanggal
+                $('#errorMulai').text(errMulai);
+                $('#errorSelesai').text(errSelesai);
+
+                // 🔹 Cek kondisi tahun tidak boleh 0
+                if (!tahun || tahun === 0) {
+                    $btnSimpan.prop('disabled', true);
+                    return; // langsung keluar agar tombol tetap nonaktif
+                }
+
+                // 🔹 Aktif/nonaktif tombol Simpan sesuai hasil validasi
+                if (errMulai || errSelesai) {
+                    $btnSimpan.prop('disabled', true);
+                } else {
+                    $btnSimpan.prop('disabled', false);
+                }
+            }
+
+            // Update otomatis saat semester atau tahun berubah
+            $tahun.on('change', updateTanggal);
+            $semester.on('change', updateTanggal);
+
+            // Validasi saat tanggal diubah manual
+            $tglMulai.on('change', validateTanggal);
+            $tglSelesai.on('change', validateTanggal);
+
+            // Jalankan pertama kali
+            updateTanggal();
+        });
+    </script>
 }
