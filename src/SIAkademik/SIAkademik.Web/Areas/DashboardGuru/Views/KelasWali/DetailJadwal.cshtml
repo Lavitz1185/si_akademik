@@ -7,8 +7,8 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Wali Kelas</a></li>
-            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="KelasWali" asp-action="Index">Kelas Wali</a></li>
-            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="KelasWali" asp-action="Detail">Detail Data</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="KelasWali" asp-action="Index" asp-route-idTahunAjaran="@Model.Rombel.Kelas.TahunAjaran.Id">Kelas Wali</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="KelasWali" asp-action="Detail" asp-route-id="@Model.Rombel.Id">Detail Data</a></li>
             <li class="breadcrumb-item" aria-current="page">Detail Jadwal Kelas Wali</li>
         </ol>
     </nav>
@@ -152,8 +152,7 @@
                                     <td>@anggotaRombel.Siswa.NIS</td>
                                     <td>@anggotaRombel.Siswa.NISN</td>
                                     <td>@anggotaRombel.Siswa.Nama</td>
-                                    <td>
-                                    </td>
+                                    <td>@anggotaRombel.NilaiAkhir(Model.JadwalMengajar)</td>
                                 </tr>
                             }
                         </tbody>

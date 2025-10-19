@@ -53,7 +53,6 @@ public class KelasWaliController : Controller
     {
         var pegawai = await _signInManager.GetPegawai();
         if (pegawai is null) return Forbid();
-        pegawai = (await _pegawaiRepository.Get(pegawai.Id))!;
 
         var tahunAjaran = idTahunAjaran is null ?
             await _tahunAjaranRepository.GetNewest() :
@@ -64,6 +63,7 @@ public class KelasWaliController : Controller
         return View(new IndexVM
         {
             TahunAjaran = tahunAjaran,
+            IdTahunAjaran = tahunAjaran.Id,
             DaftarRombelWali = pegawai.DaftarRombelWali.Where(r => r.Kelas.TahunAjaran == tahunAjaran).ToList()
         });
     }
@@ -72,10 +72,9 @@ public class KelasWaliController : Controller
     {
         var pegawai = await _signInManager.GetPegawai();
         if (pegawai is null) return Forbid();
-        pegawai = (await _pegawaiRepository.Get(pegawai.Id))!;
 
         var rombel = await _rombelRepository.Get(id);
-        if (rombel is null || !pegawai.DaftarRombelWali.Contains(rombel)) return NotFound();
+        if (rombel is null || rombel.Wali != pegawai) return NotFound();
 
         return View(rombel);
     }
@@ -84,10 +83,9 @@ public class KelasWaliController : Controller
     {
         var pegawai = await _signInManager.GetPegawai();
         if (pegawai is null) return Forbid();
-        pegawai = (await _pegawaiRepository.Get(pegawai.Id))!;
 
         var rombel = await _rombelRepository.Get(id);
-        if (rombel is null || !pegawai.DaftarRombelWali.Contains(rombel)) return BadRequest();
+        if (rombel is null || rombel.Wali != pegawai) return BadRequest();
 
         var jadwal = await _jadwalMengajarRepository.Get(idJadwal);
         if (jadwal is null || jadwal.Rombel != rombel) return BadRequest();
@@ -115,6 +113,7 @@ public class KelasWaliController : Controller
         return View(new AbsenVM
         {
             Id = id,
+            Rombel = rombel,
             Tanggal = tanggal.Value,
             DaftarAbsenEntry = rombel.DaftarAnggotaRombel
                 .SelectMany(a => a.DaftarAbsenKelas)
@@ -171,10 +170,9 @@ public class KelasWaliController : Controller
     {
         var pegawai = await _signInManager.GetPegawai();
         if (pegawai is null) return Forbid();
-        pegawai = (await _pegawaiRepository.Get(pegawai.Id))!;
 
         var rombel = await _rombelRepository.Get(id);
-        if (rombel is null || !pegawai.DaftarRombelWali.Contains(rombel)) return NotFound();
+        if (rombel is null || rombel.Wali != pegawai) return NotFound();
 
         var daftarAbsen = new List<AbsenKelas>();
         foreach (var anggotaRombel in rombel.DaftarAnggotaRombel)
@@ -194,6 +192,29 @@ public class KelasWaliController : Controller
             _toastrNotificationService.AddError("Buat absen gagal!");
         else
             _toastrNotificationService.AddSuccess("Buat absen sukses!");
+
+        return RedirectToAction(nameof(Absen), new { id, tanggal });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> HapusAbsen(int id, DateOnly tanggal)
+    {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        var rombel = await _rombelRepository.Get(id);
+        if (rombel is null || rombel.Wali != pegawai) return NotFound();
+
+        var daftarAbsen = await _absenKelasRepository.GetAllByRombel(rombel.Id);
+
+        foreach (var absen in daftarAbsen.Where(a => a.Tanggal == tanggal))
+            _absenKelasRepository.Delete(absen);
+
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsSuccess)
+            _toastrNotificationService.AddSuccess("Absen berhasil dihapus", "Hapus Absen");
+        else
+            _toastrNotificationService.AddError("Absen gagal dihapus", "Hapus Absen");
 
         return RedirectToAction(nameof(Absen), new { id, tanggal });
     }

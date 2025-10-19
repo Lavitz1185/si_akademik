@@ -6,6 +6,7 @@ namespace SIAkademik.Web.Areas.DashboardGuru.Models.KelasWaliModels;
 public class AbsenVM
 {
     public required int Id { get; set; }
+    public required Rombel Rombel { get; set; }
     public DateOnly Tanggal { get; set; }
     public List<AbsenEntryVM> DaftarAbsenEntry { get; set; } = [];
 }

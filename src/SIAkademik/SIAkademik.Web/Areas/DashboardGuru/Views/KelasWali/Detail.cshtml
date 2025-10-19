@@ -5,13 +5,14 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Wali Kelas</a></li>
-            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="KelasWali" asp-action="Index">Kelas Wali</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="KelasWali" asp-action="Index" asp-route-idTahunAjaran="@Model.Kelas.TahunAjaran.Id">Kelas Wali</a></li>
             <li class="breadcrumb-item" aria-current="page">Detail Data</li>
         </ol>
     </nav>
 </div>
 
 <!-- Isi Konten -->
+
 <div class="section-body">
     <div class="row" style="justify-content: center;">
         <div class="col-12 col-md-6 col-lg-12">
@@ -19,6 +20,27 @@
                 <div class="card-header" style="padding-top: 20px;">
                     <h4>Detail Kelas Wali</h4>
                 </div>     
+
+                <div class="card-body rounded" style="background-color: #f0f7fd; margin-left: 25px; margin-right: 25px; margin-bottom: 10px;">
+                    <div class="row">
+                        <!-- Kolom kiri -->
+                        <div class="col-md-6">
+                            <div class="row mb-1">
+                                <div class="col-4" style="font-weight:600;">Tahun Ajaran</div>
+                                <div class="col">@Model.Kelas.TahunAjaran.Periode - @Model.Kelas.TahunAjaran.Semester.Humanize()</div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-4" style="font-weight:600;">Kelas</div>
+                                <div class="col">@Model.Kelas.Jenjang.Humanize() @Model.Kelas.Peminatan.Nama @Model.Nama</div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-4" style="font-weight:600;">Wali Kelas</div>
+                                <div class="col">@Model.Wali.Nama</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="card-body">
                     <div class="d-flex justify-content-start mb-3">
                         <a asp-action="Absen" asp-route-id="@Model.Id" class="btn btn-success pl-3 pr-3" data-toggle="tooltip" title="Absen Kelas Wali"><i class="fas fa-user-check"></i> Presensi Kelas Wali</a>

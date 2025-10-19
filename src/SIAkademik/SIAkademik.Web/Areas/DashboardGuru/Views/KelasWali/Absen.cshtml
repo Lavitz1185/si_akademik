@@ -1,13 +1,19 @@
 ﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.KelasWaliModels
 @model AbsenVM
 
+@inject IJadwalMengajarRepository JadwalMengajarRepository
+
+@{
+    var daftarJadwalMengajar = await JadwalMengajarRepository.GetAllByTahunAjaranAndRombel(Model.Rombel.Kelas.TahunAjaran.Id, Model.Rombel.Id);
+}
+
 <!-- Breadcrumb -->
 <div class="row">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Wali Kelas</a></li>
-            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="KelasWali" asp-action="Index">Kelas Wali</a></li>
-            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="KelasWali" asp-action="Detail">Detail Data</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="KelasWali" asp-route-idTahunAjaran="@Model.Rombel.Kelas.TahunAjaran.Id" asp-action="Index">Kelas Wali</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="KelasWali" asp-route-id="@Model.Id" asp-action="Detail">Detail Data</a></li>
             <li class="breadcrumb-item" aria-current="page">Presensi Kelas Siswa</li>
         </ol>
     </nav>
@@ -20,6 +26,26 @@
         <h4>Presensi Kelas Wali</h4>
     </div>
     <div class="padding-20">
+        <div class="card-body rounded" style="background-color: #f0f7fd; margin-bottom: 10px;">
+            <div class="row">
+                <!-- Kolom kiri -->
+                <div class="col-md-6">
+                    <div class="row mb-1">
+                        <div class="col-4" style="font-weight:600;">Tahun Ajaran</div>
+                        <div class="col">@Model.Rombel.Kelas.TahunAjaran.Periode - @Model.Rombel.Kelas.TahunAjaran.Semester.Humanize()</div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-4" style="font-weight:600;">Kelas</div>
+                        <div class="col">@Model.Rombel.Kelas.Jenjang.Humanize() @Model.Rombel.Kelas.Peminatan.Nama @Model.Rombel.Nama</div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-4" style="font-weight:600;">Wali Kelas</div>
+                        <div class="col">@Model.Rombel.Wali.Nama</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Tombol Tambah dan Filter -->
         <div class="d-flex justify-content-start align-items-center ml-auto mb-3">
             <div class="mb-0">
@@ -36,6 +62,12 @@
                         <button class="btn btn-primary" data-toggle="tooltip" title="Buat Presensi Siswa"><i class="fas fa-file-circle-plus"></i> Buat Presensi</button>
                     </form>
                 }
+                else
+                {
+                    <form asp-action="HapusAbsen" asp-route-id="@Model.Id" asp-route-tanggal="@Model.Tanggal.ToString("yyyy-MM-dd")">
+                        <button class="btn btn-danger" data-toggle="tooltip" title="Hapus Presensi Siswa"><i class="fas fa-file-circle-plus"></i> Hapus Presensi</button>
+                    </form>
+                }
             </div>
         </div>
 
@@ -50,48 +82,108 @@
                 </div>
                 <div class="mb-0">
                     <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Simpan Presensi Siswa"><i class="fas fa-save"></i> Simpan Presensi</button>
-                </div>                
+                </div>
             </div>
-            
 
-            <div class="table-responsive">
-                <table class="table table-striped table-hover" id="table-akun">
-                    <thead>
-                        <tr>
-                            <th>NIS</th>
-                            <th>NISN</th>
-                            <th>Nama</th>
-                            <th>Presensi</th>
-                            <th>Catatan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (int i = 0; i < Model.DaftarAbsenEntry.Count; i++)
-                        {
-                            <tr>
-                                <input asp-for="@Model.DaftarAbsenEntry[@i].IdAbsen" readonly hidden />
-                                <input asp-for="@Model.DaftarAbsenEntry[@i].NISSiswa" readonly hidden />
-                                <input asp-for="@Model.DaftarAbsenEntry[@i].NISNSiswa" readonly hidden />
-                                <input asp-for="@Model.DaftarAbsenEntry[@i].NamaSiswa" readonly hidden />
-                                <td>@Model.DaftarAbsenEntry[i].NISSiswa</td>
-                                <td>@Model.DaftarAbsenEntry[i].NISNSiswa</td>
-                                <td>@Model.DaftarAbsenEntry[i].NamaSiswa</td>
-                                <td class="">
-                                    <select asp-for="@Model.DaftarAbsenEntry[@i].Absensi" class="form-control">
-                                        @foreach (var absensi in Enum.GetValues<Absensi>())
-                                        {
-                                            <option value="@absensi">@absensi.Humanize()</option>
-                                        }
-                                    </select>
-                                </td>
-                                <td>
-                                    <textarea asp-for="@Model.DaftarAbsenEntry[@i].Catatan" class="form-control"></textarea>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>           
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                       aria-controls="home" aria-selected="true">Presensi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                       aria-controls="profile" aria-selected="false">Pertemuan Mata Pelajaran</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="table-akun">
+                            <thead>
+                                <tr>
+                                    <th>NIS</th>
+                                    <th>NISN</th>
+                                    <th>Nama</th>
+                                    <th>Presensi</th>
+                                    <th>Catatan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.DaftarAbsenEntry.Count; i++)
+                                {
+                                    <tr>
+                                        <input asp-for="@Model.DaftarAbsenEntry[@i].IdAbsen" readonly hidden />
+                                        <input asp-for="@Model.DaftarAbsenEntry[@i].NISSiswa" readonly hidden />
+                                        <input asp-for="@Model.DaftarAbsenEntry[@i].NISNSiswa" readonly hidden />
+                                        <input asp-for="@Model.DaftarAbsenEntry[@i].NamaSiswa" readonly hidden />
+                                        <td>@Model.DaftarAbsenEntry[i].NISSiswa</td>
+                                        <td>@Model.DaftarAbsenEntry[i].NISNSiswa</td>
+                                        <td>@Model.DaftarAbsenEntry[i].NamaSiswa</td>
+                                        <td class="">
+                                            <select asp-for="@Model.DaftarAbsenEntry[@i].Absensi" class="form-control">
+                                                @foreach (var absensi in Enum.GetValues<Absensi>())
+                                                {
+                                                    <option value="@absensi">@absensi.Humanize()</option>
+                                                }
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <textarea asp-for="@Model.DaftarAbsenEntry[@i].Catatan" class="form-control"></textarea>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="table-akun">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Nomor</th>
+                                    <th rowspan="2">Mata Pelajaran</th>
+                                    <th rowspan="2">Guru</th>
+                                    <th rowspan="2">Tanggal Pelaksanaan</th>
+                                    <th rowspan="2">Status</th>
+                                    <th colspan="3">Presensi Pertemuan</th>
+                                </tr>
+                                <tr>
+                                    <th>NIS/NISN</th>
+                                    <th>Nama</th>
+                                    <th>Presensi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var pertemuan in daftarJadwalMengajar
+                                    .SelectMany(j => j.DaftarPertemuan)
+                                    .Where(p => p.StatusPertemuan != StatusPertemuan.BelumMulai && 
+                                        DateOnly.FromDateTime(p.TanggalPelaksanaan!.Value) == Model.Tanggal))
+                                {
+                                    var rowspan = pertemuan.DaftarAbsen.Count + 1;
+
+                                    <tr>
+                                        <td rowspan="@rowspan">@pertemuan.Nomor</td>
+                                        <td rowspan="@rowspan">@pertemuan.JadwalMengajar.MataPelajaran.Nama</td>
+                                        <td rowspan="@rowspan">@pertemuan.JadwalMengajar.Pegawai.Nama</td>
+                                        <td rowspan="@rowspan">@pertemuan.TanggalPelaksanaan!.Value.ToString("hh:mm dddd, dd MMMM yyyy", CultureInfos.CI)</td>
+                                        <td rowspan="@rowspan">@pertemuan.StatusPertemuan.Humanize()</td>
+                                    </tr>
+
+                                    @foreach (var absen in pertemuan.DaftarAbsen)
+                                    {
+                                        <tr>
+                                            <td>@absen.AnggotaRombel.Siswa.NIS/@absen.AnggotaRombel.Siswa.NISN</td>
+                                            <td>@absen.AnggotaRombel.Siswa.Nama</td>
+                                            <td>@absen.Absensi.Humanize()</td>
+                                        </tr>   
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 </div>
