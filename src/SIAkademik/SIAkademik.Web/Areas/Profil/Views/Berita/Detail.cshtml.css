@@ -206,3 +206,22 @@
         border-left: 2px solid rgba(255, 255, 255, 0.7);
     }
 }
+
+/* ------------------------------------ MOBILE MINI ------------------------------------ */
+@media (max-width: 380px) {
+    #isinformasi-home .isinformasi-judul .isinformasi-breadcumbs[b-kpb0lulqe1] {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    #isinformasi-home .isinformasi-judul .isinformasi-breadcumbs .penulis[b-kpb0lulqe1] {
+        text-transform: uppercase;
+        color: #ffffff;
+        font-size: 12px;
+        letter-spacing: 1px;
+        margin-left: 0px;
+        padding-left: 0px;
+        border: none;
+    }
+}
