@@ -25,7 +25,7 @@
             <div class="mb-0">
                 <form asp-action="Absen" asp-route-id="@Model.Id" method="get" class="d-flex align-items-center" style="gap: 8px;">
                     <label for="showTidakAktif" class="mb-0" style="font-weight: 600;">Tanggal Presensi:</label>
-                    <input id="tanggal" name="tanggal" value="@Model.Tanggal.ToString("yyyy-MM-dd")" type="date" class="form-control w-auto datepicker" />
+                    <input id="tanggal" name="tanggal" value="@Model.Tanggal.ToString("yyyy-MM-dd")" type="date" class="form-control w-auto" />
                 </form>
             </div>
 
