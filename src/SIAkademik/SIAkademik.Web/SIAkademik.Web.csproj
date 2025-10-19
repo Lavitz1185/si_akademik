@@ -15,6 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.3.0" />
+    <PackageReference Include="DocumentFormat.OpenXml.Features" Version="3.3.0" />
+    <PackageReference Include="DocumentFormat.OpenXml.Linq" Version="3.3.0" />
     <PackageReference Include="Humanizer.Core.id" Version="2.14.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.8">
       <PrivateAssets>all</PrivateAssets>

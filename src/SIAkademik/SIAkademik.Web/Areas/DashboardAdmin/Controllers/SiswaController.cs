@@ -285,4 +285,7 @@ public class SiswaController : Controller
 
         return RedirectToAction(nameof(NaikKelas), new { vm.jenjang });
     }
+
+    [Route("[Area]/[Action]")]
+    public IActionResult Import() => View(new ImportVM());
 }
