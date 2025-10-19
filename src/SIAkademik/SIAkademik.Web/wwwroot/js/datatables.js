@@ -44,6 +44,15 @@ $('#save-stage').DataTable({
     "scrollX": true,
     stateSave: true
 });
+
+$('#save-stage1').DataTable({
+    "scrollX": true,
+    stateSave: true,
+    columnDefs: [
+        { orderable: false, targets: 0 } // kolom pertama (checkbox) tidak bisa di-sort
+    ]
+});
+
 $('#table-akun0').DataTable({
     columnDefs: [
         { "sortable": false, "targets": [2] } 
