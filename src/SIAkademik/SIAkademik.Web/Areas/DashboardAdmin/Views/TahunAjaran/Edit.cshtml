@@ -112,4 +112,109 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(document).ready(function () {
+            const $tahun = $('#Tahun');
+            const $semester = $('#Semester');
+            const $tglMulai = $('#TanggalMulai');
+            const $tglSelesai = $('#TanggalSelesai');
+            const $btnSimpan = $('button[type="submit"]');
+
+            // Simpan tahun awal (data yang sudah ada)
+            const tahunAwal = parseInt($tahun.val()) || 0;
+
+            // Tambahkan elemen pesan error di bawah input (jika belum ada)
+            if ($tglMulai.next('.text-danger').length === 0) {
+                $tglMulai.after('<span class="text-danger small d-block" id="errorMulai"></span>');
+            }
+            if ($tglSelesai.next('.text-danger').length === 0) {
+                $tglSelesai.after('<span class="text-danger small d-block" id="errorSelesai"></span>');
+            }
+
+            function updateTanggal() {
+                var tahun = parseInt($tahun.val());
+                var semester = $semester.val();
+
+                if (!tahun || !semester) return;
+
+                let startDate, endDate;
+
+                if (semester.toLowerCase() === 'ganjil') {
+                    startDate = `${tahun}-07-01`;
+                    endDate = `${tahun}-12-31`;
+                } else {
+                    startDate = `${tahun + 1}-01-01`;
+                    endDate = `${tahun + 1}-06-30`;
+                }
+
+                // 🔹 Hanya ubah tanggal kalau tahun berubah dari tahunAwal
+                // atau tahun sebelumnya kosong
+                const tahunSebelumnya = $(this).data('lastValue') || tahunAwal;
+
+                if (tahun !== tahunSebelumnya && tahun !== 0) {
+                    $tglMulai.val(startDate);
+                    $tglSelesai.val(endDate);
+                }
+
+                // Simpan nilai tahun terakhir untuk perbandingan berikutnya
+                $(this).data('lastValue', tahun);
+
+                validateTanggal(); // langsung validasi setelah update
+            }
+
+            function validateTanggal() {
+                var tahun = parseInt($tahun.val());
+                var semester = $semester.val();
+                var tglMulai = new Date($tglMulai.val());
+                var tglSelesai = new Date($tglSelesai.val());
+
+                let minDate, maxDate, errMulai = '', errSelesai = '';
+
+                if (semester.toLowerCase() === 'ganjil') {
+                    minDate = new Date(`${tahun}-07-01`);
+                    maxDate = new Date(`${tahun}-12-31`);
+                } else {
+                    minDate = new Date(`${tahun + 1}-01-01`);
+                    maxDate = new Date(`${tahun + 1}-06-30`);
+                }
+
+                // 🔹 Validasi tanggal mulai
+                if (tglMulai < minDate || tglMulai > maxDate) {
+                    errMulai = `Tanggal mulai harus antara ${minDate.toLocaleDateString('id-ID')} dan ${maxDate.toLocaleDateString('id-ID')}`;
+                }
+
+                // 🔹 Validasi tanggal selesai
+                if (tglSelesai < minDate || tglSelesai > maxDate) {
+                    errSelesai = `Tanggal selesai harus antara ${minDate.toLocaleDateString('id-ID')} dan ${maxDate.toLocaleDateString('id-ID')}`;
+                }
+
+                $('#errorMulai').text(errMulai);
+                $('#errorSelesai').text(errSelesai);
+
+                // 🔹 Tahun tidak boleh 0
+                if (!tahun || tahun === 0) {
+                    $btnSimpan.prop('disabled', true);
+                    return;
+                }
+
+                // 🔹 Nonaktifkan tombol jika ada error
+                if (errMulai || errSelesai) {
+                    $btnSimpan.prop('disabled', true);
+                } else {
+                    $btnSimpan.prop('disabled', false);
+                }
+            }
+
+            // Event handler
+            $tahun.on('change input', updateTanggal);
+            $semester.on('change', validateTanggal);
+            $tglMulai.on('change', validateTanggal);
+            $tglSelesai.on('change', validateTanggal);
+
+            // Jalankan validasi pertama kali
+            validateTanggal();
+        });
+    </script>
+
 }

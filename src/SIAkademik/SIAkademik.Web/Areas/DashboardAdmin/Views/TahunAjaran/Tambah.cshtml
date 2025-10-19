@@ -86,12 +86,26 @@
             if ($tglSelesai.next('.text-danger').length === 0) {
                 $tglSelesai.after('<span class="text-danger small d-block" id="errorSelesai"></span>');
             }
+            if ($tahun.next('.text-danger').length === 0) {
+                $tahun.after('<span class="text-danger small d-block" id="errorTahun"></span>');
+            }
 
             function updateTanggal() {
                 var tahun = parseInt($tahun.val());
                 var semester = $semester.val();
 
-                if (!tahun || !semester) return;
+                // Jika tahun belum valid, reset tanggal ke mm/dd/yyyy
+                if (!tahun || tahun < 1000 || $tahun.val().length < 4) {
+                    $tglMulai.val('mm/dd/yyyy');
+                    $tglSelesai.val('mm/dd/yyyy');
+                    $('#errorTahun').text('Tahun harus terdiri dari 4 angka.');
+                    $btnSimpan.prop('disabled', true);
+                    return;
+                } else {
+                    $('#errorTahun').text('');
+                }
+
+                if (!semester) return;
 
                 let startDate, endDate;
 
@@ -125,6 +139,15 @@
                     maxDate = new Date(`${tahun + 1}-06-30`);
                 }
 
+                // 🔹 Validasi tahun 0 atau kurang dari 4 digit
+                if (!tahun || tahun === 0 || $tahun.val().length < 4) {
+                    $('#errorTahun').text('Tahun harus terdiri dari 4 angka.');
+                    $btnSimpan.prop('disabled', true);
+                    return;
+                } else {
+                    $('#errorTahun').text('');
+                }
+
                 // 🔹 Validasi tanggal mulai
                 if (tglMulai < minDate || tglMulai > maxDate) {
                     errMulai = `Tanggal mulai harus antara ${minDate.toLocaleDateString('id-ID')} dan ${maxDate.toLocaleDateString('id-ID')}`;
@@ -139,12 +162,6 @@
                 $('#errorMulai').text(errMulai);
                 $('#errorSelesai').text(errSelesai);
 
-                // 🔹 Cek kondisi tahun tidak boleh 0
-                if (!tahun || tahun === 0) {
-                    $btnSimpan.prop('disabled', true);
-                    return; // langsung keluar agar tombol tetap nonaktif
-                }
-
                 // 🔹 Aktif/nonaktif tombol Simpan sesuai hasil validasi
                 if (errMulai || errSelesai) {
                     $btnSimpan.prop('disabled', true);
@@ -153,11 +170,9 @@
                 }
             }
 
-            // Update otomatis saat semester atau tahun berubah
-            $tahun.on('change', updateTanggal);
+            // Event listeners
+            $tahun.on('input change', updateTanggal);
             $semester.on('change', updateTanggal);
-
-            // Validasi saat tanggal diubah manual
             $tglMulai.on('change', validateTanggal);
             $tglSelesai.on('change', validateTanggal);
 
