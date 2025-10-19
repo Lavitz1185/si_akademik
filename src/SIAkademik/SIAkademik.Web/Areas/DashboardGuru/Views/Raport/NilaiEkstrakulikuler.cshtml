@@ -14,7 +14,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Wali Kelas</a></li>
-            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="Raport" asp-action="NilaiEkstrakulikuler">Nilai Ekstrakulikuler</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="Raport" asp-action="NilaiEkstrakulikuler">Nilai Ekstrakurikuler</a></li>
         </ol>
     </nav>
 </div>
@@ -71,7 +71,7 @@
                         <th rowspan="2">NIS/NISN</th>
                         <th rowspan="2">Nama</th>
                         <th rowspan="2">Aksi</th>
-                        <th colspan="4">Ekstrakulikuler</th>
+                        <th colspan="4">Ekstrakurikuler</th>
                     </tr>
                     <tr>
                         <th>Nama</th>
@@ -116,7 +116,7 @@
                                     <td>@ekstrakulikuler.Predikat</td>
                                     <td>@ekstrakulikuler.Deskripsi</td>
                                     <td>
-                                        <button class="btn btn-primary btn-edit" data-toggle="tooltip" title="Edit Ekstrakulikuler">
+                                        <button class="btn btn-primary btn-edit" data-toggle="tooltip" title="Edit Ekstrakurikuler">
                                             <i class="fas fa-pencil-alt mr-2"></i>Edit
                                         </button>
                                         @{
@@ -135,7 +135,7 @@
                                         </div>
                                         <form asp-action="HapusEkstrakulikuler" asp-route-idEkstrakulikuler="@ekstrakulikuler.Id"
                                               asp-route-idTahunAjaran="@Model.IdTahunAjaran" asp-route-idRombel="@Model.IdRombel" style="display:inline">
-                                            <button type="submit" class="btn btn-danger btn-action swal-confirm" data-toggle="tooltip" title="Hapus Ekstrakulikuler">
+                                            <button type="submit" class="btn btn-danger btn-action swal-confirm" data-toggle="tooltip" title="Hapus Ekstrakurikuler">
                                                 <i class="fas fa-trash mr-2"></i>Hapus
                                             </button>
                                         </form>
