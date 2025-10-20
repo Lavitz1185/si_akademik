@@ -215,7 +215,7 @@ nav .navigation ::deep ul {
 
             nav .navigation ::deep ul li.has-submenu.active .submenu {
                 display: flex;
-                max-height: 250px;
+                max-height: 180px;
                 opacity: 1;
                 transform: translateY(0);
             }

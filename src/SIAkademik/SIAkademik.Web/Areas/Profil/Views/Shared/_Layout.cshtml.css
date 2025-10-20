@@ -100,11 +100,27 @@ footer {
 }
 
 @media (max-width: 780px) {
+    
+}
 
+@media (max-width: 700px) {
+    footer .copyright[b-0me0ezrmnu] {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: start;
+        gap: 15px;
+        width: 100%;
+        flex-wrap: wrap;
+    }
 }
 
 @media (max-width: 500px) {
-    .pro-links {
-        margin-top: 20px;
+}
+
+@media (max-width: 350px) {
+    footer .footer-col .subscribe input[b-0me0ezrmnu] {
+        margin-bottom: 1rem;
     }
 }
