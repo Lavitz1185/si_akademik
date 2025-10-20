@@ -225,13 +225,11 @@
 
     #mars .mars-container {
         display: flex;
-        min-height: 80vh;
     }
 
         #mars .mars-container .mars-kiri {
             flex: 1;
-            height: 80vh;
-            background-image: url("images/siswa1.jpg");
+            background-image: url("images/pandhega/futsal.jpg");
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -270,6 +268,10 @@
 /* ==================================== RESPONSIVE ==================================== */
 /* ------------------------------------ LAPTOP KECIL ------------------------------------ */
 @media (max-width: 1050px) {
+    #sambutan2 .sambutan2-wrapper[b-lh8iyyrbpt] {
+        gap: 30px;
+    }
+
     #sambutan2 .sambutan2-wrapper .sambutan2-video {
         width: 100%;
         height: 350px;
@@ -279,15 +281,6 @@
             width: 100%;
             height: 100%;
         }
-
-    #mars .mars-container .mars-kiri[b-lh8iyyrbpt] {
-        height: 60vh;
-    }
-
-    #mars .mars-container[b-lh8iyyrbpt] {
-        display: flex;
-        min-height: 60vh;
-    }
 }
 
 /* ------------------------------------ TABLET ------------------------------------ */
@@ -307,20 +300,11 @@
     #core-kurikulum .ck-box h2[b-lh8iyyrbpt] {
         font-size: 25px;
     }
-
-    #mars .mars-container .mars-kiri[b-lh8iyyrbpt][b-lh8iyyrbpt] {
-        height: 65vh;
-    }
 }
 
 /* ------------------------------------ MOBILE ------------------------------------ */
 @media (max-width: 500px) {
     #tentang-home[b-lh8iyyrbpt] {
-        background-image: linear-gradient(rgba(9, 5, 54, 0.4), rgba(5, 4, 46, 0.4)), url("images/siswa1.jpg");
-        width: 100%;
-        height: 60vh;
-        background-size: cover;
-        background-position: center;
         display: flex;
         flex-direction: column;
         justify-content: center;
