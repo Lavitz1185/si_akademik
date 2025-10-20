@@ -470,14 +470,6 @@
     #sambutan .sambutan-wrapper .sambutan-content .sambutan-statistik[b-5k926p3mh8] {
         gap: 40px;
     }
-
-    #sambutan
-    .sambutan-wrapper
-    .sambutan-content
-    .sambutan-statistik
-    .stat-box[b-5k926p3mh8]::before {
-        display: none;
-    }
 }
 
 /* ------------------------------------ LAPTOP KECIL ------------------------------------ */
@@ -492,14 +484,6 @@
         height: 100%;
     }
 
-        #sambutan
-        .sambutan-wrapper
-        .sambutan-content
-        .sambutan-statistik
-        .stat-box[b-5k926p3mh8]::before {
-            display: initial;
-        }
-
         #sambutan .sambutan-wrapper .sambutan-content .sambutan-statistik[b-5k926p3mh8] {
             gap: 60px;
         }
@@ -507,6 +491,10 @@
     #sambutan .sambutan-wrapper .sambutan-image iframe {
         width: 100%;
         height: 300px;
+    }
+
+    #berita .beritas .berita-tanggal[b-5k926p3mh8] {
+        bottom: 200px;
     }
 }
 
@@ -518,6 +506,10 @@
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         grid-gap: 1rem;
         margin-top: 50px;
+    }
+
+    #berita .beritas .berita-tanggal[b-5k926p3mh8] {
+        bottom: 180px;
     }
 }
 
@@ -592,6 +584,10 @@
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         grid-gap: 1rem;
         margin-top: 30px;
+    }
+
+    #berita .beritas .berita-tanggal[b-5k926p3mh8] {
+        bottom: 180px;
     }
 
     .para-berita {
@@ -672,5 +668,9 @@
 
     #berita .berita-box[b-5k926p3mh8][b-5k926p3mh8] {
         grid-gap: 2rem;
+    }
+
+    #berita .beritas .berita-tanggal[b-5k926p3mh8] {
+        bottom: 150px;
     }
 }
