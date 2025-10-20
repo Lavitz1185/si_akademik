@@ -43,6 +43,10 @@ internal class PegawaiRepository : IPegawaiRepository
         .Include(p => p.Divisi)
         .ToListAsync();
 
+    public async Task<bool> IsExist(string nip) => await _appDbContext
+        .TblPegawai
+        .AnyAsync(p => p.Id == nip);
+
     public async Task<bool> IsExistByEmail(string email, string? nip = null) => await _appDbContext
         .TblPegawai
         .AnyAsync(p => p.Id != nip && p.Email == email);

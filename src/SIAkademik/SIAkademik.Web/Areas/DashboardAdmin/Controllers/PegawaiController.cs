@@ -7,6 +7,7 @@ using SIAkademik.Domain.Enums;
 using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Domain.ValueObjects;
+using SIAkademik.Infrastructure.Services.FileServices;
 using SIAkademik.Web.Areas.DashboardAdmin.Models.PegawaiModels;
 using SIAkademik.Web.Models;
 using SIAkademik.Web.Services.Toastr;
@@ -24,6 +25,7 @@ public class PegawaiController : Controller
     private readonly IDivisiRepository _divisiRepository;
     private readonly IPasswordHasher<AppUser> _passwordHasher;
     private readonly IToastrNotificationService _toastrNotificationService;
+    private readonly IFileService _fileService;
 
     public PegawaiController(
         IUnitOfWork unitOfWork,
@@ -32,7 +34,8 @@ public class PegawaiController : Controller
         IJabatanRepository jabatanRepository,
         IDivisiRepository divisiRepository,
         IPasswordHasher<AppUser> passwordHasher,
-        IToastrNotificationService toastrNotificationService)
+        IToastrNotificationService toastrNotificationService,
+        IFileService fileService)
     {
         _unitOfWork = unitOfWork;
         _pegawaiRepository = pegawaiRepository;
@@ -41,6 +44,7 @@ public class PegawaiController : Controller
         _divisiRepository = divisiRepository;
         _passwordHasher = passwordHasher;
         _toastrNotificationService = toastrNotificationService;
+        _fileService = fileService;
     }
 
     public async Task<IActionResult> Index()

@@ -1,9 +1,9 @@
-﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.SiswaModels
-@model ImportVM
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.ImportModels
+@model ImportVM<Siswa>
 
 <a href="/file/importTemplate/Template Import Data Siswa.xlsx" target="_blank">Download Template</a>
 
-<form asp-action="Import" enctype="multipart/form-data">
+<form asp-action="Siswa" enctype="multipart/form-data">
     <label asp-for="@Model.FormFile"></label>
     <input asp-for="@Model.FormFile" />
     <span asp-validation-for="@Model.FormFile"></span>
@@ -27,11 +27,10 @@
                 <th>Tanggal Masuk</th>
                 <th>Status Aktif</th>
                 <th>Jenjang</th>
-                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach(var siswa in Model.DaftarSiswa)
+            @foreach(var siswa in Model.NewData)
             {
                 <tr>
                     <td>@siswa.NISN</td>
@@ -43,16 +42,6 @@
                     <td>@siswa.TanggalMasuk.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td>
                     <td>@siswa.StatusAktif.Humanize()</td>
                     <td>@siswa.Jenjang.Humanize()</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@siswa.Id" class="btn btn-primary btn-action" data-toggle="tooltip" title="Edit Data Siswa">
-                            <i class="fas fa-pencil-alt"></i>
-                        </a>
-                        <form asp-action="Hapus" asp-route-id="@siswa.Id" style="display:inline" method="post">
-                            <button type="button" class="btn btn-danger btn-action swal-confirm" data-toggle="tooltip" title="Hapus Data Siswa">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </form>
-                    </td>
                 </tr>
             }
         </tbody>

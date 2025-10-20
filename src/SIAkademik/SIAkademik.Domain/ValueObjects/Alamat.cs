@@ -1,8 +1,9 @@
 ﻿using SIAkademik.Domain.Abstracts;
+using System.Text.RegularExpressions;
 
 namespace SIAkademik.Domain.ValueObjects;
 
-public class Alamat : IEquatable<Alamat>
+public partial class Alamat : IEquatable<Alamat>
 {
     public int RT { get; set; }
     public int RW { get; set; }
@@ -38,4 +39,33 @@ public class Alamat : IEquatable<Alamat>
     public static bool operator==(Alamat? left, Alamat? right) => left is not null && left.Equals(right);
 
     public static bool operator!=(Alamat? left, Alamat? right) => !(left == right);
+
+    public static bool TryParse(string value, out Alamat result)
+    {
+        result = new Alamat();
+
+        var match = Regex().Match(value);
+        if (!match.Success ||
+            !match.Groups.TryGetValue("Jalan", out var groupJalan) ||
+            !match.Groups.TryGetValue("RT", out var groupRT) ||
+            !match.Groups.TryGetValue("RW", out var groupRW) ||
+            !match.Groups.TryGetValue("KelurahanDesa", out var groupKelurahanDesa) ||
+            !match.Groups.TryGetValue("Kecamatan", out var groupKecamatan) ||
+            !match.Groups.TryGetValue("KotaKabupaten", out var groupKotaKabupaten) ||
+            !match.Groups.TryGetValue("Provinsi", out var groupProvinsi))
+            return false;
+
+        result.Jalan = groupJalan.Value;
+        result.RT = int.Parse(groupRT.Value);
+        result.RW = int.Parse(groupRW.Value);
+        result.KelurahanDesa = groupKelurahanDesa.Value;
+        result.Kecamatan = groupKecamatan.Value;
+        result.KotaKabupaten = groupKotaKabupaten.Value;
+        result.Provinsi = groupProvinsi.Value;
+
+        return true;
+    }
+
+    [GeneratedRegex(@"^(?<Jalan>(?:[\w.]+\s*)+),\s*RT\/RW\s+(?<RT>\d+)\/(?<RW>\d+),\s*(?<KelurahanDesa>(?:Kelurahan|Desa)\s+(?:\w+\s*)+),\s*Kecamatan\s+(?<Kecamatan>(?:\w+\s*)+),\s*(?<KotaKabupaten>(?:Kota|Kabupaten)\s+(?:\w+\s*)+),\s*(?:Provinsi)*\s+(?<Provinsi>(?:\w+\s*)+)$")]
+    private static partial Regex Regex();
 }

@@ -24,7 +24,7 @@
                 <a asp-area="@AreaNames.DashboardAdmin" asp-controller="Siswa" asp-action="ProsesKelulusan" data-match="partial" class="nav-link"><i data-feather="award"></i><span>Kelulusan</span></a>
             </li>
             <li>
-                <a asp-area="@AreaNames.DashboardAdmin" asp-controller="Siswa" asp-action="Import" data-match="partial" class="nav-link"><i data-feather="award"></i><span>Import Data Siswa</span></a>
+                <a asp-area="@AreaNames.DashboardAdmin" asp-controller="Import" asp-action="Siswa" data-match="partial" class="nav-link"><i data-feather="award"></i><span>Import Data Siswa</span></a>
             </li>
 
             <li class="menu-header">Manajemen SDM</li>
@@ -36,6 +36,9 @@
             </li>
             <li>
                 <a asp-area="@AreaNames.DashboardAdmin" asp-controller="Jabatan" asp-action="Index" data-match="partial" class="nav-link"><i data-feather="briefcase"></i><span>Jabatan</span></a>
+            </li>
+            <li>
+                <a asp-area="@AreaNames.DashboardAdmin" asp-controller="Import" asp-action="Pegawai" data-match="partial" class="nav-link"><i data-feather="users"></i><span>Import Data Guru/Tendik</span></a>
             </li>
 
             <li class="menu-header">Manajemen Akademik</li>

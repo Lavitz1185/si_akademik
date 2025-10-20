@@ -1,0 +1,67 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.ImportModels
+@model ImportVM<Pegawai>
+
+<a href="/file/importTemplate/Template Import Data Pegawai.xlsx" target="_blank">Download Template</a>
+
+<form asp-action="Pegawai" enctype="multipart/form-data">
+    <label asp-for="@Model.FormFile"></label>
+    <input asp-for="@Model.FormFile" />
+    <span asp-validation-for="@Model.FormFile"></span>
+
+    <button type="submit">Upload</button>
+</form>
+
+@if (Model.FileName is not null)
+{
+    <p>File Yang Diupload : @Model.FileName</p>
+    <h2>Data Baru</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="min-width: 100px">NIP</th>
+                <th style="min-width: 180px">Nama Lengkap</th>
+                <th style="min-width: 150px">Jenis Kelamin</th>
+                <th style="min-width: 150px">Agama</th>
+                <th style="min-width: 150px">TTL</th>
+                <th style="min-width: 120px">Status Perkawinan</th>
+                <th style="min-width: 250px">Alamat (KTP)</th>
+                <th>No. HP</th>
+                <th style="min-width: 100px">Gol. Darah</th>
+                <th style="min-width: 130px">Tanggal Masuk</th>
+                <th>NIK</th>
+                <th style="min-width: 150px">Nama Instagram</th>
+                <th style="min-width: 150px">Email</th>
+                <th>No. Rekening</th>
+                <th>Divisi</th>
+                <th>Jabatan</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var guru in Model.NewData)
+            {
+                <tr>
+                    <td>@guru.Id</td>
+                    <td>@guru.Nama</td>
+                    <td>@guru.JenisKelamin.Humanize()</td>
+                    <td>@guru.Agama.Humanize(LetterCasing.Title)</td>
+                    <td>@guru.TTL</td>
+                    <td>@guru.StatusPerkawinan.Humanize()</td>
+                    <td>@guru.AlamatKTP</td>
+                    <td>@guru.NoHP.Value</td>
+                    <td>@guru.GolonganDarah.Humanize()</td>
+                    <td>@guru.TanggalMasuk.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td>
+                    <td>@guru.NIK</td>
+                    <td>@guru.NamaInstagram</td>
+                    <td>@guru.Email</td>
+                    <td>@guru.NoRekening</td>
+                    <td>@guru.Divisi.Nama</td>
+                    <td>@guru.Jabatan.Nama</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
