@@ -1,7 +1,7 @@
 ﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.SiswaModels
 @model ImportVM
 
-<a asp-action="DownloadTemplateImport" target="_blank">Download Template</a>
+<a href="/file/importTemplate/Template Import Data Siswa.xlsx" target="_blank">Download Template</a>
 
 <form asp-action="Import" enctype="multipart/form-data">
     <label asp-for="@Model.FormFile"></label>
@@ -10,6 +10,54 @@
 
     <button type="submit">Upload</button>
 </form>
+
+@if (Model.FileName is not null)
+{
+    <p>File Yang Diupload : @Model.FileName</p>
+    <h2>Data Baru</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>NISN</th>
+                <th>NIS</th>
+                <th>Nama</th>
+                <th>Agama</th>
+                <th>Jenis Kelamin</th>
+                <th>TTL</th>
+                <th>Tanggal Masuk</th>
+                <th>Status Aktif</th>
+                <th>Jenjang</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var siswa in Model.DaftarSiswa)
+            {
+                <tr>
+                    <td>@siswa.NISN</td>
+                    <td>@siswa.NIS</td>
+                    <td>@siswa.Nama</td>
+                    <td>@siswa.Agama.Humanize()</td>
+                    <td>@siswa.JenisKelamin.Humanize()</td>
+                    <td>@siswa.TTL</td>
+                    <td>@siswa.TanggalMasuk.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td>
+                    <td>@siswa.StatusAktif.Humanize()</td>
+                    <td>@siswa.Jenjang.Humanize()</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@siswa.Id" class="btn btn-primary btn-action" data-toggle="tooltip" title="Edit Data Siswa">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        <form asp-action="Hapus" asp-route-id="@siswa.Id" style="display:inline" method="post">
+                            <button type="button" class="btn btn-danger btn-action swal-confirm" data-toggle="tooltip" title="Hapus Data Siswa">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

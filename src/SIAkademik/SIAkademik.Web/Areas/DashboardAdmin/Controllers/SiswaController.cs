@@ -297,8 +297,6 @@ public class SiswaController : Controller
     [Route("[Area]/[Action]")]
     public IActionResult Import() => View(new ImportVM());
 
-    public IActionResult DownloadTemplateImport() => File("/file/importTemplate/Template Import Data Siswa.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-
     [Route("[Area]/[Action]")]
     [HttpPost]
     public async Task<IActionResult> Import(ImportVM vm) 
@@ -339,6 +337,8 @@ public class SiswaController : Controller
 
         var numOfAdded = 0;
         var numOfNotAdded = 0;
+        var dataBaru = new List<Siswa>();
+
         foreach (var row in sheetData.Elements<Row>().Skip(1))
         {
             var cells = row.Elements<Cell>().ToList();
@@ -416,6 +416,7 @@ public class SiswaController : Controller
 
                 _siswaRepository.Add(siswa);
                 _appUserRepository.Add(account);
+                dataBaru.Add(siswa);
                 numOfAdded++;
             }
         }
@@ -426,7 +427,7 @@ public class SiswaController : Controller
         else
             _toastrNotificationService.AddSuccess($"Simpan Berhasil. {numOfAdded} ditambahkan, {numOfNotAdded} gagal ditambakan");
 
-        return RedirectToAction(nameof(Index));
+        return View(new ImportVM { FileName = vm.FormFile.FileName, DaftarSiswa = dataBaru });
     }
 
     private string GetCellValues(Cell cell, List<string> sharedStrings)
