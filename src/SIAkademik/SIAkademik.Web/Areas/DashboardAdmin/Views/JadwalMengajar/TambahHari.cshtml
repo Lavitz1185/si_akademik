@@ -23,7 +23,7 @@
                     <h4>Tambah Data Hari Jadwal Mengajar</h4>
                 </div>
 
-                <form asp-action="TambahHari" method="post" class="container">
+                <form asp-action="TambahHari" method="post" class="container" id="formTambahHari">
                     <div class="card-body">
                         <div asp-validation-summary="ModelOnly"></div>
 
@@ -44,13 +44,13 @@
                         <div class="form-group">
                             <label asp-for="@Model.JamMulai"></label>
                             <input asp-for="@Model.JamMulai" type="time" class="form-control" />
-                            <span asp-validation-for="@Model.JamMulai"></span>
+                            <span asp-validation-for="@Model.JamMulai" style="color:red"></span>
                         </div>
 
                         <div class="form-group">
                             <label asp-for="@Model.JamAkhir"></label>
                             <input asp-for="@Model.JamAkhir" type="time" class="form-control"/>
-                            <span asp-validation-for="@Model.JamAkhir"></span>
+                            <span asp-validation-for="@Model.JamAkhir" style="color:red"></span>
                         </div>                       
                     </div>
 
@@ -66,4 +66,48 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        const form = document.getElementById('formTambahHari');
+        const jamMulaiInput = document.querySelector('[name="JamMulai"]');
+        const jamAkhirInput = document.querySelector('[name="JamAkhir"]');
+        const spanValidation = document.querySelector('span[data-valmsg-for="JamAkhir"]');
+        const simpanBtn = form.querySelector('button[type="submit"]');
+
+        function validateJam() {
+            const jamMulai = jamMulaiInput.value;
+            const jamAkhir = jamAkhirInput.value;
+
+            // Reset pesan error
+            spanValidation.textContent = "";
+
+            // Kalau dua-duanya sudah diisi
+            if (jamMulai && jamAkhir) {
+                const mulai = new Date(`1970-01-01T${jamMulai}:00`);
+                const akhir = new Date(`1970-01-01T${jamAkhir}:00`);
+
+                // Jika jam akhir tidak lebih besar dari jam mulai
+                if (akhir <= mulai) {
+                    spanValidation.textContent = "Jam akhir harus lebih besar dari jam mulai (minimal selisih 1 menit).";
+                    simpanBtn.disabled = true; // matikan tombol simpan
+                    return false;
+                }
+            }
+
+            // Kalau valid
+            simpanBtn.disabled = false;
+            return true;
+        }
+
+        // Jalankan validasi setiap kali jam diubah
+        jamMulaiInput.addEventListener('change', validateJam);
+        jamAkhirInput.addEventListener('change', validateJam);
+
+        // Cegah submit kalau masih invalid
+        form.addEventListener('submit', function (e) {
+            if (!validateJam()) {
+                e.preventDefault();
+            }
+        });
+    </script>
 }
