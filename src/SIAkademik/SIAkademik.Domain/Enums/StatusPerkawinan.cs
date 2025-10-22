@@ -2,5 +2,5 @@
 
 public enum StatusPerkawinan
 {
-    Kawin, TidakKawin
+    Kawin, BelumKawin
 }

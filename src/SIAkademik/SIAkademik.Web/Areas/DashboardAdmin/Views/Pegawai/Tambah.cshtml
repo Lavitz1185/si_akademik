@@ -279,7 +279,7 @@
             const setPasswordDisplay = () => {
                 const jenis = $('select#JabatanId option:selected').attr('data-jenis');
 
-                if (jenis == '@(JenisJabatan.Pegawai.Humanize())') {
+                if (jenis == '@(JenisJabatan.Tendik.Humanize())') {
                     $('input#Password').closest('div').hide()
                     $('div.section-title:contains("Data Akun")').hide()
                 } else {

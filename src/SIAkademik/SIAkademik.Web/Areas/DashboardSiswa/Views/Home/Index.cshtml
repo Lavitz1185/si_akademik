@@ -43,7 +43,7 @@
                                 </div>
                             }
 
-                            @foreach(var hari in Model.DaftarHariMengajar)
+                            @foreach(var hari in Model.DaftarHariMengajar.OrderBy(h => h.JamMulai))
                             {
                                 <!-- Loop foreach pelajaran -->
                                 <div class="col-md-12 mb-3">

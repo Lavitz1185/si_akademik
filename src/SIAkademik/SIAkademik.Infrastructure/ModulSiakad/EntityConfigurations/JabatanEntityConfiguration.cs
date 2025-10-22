@@ -35,7 +35,7 @@ internal class JabatanEntityConfiguration : IEntityTypeConfiguration<Jabatan>
             {
                 Id = 4,
                 Nama = "Kepala Asrama",
-                Jenis = JenisJabatan.Pegawai
+                Jenis = JenisJabatan.Tendik
             },
             new Jabatan
             {
@@ -65,7 +65,7 @@ internal class JabatanEntityConfiguration : IEntityTypeConfiguration<Jabatan>
             {
                 Id = 9,
                 Nama = "Karyawan Pengadaan dan Keuangan",
-                Jenis = JenisJabatan.Pegawai
+                Jenis = JenisJabatan.Tendik
             },
             new Jabatan
             {
@@ -143,37 +143,37 @@ internal class JabatanEntityConfiguration : IEntityTypeConfiguration<Jabatan>
             {
                 Id = 22,
                 Nama = "Karyawan SPV DPU",
-                Jenis = JenisJabatan.Pegawai
+                Jenis = JenisJabatan.Tendik
             },
             new Jabatan
             {
                 Id = 23,
                 Nama = "Karyawan Pengadaan dan Keuangan",
-                Jenis = JenisJabatan.Pegawai
+                Jenis = JenisJabatan.Tendik
             },
             new Jabatan
             {
                 Id = 24,
                 Nama = "Karyawan DPU",
-                Jenis = JenisJabatan.Pegawai
+                Jenis = JenisJabatan.Tendik
             },
             new Jabatan
             {
                 Id = 25,
                 Nama = "Kordinator HRD",
-                Jenis = JenisJabatan.Pegawai
+                Jenis = JenisJabatan.Tendik
             },
             new Jabatan
             {
                 Id = 26,
                 Nama = "Kordinator R&D",
-                Jenis = JenisJabatan.Pegawai
+                Jenis = JenisJabatan.Tendik
             },
             new Jabatan
             {
                 Id = 27,
                 Nama = "Karyawan Dapur",
-                Jenis = JenisJabatan.Pegawai
+                Jenis = JenisJabatan.Tendik
             }
         );
     }

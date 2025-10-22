@@ -2,5 +2,5 @@
 
 public enum JenisJabatan
 {
-    Guru, Pegawai
+    Guru, Tendik
 }   
