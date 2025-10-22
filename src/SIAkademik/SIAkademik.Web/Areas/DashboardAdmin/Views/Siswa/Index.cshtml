@@ -1,18 +1,6 @@
 ﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.SiswaModels
 @model IndexVM
 
-@{
-    var daftarSiswa = Model.DaftarSiswa
-                .Where(s =>
-                    (Model.Jenjang is null || s.Jenjang == Model.Jenjang) &&
-                    (Model.Agama is null || s.Agama == Model.Agama) &&
-                    (Model.TanggalMasuk is null || s.TanggalMasuk == Model.TanggalMasuk) &&
-                    (Model.JenisKelamin is null || s.JenisKelamin == Model.JenisKelamin) &&
-                    (Model.Jenjang is null || s.Jenjang == Model.Jenjang) &&
-                    (Model.StatusAktif is null || s.StatusAktif == Model.StatusAktif)
-                );
-}
-
 <!-- Breadcrumb -->
 <div class="row">
     <nav aria-label="breadcrumb">
@@ -31,56 +19,78 @@
     </div>
     <div class="padding-20">
         <!-- Tombol Tambah dan Filter -->
-        <form asp-action="Index" method="get" class="row">
-            <label asp-for="@Model.JenisKelamin" class="mb-0" style="font-weight: 600;">Jenis Kelamin:</label>
-            <select asp-for="@Model.JenisKelamin" class="form-control form-control-sm w-auto submit-on-change">
-                <option value="@null">-- Semua --</option>
-
-                @foreach (var jk in Enum.GetValues<JenisKelamin>())
+        <form asp-action="Index" method="post" class="row">
+            <div class="col-4">
+                <label asp-for="@Model.JenisKelamin" class="mb-0" style="font-weight: 600;">Jenis Kelamin:</label>
+                @for (int i = 0; i < Model.JenisKelamin.Count; i++)
                 {
-                    <option value="@jk">@jk.Humanize()</option>
+                    <div>
+                        <input asp-for="@Model.JenisKelamin[@i].Value" hidden readonly />
+                        <input asp-for="@Model.JenisKelamin[@i].Selected" class="submit-on-change" type="checkbox" />
+                        @Model.JenisKelamin[i].Value.Humanize()
+                    </div>
                 }
-            </select>
+            </div>
 
-            <label asp-for="@Model.Agama" class="mb-0" style="font-weight: 600;">Agama:</label>
-            <select asp-for="@Model.Agama" class="form-control form-control-sm w-auto submit-on-change">
-                <option value="@null">-- Semua --</option>
-
-                @foreach (var agama in Enum.GetValues<Agama>())
+            <div class="col-4">
+                <label asp-for="@Model.Agama" class="mb-0" style="font-weight: 600;">Agama:</label>
+                @for (int i = 0; i < Model.Agama.Count; i++)
                 {
-                    <option value="@agama">@agama.Humanize(LetterCasing.Title)</option>
+                    <div>
+                        <input asp-for="@Model.Agama[@i].Value" hidden readonly />
+                        <input asp-for="@Model.Agama[@i].Selected" class="submit-on-change" type="checkbox" />
+                        @Model.Agama[i].Value.Humanize(LetterCasing.Title)
+                    </div>
                 }
-            </select>
+            </div>
 
-            <label asp-for="@Model.StatusAktif" class="mb-0" style="font-weight: 600;">Status Aktif:</label>
-            <select asp-for="@Model.StatusAktif" class="form-control form-control-sm w-auto submit-on-change">
-                <option value="@null">-- Semua --</option>
-
-                @foreach (var status in Enum.GetValues<StatusAktifMahasiswa>())
+            <div class="col-4">
+                <label asp-for="@Model.StatusAktif" class="mb-0" style="font-weight: 600;">Status Aktif:</label>
+                @for (int i = 0; i < Model.StatusAktif.Count; i++)
                 {
-                    <option value="@status">@status.Humanize(LetterCasing.Title)</option>
+                    <div>
+                        <input asp-for="@Model.StatusAktif[@i].Value" hidden readonly />
+                        <input asp-for="@Model.StatusAktif[@i].Selected" class="submit-on-change" type="checkbox" />
+                        @Model.StatusAktif[i].Value.Humanize(LetterCasing.Title)
+                    </div>
                 }
-            </select>
+            </div>
 
-            <label asp-for="@Model.TanggalMasuk" class="mb-0" style="font-weight: 600;">Tanggal Masuk:</label>
-            <select asp-for="@Model.TanggalMasuk" class="form-control form-control-sm w-auto submit-on-change">
-                <option value="@null">-- Semua --</option>
-
-                @foreach (var tanggalMasuk in Model.DaftarSiswa.Select(s => s.TanggalMasuk).Distinct())
+            <div class="col-4">
+                <label asp-for="@Model.TahunMasuk" class="mb-0" style="font-weight: 600;">Tahun Masuk:</label>
+                @for (int i = 0; i < Model.TahunMasuk.Count; i++)
                 {
-                    <option value="@tanggalMasuk.ToString("yyyy/MM/dd")">@tanggalMasuk.ToString("dd/MM/yyyy", CultureInfos.CI)</option>
+                    <div>
+                        <input asp-for="@Model.TahunMasuk[@i].Value" hidden readonly />
+                        <input asp-for="@Model.TahunMasuk[@i].Selected" class="submit-on-change" type="checkbox" />
+                        @Model.TahunMasuk[i].Value
+                    </div>
                 }
-            </select>
+            </div>
 
-            <label asp-for="@Model.Jenjang" class="mb-0" style="font-weight: 600;">Jenjang:</label>
-            <select asp-for="@Model.Jenjang" class="form-control form-control-sm w-auto submit-on-change">
-                <option value="@null">-- Semua --</option>
-
-                @foreach (var jenjang in Enum.GetValues<Jenjang>())
+            <div class="col-4">
+                <label asp-for="@Model.TahunLahir" class="mb-0" style="font-weight: 600;">Tahun Lahir:</label>
+                @for (int i = 0; i < Model.TahunLahir.Count; i++)
                 {
-                    <option value="@jenjang">@jenjang.Humanize()</option>
+                    <div>
+                        <input asp-for="@Model.TahunLahir[@i].Value" hidden readonly />
+                        <input asp-for="@Model.TahunLahir[@i].Selected" class="submit-on-change" type="checkbox" />
+                        @Model.TahunLahir[i].Value
+                    </div>
                 }
-            </select>
+            </div>
+
+            <div class="col-4">
+                <label asp-for="@Model.Jenjang" class="mb-0" style="font-weight: 600;">Jenjang:</label>
+                @for (int i = 0; i < Model.Jenjang.Count; i++)
+                {
+                    <div>
+                        <input asp-for="@Model.Jenjang[@i].Value" hidden readonly />
+                        <input asp-for="@Model.Jenjang[@i].Selected" class="submit-on-change" type="checkbox" />
+                        @Model.Jenjang[i].Value
+                    </div>
+                }
+            </div>
         </form>
 
         <div class="d-flex justify-content-start ml-auto mb-3">
@@ -130,7 +140,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var siswa in daftarSiswa)
+                    @foreach (var siswa in Model.DaftarSiswa)
                     {
                         <tr>
                             <td>@siswa.Id</td>
