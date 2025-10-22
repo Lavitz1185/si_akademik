@@ -263,7 +263,7 @@
                     label: "Jumlah Pegawai",
                     data: [
         @(@Model.DaftarPegawai.Where(p => p.Jabatan.Jenis == JenisJabatan.Guru).Count()),
-        @(@Model.DaftarPegawai.Where(p => p.Jabatan.Jenis == JenisJabatan.Pegawai).Count())
+        @(@Model.DaftarPegawai.Where(p => p.Jabatan.Jenis == JenisJabatan.Tendik).Count())
                     ],
                     backgroundColor: ['rgba(54, 162, 235, 0.6)', 'rgba(255, 159, 64, 0.6)'],
                     borderRadius: 6
