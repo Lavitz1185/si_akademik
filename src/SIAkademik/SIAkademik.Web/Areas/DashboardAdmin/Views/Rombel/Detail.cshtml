@@ -6,7 +6,7 @@
 @{
     var daftarSiswa = await SiswaRepository.GetAllAktif();
     daftarSiswa = daftarSiswa
-        .Where(s => s.DaftarAnggotaRombel.All(a => a.Rombel.Kelas.TahunAjaran != Model.Kelas.TahunAjaran) &&
+        .Where(s => s.DaftarAnggotaRombel.All(a => a.Rombel.TahunAjaran != Model.TahunAjaran) &&
                     s.Jenjang == Model.Kelas.Jenjang)
         .ToList();
 }
@@ -52,11 +52,11 @@
                         <div class="col-md-6">
                             <div class="row mb-1">
                                 <div class="col-3" style="font-weight:600;">Tahun Ajaran</div>
-                                <div class="col">@Model.Kelas.TahunAjaran.Periode</div>
+                                <div class="col">@Model.TahunAjaran.Periode</div>
                             </div>
                             <div class="row mb-1">
                                 <div class="col-3" style="font-weight:600;">Semester</div>
-                                <div class="col">@Model.Kelas.TahunAjaran.Semester.Humanize()</div>
+                                <div class="col">@Model.TahunAjaran.Semester.Humanize()</div>
                             </div>
                             <div class="row mb-1">
                                 <div class="col-3" style="font-weight:600;">Nama Wali</div>

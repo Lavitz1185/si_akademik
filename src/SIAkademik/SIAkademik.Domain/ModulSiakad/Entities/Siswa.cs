@@ -19,44 +19,21 @@ public class Siswa : Entity<int>
     }
 
     public bool IsBiodataComplete() =>
-        Suku is not null &&
         AlamatLengkap.KodePos != Alamat.Empty.KodePos &&
         AlamatLengkap.Jalan != Alamat.Empty.Jalan &&
         AlamatLengkap.KelurahanDesa != Alamat.Empty.KelurahanDesa &&
         AlamatLengkap.Kecamatan != Alamat.Empty.Kecamatan &&
         AlamatLengkap.KotaKabupaten != Alamat.Empty.KotaKabupaten &&
         AlamatLengkap.Provinsi != Alamat.Empty.Provinsi &&
-        GolonganDarah is not null &&
-        TinggiBadan is not null &&
-        BeratBadan is not null &&
-        Hobi is not null &&
         NoHP is not null &&
         JumlahSaudara is not null &&
         AnakKe is not null &&
         AnakKe is not null &&
-        AktaKelahiran is not null &&
         NomorKartuKeluarga is not null &&
         NomorKartuPelajar is not null &&
         Email is not null &&
         AsalSekolah is not null &&
-        NamaAyah is not null &&
-        NIKAyah is not null &&
-        PekerjaanAyah is not null &&
-        AgamaAyah is not null &&
-        NoHPAyah is not null &&
-        TanggalLahirAyah is not null &&
-        StatusHidupAyah is not null &&
-        PendidikanTerakhirAyah is not null &&
-        NamaIbu is not null &&
-        NIKIbu is not null &&
-        PekerjaanIbu is not null &&
-        AgamaIbu is not null &&
-        NoHPIbu is not null &&
-        TanggalLahirIbu is not null &&
-        StatusHidupIbu is not null &&
-        PendidikanTerakhirIbu is not null &&
-        IjazahSMP is not null &&
-        FotoProfil is not null;
+        NamaAyah is not null;
 
     //Data Penting
     public required string Nama { get; set; }
