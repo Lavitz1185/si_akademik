@@ -37,7 +37,7 @@ public class NilaiController : Controller
 
         if (tahunAjaran is null) return View(new IndexVM { Siswa = siswa });
 
-        var anggotaRombel = siswa.DaftarAnggotaRombel.FirstOrDefault(a => a.Rombel.Kelas.TahunAjaran == tahunAjaran);
+        var anggotaRombel = siswa.DaftarAnggotaRombel.FirstOrDefault(a => a.Rombel.TahunAjaran == tahunAjaran);
 
         return View(new IndexVM { Siswa = siswa, TahunAjaran = tahunAjaran, IdTahunAjaran = tahunAjaran.Id, AnggotaRombel = anggotaRombel });
     }
@@ -50,7 +50,7 @@ public class NilaiController : Controller
         var tahunAjaran = await _tahunAjaranRepository.Get(idTahunAjaran);
         if (tahunAjaran is null) return NotFound();
 
-        var anggotaRombel = siswa.DaftarAnggotaRombel.FirstOrDefault(a => a.Rombel.Kelas.TahunAjaran == tahunAjaran);
+        var anggotaRombel = siswa.DaftarAnggotaRombel.FirstOrDefault(a => a.Rombel.TahunAjaran == tahunAjaran);
         if (anggotaRombel is null) return NotFound();
 
         var asesmenSumatif = await _asesmenSumatifRepository.Get(idAsesmenSumatif);

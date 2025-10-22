@@ -9,7 +9,7 @@ internal class TahunAjaranEntityConfiguration : IEntityTypeConfiguration<TahunAj
 {
     public void Configure(EntityTypeBuilder<TahunAjaran> builder)
     {
-        builder.HasMany(x => x.DaftarKelas).WithOne(x => x.TahunAjaran);
+        builder.HasMany(x => x.DaftarRombel).WithOne(x => x.TahunAjaran);
 
         builder.HasData(
             new TahunAjaran
@@ -19,7 +19,8 @@ internal class TahunAjaranEntityConfiguration : IEntityTypeConfiguration<TahunAj
                 Tahun = 2021,
                 TanggalMulai = new DateOnly(2021, 08, 01),
                 TanggalSelesai = new DateOnly(2021, 12, 31)
-            }, new TahunAjaran
+            }, 
+            new TahunAjaran
             {
                 Id = 2,
                 Semester = Semester.Ganjil,

@@ -102,7 +102,7 @@ public class RaportController : Controller
         }
 
         var rombel = await _rombelRepository.Get(idRombel);
-        if (rombel is null || rombel.Kelas.TahunAjaran != tahunAjaran || rombel.Wali != pegawai)
+        if (rombel is null || rombel.TahunAjaran != tahunAjaran || rombel.Wali != pegawai)
         {
             _toastrNotificationService.AddError("Rombel tidak ditemukan!", "Refresh Nilai");
             return RedirectToAction(nameof(Index), new { idTahunAjaran });
@@ -180,7 +180,7 @@ public class RaportController : Controller
         }
 
         var rombel = await _rombelRepository.Get(vm.IdRombel.Value);
-        if (rombel is null || rombel.Kelas.TahunAjaran != tahunAjaran || rombel.Wali != pegawai)
+        if (rombel is null || rombel.TahunAjaran != tahunAjaran || rombel.Wali != pegawai)
         {
             _toastrNotificationService.AddError("Rombel tidak ditemukan!");
             return RedirectToAction(nameof(Index), new { vm.IdTahunAjaran });
@@ -214,7 +214,7 @@ public class RaportController : Controller
         }
 
         var rombel = await _rombelRepository.Get(idRombel);
-        if (rombel is null || rombel.Kelas.TahunAjaran != tahunAjaran || rombel.Wali != pegawai)
+        if (rombel is null || rombel.TahunAjaran != tahunAjaran || rombel.Wali != pegawai)
         {
             _toastrNotificationService.AddError("Rombel tidak ditemukan!", "Refresh Nilai");
             return NotFound();
@@ -252,7 +252,7 @@ public class RaportController : Controller
         }
 
         var rombel = await _rombelRepository.Get(vm.IdRombel);
-        if (rombel is null || rombel.Kelas.TahunAjaran != tahunAjaran || rombel.Wali != pegawai)
+        if (rombel is null || rombel.TahunAjaran != tahunAjaran || rombel.Wali != pegawai)
         {
             _toastrNotificationService.AddError("Rombel tidak ditemukan!");
             return RedirectToAction(nameof(Index), new { vm.IdTahunAjaran });
@@ -324,7 +324,7 @@ public class RaportController : Controller
         }
 
         var rombel = await _rombelRepository.Get(idRombel);
-        if (rombel is null || rombel.Kelas.TahunAjaran != tahunAjaran || rombel.Wali != pegawai)
+        if (rombel is null || rombel.TahunAjaran != tahunAjaran || rombel.Wali != pegawai)
         {
             _toastrNotificationService.AddError("Rombel tidak ditemukan", "Hapus Ekstrakulikuler");
             return RedirectToAction(nameof(NilaiEkstrakulikuler), new { idTahunAjaran });
@@ -367,7 +367,7 @@ public class RaportController : Controller
         }
 
         var rombel = await _rombelRepository.Get(vm.IdRombel);
-        if (rombel is null || rombel.Kelas.TahunAjaran != tahunAjaran || rombel.Wali != pegawai)
+        if (rombel is null || rombel.TahunAjaran != tahunAjaran || rombel.Wali != pegawai)
         {
             _toastrNotificationService.AddError("Rombel tidak ditemukan", "Tambah Ekstrakulikuler");
             return RedirectToAction(nameof(NilaiEkstrakulikuler), new { vm.IdTahunAjaran });
@@ -425,7 +425,7 @@ public class RaportController : Controller
         }
 
         var rombel = await _rombelRepository.Get(vm.IdRombel);
-        if (rombel is null || rombel.Kelas.TahunAjaran != tahunAjaran || rombel.Wali != pegawai)
+        if (rombel is null || rombel.TahunAjaran != tahunAjaran || rombel.Wali != pegawai)
         {
             _toastrNotificationService.AddError("Rombel tidak ditemukan", "Edit Ekstrakulikuler");
             return RedirectToAction(nameof(NilaiEkstrakulikuler), new { vm.IdTahunAjaran });
@@ -534,8 +534,8 @@ public class RaportController : Controller
         var footer = await _razorTemplateEngine.RenderAsync("Views/Shared/_Footer2LaporanPartial.cshtml", anggotaRombel);
 
         var fileName = $"Raport_{siswa.Nama}({siswa.NISN})_{rombel.Kelas.Jenjang.Humanize()}" +
-            $"_{rombel.Kelas.TahunAjaran.Periode.Replace("/", "-")}" +
-            $"_{rombel.Kelas.TahunAjaran.Semester.Humanize()}";
+            $"_{rombel.TahunAjaran.Periode.Replace("/", "-")}" +
+            $"_{rombel.TahunAjaran.Semester.Humanize()}";
 
         var pdfBinary = await _pDFGeneratorService.GeneratePDF(html, header, footer, fileName);
 

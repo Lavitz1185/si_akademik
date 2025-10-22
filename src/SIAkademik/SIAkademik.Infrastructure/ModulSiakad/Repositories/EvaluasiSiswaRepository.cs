@@ -22,7 +22,7 @@ internal class EvaluasiSiswaRepository : IEvaluasiSiswaRepository
         .TblEvaluasiSiswa
         .Include(a => a.DaftarAnggotaRombel).ThenInclude(r => r.Rombel)
         .Include(a => a.DaftarAnggotaRombel).ThenInclude(r => r.Siswa)
-        .Include(a => a.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(a => a.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(k => k.TahunAjaran)
         .Include(a => a.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(a => a.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar).ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
         .Include(a => a.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar).ThenInclude(j => j.Pegawai)
@@ -34,7 +34,7 @@ internal class EvaluasiSiswaRepository : IEvaluasiSiswaRepository
         .TblEvaluasiSiswa
         .Include(a => a.DaftarAnggotaRombel).ThenInclude(r => r.Rombel)
         .Include(a => a.DaftarAnggotaRombel).ThenInclude(r => r.Siswa)
-        .Include(a => a.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(a => a.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(k => k.TahunAjaran)
         .Include(a => a.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(a => a.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar).ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
         .Include(a => a.AsesmenSumatif).ThenInclude(a => a.JadwalMengajar).ThenInclude(j => j.Pegawai)

@@ -52,7 +52,7 @@ public class NilaiAkhirSemesterController : Controller
             (await _jadwalMengajarRepository.GetAllByTahunAjaran(tahunAjaran.Id)).FirstOrDefault(j => j.Pegawai == pegawai) :
             await _jadwalMengajarRepository.Get(idJadwalMengajar.Value);
 
-        if (jadwalMengajar is null || jadwalMengajar.Pegawai != pegawai || jadwalMengajar.Rombel.Kelas.TahunAjaran != tahunAjaran)
+        if (jadwalMengajar is null || jadwalMengajar.Pegawai != pegawai || jadwalMengajar.Rombel.TahunAjaran != tahunAjaran)
             return View(new IndexVM { Pegawai = pegawai, TahunAjaran = tahunAjaran, IdTahunAjaran = tahunAjaran.Id });
 
         foreach (var anggotaRombel in jadwalMengajar.Rombel.DaftarAnggotaRombel)
@@ -103,7 +103,7 @@ public class NilaiAkhirSemesterController : Controller
         }
 
         var jadwalMengajar = await _jadwalMengajarRepository.Get(vm.IdJadwalMengajar.Value);
-        if (jadwalMengajar is null || jadwalMengajar.Rombel.Kelas.TahunAjaran != tahunAjaran)
+        if (jadwalMengajar is null || jadwalMengajar.Rombel.TahunAjaran != tahunAjaran)
         {
             _toastrNotificationService.AddError("Jadwal Mengajar tidak ditemukan");
             return RedirectToAction(nameof(Index), new { vm.IdTahunAjaran });

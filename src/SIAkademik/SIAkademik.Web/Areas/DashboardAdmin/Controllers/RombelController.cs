@@ -51,23 +51,9 @@ public class RombelController : Controller
             await _tahunAjaranRepository.GetNewest() : 
             await _tahunAjaranRepository.Get(idTahunAjaran.Value);
 
-        Kelas? kelas = null;
-
-        if (idKelas is not null)
-        {
-            if (tahunAjaran is not null)
-                kelas = tahunAjaran.DaftarKelas.FirstOrDefault(k => k.Id == idKelas.Value);
-            else
-                kelas = await _kelasRepository.Get(idKelas.Value);
-        }
+        var kelas = idKelas is null ? null : await _kelasRepository.Get(idKelas.Value);
 
         var daftarRombel = await _rombelRepository.GetAll();
-
-        if (tahunAjaran is not null)
-            daftarRombel = daftarRombel.Where(r => r.Kelas.TahunAjaran == tahunAjaran).ToList();
-
-        if (kelas is not null)
-            daftarRombel = daftarRombel.Where(r => r.Kelas == kelas).ToList();
 
         return View(new IndexVM
         {
@@ -75,7 +61,7 @@ public class RombelController : Controller
             IdTahunAjaran = tahunAjaran?.Id,
             Kelas = kelas,
             IdKelas = kelas?.Id,
-            DaftarRombel = daftarRombel
+            DaftarRombel = [.. daftarRombel.Where(r => (tahunAjaran is null || r.TahunAjaran == tahunAjaran) && (kelas is null || r.Kelas == kelas))]
         });
     }
 
@@ -90,7 +76,14 @@ public class RombelController : Controller
         var kelas = await _kelasRepository.Get(vm.IdKelas);
         if (kelas is null)
         {
-            ModelState.AddModelError(nameof(TambahVM.IdKelas), $"Kelas dengan Id '{vm.IdKelas}'");
+            ModelState.AddModelError(nameof(TambahVM.IdKelas), $"Kelas dengan Id '{vm.IdKelas}' tidak ditemukan");
+            return View(vm);
+        }
+
+        var tahunAjaran = await _tahunAjaranRepository.Get(vm.IdTahunAjaran);
+        if (tahunAjaran is null)
+        {
+            ModelState.AddModelError(nameof(TambahVM.IdTahunAjaran), $"Tahun Ajaran dengan Id '{vm.IdTahunAjaran}' tidak ditemukan");
             return View(vm);
         }
 
@@ -112,7 +105,8 @@ public class RombelController : Controller
         {
             Nama = vm.Nama,
             Kelas = kelas,
-            Wali = wali
+            Wali = wali,
+            TahunAjaran = tahunAjaran
         };
 
         _rombelRepository.Add(rombel);
@@ -125,7 +119,7 @@ public class RombelController : Controller
 
         _toastrNotificationService.AddSuccess("Simpan data rombel baru berhasil!");
 
-        return RedirectToAction(nameof(Index), new { idKelas = vm.IdKelas, idTahunAjaran = kelas.TahunAjaran.Id });
+        return RedirectToAction(nameof(Index), new { idKelas = kelas.Id, idTahunAjaran = tahunAjaran.Id });
     }
 
     public async Task<IActionResult> Edit(int id)
@@ -133,15 +127,13 @@ public class RombelController : Controller
         var rombel = await _rombelRepository.Get(id);
         if (rombel is null) return NotFound();
 
-        var kelas = await _kelasRepository.Get(rombel.Kelas.Id);
-
         return View(new EditVM
         {
             Id = rombel.Id,
             Nama = rombel.Nama,
             IdKelas = rombel.Kelas.Id,
             NIPWali = rombel.Wali.Id,
-            IdTahunAjaran = kelas!.TahunAjaran.Id
+            IdTahunAjaran = rombel.TahunAjaran.Id
         });
     }
 
@@ -149,6 +141,13 @@ public class RombelController : Controller
     public async Task<IActionResult> Edit(EditVM vm)
     {
         if (!ModelState.IsValid) return View(vm);
+
+        var tahunAjaran = await _tahunAjaranRepository.Get(vm.IdTahunAjaran);
+        if (tahunAjaran is null)
+        {
+            ModelState.AddModelError(nameof(EditVM.IdTahunAjaran), $"Tahun Ajaran dengan Id '{vm.IdTahunAjaran}' tidak ditemukan");
+            return View(vm);
+        }
 
         var kelas = await _kelasRepository.Get(vm.IdKelas);
         if (kelas is null)
@@ -177,6 +176,7 @@ public class RombelController : Controller
         rombel.Nama = vm.Nama;
         rombel.Kelas = kelas;
         rombel.Wali = wali;
+        rombel.TahunAjaran = tahunAjaran;
 
         var result = await _unitOfWork.SaveChangesAsync();
         if (result.IsFailure)
@@ -187,7 +187,7 @@ public class RombelController : Controller
 
         _toastrNotificationService.AddSuccess("Ubah data rombel berhasil!");
 
-        return RedirectToAction(nameof(Index), new { idTahunAjaran = kelas.TahunAjaran.Id, idKelas = kelas.Id });
+        return RedirectToAction(nameof(Index), new { idTahunAjaran = tahunAjaran.Id, idKelas = kelas.Id });
     }
 
     [HttpPost]
@@ -197,7 +197,7 @@ public class RombelController : Controller
         if (rombel is null) return NotFound();
 
         var idKelas = rombel.Kelas.Id;
-        var idTahunAjaran = rombel.Kelas.TahunAjaran.Id;
+        var idTahunAjaran = rombel.TahunAjaran.Id;
 
         _rombelRepository.Delete(rombel);
 
@@ -241,7 +241,7 @@ public class RombelController : Controller
         if (kelas!.DaftarRombel.Any(r => r != rombel && r.DaftarAnggotaRombel.Any(a => a.Siswa == siswa)))
         {
             _toastrNotificationService.AddError($"Siswa dengan Id '{idSiswa}' sudah ada dalam rombel di kelas {kelas.Peminatan.Nama}" +
-                $" {kelas.Jenjang.Humanize()} - {kelas.TahunAjaran.Periode} {kelas.TahunAjaran.Semester.Humanize()}");
+                $" {kelas.Jenjang.Humanize()} - {rombel.TahunAjaran.Periode} {rombel.TahunAjaran.Semester.Humanize()}");
             return RedirectToAction(nameof(Detail), new { id });
         }
 

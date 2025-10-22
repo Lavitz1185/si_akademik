@@ -6,6 +6,7 @@ public class Rombel : Entity<int>
 {
     public required string Nama { get; set; }
 
+    public TahunAjaran TahunAjaran { get; set; }
     public Kelas Kelas { get; set; }
     public Pegawai Wali { get; set; }
     public List<Siswa> DaftarSiswa { get; set; }

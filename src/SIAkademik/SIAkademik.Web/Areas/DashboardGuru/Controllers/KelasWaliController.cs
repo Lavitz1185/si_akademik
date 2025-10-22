@@ -64,7 +64,7 @@ public class KelasWaliController : Controller
         {
             TahunAjaran = tahunAjaran,
             IdTahunAjaran = tahunAjaran.Id,
-            DaftarRombelWali = pegawai.DaftarRombelWali.Where(r => r.Kelas.TahunAjaran == tahunAjaran).ToList()
+            DaftarRombelWali = pegawai.DaftarRombelWali.Where(r => r.TahunAjaran == tahunAjaran).ToList()
         });
     }
 

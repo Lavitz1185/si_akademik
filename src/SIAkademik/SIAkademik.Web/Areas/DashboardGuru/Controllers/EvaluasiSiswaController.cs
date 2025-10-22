@@ -65,7 +65,7 @@ public class EvaluasiSiswaController : Controller
                 "AsesmenSumatif",
                 new
                 {
-                    idTahunAjaran = asesmenSumatif.JadwalMengajar.Rombel.Kelas.TahunAjaran.Id,
+                    idTahunAjaran = asesmenSumatif.JadwalMengajar.Rombel.TahunAjaran.Id,
                     idJadwalMengajar = asesmenSumatif.JadwalMengajar.Id,
                     idAsesmenSumatif = asesmenSumatif.Id
                 });
@@ -79,7 +79,7 @@ public class EvaluasiSiswaController : Controller
                 "AsesmenSumatif", 
                 new 
                 { 
-                    idTahunAjaran = asesmenSumatif.JadwalMengajar.Rombel.Kelas.TahunAjaran.Id,
+                    idTahunAjaran = asesmenSumatif.JadwalMengajar.Rombel.TahunAjaran.Id,
                     idJadwalMengajar = asesmenSumatif.JadwalMengajar.Id,
                     idAsesmenSumatif = asesmenSumatif.Id
                 });
@@ -104,7 +104,7 @@ public class EvaluasiSiswaController : Controller
                 "AsesmenSumatif",
                 new
                 {
-                    idTahunAjaran = asesmenSumatif.JadwalMengajar.Rombel.Kelas.TahunAjaran.Id,
+                    idTahunAjaran = asesmenSumatif.JadwalMengajar.Rombel.TahunAjaran.Id,
                     idJadwalMengajar = asesmenSumatif.JadwalMengajar.Id,
                     idAsesmenSumatif = asesmenSumatif.Id
                 });
@@ -130,7 +130,7 @@ public class EvaluasiSiswaController : Controller
                 "AsesmenSumatif",
                 new
                 {
-                    idTahunAjaran = asesmenSumatif.JadwalMengajar.Rombel.Kelas.TahunAjaran.Id,
+                    idTahunAjaran = asesmenSumatif.JadwalMengajar.Rombel.TahunAjaran.Id,
                     idJadwalMengajar = asesmenSumatif.JadwalMengajar.Id,
                     idAsesmenSumatif = asesmenSumatif.Id
                 });
@@ -149,7 +149,7 @@ public class EvaluasiSiswaController : Controller
                 "AsesmenSumatif",
                 new
                 {
-                    idTahunAjaran = evaluasiSiswa.AsesmenSumatif.JadwalMengajar.Rombel.Kelas.TahunAjaran.Id,
+                    idTahunAjaran = evaluasiSiswa.AsesmenSumatif.JadwalMengajar.Rombel.TahunAjaran.Id,
                     idJadwalMengajar = evaluasiSiswa.AsesmenSumatif.JadwalMengajar.Id,
                     idAsesmenSumatif = evaluasiSiswa.AsesmenSumatif.Id
                 });
@@ -168,7 +168,7 @@ public class EvaluasiSiswaController : Controller
                 "AsesmenSumatif",
                 new
                 {
-                    idTahunAjaran = evaluasiSiswa.AsesmenSumatif.JadwalMengajar.Rombel.Kelas.TahunAjaran.Id,
+                    idTahunAjaran = evaluasiSiswa.AsesmenSumatif.JadwalMengajar.Rombel.TahunAjaran.Id,
                     idJadwalMengajar = evaluasiSiswa.AsesmenSumatif.JadwalMengajar.Id,
                     idAsesmenSumatif = evaluasiSiswa.AsesmenSumatif.Id
                 });
@@ -185,7 +185,7 @@ public class EvaluasiSiswaController : Controller
 
         if (evaluasiSiswa.AsesmenSumatif.JadwalMengajar.Pegawai != pegawai) return Forbid();
 
-        var idTahunAjaran = evaluasiSiswa.AsesmenSumatif.JadwalMengajar.Rombel.Kelas.TahunAjaran.Id;
+        var idTahunAjaran = evaluasiSiswa.AsesmenSumatif.JadwalMengajar.Rombel.TahunAjaran.Id;
         var idJadwalMengajar = evaluasiSiswa.AsesmenSumatif.JadwalMengajar.Id;
         var idAsesmenSumatif = evaluasiSiswa.AsesmenSumatif.Id;
 

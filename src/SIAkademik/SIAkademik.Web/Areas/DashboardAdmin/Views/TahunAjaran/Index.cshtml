@@ -36,7 +36,7 @@
                         <th>Semester</th>
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
-                        <th>Jumlah Kelas</th>
+                        <th>Jumlah Rombel</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -50,7 +50,7 @@
                             <td>@tahunAjaran.Semester.Humanize()</td>
                             <td>@tahunAjaran.TanggalMulai.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td>
                             <td>@tahunAjaran.TanggalSelesai.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td>
-                            <td>@tahunAjaran.DaftarKelas.Count</td>
+                            <td>@tahunAjaran.DaftarRombel.Count</td>
                             <td>
 
                                 <a asp-action="Index" asp-controller="Kelas" asp-route-idTahunAjaran="@tahunAjaran.Id" class="btn btn-warning" data-toggle="tooltip" title="Lihat Daftar Kelas">

@@ -21,7 +21,7 @@ internal class RaportRepository : IRaportRepository
     public async Task<Raport?> Get(int id) => await _appDbContext
         .TblRaport
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.Siswa)
-        .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(k => k.TahunAjaran)
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.DaftarJadwalMengajar)
             .ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
@@ -38,7 +38,7 @@ internal class RaportRepository : IRaportRepository
     public async Task<List<Raport>> GetAll() => await _appDbContext
         .TblRaport
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.Siswa)
-        .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(k => k.TahunAjaran)
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.DaftarEvaluasiSiswa).ThenInclude(n => n.DaftarNilaiEvaluasiSiswa)
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.DaftarJadwalMengajar)
@@ -54,7 +54,7 @@ internal class RaportRepository : IRaportRepository
     public async Task<List<Raport>> GetAllBy(int idSiswa, int idRombel) => await _appDbContext
         .TblRaport
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.Siswa)
-        .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(k => k.TahunAjaran)
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(r => r.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.DaftarJadwalMengajar)
             .ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)

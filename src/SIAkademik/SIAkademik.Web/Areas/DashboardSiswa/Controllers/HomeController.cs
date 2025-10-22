@@ -61,7 +61,7 @@ public class HomeController : Controller
         var tahunAjaran = await _tahunAjaranRepository.GetNewest();
         if (tahunAjaran is null) return View(new IndexVM { Siswa = siswa, Tanggal = tanggal.Value });
 
-        var anggotaRombel = siswa.DaftarAnggotaRombel.FirstOrDefault(a => a.Rombel.Kelas.TahunAjaran == tahunAjaran);
+        var anggotaRombel = siswa.DaftarAnggotaRombel.FirstOrDefault(a => a.Rombel.TahunAjaran == tahunAjaran);
         if (anggotaRombel is null) return View(new IndexVM { Siswa = siswa, TahunAjaran = tahunAjaran, Tanggal = tanggal.Value });
 
         var hari = tanggal.Value.DayOfWeek;

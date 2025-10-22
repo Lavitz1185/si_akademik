@@ -11,7 +11,6 @@ internal class KelasEntityConfiguration : IEntityTypeConfiguration<Kelas>
     {
         builder.HasKey(x => x.Id);
         builder.HasOne(x => x.Peminatan).WithMany(y => y.DaftarKelas);
-        builder.HasOne(x => x.TahunAjaran).WithMany(x => x.DaftarKelas);
         builder.HasMany(x => x.DaftarRombel).WithOne(x => x.Kelas);
 
         builder.HasData
@@ -20,29 +19,25 @@ internal class KelasEntityConfiguration : IEntityTypeConfiguration<Kelas>
             {
                 Id = 1,
                 Jenjang = Jenjang.XII,
-                PeminatanId = 1,
-                TahunAjaranId = 1
+                PeminatanId = 1
             },
             new
             {
                 Id = 2,
                 Jenjang = Jenjang.X,
-                PeminatanId = 5,
-                TahunAjaranId = 2,
+                PeminatanId = 5
             },
             new
             {
                 Id = 3,
                 Jenjang = Jenjang.XI,
-                PeminatanId = 1,
-                TahunAjaranId = 2
+                PeminatanId = 1
             },
             new
             {
                 Id = 4,
                 Jenjang = Jenjang.XII,
                 PeminatanId = 1,
-                TahunAjaranId = 2
             }
         );
     }

@@ -20,33 +20,33 @@ internal class AbsenKelasRepository : IAbsenKelasRepository
 
     public async Task<AbsenKelas?> Get(int id) => await _appDbContext.TblAbsenKelas
         .Include(a => a.AnggotaRombel).ThenInclude(a => a.Siswa)
-        .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(k => k.TahunAjaran)
         .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .FirstOrDefaultAsync(a => a.Id == id);
 
     public async Task<List<AbsenKelas>> GetAll() => await _appDbContext.TblAbsenKelas
         .Include(a => a.AnggotaRombel).ThenInclude(a => a.Siswa)
-        .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(k => k.TahunAjaran)
         .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .ToListAsync();
 
     public async Task<List<AbsenKelas>> GetAllByRombel(int idRombel) => await _appDbContext.TblAbsenKelas
         .Include(a => a.AnggotaRombel).ThenInclude(a => a.Siswa)
-        .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(k => k.TahunAjaran)
         .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Where(a => a.AnggotaRombel.Rombel.Id == idRombel)
         .ToListAsync();
 
     public async Task<List<AbsenKelas>> GetAllBySiswa(int idSiswa) => await _appDbContext.TblAbsenKelas
         .Include(a => a.AnggotaRombel).ThenInclude(a => a.Siswa)
-        .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(k => k.TahunAjaran)
         .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Where(a => a.AnggotaRombel.Siswa.Id == idSiswa)
         .ToListAsync();
 
     public async Task<List<AbsenKelas>> GetAllBySiswaAndRombel(int idSiswa, int idRombel) => await _appDbContext.TblAbsenKelas
         .Include(a => a.AnggotaRombel).ThenInclude(a => a.Siswa)
-        .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(k => k.TahunAjaran)
         .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Wali)
         .Where(a => a.AnggotaRombel.Siswa.Id == idSiswa && a.AnggotaRombel.Rombel.Id == idRombel)

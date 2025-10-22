@@ -12,5 +12,5 @@ public class TahunAjaran : Entity<int>
 
     public string Periode => $"{Tahun}/{Tahun + 1}";
 
-    public List<Kelas> DaftarKelas { get; set; } = [];
+    public List<Rombel> DaftarRombel { get; set; } = [];
 }

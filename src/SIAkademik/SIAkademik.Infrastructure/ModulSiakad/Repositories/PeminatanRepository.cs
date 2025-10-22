@@ -21,13 +21,11 @@ internal class PeminatanRepository : IPeminatanRepository
     public async Task<Peminatan?> Get(int id) => await _appDbContext.TblPeminatan
         .Include(p => p.DaftarMataPelajaran)
         .Include(p => p.DaftarKelas).ThenInclude(p => p.DaftarRombel)
-        .Include(p => p.DaftarKelas).ThenInclude(p => p.TahunAjaran)
         .FirstOrDefaultAsync(p => p.Id == id);
 
     public async Task<List<Peminatan>> GetAll() => await _appDbContext.TblPeminatan
         .Include(p => p.DaftarMataPelajaran)
         .Include(p => p.DaftarKelas).ThenInclude(p => p.DaftarRombel)
-        .Include(p => p.DaftarKelas).ThenInclude(p => p.TahunAjaran)
         .ToListAsync();
 
     public async Task<bool> IsExist(string nama, int? id = null) => await _appDbContext.TblPeminatan

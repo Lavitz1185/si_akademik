@@ -21,7 +21,7 @@ internal class AbsenRepository : IAbsenRepository
     public async Task<Absen?> Get(int id) => await _appDbContext
         .TblAbsen
         .Include(a => a.AnggotaRombel).ThenInclude(a => a.Siswa)
-        .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(k => k.TahunAjaran)
         .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(a => a.Pertemuan)
         .FirstOrDefaultAsync(a => a.Id == id);
@@ -29,7 +29,7 @@ internal class AbsenRepository : IAbsenRepository
     public async Task<List<Absen>> GetAll() => await _appDbContext
         .TblAbsen
         .Include(a => a.AnggotaRombel).ThenInclude(a => a.Siswa)
-        .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(k => k.TahunAjaran)
         .Include(a => a.AnggotaRombel).ThenInclude(a => a.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(a => a.Pertemuan)
         .ToListAsync();

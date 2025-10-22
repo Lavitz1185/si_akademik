@@ -48,7 +48,7 @@ public class RaportController : Controller
 
         if (tahunAjaran is null) return View(new IndexVM { Siswa = siswa });
 
-        var anggotaRombel = siswa.DaftarAnggotaRombel.FirstOrDefault(a => a.Rombel.Kelas.TahunAjaran == tahunAjaran);
+        var anggotaRombel = siswa.DaftarAnggotaRombel.FirstOrDefault(a => a.Rombel.TahunAjaran == tahunAjaran);
         if (anggotaRombel is null) return View(new IndexVM { Siswa = siswa, TahunAjaran = tahunAjaran, IdTahunAjaran = tahunAjaran.Id });
 
         var daftarRaport = await _raportRepository.GetAllBy(siswa.Id, anggotaRombel.Rombel.Id);
@@ -93,8 +93,8 @@ public class RaportController : Controller
         var footer = await _razorTemplateEngine.RenderAsync("Views/Shared/_Footer2LaporanPartial.cshtml", anggotaRombel);
 
         var fileName = $"Raport_{siswa.Nama}({siswa.NISN})_{rombel.Kelas.Jenjang.Humanize()}" +
-            $"_{rombel.Kelas.TahunAjaran.Periode.Replace("/", "-")}" +
-            $"_{rombel.Kelas.TahunAjaran.Semester.Humanize()}";
+            $"_{rombel.TahunAjaran.Periode.Replace("/", "-")}" +
+            $"_{rombel.TahunAjaran.Semester.Humanize()}";
 
         var pdfBinary = await _pDFGeneratorService.GeneratePDF(html, header, footer, fileName);
 

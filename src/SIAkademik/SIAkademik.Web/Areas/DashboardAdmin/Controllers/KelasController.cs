@@ -18,7 +18,6 @@ public class KelasController : Controller
     private readonly IKelasRepository _kelasRepository;
     private readonly IRombelRepository _rombelRepository;
     private readonly IPeminatanRepository _peminatanRepository;
-    private readonly ITahunAjaranRepository _tahunAjaranRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IToastrNotificationService _toastrNotificationService;
 
@@ -26,42 +25,30 @@ public class KelasController : Controller
         IKelasRepository kelasRepository,
         IRombelRepository rombelRepository,
         IUnitOfWork unitOfWork,
-        ITahunAjaranRepository tahunAjaranRepository,
         IToastrNotificationService toastrNotificationService,
         IPeminatanRepository peminatanRepository)
     {
         _kelasRepository = kelasRepository;
         _rombelRepository = rombelRepository;
         _unitOfWork = unitOfWork;
-        _tahunAjaranRepository = tahunAjaranRepository;
         _toastrNotificationService = toastrNotificationService;
         _peminatanRepository = peminatanRepository;
     }
 
-    public async Task<IActionResult> Index(int? idTahunAjaran = null)
+    public async Task<IActionResult> Index()
     {
-        var tahunAjaran = idTahunAjaran is null ? null : await _tahunAjaranRepository.Get(idTahunAjaran.Value);
-
         return View(new IndexVM
         {
-            TahunAjaran = tahunAjaran,
-            DaftarKelas = tahunAjaran?.DaftarKelas ?? await _kelasRepository.GetAll(),
+            DaftarKelas = await _kelasRepository.GetAll(),
         });
     }
 
-    public IActionResult Tambah(int? idTahunAjaran = null) => View(new TambahVM() { IdTahunAjaran = idTahunAjaran ?? default });
+    public IActionResult Tambah() => View(new TambahVM());
 
     [HttpPost]
     public async Task<IActionResult> Tambah(TambahVM vm)
     {
         if (!ModelState.IsValid) return View(vm);
-
-        var tahunAjaran = await _tahunAjaranRepository.Get(vm.IdTahunAjaran);
-        if (tahunAjaran is null)
-        {
-            ModelState.AddModelError(nameof(TambahVM.IdTahunAjaran), $"Tahun Ajaran dengan Id '{vm.IdTahunAjaran}' tidak dapat ditemukan");
-            return View(vm);
-        }
 
         var peminatan = await _peminatanRepository.Get(vm.PeminatanId);
         if (peminatan is null)
@@ -73,8 +60,7 @@ public class KelasController : Controller
         var kelas = new Kelas
         {
             Jenjang = vm.Jenjang,
-            Peminatan = peminatan,
-            TahunAjaran = tahunAjaran
+            Peminatan = peminatan
         };
 
         _kelasRepository.Add(kelas);
@@ -87,7 +73,7 @@ public class KelasController : Controller
 
         _toastrNotificationService.AddSuccess("Berhasil menambahkan kelas baru!");
 
-        return RedirectToAction(nameof(Index), new { idTahunAjaran = vm.IdTahunAjaran });
+        return RedirectToAction(nameof(Index));
     }
 
     public async Task<IActionResult> Edit(int id)
@@ -99,8 +85,7 @@ public class KelasController : Controller
         {
             Id = id,
             Jenjang = kelas.Jenjang,
-            PeminatanId = kelas.Peminatan.Id,
-            IdTahunAjaran = kelas.TahunAjaran.Id
+            PeminatanId = kelas.Peminatan.Id
         });
     }
 
@@ -112,13 +97,6 @@ public class KelasController : Controller
         var kelas = await _kelasRepository.Get(vm.Id);
         if (kelas is null) return NotFound();
 
-        var tahunAjaran = await _tahunAjaranRepository.Get(vm.IdTahunAjaran);
-        if (tahunAjaran is null)
-        {
-            ModelState.AddModelError(nameof(EditVM.IdTahunAjaran), $"Tahun ajaran dengan Id '{vm.IdTahunAjaran}' tidak ditemukan");
-            return View(vm);
-        }
-
         var peminatan = await _peminatanRepository.Get(vm.PeminatanId);
         if (peminatan is null)
         {
@@ -128,7 +106,6 @@ public class KelasController : Controller
 
         kelas.Jenjang = vm.Jenjang;
         kelas.Peminatan = peminatan;
-        kelas.TahunAjaran = tahunAjaran;
 
         var result = await _unitOfWork.SaveChangesAsync();
         if (result.IsFailure)
@@ -139,7 +116,7 @@ public class KelasController : Controller
 
         _toastrNotificationService.AddSuccess($"Berhasil mengubah data kelas dengan Id '{kelas.Id}'!");
 
-        return RedirectToAction(nameof(Index), new { idTahunAjaran = kelas.TahunAjaran.Id });
+        return RedirectToAction(nameof(Index));
     }
 
     [HttpPost]
@@ -148,8 +125,6 @@ public class KelasController : Controller
         var kelas = await _kelasRepository.Get(id);
         if (kelas is null) return NotFound();
 
-        var idTahunAjaran = kelas.TahunAjaran.Id;
-
         _kelasRepository.Delete(kelas);
         var result = await _unitOfWork.SaveChangesAsync();
         if (result.IsFailure)
@@ -157,13 +132,6 @@ public class KelasController : Controller
         else
             _toastrNotificationService.AddSuccess("Sukses menghapus kelas!");
 
-        return RedirectToAction(nameof(Index), new { idTahunAjaran });
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> DaftarKelas(int idTahunAjaran)
-    {
-        var daftarKelas = await _kelasRepository.GetAllByTahunAjaran(idTahunAjaran);
-        return Json(daftarKelas.Select(x => new { x.Id, Jenjang = x.Jenjang.Humanize(), Peminatan = x.Peminatan.Nama }));
+        return RedirectToAction(nameof(Index));
     }
 }

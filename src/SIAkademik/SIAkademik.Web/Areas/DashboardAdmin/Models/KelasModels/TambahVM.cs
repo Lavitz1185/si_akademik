@@ -12,8 +12,4 @@ public class TambahVM
     [Display(Name = "Peminatan")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public int PeminatanId { get; set; }
-
-    [Display(Name = "Tahun Ajaran")]
-    [Required(ErrorMessage = "{0} harus diisi")]
-    public int IdTahunAjaran { get; set; }
 }

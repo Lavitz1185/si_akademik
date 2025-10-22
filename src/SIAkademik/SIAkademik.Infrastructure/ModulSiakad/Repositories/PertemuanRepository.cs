@@ -21,7 +21,7 @@ internal class PertemuanRepository : IPertemuanRepository
     public async Task<Pertemuan?> Get(int id) => await _appDbContext.TblPertemuan
         .Include(p => p.JadwalMengajar).ThenInclude(j => j.Pegawai)
         .Include(p => p.JadwalMengajar).ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
-        .Include(p => p.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(p => p.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(k => k.TahunAjaran)
         .Include(p => p.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(p => p.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.DaftarAnggotaRombel).ThenInclude(a => a.Siswa)
         .Include(p => p.DaftarAbsen).ThenInclude(a => a.AnggotaRombel).ThenInclude(a => a.Siswa)
@@ -31,7 +31,7 @@ internal class PertemuanRepository : IPertemuanRepository
     public async Task<List<Pertemuan>> GetAll() => await _appDbContext.TblPertemuan
         .Include(p => p.JadwalMengajar).ThenInclude(j => j.Pegawai)
         .Include(p => p.JadwalMengajar).ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
-        .Include(p => p.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(p => p.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(k => k.TahunAjaran)
         .Include(p => p.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(p => p.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.DaftarAnggotaRombel).ThenInclude(a => a.Siswa)
         .Include(p => p.DaftarAbsen).ThenInclude(a => a.AnggotaRombel).ThenInclude(a => a.Siswa)
@@ -41,7 +41,7 @@ internal class PertemuanRepository : IPertemuanRepository
     public async Task<List<Pertemuan>> GetAllByJadwalMengajar(int idJadwalMengajar) => await _appDbContext.TblPertemuan
         .Include(p => p.JadwalMengajar).ThenInclude(j => j.Pegawai)
         .Include(p => p.JadwalMengajar).ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
-        .Include(p => p.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(p => p.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(k => k.TahunAjaran)
         .Include(p => p.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(p => p.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.DaftarAnggotaRombel).ThenInclude(a => a.Siswa)
         .Include(p => p.DaftarAbsen).ThenInclude(a => a.AnggotaRombel).ThenInclude(a => a.Siswa)

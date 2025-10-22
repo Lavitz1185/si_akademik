@@ -4,7 +4,7 @@
 @inject IJadwalMengajarRepository JadwalMengajarRepository
 
 @{
-    var daftarJadwalMengajar = await JadwalMengajarRepository.GetAllByTahunAjaranAndRombel(Model.Rombel.Kelas.TahunAjaran.Id, Model.Rombel.Id);
+    var daftarJadwalMengajar = await JadwalMengajarRepository.GetAllByTahunAjaranAndRombel(Model.Rombel.TahunAjaran.Id, Model.Rombel.Id);
 }
 
 <!-- Breadcrumb -->
@@ -12,7 +12,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Wali Kelas</a></li>
-            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="KelasWali" asp-route-idTahunAjaran="@Model.Rombel.Kelas.TahunAjaran.Id" asp-action="Index">Kelas Wali</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="KelasWali" asp-route-idTahunAjaran="@Model.Rombel.TahunAjaran.Id" asp-action="Index">Kelas Wali</a></li>
             <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="KelasWali" asp-route-id="@Model.Id" asp-action="Detail">Detail Data</a></li>
             <li class="breadcrumb-item" aria-current="page">Presensi Kelas Siswa</li>
         </ol>
@@ -32,7 +32,7 @@
                 <div class="col-md-6">
                     <div class="row mb-1">
                         <div class="col-4" style="font-weight:600;">Tahun Ajaran</div>
-                        <div class="col">@Model.Rombel.Kelas.TahunAjaran.Periode - @Model.Rombel.Kelas.TahunAjaran.Semester.Humanize()</div>
+                        <div class="col">@Model.Rombel.TahunAjaran.Periode - @Model.Rombel.TahunAjaran.Semester.Humanize()</div>
                     </div>
                     <div class="row mb-1">
                         <div class="col-4" style="font-weight:600;">Kelas</div>

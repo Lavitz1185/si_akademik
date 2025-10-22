@@ -47,7 +47,7 @@
 
                     @if (Model.TahunAjaran is not null)
                     {
-                        @foreach (var jadwal in Model.Pegawai.DaftarJadwalMengajar.Where(j => j.Rombel.Kelas.TahunAjaran == Model.TahunAjaran))
+                        @foreach (var jadwal in Model.Pegawai.DaftarJadwalMengajar.Where(j => j.Rombel.TahunAjaran == Model.TahunAjaran))
                         {
                             <option value="@jadwal.Id">@jadwal.MataPelajaran.Nama @jadwal.Rombel.Kelas.Jenjang.Humanize() @jadwal.Rombel.Kelas.Peminatan.Nama @jadwal.Rombel.Nama</option>
                         }

@@ -21,7 +21,6 @@ internal class KelasRepository : IKelasRepository
 
     public async Task<Kelas?> Get(int id) => await _appDbContext
         .TblKelas
-        .Include(k => k.TahunAjaran)
         .Include(k => k.Peminatan)
         .Include(k => k.DaftarRombel).ThenInclude(r => r.DaftarAnggotaRombel)
         .Include(k => k.DaftarRombel).ThenInclude(r => r.DaftarJadwalMengajar)
@@ -30,30 +29,20 @@ internal class KelasRepository : IKelasRepository
 
     public async Task<List<Kelas>> GetAll() => await _appDbContext
         .TblKelas
-        .Include(k => k.TahunAjaran)
         .Include(k => k.Peminatan)
         .Include(k => k.DaftarRombel).ThenInclude(r => r.DaftarAnggotaRombel)
         .Include(k => k.DaftarRombel).ThenInclude(r => r.DaftarJadwalMengajar)
         .Include(k => k.DaftarRombel).ThenInclude(r => r.Wali)
+        .Include(k => k.DaftarRombel).ThenInclude(r => r.TahunAjaran)
         .ToListAsync();
 
-    public async Task<List<Kelas>> GetAllByPeminatan(int idTahunAjaran, Peminatan peminatan) => await _appDbContext
+    public async Task<List<Kelas>> GetAllByPeminatan(Peminatan peminatan) => await _appDbContext
         .TblKelas
-        .Include(k => k.TahunAjaran)
         .Include(k => k.Peminatan)
         .Include(k => k.DaftarRombel).ThenInclude(r => r.DaftarAnggotaRombel)
         .Include(k => k.DaftarRombel).ThenInclude(r => r.DaftarJadwalMengajar)
         .Include(k => k.DaftarRombel).ThenInclude(r => r.Wali)
-        .Where(k => k.Peminatan == peminatan && k.TahunAjaran.Id == idTahunAjaran)
-        .ToListAsync();
-
-    public async Task<List<Kelas>> GetAllByTahunAjaran(int idTahunAjaran) => await _appDbContext
-        .TblKelas
-        .Include(k => k.TahunAjaran)
-        .Include(k => k.Peminatan)
-        .Include(k => k.DaftarRombel).ThenInclude(r => r.DaftarAnggotaRombel)
-        .Include(k => k.DaftarRombel).ThenInclude(r => r.DaftarJadwalMengajar)
-        .Include(k => k.DaftarRombel).ThenInclude(r => r.Wali)
-        .Where(k => k.TahunAjaran.Id == idTahunAjaran)
+        .Include(k => k.DaftarRombel).ThenInclude(r => r.TahunAjaran)
+        .Where(k => k.Peminatan == peminatan)
         .ToListAsync();
 }

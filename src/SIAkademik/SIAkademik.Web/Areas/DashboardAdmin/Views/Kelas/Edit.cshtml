@@ -1,10 +1,9 @@
 ﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.KelasModels
 @model EditVM
-@inject ITahunAjaranRepository TahunAjaranRepository
+
 @inject IPeminatanRepository PeminatanRepository
 
 @{
-    var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
     var daftarPeminatan = await PeminatanRepository.GetAll();
 }
 
@@ -60,18 +59,7 @@
                                 }
                             </select>
                             <span asp-validation-for="@Model.PeminatanId"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for="@Model.IdTahunAjaran"></label>
-                            <select asp-for="@Model.IdTahunAjaran" class="form-control">
-                                @foreach (var tahunAjaran in daftarTahunAjaran)
-                                {
-                                    <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
-                                }
-                            </select>
-                            <span asp-validation-for="@Model.IdTahunAjaran"></span>
-                        </div>                                               
+                        </div>                                             
                     </div>
 
                     <div class="card-footer text-right pt-0">

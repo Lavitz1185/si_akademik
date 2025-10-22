@@ -7,7 +7,7 @@
 @{
     var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
     var daftarPegawai = await PegawaiRepository.GetAll();
-    var daftarKelas = await KelasRepository.GetAllByTahunAjaran(Model.IdTahunAjaran);
+    var daftarKelas = await KelasRepository.GetAll();
 }
 
 <!-- Breadcrumb -->
@@ -16,7 +16,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Manajemen Akademik</a></li>
-                <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Rombel" asp-action="Index">Rombel</a></li>
+                <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Rombel" asp-action="Index" asp-route-idTahunAjaran="@Model.IdTahunAjaran" asp-route-idKelas="@Model.IdKelas">Rombel</a></li>
                 <li class="breadcrumb-item" aria-current="page">Edit Data</li>
             </ol>
         </nav>
@@ -46,7 +46,7 @@
                         <div class="form-group">
                             <label asp-for="@Model.IdTahunAjaran">Tahun Ajaran</label>
                             <select asp-for="@Model.IdTahunAjaran" class="form-control">
-                                <option value="@null">--</option>
+                                <option value="@null">-- Pilih Tahun Ajaran --</option>
 
                                 @foreach (var tahunAjaran in daftarTahunAjaran)
                                 {
@@ -58,7 +58,7 @@
                         <div class="form-group">
                             <label asp-for="@Model.IdKelas"></label>
                             <select asp-for="@Model.IdKelas" class="form-control">
-                                <option value="@null">--</option>
+                                <option value="@null">-- Pilih Kelas --</option>
 
                                 @foreach (var kelas in daftarKelas)
                                 {
@@ -77,7 +77,7 @@
                         <div class="form-group">
                             <label asp-for="@Model.NIPWali"></label>
                             <select asp-for="@Model.NIPWali" class="form-control">
-                                <option value="@null">--</option>
+                                <option value="@null">-- Pilih Wali --</option>
 
                                 @foreach (var pegawai in daftarPegawai)
                                 {
@@ -100,26 +100,4 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-
-    <script type="text/javascript">
-        $(
-            $('form select#IdTahunAjaran').on('change', async function () {
-                const idTahunAjaran = $(this).val()
-
-                if (idTahunAjaran == "") {
-                    $('form select#IdKelas').html('<option value="">--</option>');
-                } else {
-                    const response = await fetch(`/Dashboard/Admin/Kelas/DaftarKelas?idTahunAjaran=${idTahunAjaran}`)
-                    const daftarKelas = await response.json();
-
-                    $('form select#IdKelas').html('<option value="">--</option>');
-
-                    for (let kelas of daftarKelas) {
-                        $('form select#IdKelas')
-                            .append(`<option value="${kelas.id}">${kelas.jenjang} ${kelas.peminatan}</option>`);
-                    }
-                }
-            })
-        )
-    </script>
 }

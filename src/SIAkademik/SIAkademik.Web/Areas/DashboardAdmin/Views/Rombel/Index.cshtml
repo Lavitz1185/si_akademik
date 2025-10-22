@@ -6,7 +6,7 @@
 
 @{
     var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
-    var daftarKelas = Model.TahunAjaran?.DaftarKelas ?? [];
+    var daftarKelas = await KelasRepository.GetAll();
 }
 
 <!-- Breadcrumb -->
@@ -28,8 +28,8 @@
         <div class="d-flex justify-content-between mb-3">
 
             <div class="mb-0">
-                <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah" asp-route-idTahunAjaran="@Model.TahunAjaran?.Id"
-                   asp-route-idKelas="@Model.Kelas?.Id"
+                <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah" asp-route-idTahunAjaran="@Model.IdTahunAjaran"
+                   asp-route-idKelas="@Model.IdKelas"
                    data-toggle="tooltip" title="Tambah Rombel">
                     <i class="fas fa-plus"></i> Tambah Rombel
                 </a>
@@ -40,7 +40,7 @@
                     <div class="d-flex align-items-center mr-2" style="gap: 8px;">
                         <label asp-for="@Model.IdTahunAjaran" class="mb-0" style="font-weight: 600;">Tahun Ajaran:</label>
                         <select asp-for="@Model.IdTahunAjaran" class="submit-on-change form-control form-control-sm w-auto" style="min-width:150px;">
-                            <option value="@null">-- Pilih --</option>
+                            <option value="@null">-- Semua --</option>
 
                             @foreach (var tahunAjaran in daftarTahunAjaran)
                             {
@@ -52,7 +52,7 @@
                     <div class="d-flex align-items-center mr-2" style="gap: 8px;">
                         <label asp-for="@Model.IdKelas" class="mb-0" style="font-weight: 600;">Kelas:</label>
                         <select asp-for="@Model.IdKelas" class="submit-on-change form-control form-control-sm w-auto" style="min-width:150px;">
-                            <option value="@null">-- Pilih --</option>
+                            <option value="@null">-- Semua --</option>
 
                             @foreach (var kelas in daftarKelas)
                             {
@@ -86,7 +86,7 @@
                             <td>@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Nama</td>
                             <td>@rombel.Wali.Nama</td>
                             <td>@rombel.DaftarAnggotaRombel.Count</td>
-                            <td>@rombel.Kelas.TahunAjaran.Periode @rombel.Kelas.TahunAjaran.Semester.Humanize()</td>
+                            <td>@rombel.TahunAjaran.Periode @rombel.TahunAjaran.Semester.Humanize()</td>
                             <td>
                                 <a asp-action="Detail" asp-route-id="@rombel.Id" class="btn btn-warning" data-toggle="tooltip" title="Detail Rombel"><i class="fas fa-eye"></i></a>
                                 <a asp-action="Edit" asp-route-id="@rombel.Id" class="btn btn-primary" data-toggle="tooltip" title="Edit Rombel"><i class="fas fa-pencil-alt"></i></a>
@@ -101,13 +101,3 @@
         </div>
     </div>
 </div>
-
-@section Scripts {
-    <script type="text/javascript">
-        $(function() {
-            $('.submit-on-change').on('change', function() {
-                $(this).closest('form').trigger('submit');
-            });
-        });
-    </script>
-}

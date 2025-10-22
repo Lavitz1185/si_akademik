@@ -69,13 +69,13 @@ public class HomeController : Controller
 
         var hari = tanggal.Value.DayOfWeek;
         var jadwalHariIni = guru.DaftarJadwalMengajar
-            .Where(j => j.Rombel.Kelas.TahunAjaran == tahunAjaran)
+            .Where(j => j.Rombel.TahunAjaran == tahunAjaran)
             .SelectMany(j => j.DaftarHariMengajar)
             .Where(h => HariExtension.FromHari(h.Hari) == hari)
             .ToList();
 
         var rombelWali = guru.DaftarRombelWali
-            .Where(j => j.Kelas.TahunAjaran == tahunAjaran)
+            .Where(j => j.TahunAjaran == tahunAjaran)
             .ToList();
 
         return View(new IndexVM

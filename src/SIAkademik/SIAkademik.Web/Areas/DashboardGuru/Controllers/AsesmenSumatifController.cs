@@ -180,7 +180,7 @@ public class AsesmenSumatifController : Controller
             (await _jadwalMengajarRepository.GetAllByTahunAjaran(tahunAjaran.Id)).FirstOrDefault(j => j.Pegawai == pegawai) :
             await _jadwalMengajarRepository.Get(idJadwalMengajar.Value);
 
-        if (jadwalMengajar is null || jadwalMengajar.Pegawai != pegawai || jadwalMengajar.Rombel.Kelas.TahunAjaran != tahunAjaran)
+        if (jadwalMengajar is null || jadwalMengajar.Pegawai != pegawai || jadwalMengajar.Rombel.TahunAjaran != tahunAjaran)
             return View(new IndexVM { Pegawai = pegawai, TahunAjaran = tahunAjaran, IdTahunAjaran = tahunAjaran.Id });
 
         var asesmenSumatif = idAsesmenSumatif is null ?

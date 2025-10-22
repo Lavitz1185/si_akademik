@@ -20,11 +20,12 @@ internal class PegawaiRepository : IPegawaiRepository
 
     public async Task<Pegawai?> Get(string nip) => await _appDbContext
         .TblPegawai
-        .Include(p => p.DaftarRombelWali).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(p => p.DaftarRombelWali).ThenInclude(k => k.TahunAjaran)
+        .Include(p => p.DaftarRombelWali).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(p => p.DaftarRombelWali).ThenInclude(r => r.DaftarAnggotaRombel)
         .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
         .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.DaftarHariMengajar)
-        .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(k => k.TahunAjaran)
         .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(p => p.Account)
         .Include(p => p.Jabatan)
@@ -33,10 +34,11 @@ internal class PegawaiRepository : IPegawaiRepository
 
     public async Task<List<Pegawai>> GetAll() => await _appDbContext
         .TblPegawai
-        .Include(p => p.DaftarRombelWali).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(p => p.DaftarRombelWali).ThenInclude(k => k.TahunAjaran)
+        .Include(p => p.DaftarRombelWali).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
         .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.DaftarHariMengajar)
-        .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.TahunAjaran)
+        .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(k => k.TahunAjaran)
         .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(p => p.Account)
         .Include(p => p.Jabatan)

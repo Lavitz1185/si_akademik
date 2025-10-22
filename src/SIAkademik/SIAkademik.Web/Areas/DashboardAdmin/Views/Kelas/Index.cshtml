@@ -25,38 +25,10 @@
     <div class="padding-20">
         <div class="d-flex justify-content-between mb-3">
             <div class="mb-0">
-                <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah" asp-route-idTahunAjaran="@Model.TahunAjaran?.Id"
-                   data-toggle="tooltip" title="Tambah Kelas">
+                <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah" data-toggle="tooltip" title="Tambah Kelas">
                     <i class="fas fa-plus me-1"></i> Tambah Kelas
                 </a>
-            </div>
-
-            <div class="ml-auto mr-3">
-                <form method="get" asp-action="Index" id="form" class="d-flex align-items-center" style="gap: 8px;">
-                    <label class="mb-0" style="font-weight: 600;">Tahun Ajaran:</label>
-                    <select id="idTahunAjaran" name="idTahunAjaran" class="form-control form-control-sm w-auto" style="min-width:150px;" required>
-                        @if (Model.TahunAjaran is null)
-                        {
-                            <option selected value="@null">-- Semua --</option>
-                        }
-                        else
-                        {
-                            <option value="@null">-- Semua --</option>
-                        }
-                        @foreach (var tahunAjaran in daftarTahunAjaran)
-                        {
-                            @if (tahunAjaran == Model.TahunAjaran)
-                            {
-                                <option selected value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
-                            }
-                            else
-                            {
-                                <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
-                            }
-                        }
-                    </select>
-                </form>
-            </div>           
+            </div>       
         </div>
 
         <div class="table-responsive">
@@ -78,7 +50,6 @@
                             <td>@kelas.Id</td>
                             <td>@kelas.Jenjang.Humanize()</td>
                             <td>@kelas.Peminatan.Nama</td>
-                            <td>@kelas.TahunAjaran.Periode-@kelas.TahunAjaran.Semester.Humanize()</td>
                             <td>@kelas.DaftarRombel.Count</td>
                             <td>
                                 <a asp-action="Edit" asp-route-id="@kelas.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit Kelas">
@@ -97,13 +68,3 @@
         </div>
     </div>
 </div>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-
-    <script type="text/javascript">
-        $('select#idTahunAjaran').on('change', function() {
-            $(this).closest('form').trigger('submit');
-        })
-    </script>
-}

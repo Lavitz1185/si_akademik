@@ -10,6 +10,7 @@ internal class RombelEntityConfiguration : IEntityTypeConfiguration<Rombel>
     {
         builder.HasKey(x => x.Id);
         builder.HasOne(x => x.Kelas).WithMany(y => y.DaftarRombel);
+        builder.HasOne(x => x.TahunAjaran).WithMany(y => y.DaftarRombel);
         builder.HasOne(x => x.Wali).WithMany(y => y.DaftarRombelWali);
         builder.HasMany(x => x.DaftarSiswa).WithMany(y => y.DaftarRombel).UsingEntity<AnggotaRombel>();
 
@@ -19,42 +20,48 @@ internal class RombelEntityConfiguration : IEntityTypeConfiguration<Rombel>
                 Id = 1,
                 Nama = "A",
                 KelasId = 1,
-                WaliId = "PJ17-010"
+                WaliId = "PJ17-010",
+                TahunAjaranId = 1
             },
             new
             {
                 Id = 2,
                 Nama = "A",
                 KelasId = 2,
-                WaliId = "PJ22-024"
+                WaliId = "PJ22-024",
+                TahunAjaranId = 2
             },
             new
             {
                 Id = 3,
                 Nama = "A",
                 KelasId = 3,
-                WaliId = "PJ24-004"
+                WaliId = "PJ24-004",
+                TahunAjaranId = 2
             },
             new
             {
                 Id = 4,
                 Nama = "B",
                 KelasId = 3,
-                WaliId = "PJ18-013"
+                WaliId = "PJ18-013",
+                TahunAjaranId = 2
             },
             new
             {
                 Id = 5,
                 Nama = "A",
                 KelasId = 4,
-                WaliId = "PJ19-017"
+                WaliId = "PJ19-017",
+                TahunAjaranId = 2
             },
             new
             {
                 Id = 6,
                 Nama = "B",
                 KelasId = 4,
-                WaliId = "PJ23-031"
+                WaliId = "PJ23-031",
+                TahunAjaranId = 2
             }
         );
     }

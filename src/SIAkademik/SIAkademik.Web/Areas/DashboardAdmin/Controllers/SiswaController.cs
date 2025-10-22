@@ -227,7 +227,7 @@ public class SiswaController : Controller
             .Where(s => 
                 s.DaftarAnggotaRombel
                     .Any(a => a.Rombel.Kelas.Jenjang == Jenjang.XII && 
-                         a.Rombel.Kelas.TahunAjaran == tahunAjaran && 
+                         a.Rombel.TahunAjaran == tahunAjaran && 
                          a.NaikKelasLulus))
             .ToList();
 
@@ -282,7 +282,7 @@ public class SiswaController : Controller
         var daftarSiswa = await _siswaRepository.GetAllAktif();
         daftarSiswa = daftarSiswa
             .Where(s => s.Jenjang == jenjang &&
-                s.DaftarAnggotaRombel.Any(s => s.Rombel.Kelas.TahunAjaran == tahunAjaran && s.Rombel.Kelas.Jenjang == jenjang && s.NaikKelasLulus))
+                s.DaftarAnggotaRombel.Any(s => s.Rombel.TahunAjaran == tahunAjaran && s.Rombel.Kelas.Jenjang == jenjang && s.NaikKelasLulus))
             .ToList();
 
         return View(new NaikKelasVM

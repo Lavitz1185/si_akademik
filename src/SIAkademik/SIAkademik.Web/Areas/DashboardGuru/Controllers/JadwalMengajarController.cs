@@ -58,7 +58,7 @@ public class JadwalMengajarController : Controller
         if (tahunAjaran is null) return View(new IndexVM());
 
         var daftarJadwalMengajar = pegawai.DaftarJadwalMengajar
-            .Where(j => j.Rombel.Kelas.TahunAjaran == tahunAjaran)
+            .Where(j => j.Rombel.TahunAjaran == tahunAjaran)
             .ToList();
 
         return View(new IndexVM { TahunAjaran = tahunAjaran, DaftarJadwalMengajar = daftarJadwalMengajar });
@@ -87,7 +87,7 @@ public class JadwalMengajarController : Controller
         if (tahunAjaran is null) return NotFound();
 
         var daftarJadwal = pegawai.DaftarJadwalMengajar
-            .Where(j => j.Rombel.Kelas.TahunAjaran == tahunAjaran)
+            .Where(j => j.Rombel.TahunAjaran == tahunAjaran)
             .Select(j => new
             {
                 j.Id,

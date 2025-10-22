@@ -36,7 +36,7 @@ public class AbsenController : Controller
 
         if (tahunAjaran is null) return View(new IndexVM { Siswa = siswa });
 
-        var anggotaRombel = siswa.DaftarAnggotaRombel.Where(a => a.Rombel.Kelas.TahunAjaran == tahunAjaran).FirstOrDefault();
+        var anggotaRombel = siswa.DaftarAnggotaRombel.Where(a => a.Rombel.TahunAjaran == tahunAjaran).FirstOrDefault();
         if (anggotaRombel is null) return View(new IndexVM { Siswa = siswa, TahunAjaran = tahunAjaran, IdTahunAjaran = tahunAjaran.Id});
 
         var daftarAbsenKelas = await _absenKelasRepository.GetAllBySiswaAndRombel(anggotaRombel.IdSiswa, anggotaRombel.IdRombel);

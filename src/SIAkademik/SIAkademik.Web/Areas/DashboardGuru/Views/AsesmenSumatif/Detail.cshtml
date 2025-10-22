@@ -8,7 +8,7 @@
             <li class="breadcrumb-item"><a href="#">Akademik</a></li>
             <li class="breadcrumb-item">
                 <a asp-area="@AreaNames.DashboardGuru" asp-controller="AsesmenSumatif" asp-action="Index"
-                   asp-route-idTahunAjaran="@Model.AsesmenSumatif.JadwalMengajar.Rombel.Kelas.TahunAjaran.Id"
+                   asp-route-idTahunAjaran="@Model.AsesmenSumatif.JadwalMengajar.Rombel.TahunAjaran.Id"
                    asp-route-idJadwalMengajar="@Model.AsesmenSumatif.IdJadwalMengajar"
                    asp-route-idAsesmenSumatif="@Model.AsesmenSumatif.Id">
                     Asesmen Sumatif
@@ -33,7 +33,7 @@
                         <div class="col-md-6">
                             <div class="row mb-1">
                                 <div class="col-4" style="font-weight:600;">Tahun Ajaran</div>
-                                <div class="col">@Model.AsesmenSumatif.JadwalMengajar.Rombel.Kelas.TahunAjaran.Periode - @Model.AsesmenSumatif.JadwalMengajar.Rombel.Kelas.TahunAjaran.Semester.Humanize()</div>
+                                <div class="col">@Model.AsesmenSumatif.JadwalMengajar.Rombel.TahunAjaran.Periode - @Model.AsesmenSumatif.JadwalMengajar.Rombel.TahunAjaran.Semester.Humanize()</div>
                             </div>
                             <div class="row mb-1">
                                 <div class="col-4" style="font-weight:600;">Kelas</div>
