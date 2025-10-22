@@ -11,6 +11,9 @@ public class NaikKelasVM
     [Display(Name = "Jenjang")]
     public required Jenjang jenjang { get; set;}
 
+    public TahunAjaran? TahunAjaran { get; set; }
+    public int? IdTahunAjaran { get; set; }
+
     [Display(Name = "Jenjang Tujuan")]
     public Jenjang JenjangTujuan { get; set; }
     public required List<NaikKelasEntryVM> DaftarEntry { get; set; } = [];

@@ -1,6 +1,12 @@
 ﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.SiswaModels
 @model NaikKelasVM
 
+@inject ITahunAjaranRepository TahunAjaranRepository
+
+@{
+    var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
+}
+
 <!-- Breadcrumb -->
 <div class="row">
     <nav aria-label="breadcrumb">
@@ -20,8 +26,21 @@
         <div class="d-flex justify-content-start ml-auto mb-2">
             <div class="mb-0">
                 <form asp-action="NaikKelas" method="get" class="d-flex align-items-center" style="gap: 8px;">
+                    <label asp-for="@Model.IdTahunAjaran" class="mb-0" style="font-weight: 600;">Pilih Tahun Ajaran:</label>
+                    <select asp-for="@Model.IdTahunAjaran" class="form-control submit-on-change form-control-sm w-auto">
+                        @if (Model.IdTahunAjaran is null)
+                        {
+                            <option value="@null">-- Pilih Tahun Ajaran --</option>
+                        }
+
+                        @foreach (var tahunAjaran in daftarTahunAjaran)
+                        {
+                            <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+                        }
+                    </select>
+
                     <label asp-for="@Model.jenjang" class="mb-0" style="font-weight: 600;">Pilih Jenjang Saat Ini:</label>
-                    <select asp-for="@Model.jenjang" class="form-control form-control-sm w-auto">
+                    <select asp-for="@Model.jenjang" class="form-control submit-on-change form-control-sm w-auto">
                         <option value="@Jenjang.X">@Jenjang.X.Humanize()</option>
                         <option value="@Jenjang.XI">@Jenjang.XI.Humanize()</option>
                     </select>
@@ -29,7 +48,7 @@
             </div>
         </div>
 
-        <form asp-action="NaikKelas" id="naikKelas" asp-route-jenjang="@Model.jenjang">
+        <form asp-action="NaikKelas" id="naikKelas" asp-route-jenjang="@Model.jenjang" asp-route-idTahunAjaran="@Model.IdTahunAjaran">
             <div class="d-flex justify-content-between align-items-start ml-auto mb-3 flex-wrap">
                 <!-- Pilih Jenjang Tujuan -->
                 <div class="d-flex align-items-center mb-2 mb-md-0" style="gap: 8px;">
@@ -124,12 +143,6 @@
 
 @section Scripts {
     <script type="text/javascript">
-        $(function() {
-            $('select#jenjang').on('change', function() {
-                $(this).closest('form').trigger('submit');
-            });
-        })
-
         $(document).ready(function () {
             var table = $('#save-stage1').DataTable();
 

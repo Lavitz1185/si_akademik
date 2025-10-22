@@ -1,8 +1,16 @@
-﻿@model List<Siswa>
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.SiswaModels
+@model IndexVM
 
 @{
-    var showTidakAktif = ViewData["showTidakAktif"] as bool?;
-    showTidakAktif ??= false;
+    var daftarSiswa = Model.DaftarSiswa
+                .Where(s =>
+                    (Model.Jenjang is null || s.Jenjang == Model.Jenjang) &&
+                    (Model.Agama is null || s.Agama == Model.Agama) &&
+                    (Model.TanggalMasuk is null || s.TanggalMasuk == Model.TanggalMasuk) &&
+                    (Model.JenisKelamin is null || s.JenisKelamin == Model.JenisKelamin) &&
+                    (Model.Jenjang is null || s.Jenjang == Model.Jenjang) &&
+                    (Model.StatusAktif is null || s.StatusAktif == Model.StatusAktif)
+                );
 }
 
 <!-- Breadcrumb -->
@@ -23,30 +31,64 @@
     </div>
     <div class="padding-20">
         <!-- Tombol Tambah dan Filter -->
+        <form asp-action="Index" method="get" class="row">
+            <label asp-for="@Model.JenisKelamin" class="mb-0" style="font-weight: 600;">Jenis Kelamin:</label>
+            <select asp-for="@Model.JenisKelamin" class="form-control form-control-sm w-auto submit-on-change">
+                <option value="@null">-- Semua --</option>
+
+                @foreach (var jk in Enum.GetValues<JenisKelamin>())
+                {
+                    <option value="@jk">@jk.Humanize()</option>
+                }
+            </select>
+
+            <label asp-for="@Model.Agama" class="mb-0" style="font-weight: 600;">Agama:</label>
+            <select asp-for="@Model.Agama" class="form-control form-control-sm w-auto submit-on-change">
+                <option value="@null">-- Semua --</option>
+
+                @foreach (var agama in Enum.GetValues<Agama>())
+                {
+                    <option value="@agama">@agama.Humanize(LetterCasing.Title)</option>
+                }
+            </select>
+
+            <label asp-for="@Model.StatusAktif" class="mb-0" style="font-weight: 600;">Status Aktif:</label>
+            <select asp-for="@Model.StatusAktif" class="form-control form-control-sm w-auto submit-on-change">
+                <option value="@null">-- Semua --</option>
+
+                @foreach (var status in Enum.GetValues<StatusAktifMahasiswa>())
+                {
+                    <option value="@status">@status.Humanize(LetterCasing.Title)</option>
+                }
+            </select>
+
+            <label asp-for="@Model.TanggalMasuk" class="mb-0" style="font-weight: 600;">Tanggal Masuk:</label>
+            <select asp-for="@Model.TanggalMasuk" class="form-control form-control-sm w-auto submit-on-change">
+                <option value="@null">-- Semua --</option>
+
+                @foreach (var tanggalMasuk in Model.DaftarSiswa.Select(s => s.TanggalMasuk).Distinct())
+                {
+                    <option value="@tanggalMasuk.ToString("yyyy/MM/dd")">@tanggalMasuk.ToString("dd/MM/yyyy", CultureInfos.CI)</option>
+                }
+            </select>
+
+            <label asp-for="@Model.Jenjang" class="mb-0" style="font-weight: 600;">Jenjang:</label>
+            <select asp-for="@Model.Jenjang" class="form-control form-control-sm w-auto submit-on-change">
+                <option value="@null">-- Semua --</option>
+
+                @foreach (var jenjang in Enum.GetValues<Jenjang>())
+                {
+                    <option value="@jenjang">@jenjang.Humanize()</option>
+                }
+            </select>
+        </form>
+
         <div class="d-flex justify-content-start ml-auto mb-3">
             <div class="mb-0">
                 <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah"
                    data-toggle="tooltip" title="Tambah Data Siswa Baru">
                     <i class="fas fa-plus"></i> Tambah Siswa
                 </a>
-            </div>
-
-            <div class="ml-auto mr-3">
-                <form asp-action="Index" method="get" class="d-flex align-items-center" style="gap: 8px;">
-                    <label for="showTidakAktif" class="mb-0" style="font-weight: 600;">Siswa Tidak Aktif:</label>
-                    <select id="showTidakAktif" name="showTidakAktif" class="form-control form-control-sm w-auto">
-                        @if(showTidakAktif.Value)
-                        {
-                            <option value="@true" selected>Tampilkan</option>
-                            <option value="@false">Tidak Tampilkan</option>
-                        }
-                        else
-                        {
-                            <option value="@true">Tampilkan</option>
-                            <option value="@false" selected>Tidak Tampilkan</option>
-                        }
-                    </select>
-                </form>
             </div>
         </div>
 
@@ -70,7 +112,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var siswa in Model)
+                    @foreach (var siswa in daftarSiswa)
                     {
                         <tr>
                             <td>@siswa.Id</td>
@@ -110,13 +152,3 @@
         </div>
     </div>
 </div>
-
-@section Scripts {
-    <script type="text/javascript">
-        $(function() {
-            $('select#showTidakAktif').on('change', function() {
-                $(this).closest('form').trigger('submit');
-            })
-        })
-    </script>
-}

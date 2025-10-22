@@ -46,14 +46,24 @@ public class SiswaController : Controller
         _fileService = fileService;
     }
 
-    public async Task<IActionResult> Index(bool showTidakAktif = false)
+    public async Task<IActionResult> Index(
+        JenisKelamin? jenisKelamin = null,
+        Agama? agama = null,
+        StatusAktifMahasiswa? statusAktif = null,
+        DateOnly? tanggalMasuk = null,
+        Jenjang? jenjang = null)
     {
-        ViewData[nameof(showTidakAktif)] = showTidakAktif;
+        var daftarSiswa = await _siswaRepository.GetAll();
 
-        if (showTidakAktif)
-            return View(await _siswaRepository.GetAll());
-
-        return View(await _siswaRepository.GetAllAktif());
+        return View(new IndexVM
+        {
+            Agama = agama,
+            StatusAktif = statusAktif,
+            JenisKelamin = jenisKelamin,
+            TanggalMasuk = tanggalMasuk,
+            Jenjang = jenjang,
+            DaftarSiswa = daftarSiswa
+        });
     }
 
     public IActionResult Tambah() => View(new TambahVM());
@@ -213,7 +223,13 @@ public class SiswaController : Controller
         if (tahunAjaran is null) return View(new ProsesKelulusanVM());
 
         var daftarSiswa = await _siswaRepository.GetAllAktif();
-        daftarSiswa = daftarSiswa.Where(s => s.Jenjang == Jenjang.XII).ToList();
+        daftarSiswa = daftarSiswa
+            .Where(s => 
+                s.DaftarAnggotaRombel
+                    .Any(a => a.Rombel.Kelas.Jenjang == Jenjang.XII && 
+                         a.Rombel.Kelas.TahunAjaran == tahunAjaran && 
+                         a.NaikKelasLulus))
+            .ToList();
 
         return View(new ProsesKelulusanVM
         {
@@ -253,15 +269,26 @@ public class SiswaController : Controller
     }
 
     [Route("[Area]/[Action]")]
-    public async Task<IActionResult> NaikKelas(Jenjang jenjang = Jenjang.X)
+    public async Task<IActionResult> NaikKelas(int? idTahunAjaran = null, Jenjang jenjang = Jenjang.X)
     {
         if (jenjang == Jenjang.XII) return BadRequest();
 
+        var tahunAjaran = idTahunAjaran is null ?
+            await _tahunAjaranRepository.GetNewest() :
+            await _tahunAjaranRepository.Get(idTahunAjaran.Value);
+
+        if (tahunAjaran is null) return View(new NaikKelasVM { DaftarEntry = [], jenjang = jenjang });
+
         var daftarSiswa = await _siswaRepository.GetAllAktif();
-        daftarSiswa = daftarSiswa.Where(s => s.Jenjang == jenjang).ToList();
+        daftarSiswa = daftarSiswa
+            .Where(s => s.Jenjang == jenjang &&
+                s.DaftarAnggotaRombel.Any(s => s.Rombel.Kelas.TahunAjaran == tahunAjaran && s.Rombel.Kelas.Jenjang == jenjang && s.NaikKelasLulus))
+            .ToList();
 
         return View(new NaikKelasVM
         {
+            TahunAjaran = tahunAjaran,
+            IdTahunAjaran = tahunAjaran.Id,
             DaftarSiswa = daftarSiswa,
             jenjang = jenjang,
             DaftarEntry = daftarSiswa.Select(s => new NaikKelasEntryVM { IdSiswa = s.Id }).ToList()
@@ -273,7 +300,7 @@ public class SiswaController : Controller
     public async Task<IActionResult> NaikKelas(NaikKelasVM vm)
     {
         if (vm.jenjang == vm.JenjangTujuan)
-            return RedirectToAction(nameof(NaikKelas), new { jenjang = vm.jenjang });
+            return RedirectToAction(nameof(NaikKelas), new { vm.jenjang, vm.IdTahunAjaran });
 
         var daftarSiswa = await _siswaRepository.GetAllAktif();
         daftarSiswa = daftarSiswa.Where(s => s.Jenjang == vm.jenjang).ToList();
@@ -291,6 +318,6 @@ public class SiswaController : Controller
         else
             _toastrNotificationService.AddSuccess("Simpan Berhasil!");
 
-        return RedirectToAction(nameof(NaikKelas), new { vm.jenjang });
+        return RedirectToAction(nameof(NaikKelas), new { vm.jenjang, vm.IdTahunAjaran });
     }
 }
