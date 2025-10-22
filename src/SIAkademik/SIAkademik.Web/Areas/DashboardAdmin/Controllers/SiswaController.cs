@@ -71,12 +71,14 @@ public class SiswaController : Controller
                 .. daftarSiswa
                 .Select(t => t.TanggalMasuk.Year)
                 .Distinct()
+                .Order()
                 .Select(e => new FilterEntryVM<int>{ Value = e, Selected = tahunMasuk.Contains(e)})
             ],
             TahunLahir = [
                 .. daftarSiswa
                 .Select(t => t.TanggalLahir.Year)
                 .Distinct()
+                .Order()
                 .Select(e => new FilterEntryVM<int>{ Value = e, Selected = tahunLahir.Contains(e)})
             ],
             Jenjang = [
