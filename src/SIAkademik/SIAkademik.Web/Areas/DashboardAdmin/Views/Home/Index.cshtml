@@ -258,21 +258,23 @@
         new Chart(document.getElementById('chartPegawai'), {
             type: 'bar',
             data: {
-                labels: ["Jumlah"],
-                datasets: [
-                    {
-                        label: 'Guru',
-                        data: [@Model.DaftarPegawai.Where(p => p.Jabatan.Jenis == JenisJabatan.Guru).Count()], // data dummy jumlah guru per kelas
-                        backgroundColor: 'rgba(54, 162, 235, 0.6)', // biru
-                        borderRadius: 6
-                    },
-                    {
-                        label: 'Tendik',
-                        data: [@Model.DaftarPegawai.Where(p => p.Jabatan.Jenis == JenisJabatan.Tendik).Count()], // data dummy jumlah pegawai per kelas
-                        backgroundColor: 'rgba(255, 159, 64, 0.6)', // oranye
-                        borderRadius: 6
+                labels: ["Guru", "Tendik"],
+                datasets: [{
+                    label: "Jumlah Pegawai",
+                    data: [
+        @(@Model.DaftarPegawai.Where(p => p.Jabatan.Jenis == JenisJabatan.Guru).Count()),
+        @(@Model.DaftarPegawai.Where(p => p.Jabatan.Jenis == JenisJabatan.Pegawai).Count())
+                    ],
+                    backgroundColor: ['rgba(54, 162, 235, 0.6)', 'rgba(255, 159, 64, 0.6)'],
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true, // ✅ mulai dari 0
                     }
-                ]
+                }
             }
         });
     </script>

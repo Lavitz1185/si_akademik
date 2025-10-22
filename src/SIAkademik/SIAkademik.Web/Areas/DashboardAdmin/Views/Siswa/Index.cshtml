@@ -85,10 +85,28 @@
 
         <div class="d-flex justify-content-start ml-auto mb-3">
             <div class="mb-0">
-                <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah"
+                <a class="btn btn-icon icon-left btn-primary mr-1" asp-action="Tambah"
                    data-toggle="tooltip" title="Tambah Data Siswa Baru">
                     <i class="fas fa-plus"></i> Tambah Siswa
                 </a>
+
+                <a class="btn btn-icon icon-left btn-success" data-toggle="tooltip" title="Import Data Siswa">
+                    <i class="fas fa-file-upload"></i> Import Data Siswa
+                </a>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-center pr-3 ml-auto">
+                <div class="mb-0 mr-2">
+                    <button class="btn btn-icon icon-left btn-info" id="toggleFilter">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                </div>
+
+                <div class="mb-0">
+                    <a href="" class="btn btn-icon icon-left btn-success" id="refreshButton">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </a>
+                </div>
             </div>
         </div>
 
