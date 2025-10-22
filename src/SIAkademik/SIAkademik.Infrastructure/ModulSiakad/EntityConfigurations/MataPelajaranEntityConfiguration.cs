@@ -161,6 +161,48 @@ internal class MataPelajaranEntityConfiguration : IEntityTypeConfiguration<MataP
                 Nama = "Seni Tari, Teater, dan Rupa",
                 PeminatanId = 1,
                 KKM = 75d
+            },
+            new
+            {
+                Id = 22,
+                Nama = "Kimia",
+                PeminatanId = 1,
+                KKM = 75d
+            },
+            new
+            {
+                Id = 23,
+                Nama = "Biologi",
+                PeminatanId = 1,
+                KKM = 75d
+            },
+            new
+            {
+                Id = 24,
+                Nama = "English Corner",
+                PeminatanId = 1,
+                KKM = 75d
+            },
+            new
+            {
+                Id = 25,
+                Nama = "Coding",
+                PeminatanId = 1,
+                KKM = 75d
+            },
+            new
+            {
+                Id = 26,
+                Nama = "Fisika",
+                PeminatanId = 1,
+                KKM = 75d
+            },
+            new
+            {
+                Id = 27,
+                Nama = "Gardha Pandhega",
+                PeminatanId = 1,
+                KKM = 75d
             }
         );
     }

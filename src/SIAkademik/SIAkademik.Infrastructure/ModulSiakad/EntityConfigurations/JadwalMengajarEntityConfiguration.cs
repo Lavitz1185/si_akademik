@@ -44,5 +44,127 @@ internal class JadwalMengajarEntityConfiguration : IEntityTypeConfiguration<Jadw
                 }    
             );
         }
+
+        builder.HasData(
+            new
+            {
+                Id = 17,
+                MataPelajaranId = 22,
+                PegawaiId = "PJ14-003",
+                RombelId = 2,
+            },
+            new
+            {
+                Id = 18,
+                MataPelajaranId = 16,
+                PegawaiId = "PJ24-004",
+                RombelId = 2,
+            },
+            new
+            {
+                Id = 19,
+                MataPelajaranId = 23,
+                PegawaiId = "PJ18-012",
+                RombelId = 2,
+            },
+            new
+            {
+                Id = 20,
+                MataPelajaranId = 24,
+                PegawaiId = "PJ24-002",
+                RombelId = 2,
+            },
+            new
+            {
+                Id = 21,
+                MataPelajaranId = 25,
+                PegawaiId = "PJ22-024",
+                RombelId = 2,
+            },
+            new
+            {
+                Id = 22,
+                MataPelajaranId = 5,
+                PegawaiId = "PJ19-017",
+                RombelId = 2,
+            },
+            new
+            {
+                Id = 23,
+                MataPelajaranId = 18,
+                PegawaiId = "PJ14-005",
+                RombelId = 2,
+            },
+            new
+            {
+                Id = 24,
+                MataPelajaranId = 1,
+                PegawaiId = "PJ22-024",
+                RombelId = 2,
+            },
+            new
+            {
+                Id = 25,
+                MataPelajaranId = 9,
+                PegawaiId = "PJ18-013",
+                RombelId = 2,
+            },
+            new
+            {
+                Id = 26,
+                MataPelajaranId = 6,
+                PegawaiId = "PJ19-016",
+                RombelId = 2,
+            },
+            new
+            {
+                Id = 27,
+                MataPelajaranId = 19,
+                PegawaiId = "PJ23-029",
+                RombelId = 2,
+            },
+            new
+            {
+                Id = 28,
+                MataPelajaranId = 20,
+                PegawaiId = "PJ22-024",
+                RombelId = 2,
+            },
+            new
+            {
+                Id = 29,
+                MataPelajaranId = 26,
+                PegawaiId = "PJ23-030",
+                RombelId = 2,
+            },
+            new
+            {
+                Id = 30,
+                MataPelajaranId = 21,
+                PegawaiId = "PJ22-024",
+                RombelId = 2,
+            },
+            new
+            {
+                Id = 31,
+                MataPelajaranId = 3,
+                PegawaiId = "PJ23-031",
+                RombelId = 2,
+            },
+            new
+            {
+                Id = 32,
+                MataPelajaranId = 4,
+                PegawaiId = "PJ24-005",
+                RombelId = 2,
+            },
+            new
+            {
+                Id = 33,
+                MataPelajaranId = 27,
+                PegawaiId = "PJ22-024",
+                RombelId = 2,
+            }
+        );
     }
 }
