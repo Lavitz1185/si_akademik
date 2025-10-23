@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Packaging;
+﻿using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Humanizer;
 using Microsoft.AspNetCore.Authorization;
@@ -13,6 +14,7 @@ using SIAkademik.Domain.ValueObjects;
 using SIAkademik.Infrastructure.Services.FileServices;
 using SIAkademik.Web.Areas.DashboardAdmin.Models.ImportModels;
 using SIAkademik.Web.Services.Toastr;
+using System.Text.RegularExpressions;
 
 namespace SIAkademik.Web.Areas.DashboardAdmin.Controllers;
 
@@ -29,6 +31,11 @@ public class ImportController : Controller
     private readonly IPegawaiRepository _pegawaiRepository;
     private readonly IDivisiRepository _divisiRepository;
     private readonly IJabatanRepository _jabatanRepository;
+    private readonly IWebHostEnvironment _webHostEnvironment;
+    private readonly ITahunAjaranRepository _tahunAjaranRepository;
+    private readonly IPeminatanRepository _peminatanRepository;
+    private readonly IKelasRepository _kelasRepository;
+    private readonly IRombelRepository _rombelRepository;
 
     public ImportController(
         IFileService fileService,
@@ -39,7 +46,12 @@ public class ImportController : Controller
         IToastrNotificationService toastrNotificationService,
         IPegawaiRepository pegawaiRepository,
         IDivisiRepository divisiRepository,
-        IJabatanRepository jabatanRepository)
+        IJabatanRepository jabatanRepository,
+        IWebHostEnvironment webHostEnvironment,
+        ITahunAjaranRepository tahunAjaranRepository,
+        IPeminatanRepository peminatanRepository,
+        IKelasRepository kelasRepository,
+        IRombelRepository rombelRepository)
     {
         _fileService = fileService;
         _unitOfWork = unitOfWork;
@@ -50,6 +62,11 @@ public class ImportController : Controller
         _pegawaiRepository = pegawaiRepository;
         _divisiRepository = divisiRepository;
         _jabatanRepository = jabatanRepository;
+        _webHostEnvironment = webHostEnvironment;
+        _tahunAjaranRepository = tahunAjaranRepository;
+        _peminatanRepository = peminatanRepository;
+        _kelasRepository = kelasRepository;
+        _rombelRepository = rombelRepository;
     }
 
     public IActionResult Siswa() => View(new ImportVM<Siswa>());
@@ -192,11 +209,11 @@ public class ImportController : Controller
 
         if (vm.FormFile is null)
         {
-            ModelState.AddModelError(nameof(ImportVM<Siswa>.FormFile), "File harus diisi");
+            ModelState.AddModelError(nameof(ImportVM<Pegawai>.FormFile), "File harus diisi");
             return View(vm);
         }
 
-        var file = await _fileService.ProcessFormFile<ImportVM<Siswa>>(
+        var file = await _fileService.ProcessFormFile<ImportVM<Pegawai>>(
             vm.FormFile,
             [".xlsx"],
             0,
@@ -204,7 +221,7 @@ public class ImportController : Controller
 
         if (file.IsFailure)
         {
-            ModelState.AddModelError(nameof(ImportVM<Siswa>.FormFile), file.Error.Message);
+            ModelState.AddModelError(nameof(ImportVM<Pegawai>.FormFile), file.Error.Message);
             return View(vm);
         }
 
@@ -364,6 +381,229 @@ public class ImportController : Controller
         _toastrNotificationService.AddSuccess($"Simpan Berhasil. Berhasil menambahkan {dataBaru.Count} data");
 
         return View(new ImportVM<Pegawai>
+        {
+            FileName = vm.FormFile.FileName,
+            NewData = dataBaru
+        });
+    }
+
+    public async Task<IActionResult> DownloadTemplateRombel()
+    {
+        var daftarWali = await _pegawaiRepository.GetAll();
+
+        var fileBytes = System.IO.File.ReadAllBytes(
+            Path.Combine(_webHostEnvironment.WebRootPath, "file/importTemplate/Template Import Data Rombel.xlsx"));
+
+        using var memoryStream = new MemoryStream();
+        memoryStream.Write(fileBytes, 0, fileBytes.Length);
+
+        using var spreadSheet = SpreadsheetDocument.Open(
+            memoryStream, 
+            isEditable: true);
+
+        var workBookPart = spreadSheet.WorkbookPart!;
+        var sharedStrings = workBookPart
+            .SharedStringTablePart?
+            .SharedStringTable
+            .Elements<SharedStringItem>()
+            .Select(s => s.InnerText).ToList() ?? [];
+        
+        var sheet = workBookPart.Workbook.Sheets!.Elements<Sheet>().First(a => a.Name == "Sheet2");
+        var workSheetPart = (WorksheetPart)workBookPart.GetPartById(sheet.Id!);
+        var sheetData = workSheetPart.Worksheet.Elements<SheetData>().First();
+
+        foreach (var wali in daftarWali)
+        {
+            var row = new Row();
+            var cell = new Cell
+            {
+                CellValue = new CellValue($"{wali.Id} - {wali.Nama}")
+            };
+            row.Append(cell);
+            sheetData.Append(row);
+        }
+
+        sheet = workBookPart.Workbook.Sheets!.Elements<Sheet>().First()!;
+        workSheetPart = (WorksheetPart)workBookPart.GetPartById(sheet.Id!);
+        sheetData = workSheetPart.Worksheet.Elements<SheetData>().First();
+
+        var dataValidation = new DataValidation
+        {
+            Type = DataValidationValues.List,
+            AllowBlank = true,
+            SequenceOfReferences = new ListValue<StringValue> { InnerText = "F2:F5" },
+            Formula1 = new Formula1($"Sheet2!$A$1:$A${daftarWali.Count}")
+        };
+
+        var dvs = workSheetPart.Worksheet.GetFirstChild<DataValidations>();
+        if (dvs is not null)
+        {
+            dvs.Count = (dvs?.Count ?? 0) + 1;
+            dvs!.Append(dataValidation);
+        }
+        else
+        {
+            var newDvs = new DataValidations();
+            newDvs.AppendChild(dataValidation);
+            newDvs.Count = (dvs?.Count ?? 0) + 1;
+            workSheetPart.Worksheet.Append(newDvs);
+        }
+
+        workBookPart.Workbook.Descendants<WorkbookView>().First().ActiveTab = Convert
+            .ToUInt32(workBookPart.Workbook.Descendants<Sheet>().ToList().IndexOf(sheet));
+
+        spreadSheet.Save();
+
+        return File(
+            memoryStream.ToArray(), 
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", 
+            fileDownloadName: "Template Import Data Rombel.xlsx");
+    }
+
+    public IActionResult Rombel() => View(new ImportVM<Rombel>());
+
+    [HttpPost]
+    public async Task<IActionResult> Rombel(ImportVM<Rombel> vm)
+    {
+        if (!ModelState.IsValid) return View(vm);
+
+        if (vm.FormFile is null)
+        {
+            ModelState.AddModelError(nameof(ImportVM<Rombel>.FormFile), "File harus diisi");
+            return View(vm);
+        }
+
+        var file = await _fileService.ProcessFormFile<ImportVM<Rombel>>(
+            vm.FormFile,
+            [".xlsx"],
+            0,
+            long.MaxValue);
+
+        if (file.IsFailure)
+        {
+            ModelState.AddModelError(nameof(ImportVM<Rombel>.FormFile), file.Error.Message);
+            return View(vm);
+        }
+
+        using var memoryStream = new MemoryStream(file.Value);
+        using var spreadSheet = SpreadsheetDocument.Open(memoryStream, isEditable: false);
+
+        var workBookPart = spreadSheet.WorkbookPart!;
+        var sharedStrings = workBookPart
+            .SharedStringTablePart?
+            .SharedStringTable
+            .Elements<SharedStringItem>()
+            .Select(s => s.InnerText).ToList() ?? [];
+
+        var sheet = workBookPart.Workbook.Sheets!.Elements<Sheet>().First()!;
+        var workSheetPart = (WorksheetPart)workBookPart.GetPartById(sheet.Id!);
+        var sheetData = workSheetPart.Worksheet.Elements<SheetData>().First();
+
+        var daftarTahunAjaran = await _tahunAjaranRepository.GetAll();
+        var daftarPeminatan = await _peminatanRepository.GetAll();
+        var daftarKelas = await _kelasRepository.GetAll();
+
+        var dataBaru = new List<Rombel>();
+
+        foreach (var row in sheetData.Elements<Row>().Skip(1))
+        {
+            var cells = row.Elements<Cell>().ToList();
+
+            if (cells.Count != 6) continue;
+
+            var nama = GetCellValues(cells[0], sharedStrings);
+            if (string.IsNullOrEmpty(nama)) continue;
+
+            var tahunStr = GetCellValues(cells[1], sharedStrings);
+            if (string.IsNullOrEmpty(tahunStr)) continue;
+            var match = Regex.Match(tahunStr, @"^(?<tahun>\d{4})/\d{4}$");
+            if (!match.Success || !match.Groups.TryGetValue("tahun", out var tahunGroup))
+                continue;
+            var tahun = int.Parse(tahunGroup.Value);
+
+            var semesterStr = GetCellValues(cells[2], sharedStrings);
+            if (string.IsNullOrEmpty(semesterStr) || !Enum.TryParse<Semester>(semesterStr, out var semester)) continue;
+
+            var tahunAjaran = daftarTahunAjaran.FirstOrDefault(t => t.Tahun == tahun && t.Semester == semester);
+            if (tahunAjaran is null)
+            {
+                tahunAjaran = new TahunAjaran
+                {
+                    Tahun = tahun,
+                    Semester = semester,
+                    TanggalMulai = semester == Semester.Ganjil ? new DateOnly(tahun, 7, 1) : new DateOnly(tahun + 1, 1, 1),
+                    TanggalSelesai = semester == Semester.Ganjil ? new DateOnly(tahun, 12, 31) : new DateOnly(tahun + 1, 6, 30),
+                };
+
+                _tahunAjaranRepository.Add(tahunAjaran);
+                daftarTahunAjaran.Add(tahunAjaran);
+            }
+
+            var jenjangStr = GetCellValues(cells[3], sharedStrings);
+            if (string.IsNullOrEmpty(jenjangStr) || !Enum.TryParse<Jenjang>(jenjangStr, out var jenjang))
+                continue;
+
+            var namaPeminatan = GetCellValues(cells[4], sharedStrings);
+            if (string.IsNullOrEmpty(namaPeminatan)) continue;
+            var peminatan = daftarPeminatan.FirstOrDefault(p => p.Nama.Trim().ToLower() == namaPeminatan.Trim().ToLower());
+            if (peminatan is null)
+            {
+                peminatan = new Peminatan
+                {
+                    Nama = namaPeminatan.Trim().ApplyCase(LetterCasing.Title),
+                    Jenis = namaPeminatan.Trim().ToLower() == "umum" ? JenisPeminatan.Umum : JenisPeminatan.Peminatan
+                };
+
+                _peminatanRepository.Add(peminatan);
+                daftarPeminatan.Add(peminatan);
+            }
+
+            var kelas = daftarKelas.FirstOrDefault(k => k.Jenjang == jenjang && k.Peminatan.Nama.ToLower() == peminatan.Nama.ToLower());
+            if (kelas is null)
+            {
+                kelas = new Kelas
+                {
+                    Jenjang = jenjang,
+                    Peminatan = peminatan
+                };
+
+                _kelasRepository.Add(kelas);
+                daftarKelas.Add(kelas);
+            }
+
+            var nipNamaWali = GetCellValues(cells[5], sharedStrings);
+            if (string.IsNullOrEmpty(nipNamaWali)) continue;
+            match = Regex.Match(nipNamaWali, @"(?<nip>PJ\d{2}-\d{3}) - .+");
+            if (!match.Success || !match.Groups.TryGetValue("nip", out var nipGroup)) continue;
+
+            var wali = await _pegawaiRepository.Get(nipGroup.Value);
+            if (wali is null) continue;
+
+            if (kelas.DaftarRombel.Any(r => r.TahunAjaran == tahunAjaran && r.Nama.ToLower() == nama.ToLower()))
+                continue;
+
+            var rombel = new Rombel
+            {
+                Nama = nama.Trim().ApplyCase(LetterCasing.Title),
+                Kelas = kelas,
+                TahunAjaran = tahunAjaran,
+                Wali = wali
+            };
+
+            _rombelRepository.Add(rombel);
+            dataBaru.Add(rombel);
+        }
+
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsFailure)
+        {
+            _toastrNotificationService.AddError("Simpan Gagal");
+            return RedirectToAction(nameof(Rombel));
+        }
+
+        _toastrNotificationService.AddSuccess($"Simpan Berhasil. Berhasil menambahkan {dataBaru.Count} data");
+
+        return View(new ImportVM<Rombel>
         {
             FileName = vm.FormFile.FileName,
             NewData = dataBaru
