@@ -28,5 +28,9 @@ internal class KategoriBeritaRepository : IKategoriBeritaRepository
         .Include(k => k.DaftarBerita)
         .ToListAsync();
 
+    public async Task<bool> IsExist(string nama, int? id = null) => await _appDbContext
+        .TblKategoriBerita
+        .AnyAsync(k => k.Id != id && k.Nama.ToLower() == nama.ToLower());
+
     public void Update(KategoriBerita kategoriBerita) => _appDbContext.TblKategoriBerita.Update(kategoriBerita);
 }
