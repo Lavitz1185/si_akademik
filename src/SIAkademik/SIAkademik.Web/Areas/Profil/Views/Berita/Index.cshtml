@@ -1,4 +1,6 @@
-﻿<!-- ======================================= PENGANTAR ======================================= -->
+﻿@model List<Berita>
+
+<!-- ======================================= PENGANTAR ======================================= -->
 <section id="berita-home">
     <h2>Berita & Pengumuman</h2>
 </section>
@@ -10,106 +12,23 @@
         <div class="garis-sisa"></div>
     </div>
     <div class="berita-box">
-        <!-- Informasi -->
-        <div class="beritas">
-            <img src="/images/siswa1.jpg" alt="" />
-            <div class="berita-details">
-                <a class="berita-details-judul" asp-action="Detail" asp-controller="Berita" asp-area="Profil">Pengumuman - Kelulusan Kelas XII Tahun Pelajaran 2024/2025</a>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem
-                    ipsum dolor sit amet consectetur adipisicing elit
-                </p>
-                <a class="berita-details-lanjut" asp-action="Detail" asp-controller="Berita" asp-area="Profil">Lihat Selengkapnya</a>
+        @foreach (var berita in Model)
+        {
+            <!-- Informasi -->
+            <div class="beritas">
+                <img src="@berita.Foto.OriginalString" alt="" />
+                <div class="berita-details">
+                    <a class="berita-details-judul" asp-route-id="@berita.Id" asp-action="Detail" asp-controller="Berita" asp-area="Profil">@berita.KategoriBerita.Nama - @berita.Judul</a>
+                    <p>
+                        @Html.Raw(berita.Isi.Truncate(120, "..."))
+                    </p>
+                    <a class="berita-details-lanjut" asp-route-id="@berita.Id" asp-action="Detail" asp-controller="Berita" asp-area="Profil">Lihat Selengkapnya</a>
+                </div>
+                <div class="berita-tanggal">
+                    <h2>@berita.Tanggal.Day</h2>
+                    <h6>@berita.Tanggal.ToString("MMMM, yyyy", CultureInfos.CI)</h6>
+                </div>
             </div>
-            <div class="berita-tanggal">
-                <h2>20</h2>
-                <h6>Agust, 2025</h6>
-            </div>
-        </div>
-
-        <!-- Informasi -->
-        <div class="beritas">
-            <img src="images/siswa2.jpg" alt="" />
-            <div class="berita-details">
-                <a class="berita-details-judul" asp-action="Detail" asp-controller="Berita" asp-area="Profil">Pengumuman - Kelulusan Kelas XII Tahun Pelajaran 2024/2025</a>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem
-                    ipsum dolor sit amet consectetur adipisicing elit
-                </p>
-                <a class="berita-details-lanjut" asp-action="Detail" asp-controller="Berita" asp-area="Profil">Lihat Selengkapnya</a>
-            </div>
-            <div class="berita-tanggal">
-                <h2>20</h2>
-                <h6>Agust, 2025</h6>
-            </div>
-        </div>
-
-        <!-- Informasi -->
-        <div class="beritas">
-            <img src="images/siswa1.jpg" alt="" />
-            <div class="berita-details">
-                <a class="berita-details-judul" asp-action="Detail" asp-controller="Berita" asp-area="Profil">Pengumuman - Kelulusan Kelas XII Tahun Pelajaran 2024/2025</a>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem
-                    ipsum dolor sit amet consectetur adipisicing elit
-                </p>
-                <a class="berita-details-lanjut" asp-action="Detail" asp-controller="Berita" asp-area="Profil">Lihat Selengkapnya</a>
-            </div>
-            <div class="berita-tanggal">
-                <h2>20</h2>
-                <h6>Agust, 2025</h6>
-            </div>
-        </div>
-
-        <!-- Informasi -->
-        <div class="beritas">
-            <img src="images/siswa2.jpg" alt="" />
-            <div class="berita-details">
-                <a class="berita-details-judul" asp-action="Detail" asp-controller="Berita" asp-area="Profil">Pengumuman - Kelulusan Kelas XII Tahun Pelajaran 2024/2025</a>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem
-                    ipsum dolor sit amet consectetur adipisicing elit
-                </p>
-                <a class="berita-details-lanjut" asp-action="Detail" asp-controller="Berita" asp-area="Profil">Lihat Selengkapnya</a>
-            </div>
-            <div class="berita-tanggal">
-                <h2>20</h2>
-                <h6>Agust, 2025</h6>
-            </div>
-        </div>
-
-        <!-- Informasi -->
-        <div class="beritas">
-            <img src="images/siswa1.jpg" alt="" />
-            <div class="berita-details">
-                <a class="berita-details-judul" asp-action="Detail" asp-controller="Berita" asp-area="Profil">Pengumuman - Kelulusan Kelas XII Tahun Pelajaran 2024/2025</a>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem
-                    ipsum dolor sit amet consectetur adipisicing elit
-                </p>
-                <a class="berita-details-lanjut" asp-action="Detail" asp-controller="Berita" asp-area="Profil">Lihat Selengkapnya</a>
-            </div>
-            <div class="berita-tanggal">
-                <h2>20</h2>
-                <h6>Agust, 2025</h6>
-            </div>
-        </div>
-
-        <!-- Informasi -->
-        <div class="beritas">
-            <img src="images/siswa2.jpg" alt="" />
-            <div class="berita-details">
-                <a class="berita-details-judul" asp-action="Detail" asp-controller="Berita" asp-area="Profil">Pengumuman - Kelulusan Kelas XII Tahun Pelajaran 2024/2025</a>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem
-                    ipsum dolor sit amet consectetur adipisicing elit
-                </p>
-                <a class="berita-details-lanjut" asp-action="Detail" asp-controller="Berita" asp-area="Profil">Lihat Selengkapnya</a>
-            </div>
-            <div class="berita-tanggal">
-                <h2>20</h2>
-                <h6>Agust, 2025</h6>
-            </div>
-        </div>
+        }
     </div>
 </section>

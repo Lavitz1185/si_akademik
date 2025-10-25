@@ -14,17 +14,20 @@ public class HomeController : Controller
     private readonly IInformasiUmumRepository _informasiUmumRepository;
     private readonly IPegawaiRepository _pegawaiRepository;
     private readonly ISiswaRepository _siswaRepository;
+    private readonly IBeritaRepository _beritaRepository;
 
     public HomeController(
         ISignInManager signInManager,
         IInformasiUmumRepository informasiUmumRepository,
         IPegawaiRepository pegawaiRepository,
-        ISiswaRepository siswaRepository)
+        ISiswaRepository siswaRepository,
+        IBeritaRepository beritaRepository)
     {
         _signInManager = signInManager;
         _informasiUmumRepository = informasiUmumRepository;
         _pegawaiRepository = pegawaiRepository;
         _siswaRepository = siswaRepository;
+        _beritaRepository = beritaRepository;
     }
 
     public async Task<IActionResult> Index()
@@ -33,7 +36,8 @@ public class HomeController : Controller
         {
             InformasiUmum = await _informasiUmumRepository.Get(),
             DaftarPegawai = await _pegawaiRepository.GetAll(),
-            DaftarSiswa = await _siswaRepository.GetAll()
+            DaftarSiswa = await _siswaRepository.GetAll(),
+            DaftarBerita = await _beritaRepository.GetAll()
         });
     }
 

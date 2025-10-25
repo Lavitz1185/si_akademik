@@ -8,4 +8,5 @@ public class IndexVM
     public required InformasiUmum InformasiUmum { get; set; }
     public List<Pegawai> DaftarPegawai { get; set; } = [];
     public List<Siswa> DaftarSiswa { get; set; } = [];
+    public List<Berita> DaftarBerita { get; set; } = [];
 }

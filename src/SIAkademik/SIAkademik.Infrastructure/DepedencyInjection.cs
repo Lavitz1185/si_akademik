@@ -30,7 +30,9 @@ public static class DepedencyInjection
         services.AddScoped<IAppUserRepository, AppUserRepository>();
 
         // Modul Profil
+        services.AddScoped<IBeritaRepository, BeritaRepository>();
         services.AddScoped<IInformasiUmumRepository, InformasiUmumRepository>();
+        services.AddScoped<IKategoriBeritaRepository, KategoriBeritaRepository>();
 
         // Modul Siakad
         services.AddScoped<IAbsenRepository, AbsenRepository>();

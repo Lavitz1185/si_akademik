@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SIAkademik.Infrastructure.Database;
@@ -12,9 +13,11 @@ using SIAkademik.Infrastructure.Database;
 namespace SIAkademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251025094243_TambahSeedDataBerita2")]
+    partial class TambahSeedDataBerita2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -527,7 +530,7 @@ namespace SIAkademik.Infrastructure.Migrations
                             KetuaUmum2Yayasan = "Erlangga Dharma, S.E., M.SC",
                             KetuaUmumYayasan = "Anton Darmawan, S.T",
                             LirikMarsSekolah = "<p>Kamilah pemimpin </p><p> Yang siap untuk dibentuk</p><p> Berkarakter Kristus dan cintai bangsa </p><p> Di atas kebenaran kami berpijak </p><p> Percaya diri untuk mandiri </p><p> Berani berkreasi kembangkan potensi </p><p> Menjadi anak bangsa yang penuh prestasi </p><p> Memajukan negeri tercinta </p><p> Bangkitlah Pandhega Jaya </p><p> Berkaryalah bagi bangsa </p><p> Dengan Nilai kebenaran </p><p> Bersiaplah tuk menjadi </p><p> Pembangun Indonesia </p><p> Pandhega Berjayalah </p>",
-                            LogoSekolah = "/images/logo_sekolah_transparent.png",
+                            LogoSekolah = "/images/logo_sekolah.jpg",
                             MisiSekolah = "<ol class=\"isi\"><li>Membangkitkan kesadaran dalam diri setiap siswa bahwa mereka adalah ciptaan Tuhan yang unik dan ditetapkan sebagai pemimpin.</li> <li>Menanamkan dan menumbuhkan jiwa kewirausahaan dalam diri setiap siswa. </li><li>Menanamkan nilai-nilai pengabdian kepada bangsa dan negara.</li></ol>",
                             NamaSekolah = "SMA Kristen Pandhega Jaya",
                             NamaYayasan = "Yayasan Pandhega Jaya",

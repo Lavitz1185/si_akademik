@@ -44,7 +44,7 @@ internal class InformasiUmumEntityConfiguration : IEntityTypeConfiguration<Infor
                               "</li><li>Menanamkan nilai-nilai pengabdian kepada bangsa dan negara.</li></ol>",
                 FacebookSekolah = new Uri("https://www.facebook.com", UriKind.Absolute),
                 InstagramSekolah = new Uri("https://www.instagram.com", UriKind.Absolute),
-                LogoSekolah = new Uri("/images/logo_sekolah.jpg", UriKind.Relative),
+                LogoSekolah = new Uri("/images/logo_sekolah_transparent.png", UriKind.Relative),
                 VideoHalamanBeranda = new Uri("https://www.youtube.com/embed/0F0zrVop0Gg?si=-bMdPjk3DHJkXz7H", UriKind.Absolute),
                 VideoHalamanTentangKami = new Uri("https://www.youtube.com/embed/4Wt526OVxGg?si=L2EcPoD6nAunNxC6", UriKind.Absolute),
                 NamaYayasan = "Yayasan Pandhega Jaya",

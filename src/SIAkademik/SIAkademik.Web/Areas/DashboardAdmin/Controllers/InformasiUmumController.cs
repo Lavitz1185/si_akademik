@@ -124,7 +124,7 @@ public class InformasiUmumController : Controller
         {
             var logoSekolahBaru = await _fileService.UploadFile<EditVM>(
                 vm.LogoSekolahBaru,
-                "images",
+                "images/logo",
                 [".jpg", ".jpeg", ".png"],
                 0,
                 104858);
@@ -142,6 +142,9 @@ public class InformasiUmumController : Controller
         if (result.IsFailure)
         {
             ModelState.AddModelError(string.Empty, "Simpan Gagal!");
+
+            if (vm.LogoSekolahBaru is not null) _fileService.Delete(informasiUmum.LogoSekolah);
+
             return View(vm);
         }
 

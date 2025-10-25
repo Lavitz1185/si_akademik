@@ -1,0 +1,84 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.BeritaModels
+
+@inject IKategoriBeritaRepository KategoriBeritaRepository
+
+@{
+    var daftarKategori = await KategoriBeritaRepository.GetAll();
+}
+
+@model TambahVM
+
+<!-- Breadcrumb -->
+<div class="row">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Profil</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Berita" asp-action="Index">Berita & Pengumuman</a></li>
+            <li class="breadcrumb-item" aria-current="page">Tambah Data</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card card-success">
+
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Tambah Berita</h4>
+                </div>
+
+                <form asp-action="Tambah" method="post" enctype="multipart/form-data">
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.IdKategoriBerita"></label>
+                            <select asp-for="@Model.IdKategoriBerita" class="form-control">
+                                @foreach (var kategori in daftarKategori)
+                                {
+                                    <option value="@kategori.Id">@kategori.Nama</option>
+                                }
+                            </select>
+                            <span asp-validation-for="@Model.IdKategoriBerita" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Tanggal"></label>
+                            <input asp-for="@Model.Tanggal" class="form-control" type="date"/>
+                            <span asp-validation-for="@Model.Tanggal" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Foto"></label>
+                            <input asp-for="@Model.Foto" class="form-control" />
+                            <span asp-validation-for="@Model.Foto" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Judul"></label>
+                            <input asp-for="@Model.Judul" class="form-control" />
+                            <span asp-validation-for="@Model.Judul" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Isi"></label>
+                            <textarea asp-for="@Model.Isi" class="form-control editor"></textarea>
+                            <span asp-validation-for="@Model.Isi" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="card-footer text-right pt-0">
+                        <a href="javascript:void(0)" class="btn btn-danger text-white swal-cancel">Batal</a>
+                        <button class="btn btn-primary mr-1" type="submit">Simpan</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <partial name="_CkEditorPartial" />
+}
