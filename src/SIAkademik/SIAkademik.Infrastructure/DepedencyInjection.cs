@@ -31,6 +31,7 @@ public static class DepedencyInjection
 
         // Modul Profil
         services.AddScoped<IBeritaRepository, BeritaRepository>();
+        services.AddScoped<IFasilitasRepository, FasilitasRepository>();
         services.AddScoped<IInformasiUmumRepository, InformasiUmumRepository>();
         services.AddScoped<IKategoriBeritaRepository, KategoriBeritaRepository>();
 

@@ -30,6 +30,7 @@ internal class AppDbContext(DbContextOptions<AppDbContext> dbContextOptions) : D
 
     // Modul Profil
     public DbSet<Berita> TblBerita { get; set; }
+    public DbSet<Fasilitas> TblFasilitas { get; set; }
     public DbSet<InformasiUmum> TblInformasiUmum { get; set; }
     public DbSet<KategoriBerita> TblKategoriBerita { get; set; }
 

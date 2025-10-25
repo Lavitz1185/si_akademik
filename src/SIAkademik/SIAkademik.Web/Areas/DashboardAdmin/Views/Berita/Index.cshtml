@@ -109,7 +109,7 @@
                     {
                         <tr>
                             <td>@item.Tanggal.ToString(CultureInfos.CI.DateTimeFormat.LongDatePattern, CultureInfos.CI)</td>
-                            <td><a href="@item.Foto.OriginalString" target="_blank">@item.Foto.OriginalString</a></td>
+                            <td><img src="@item.Foto.OriginalString" target="_blank"/></td>
                             <td>@item.Judul.Truncate(50, "...")</td>
                             <td>@Html.Raw(item.Isi.Truncate(100, "..."))</td>
                             <td>@item.KategoriBerita.Nama</td>

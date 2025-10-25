@@ -2,7 +2,7 @@
 
 namespace SIAkademik.Domain.ModulProfil.Entities;
 
-public class Ekstrakurikuler : Entity<int>
+public class Fasilitas : Entity<int>
 {
     public required string Nama { get; set; }
     public required string Deskripsi { get; set; }

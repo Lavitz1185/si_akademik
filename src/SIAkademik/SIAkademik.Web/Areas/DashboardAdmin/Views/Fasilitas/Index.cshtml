@@ -1,0 +1,62 @@
+﻿@model List<Fasilitas>
+
+<!-- Breadcrumb -->
+<div class="row">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Profil</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Fasilitas" asp-action="Index"></a>Fasilitas</li>
+        </ol>
+    </nav>
+</div>
+
+<!-- Isi Konten -->
+<div class="card card-primary">
+    <div class="card-header">
+        <h4>Daftar Berita</h4>
+    </div>
+    <div class="padding-20">
+        <div class="d-flex justify-content-beetwen mb-3">
+            <div class="mb-0">
+                <a class="btn btn-icon icon-left btn-primary mr-1" asp-action="Tambah" data-toggle="tooltip" title="Tambah Fasilitas">
+                    <i class="fas fa-plus"></i> Tambah Fasilitas
+                </a>
+            </div>                  
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover" id="save-stage2">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Deskripsi</th>
+                        <th width="5%">Foto</th>
+                        <th style="min-width: 80px !important">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var fasilitas in Model)
+                    {
+                        <tr>
+                            <td>@fasilitas.Nama</td>
+                            <td>@fasilitas.Deskripsi</td>
+                            <td>
+                                <img src="@fasilitas.Foto.OriginalString"/>
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@fasilitas.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit Fasilitas">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                                <form style="display:inline" asp-action="Hapus" asp-route-id="@fasilitas.Id" method="post">
+                                    <button type="button" class="btn btn-danger btn-action swal-confirm" data-toggle="tooltip" title="Hapus Fasilitas">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

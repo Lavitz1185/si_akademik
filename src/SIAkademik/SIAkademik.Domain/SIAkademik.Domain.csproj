@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Include="ModulProfil\Entities\Ekstrakulikuler.cs" />
-  </ItemGroup>
-
 </Project>
