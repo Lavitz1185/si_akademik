@@ -50,6 +50,10 @@
                 margin-top: 15px;
             }
 
+                #experts .expert-box .profile .pro-links a {
+                    text-decoration: none;
+                }
+
                 #experts .expert-box .profile .pro-links i {
                     padding: 10px 13px;
                     border: 1px solid rgb(21, 21, 100);
@@ -125,7 +129,6 @@
 
 /* ------------------------------------ TABLET ------------------------------------ */
 @media (max-width: 780px) {
-    
 }
 
 /* ------------------------------------ MOBILE ------------------------------------ */
