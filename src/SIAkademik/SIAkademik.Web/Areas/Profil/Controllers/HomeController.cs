@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SIAkademik.Domain.Authentication;
+using SIAkademik.Domain.ModulProfil.Repositories;
+using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Web.Areas.Profil.Models.Home;
 using SIAkademik.Web.Authentication;
 
@@ -10,15 +11,30 @@ namespace SIAkademik.Web.Areas.Profil.Controllers;
 public class HomeController : Controller
 {
     private readonly ISignInManager _signInManager;
+    private readonly IInformasiUmumRepository _informasiUmumRepository;
+    private readonly IPegawaiRepository _pegawaiRepository;
+    private readonly ISiswaRepository _siswaRepository;
 
-    public HomeController(ISignInManager signInManager)
+    public HomeController(
+        ISignInManager signInManager,
+        IInformasiUmumRepository informasiUmumRepository,
+        IPegawaiRepository pegawaiRepository,
+        ISiswaRepository siswaRepository)
     {
         _signInManager = signInManager;
+        _informasiUmumRepository = informasiUmumRepository;
+        _pegawaiRepository = pegawaiRepository;
+        _siswaRepository = siswaRepository;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        return View(new IndexVM
+        {
+            InformasiUmum = await _informasiUmumRepository.Get(),
+            DaftarPegawai = await _pegawaiRepository.GetAll(),
+            DaftarSiswa = await _siswaRepository.GetAll()
+        });
     }
 
     public IActionResult Kurikulum()
@@ -31,9 +47,9 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult TentangKami()
+    public async Task<IActionResult> TentangKami()
     {
-        return View();
+        return View(await _informasiUmumRepository.Get());
     }
 
     public IActionResult CoreValue()
@@ -41,9 +57,9 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Kontak()
+    public async Task<IActionResult> Kontak()
     {
-        return View();
+        return View(await _informasiUmumRepository.Get());
     }
 
     public IActionResult Login(string? returnUrl = null)

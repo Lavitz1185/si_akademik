@@ -79,3 +79,15 @@ h6 {
     opacity: 1;
     visibility: visible;
 }
+
+.fotoprofil {
+    width: 168px;
+    height: 168px;
+    background-color: #1E3A8A; /* biru gelap */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 3rem;
+}

@@ -1,0 +1,93 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.InformasiUmumModels
+@model EditVM
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <button type="submit" class="btn btn-primary">Simpan</button>
+
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <label asp-for="@Model.NamaSekolah"></label>
+    <input asp-for="@Model.NamaSekolah" class="form-control"/>
+    <span asp-validation-for="@Model.NamaSekolah"></span>
+
+    <label asp-for="@Model.ProfilSingkatSekolah"></label>
+    <textarea asp-for="@Model.ProfilSingkatSekolah" class="form-control"></textarea>
+    <span asp-validation-for="@Model.ProfilSingkatSekolah"></span>
+
+    <label asp-for="@Model.SloganSekolah"></label>
+    <textarea asp-for="@Model.SloganSekolah" class="form-control"></textarea>
+    <span asp-validation-for="@Model.SloganSekolah"></span>
+
+    <label asp-for="@Model.AlamatSekolah"></label>
+    <textarea asp-for="@Model.AlamatSekolah" class="form-control"></textarea>
+    <span asp-validation-for="@Model.AlamatSekolah"></span>
+
+    <label asp-for="@Model.NoHPSekolah"></label>
+    <input asp-for="@Model.NoHPSekolah" class="form-control" />
+    <span asp-validation-for="@Model.NoHPSekolah"></span>
+
+    <label asp-for="@Model.EmailSekolah"></label>
+    <input asp-for="@Model.EmailSekolah" class="form-control" />
+    <span asp-validation-for="@Model.EmailSekolah"></span>
+
+    <label asp-for="@Model.FacebookSekolah"></label>
+    <input asp-for="@Model.FacebookSekolah" class="form-control" />
+    <span asp-validation-for="@Model.FacebookSekolah"></span>
+
+    <label asp-for="@Model.InstagramSekolah"></label>
+    <input asp-for="@Model.InstagramSekolah" class="form-control" />
+    <span asp-validation-for="@Model.InstagramSekolah"></span>
+
+    <label asp-for="@Model.VisiSekolah"></label>
+    <textarea asp-for="@Model.VisiSekolah" class="form-control editor"></textarea>
+    <span asp-validation-for="@Model.VisiSekolah"></span>
+
+    <label asp-for="@Model.MisiSekolah"></label>
+    <textarea asp-for="@Model.MisiSekolah" class="form-control editor"></textarea>
+    <span asp-validation-for="@Model.MisiSekolah"></span>
+
+    <label asp-for="@Model.LirikMarsSekolah"></label>
+    <textarea asp-for="@Model.LirikMarsSekolah" class="form-control editor"></textarea>
+    <span asp-validation-for="@Model.LirikMarsSekolah"></span>
+
+    <label asp-for="@Model.LogoSekolahBaru"></label>
+    <img src="@Model.LogoSekolahLama.OriginalString" />
+    <input asp-for="@Model.LogoSekolahBaru" type="file"/>
+    <input asp-for="@Model.LogoSekolahLama" hidden readonly/>
+    <span asp-validation-for="@Model.LogoSekolahBaru"></span>
+
+    <label asp-for="@Model.VideoHalamanBeranda"></label>
+    <iframe src="@Model.VideoHalamanBeranda"></iframe>
+    <input asp-for="@Model.VideoHalamanBeranda"/>
+    <span asp-validation-for="@Model.VideoHalamanBeranda"></span>
+
+    <label asp-for="@Model.VideoHalamanTentangKami"></label>
+    <iframe src="@Model.VideoHalamanTentangKami"></iframe>
+    <input asp-for="@Model.VideoHalamanTentangKami" />
+    <span asp-validation-for="@Model.VideoHalamanTentangKami"></span>
+
+    <label asp-for="@Model.NamaYayasan"></label>
+    <input asp-for="@Model.NamaYayasan" class="form-control" />
+    <span asp-validation-for="@Model.NamaYayasan"></span>
+
+    <label asp-for="@Model.SambutanPimpinanYayasan"></label>
+    <textarea asp-for="@Model.SambutanPimpinanYayasan" class="form-control"></textarea>
+    <span asp-validation-for="@Model.SambutanPimpinanYayasan"></span>
+
+    <label asp-for="@Model.DewanPembinaYayasan"></label>
+    <input asp-for="@Model.DewanPembinaYayasan" class="form-control" />
+    <span asp-validation-for="@Model.DewanPembinaYayasan"></span>
+
+    <label asp-for="@Model.KetuaUmumYayasan"></label>
+    <input asp-for="@Model.KetuaUmumYayasan" class="form-control" />
+    <span asp-validation-for="@Model.KetuaUmumYayasan"></span>
+
+    <label asp-for="@Model.KetuaUmum2Yayasan"></label>
+    <input asp-for="@Model.KetuaUmum2Yayasan" class="form-control" />
+    <span asp-validation-for="@Model.KetuaUmum2Yayasan"></span>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <partial name="_CkEditorPartial" />
+}

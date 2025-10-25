@@ -1,4 +1,6 @@
-﻿<!-- ======================================= PENGANTAR ======================================= -->
+﻿@model InformasiUmum
+
+<!-- ======================================= PENGANTAR ======================================= -->
 <section id="kontalam-home">
     <h2>Kontak & Alamat</h2>
 </section>
@@ -18,19 +20,18 @@
                 <div>
                     <i class="ri-home-8-line get"></i>
                     <p>
-                        Jl. Tilong Dam Km 5, Desa Oelnasi, Kecamatan Kupang Tengah.
-                        Kabupaten Kupang. NTT – 85361
+                        @Model.AlamatSekolah
                     </p>
                 </div>
                 <h3>Telepon</h3>
                 <div>
                     <i class="ri-phone-fill get"></i>
-                    <p>0812-3800-7577</p>
+                    <p>@Model.NoHPSekolah.Value</p>
                 </div>
                 <h3>Email</h3>
                 <div>
                     <i class="ri-mail-ai-fill get"></i>
-                    <p>smapandhegajaya@gmail.com</p>
+                    <p>@Model.EmailSekolah</p>
                 </div>
                 <h3>Ikuti Kami</h3>
                 <div class="pro-links">

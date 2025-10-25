@@ -4,10 +4,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using SIAkademik.Domain.Abstracts;
 using SIAkademik.Domain.Authentication;
+using SIAkademik.Domain.ModulProfil.Repositories;
 using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Infrastructure.Authentication;
 using SIAkademik.Infrastructure.Configurations;
 using SIAkademik.Infrastructure.Database;
+using SIAkademik.Infrastructure.ModulProfil.Repositories;
 using SIAkademik.Infrastructure.ModulSiakad.Repositories;
 using SIAkademik.Infrastructure.Services.FileServices;
 
@@ -25,8 +27,12 @@ public static class DepedencyInjection
             .EnableSensitiveDataLogging());
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-
         services.AddScoped<IAppUserRepository, AppUserRepository>();
+
+        // Modul Profil
+        services.AddScoped<IInformasiUmumRepository, InformasiUmumRepository>();
+
+        // Modul Siakad
         services.AddScoped<IAbsenRepository, AbsenRepository>();
         services.AddScoped<IAbsenKelasRepository, AbsenKelasRepository>();
         services.AddScoped<IAnggotaRombelRepository, AnggotaRombelRepository>();
