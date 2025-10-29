@@ -114,8 +114,12 @@
                                 var anggota = Model.DaftarEntryVM[i].AnggotaRombel;
                                 <tr>
                                     <td>
-                                        <input asp-for="@Model.DaftarEntryVM[@i].Selected" type="checkbox" data-checkbox-all="#selectAll" />
+                                        @if(anggota.Aktif) 
+                                        {
+                                            <input asp-for="@Model.DaftarEntryVM[@i].Selected" type="checkbox" data-checkbox-all="#selectAll" />
+                                        }
                                         <input asp-for="@Model.DaftarEntryVM[@i].IdAnggotaRombel" readonly hidden />
+                                        <input asp-for="@Model.DaftarEntryVM[@i].Aktif" readonly hidden />
                                     </td>
                                     <td>@anggota.Siswa.NIS/@anggota.Siswa.NISN</td>
                                     <td>@anggota.Siswa.Nama</td>

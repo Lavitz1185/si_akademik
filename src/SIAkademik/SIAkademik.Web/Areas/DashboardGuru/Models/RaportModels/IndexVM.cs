@@ -18,6 +18,7 @@ public class IndexEntryVM
 {
     public required int IdAnggotaRombel { get; set; }
     public required AnggotaRombel AnggotaRombel { get; set; }
+    public required bool Aktif { get; set; }
 
     public bool Selected { get; set; } = false;
 }
