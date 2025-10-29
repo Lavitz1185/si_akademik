@@ -71,9 +71,9 @@
             color: #fdc93b;
         }
 
-    #berita .beritas .berita-details p {
+    #berita .beritas .berita-details ::deep p {
         color: #333333;
-        padding-top: 5px;
+        padding-top: 3px;
         font-size: 16px;
         /* 2 baris aturan */
         display: -webkit-box;
@@ -125,8 +125,12 @@
         }
 
 /* ==================================== RESPONSIVE ==================================== */
-/* ------------------------------------ LAPTOP KECIL ------------------------------------ */
-@media (max-width: 1050px) {
+/* ------------------------------------ LAPTOP MEDIUM ------------------------------------ */
+@media (max-width: 1280px) {
+    /* ------------------------------------ SECTION BERITA ------------------------------------ */
+    #berita .beritas .berita-tanggal[b-5k926p3mh8] {
+        bottom: 200px;
+    }
 }
 
 /* ------------------------------------ TABLET ------------------------------------ */
@@ -138,12 +142,16 @@
         grid-gap: 1rem;
         margin-top: 50px;
     }
+
+    #berita .beritas .berita-tanggal[b-5k926p3mh8] {
+        bottom: 180px;
+    }
 }
 
 /* ------------------------------------ MOBILE ------------------------------------ */
-@media (max-width: 500px) {
+@media (max-width: 640px) {
     #berita-home[b-td5gxfqine] {
-        background-image: linear-gradient(rgba(9, 5, 54, 0.4), rgba(5, 4, 46, 0.4)), url("images/siswa2.jpg");
+        background-image: linear-gradient(rgba(9, 5, 54, 0.4), rgba(5, 4, 46, 0.4)), url("images/pandhega/lomba_UKAW.jpg");
         width: 100%;
         height: 60vh;
         background-size: cover;
@@ -167,11 +175,15 @@
         text-align: center;
     }
 
-    #berita .berita-box[b-td5gxfqine] {
+    #berita .berita-box[b-5k926p3mh8] {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         grid-gap: 1rem;
         margin-top: 30px;
+    }
+
+    #berita .beritas .berita-tanggal[b-5k926p3mh8] {
+        bottom: 180px;
     }
 
     .para-berita {
@@ -186,4 +198,16 @@
         margin-bottom: 0px;
         text-transform: uppercase;
     }
-}  
+}
+
+/* ------------------------------------ MOBILE MINI ------------------------------------ */
+@media (max-width: 350px) {   
+    /* ------------------------------------ SECTION BERITA ------------------------------------ */
+    #berita .berita-box[b-5k926p3mh8][b-5k926p3mh8] {
+        grid-gap: 2rem;
+    }
+
+    #berita .beritas .berita-tanggal[b-5k926p3mh8] {
+        bottom: 150px;
+    }
+}
