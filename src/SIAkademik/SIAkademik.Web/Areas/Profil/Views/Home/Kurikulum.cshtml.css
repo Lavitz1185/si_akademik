@@ -154,7 +154,7 @@
 }
 
 /* ------------------------------------ MOBILE ------------------------------------ */
-@media (max-width: 500px) {
+@media (max-width: 640px) {
     #kurikulum-home {
         background-image: linear-gradient(rgba(9, 5, 54, 0.4), rgba(5, 4, 46, 0.4)), url("images/siswa1.jpg");
         width: 100%;
@@ -183,9 +183,14 @@
         color: #222222;
         padding: 15px 20px 15px 15px;
         cursor: pointer;
+        font-size: 15px;
         font-weight: 600;
         border-radius: 8px;
         margin-top: 10px;
         position: relative;
+    }
+
+    #kurikulum .kurikulum-container .kurikulum-penjelasan .kurikulum-poin[b-3qsp09zqvq] {
+        font-size: 15px;
     }
 } 
