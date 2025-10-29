@@ -19,7 +19,7 @@
                 <img src="@berita.Foto.OriginalString" alt="" />
                 <div class="berita-details">
                     <a class="berita-details-judul" asp-route-id="@berita.Id" asp-action="Detail" asp-controller="Berita" asp-area="Profil">@berita.KategoriBerita.Nama - @berita.Judul</a>
-                    <p>
+                    <p class="berita-isi">
                         @Html.Raw(berita.Isi.Truncate(120, "..."))
                     </p>
                     <a class="berita-details-lanjut" asp-route-id="@berita.Id" asp-action="Detail" asp-controller="Berita" asp-area="Profil">Lihat Selengkapnya</a>

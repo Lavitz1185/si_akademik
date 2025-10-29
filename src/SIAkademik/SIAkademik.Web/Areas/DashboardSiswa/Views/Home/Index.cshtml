@@ -30,7 +30,7 @@
                                     <p class="text-center">Anda tidak memiliki kelas di tahun ajaran ini</p>
                                 </div>
                             }
-                            else if(Model.DaftarHariMengajar.Count == 0)
+                            else if(Model.DaftarPertemuan.Count == 0)
                             {
                                 <div class="col-12 text-center py-4">
                                     <p class="text-center">Tidak Ada Aktivitas Belajar Saat Ini</p>
@@ -39,43 +39,68 @@
                             else
                             {
                                 <div class="col-12">
-                                    <p class="text-muted">Anda memiliki @Model.DaftarHariMengajar.Count aktivitas belajar saat ini</p>
+                                    <p class="text-muted">Anda memiliki @Model.DaftarPertemuan.Count aktivitas belajar saat ini</p>
                                 </div>
-                            }
+                                @foreach (var pertemuan in Model.DaftarPertemuan)
+                                {
+                                    var absen = pertemuan.DaftarAbsen.FirstOrDefault(a => a.AnggotaRombel == Model.AnggotaRombel);
 
-                            @foreach(var hari in Model.DaftarHariMengajar.OrderBy(h => h.JamMulai))
-                            {
-                                <!-- Loop foreach pelajaran -->
-                                <div class="col-md-12 mb-3">
-                                    <div class="border rounded p-3" style="background-color:#f9fafb;">
-                                        <div class="row align-items-center g-3">
-                                            <!-- Kiri: Informasi Pelajaran -->
-                                            <div class="col-12 col-md-8">
-                                                <h6 class="fw-bold mb-2 text-md-start">@hari.JadwalMengajar.MataPelajaran.Nama</h6>
-                                                <div class="row text-muted">
-                                                    <div class="col-12 col-sm-6 mb-2 text-md-start">
-                                                        <i class="fas fa-clock me-1 mr-1"></i>
-                                                        @hari.JamMulai.ToShortTimeString() - @hari.JamAkhir.ToShortTimeString()
-                                                    </div>
-                                                    <div class="col-12 col-sm-6 mb-2 d-flex justify-content-md-start align-items-center">
-                                                        <i class="fas fa-user me-2 mr-2"></i>  @hari.JadwalMengajar.Pegawai.Nama
+                                    <!-- Loop foreach pelajaran -->
+                                    <div class="col-md-12 mb-3">
+                                        <div class="border rounded p-3" style="background-color:#f9fafb;">
+                                            <div class="row align-items-center g-3">
+                                                <!-- Kiri: Informasi Pelajaran -->
+                                                <div class="col-12 col-md-8">
+                                                    <h6 class="fw-bold mb-2 text-md-start">@pertemuan.JadwalMengajar.MataPelajaran.Nama</h6>
+                                                    <div class="row text-muted">
+                                                        <div class="col-12 col-sm-6 mb-2 text-md-start">
+                                                            <i class="fas fa-clock me-1 mr-1"></i>
+                                                            @pertemuan.TanggalPelaksanaan.ToString("HH:mm");
+                                                        </div>
+                                                        <div class="col-12 col-sm-6 mb-2 d-flex justify-content-md-start align-items-center">
+                                                            <i class="fas fa-user me-2 mr-2"></i>  @pertemuan.JadwalMengajar.Pegawai.Nama
+                                                        </div>
+                                                        <div class="col-6 mb-3">
+                                                            <i class="fas fa-book mr-1"></i> Pertemuan ke @pertemuan.Nomor
+                                                        </div>
+                                                        <div class="col-6 mb-3">
+                                                            <i class="fas fa-book mr-1"></i>
+                                                            Kehadiran
+                                                            @pertemuan.JadwalMengajar.DaftarPertemuan.Count(p => p.StatusPertemuan != StatusPertemuan.BelumMulai && p.DaftarAbsen.Any(a => a.AnggotaRombel == Model.AnggotaRombel && a.Absensi == Absensi.Hadir))/
+                                                            @pertemuan.JadwalMengajar.DaftarPertemuan.Count
+                                                        </div>
+                                                        <div class="col-12 mb-3">
+                                                            <i class="fas fa-check-circle mr-1"></i>
+                                                            @if (pertemuan.StatusPertemuan == StatusPertemuan.BelumMulai)
+                                                            {
+                                                                @("Pertemuan belum dimulai")
+                                                            }
+                                                            else if (absen is null)
+                                                            {
+                                                                @("Kehadiran anda belum tercatat")
+                                                            }
+                                                            else
+                                                            {
+                                                                @(absen.Absensi.Humanize())
+                                                            }
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- Kanan: Tombol Aksi -->
-                                            <div class="col-12 col-md-4 text-md-end text-center">
-                                                <a asp-action="Detail"
-                                                   asp-route-id="@hari.JadwalMengajar.Id"
-                                                   asp-controller="JadwalMengajar"
-                                                   class="btn btn-outline-success btn-sm w-100 w-md-auto">
-                                                    <i class="bi bi-box-arrow-up-right me-1"></i> Lihat Jadwal Kelas
-                                                </a>
+                                                <!-- Kanan: Tombol Aksi -->
+                                                <div class="col-12 col-md-4 text-md-end text-center">
+                                                    <a asp-action="Detail"
+                                                       asp-route-id="@pertemuan.JadwalMengajar.Id"
+                                                       asp-controller="JadwalMengajar"
+                                                       class="btn btn-outline-success btn-sm w-100 w-md-auto">
+                                                        <i class="bi bi-box-arrow-up-right me-1"></i> Lihat Jadwal Kelas
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
+                                }
                             }
                         </div>
                     </div>

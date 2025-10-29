@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SIAkademik.Infrastructure.Database;
@@ -12,9 +13,11 @@ using SIAkademik.Infrastructure.Database;
 namespace SIAkademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251029062003_BanyakUbahHariMengajarDanPertemuan")]
+    partial class BanyakUbahHariMengajarDanPertemuan
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -3777,6 +3780,230 @@ namespace SIAkademik.Infrastructure.Migrations
                             Nomor = 19,
                             StatusPertemuan = 0,
                             TanggalPelaksanaan = new DateTime(2025, 11, 10, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 77,
+                            JadwalMengajarId = 17,
+                            Nomor = 20,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 11, 17, 7, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 78,
+                            JadwalMengajarId = 18,
+                            Nomor = 20,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 11, 17, 9, 10, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 79,
+                            JadwalMengajarId = 19,
+                            Nomor = 20,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 11, 17, 10, 50, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 80,
+                            JadwalMengajarId = 20,
+                            Nomor = 20,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 11, 17, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 81,
+                            JadwalMengajarId = 17,
+                            Nomor = 21,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 11, 24, 7, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 82,
+                            JadwalMengajarId = 18,
+                            Nomor = 21,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 11, 24, 9, 10, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 83,
+                            JadwalMengajarId = 19,
+                            Nomor = 21,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 11, 24, 10, 50, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 84,
+                            JadwalMengajarId = 20,
+                            Nomor = 21,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 11, 24, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 85,
+                            JadwalMengajarId = 17,
+                            Nomor = 22,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 12, 1, 7, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 86,
+                            JadwalMengajarId = 18,
+                            Nomor = 22,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 12, 1, 9, 10, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 87,
+                            JadwalMengajarId = 19,
+                            Nomor = 22,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 12, 1, 10, 50, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 88,
+                            JadwalMengajarId = 20,
+                            Nomor = 22,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 12, 1, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 89,
+                            JadwalMengajarId = 17,
+                            Nomor = 23,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 12, 8, 7, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 90,
+                            JadwalMengajarId = 18,
+                            Nomor = 23,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 12, 8, 9, 10, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 91,
+                            JadwalMengajarId = 19,
+                            Nomor = 23,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 12, 8, 10, 50, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 92,
+                            JadwalMengajarId = 20,
+                            Nomor = 23,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 12, 8, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 93,
+                            JadwalMengajarId = 17,
+                            Nomor = 24,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 12, 15, 7, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 94,
+                            JadwalMengajarId = 18,
+                            Nomor = 24,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 12, 15, 9, 10, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 95,
+                            JadwalMengajarId = 19,
+                            Nomor = 24,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 12, 15, 10, 50, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 96,
+                            JadwalMengajarId = 20,
+                            Nomor = 24,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 12, 15, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 97,
+                            JadwalMengajarId = 17,
+                            Nomor = 25,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 12, 22, 7, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 98,
+                            JadwalMengajarId = 18,
+                            Nomor = 25,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 12, 22, 9, 10, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 99,
+                            JadwalMengajarId = 19,
+                            Nomor = 25,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 12, 22, 10, 50, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 100,
+                            JadwalMengajarId = 20,
+                            Nomor = 25,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 12, 22, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 101,
+                            JadwalMengajarId = 17,
+                            Nomor = 26,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 12, 29, 7, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 102,
+                            JadwalMengajarId = 18,
+                            Nomor = 26,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 12, 29, 9, 10, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 103,
+                            JadwalMengajarId = 19,
+                            Nomor = 26,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 12, 29, 10, 50, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 104,
+                            JadwalMengajarId = 20,
+                            Nomor = 26,
+                            StatusPertemuan = 0,
+                            TanggalPelaksanaan = new DateTime(2025, 12, 29, 13, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 

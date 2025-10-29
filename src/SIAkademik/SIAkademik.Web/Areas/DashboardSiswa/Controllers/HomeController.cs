@@ -67,10 +67,10 @@ public class HomeController : Controller
         var hari = tanggal.Value.DayOfWeek;
 
         var daftarJadwalMengajar = await _jadwalMengajarRepository.GetAllByTahunAjaran(tahunAjaran.Id);
-        var daftarHariMengajar = daftarJadwalMengajar
-            .Where(j => j.Rombel == anggotaRombel.Rombel)
-            .SelectMany(j => j.DaftarHariMengajar)
-            .Where(h => HariExtension.FromHari(h.Hari) == hari)
+        var daftarPertemuan = daftarJadwalMengajar
+            .SelectMany(j => j.DaftarPertemuan)
+            .Where(j => DateOnly.FromDateTime(j.TanggalPelaksanaan) == tanggal)
+            .OrderBy(j => j.TanggalPelaksanaan)
             .ToList();
 
         return View(new IndexVM
@@ -79,7 +79,7 @@ public class HomeController : Controller
             AnggotaRombel = anggotaRombel,
             TahunAjaran = tahunAjaran,
             Tanggal = tanggal.Value,
-            DaftarHariMengajar = daftarHariMengajar
+            DaftarPertemuan = daftarPertemuan
         });
     }
 

@@ -5,6 +5,7 @@ using SIAkademik.Domain.Abstracts;
 using SIAkademik.Domain.Authentication;
 using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.ModulSiakad.Repositories;
+using SIAkademik.Domain.Services;
 using SIAkademik.Web.Areas.DashboardAdmin.Models.JadwalMengajarModels;
 using SIAkademik.Web.Services.Toastr;
 
@@ -23,6 +24,7 @@ public class JadwalMengajarController : Controller
     private readonly IPertemuanRepository _pertemuanRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IToastrNotificationService _toastrNotificationService;
+    private readonly IHolidayService _holidayService;
 
     public JadwalMengajarController(
         IJadwalMengajarRepository jadwalMengajarRepository,
@@ -33,7 +35,8 @@ public class JadwalMengajarController : Controller
         IToastrNotificationService toastrNotificationService,
         IRombelRepository rombelRepository,
         IHariMengajarRepository hariMengajarRepository,
-        IPertemuanRepository pertemuanRepository)
+        IPertemuanRepository pertemuanRepository,
+        IHolidayService holidayService)
     {
         _jadwalMengajarRepository = jadwalMengajarRepository;
         _tahunAjaranRepository = tahunAjaranRepository;
@@ -44,6 +47,7 @@ public class JadwalMengajarController : Controller
         _rombelRepository = rombelRepository;
         _hariMengajarRepository = hariMengajarRepository;
         _pertemuanRepository = pertemuanRepository;
+        _holidayService = holidayService;
     }
 
     public async Task<IActionResult> Index(int? idTahunAjaran = null, int? idRombel = null)
@@ -69,18 +73,24 @@ public class JadwalMengajarController : Controller
         });
     }
 
-    public async Task<IActionResult> Tambah(int idTahunAjaran)
+    public async Task<IActionResult> Tambah(int idTahunAjaran, int? idRombel = null)
     {
         var tahunAjaran = await _tahunAjaranRepository.Get(idTahunAjaran);
         if (tahunAjaran is null) return NotFound();
 
-        return View(new TambahVM { IdTahunAjaran = tahunAjaran.Id });
+        return View(new TambahVM { IdTahunAjaran = tahunAjaran.Id, IdRombel = idRombel ?? default });
     }
 
     [HttpPost]
     public async Task<IActionResult> Tambah(TambahVM vm)
     {
         if (!ModelState.IsValid) return View(vm);
+
+        if (vm.DaftarTambahEntryVM.Count == 0)
+        {
+            ModelState.AddModelError(nameof(TambahVM.DaftarTambahEntryVM), "Hari Mengajar minimal 1!");
+            return View(vm);
+        }
 
         var mataPelajaran = await _mataPelajaranRepository.Get(vm.IdMataPelajaran);
         if (mataPelajaran is null)
@@ -120,6 +130,31 @@ public class JadwalMengajarController : Controller
 
         _jadwalMengajarRepository.Add(jadwalMengajar);
 
+        for(int i = 0; i < vm.DaftarTambahEntryVM.Count; i++)
+        {
+            var entry = vm.DaftarTambahEntryVM[i];
+            if (entry.JamMulai >= entry.JamAkhir)
+            {
+                ModelState.AddModelError($"{nameof(TambahVM.DaftarTambahEntryVM)}[{i}].{nameof(TambahEntryVM.JamMulai)}",
+                    "Jam Mulai tidak boleh sama atau lebih dari Jam Akhir");
+
+                return View(vm);
+            }
+
+            var hariMengajar = new HariMengajar
+            {
+                Hari = entry.Hari,
+                JamMulai = entry.JamMulai,
+                JamAkhir = entry.JamAkhir,
+                JadwalMengajar = jadwalMengajar,
+            };
+
+            jadwalMengajar.DaftarHariMengajar.Add(hariMengajar);
+            _hariMengajarRepository.Add(hariMengajar);
+        }
+
+        await jadwalMengajar.AddPertemuan(vm.JumlahPertemuan, _holidayService);
+
         var result = await _unitOfWork.SaveChangesAsync();
         if (result.IsFailure)
         {
@@ -128,7 +163,7 @@ public class JadwalMengajarController : Controller
         }
 
         _toastrNotificationService.AddSuccess("Jadwal mengajar berhasil ditambahkan!");
-        return RedirectToAction(nameof(Index), new { idTahunAjaran = vm.IdTahunAjaran });
+        return RedirectToAction(nameof(Index), new { idTahunAjaran = vm.IdTahunAjaran, idRombel = vm.IdRombel });
     }
 
     public async Task<IActionResult> Edit(int id)
@@ -315,5 +350,28 @@ public class JadwalMengajarController : Controller
             _toastrNotificationService.AddSuccess("Hapus Berhasil!");
 
         return RedirectToAction(nameof(Index), new { idTahunAjaran = jadwalMengajar.Rombel.TahunAjaran.Id });
+    }
+
+    [HttpPost]
+    public IActionResult TambahHariEntry(TambahVM vm)
+    {
+        vm.DaftarTambahEntryVM.Add(new TambahEntryVM());
+
+        return PartialView("_DaftarHariMengajarFormPartial", vm);
+    }
+
+    [HttpPost]
+    public IActionResult HapusHariEntry(TambahVM vm, int index)
+    {
+        try
+        {
+            vm.DaftarTambahEntryVM.RemoveAt(index);
+            return PartialView("_DaftarHariMengajarFormPartial", vm);
+        }
+        catch (Exception)
+        {
+            return BadRequest();
+        }
+
     }
 }

@@ -45,8 +45,7 @@ public class PertemuanController : Controller
 
         return View(new MulaiVM
         {
-            Id = pertemuan.Id,
-            TanggalPelaksanaan = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, CultureInfos.TimeZoneInfo)
+            Id = pertemuan.Id
         });
     }
 
@@ -58,7 +57,6 @@ public class PertemuanController : Controller
         var pertemuan = await _pertemuanRepository.Get(vm.Id);
         if (pertemuan is null) return NotFound();
 
-        pertemuan.TanggalPelaksanaan = vm.TanggalPelaksanaan;
         pertemuan.Keterangan = vm.Keterangan;
         pertemuan.StatusPertemuan = StatusPertemuan.Berjalan;
 

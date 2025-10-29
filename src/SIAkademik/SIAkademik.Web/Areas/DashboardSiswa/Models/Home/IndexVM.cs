@@ -8,5 +8,5 @@ public class IndexVM
     public required Siswa Siswa { get; set; }
     public AnggotaRombel? AnggotaRombel { get; set; }
     public TahunAjaran? TahunAjaran { get; set; }
-    public List<HariMengajar> DaftarHariMengajar { get; set; } = [];
+    public List<Pertemuan> DaftarPertemuan { get; set; } = [];
 }

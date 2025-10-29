@@ -113,7 +113,7 @@
                                             <tr>
                                                 <td>@pertemuan.Nomor</td>
                                                 <td>
-                                                    @pertemuan.TanggalPelaksanaan.ToString(CultureInfos.CI.DateTimeFormat.LongDatePattern, CultureInfos.CI)
+                                                    @pertemuan.TanggalPelaksanaan.ToString("dddd, dd MMMM yyyy hh:mm", CultureInfos.CI)
                                                 </td>
                                                 <td>@pertemuan.StatusPertemuan.Humanize()</td>
                                                 <td>@pertemuan.Keterangan</td>
