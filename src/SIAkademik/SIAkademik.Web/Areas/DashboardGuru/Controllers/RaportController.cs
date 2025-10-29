@@ -83,7 +83,7 @@ public class RaportController : Controller
             TahunAjaran = tahunAjaran,
             Rombel = rombel,
             DaftarEntryVM = rombel.DaftarAnggotaRombel
-                .Select(a => new IndexEntryVM { IdAnggotaRombel = a.Id, Selected = a.NaikKelasLulus, AnggotaRombel = a })
+                .Select(a => new IndexEntryVM { IdAnggotaRombel = a.Id, Selected = a.NaikKelasLulus, Aktif = a.Aktif, AnggotaRombel = a })
                 .ToList()
         });
     }
@@ -186,7 +186,7 @@ public class RaportController : Controller
             return RedirectToAction(nameof(Index), new { vm.IdTahunAjaran });
         }
 
-        foreach (var entry in vm.DaftarEntryVM)
+        foreach (var entry in vm.DaftarEntryVM.Where(a => a.Aktif))
         {
             var anggotaRombel = rombel.DaftarAnggotaRombel.First(a => a.Id == entry.IdAnggotaRombel);
             anggotaRombel.NaikKelasLulus = entry.Selected;

@@ -294,6 +294,7 @@ public class SiswaController : Controller
             return RedirectToAction(nameof(ProsesKelulusan));
         }
 
+        var tahunAjaran = await _tahunAjaranRepository.Get(vm.IdTahunAjaran.Value);
         var daftarSiswa = await _siswaRepository.GetAllAktif();
         daftarSiswa = daftarSiswa.Where(s => s.Jenjang == Jenjang.XII).ToList();
 
@@ -301,7 +302,15 @@ public class SiswaController : Controller
         {
             var siswa = daftarSiswa.FirstOrDefault(s => s.Id == entry.IdSiswa);
             if (siswa is not null)
-                siswa.StatusAktif = StatusAktifMahasiswa.TidakAktif;
+            {
+                var anggotaRombel = siswa.DaftarAnggotaRombel.FirstOrDefault(a => a.Rombel.TahunAjaran == tahunAjaran);
+                
+                if (anggotaRombel is not null)
+                {
+                    siswa.StatusAktif = StatusAktifMahasiswa.TidakAktif;
+                    anggotaRombel.Aktif = false;
+                }
+            }
         }
 
         var result = await _unitOfWork.SaveChangesAsync();
@@ -347,6 +356,19 @@ public class SiswaController : Controller
         if (vm.jenjang == vm.JenjangTujuan)
             return RedirectToAction(nameof(NaikKelas), new { vm.jenjang, vm.IdTahunAjaran });
 
+        if (vm.IdTahunAjaran is null)
+        {
+            _toastrNotificationService.AddError("Tahun ajaran tidak ditemukan!");
+            return RedirectToAction(nameof(NaikKelas));
+        }
+
+        var tahunAjaran = await _tahunAjaranRepository.Get(vm.IdTahunAjaran.Value);
+        if (tahunAjaran is null)
+        {
+            _toastrNotificationService.AddError("Tahun ajaran tidak ditemukan!");
+            return RedirectToAction(nameof(NaikKelas));
+        }
+
         var daftarSiswa = await _siswaRepository.GetAllAktif();
         daftarSiswa = daftarSiswa.Where(s => s.Jenjang == vm.jenjang).ToList();
 
@@ -354,7 +376,15 @@ public class SiswaController : Controller
         {
             var siswa = daftarSiswa.FirstOrDefault(s => s.Id == entry.IdSiswa);
             if (siswa is not null)
-                siswa.Jenjang = vm.JenjangTujuan;
+            {
+                var anggotaRombel = siswa.DaftarAnggotaRombel.FirstOrDefault(a => a.Rombel.TahunAjaran == tahunAjaran);
+
+                if (anggotaRombel is not null)
+                {
+                    siswa.Jenjang = vm.JenjangTujuan;
+                    anggotaRombel.Aktif = false;
+                }
+            }
         }
 
         var result = await _unitOfWork.SaveChangesAsync();

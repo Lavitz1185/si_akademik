@@ -12,6 +12,7 @@ public class AnggotaRombel : Entity<int>
     public bool NaikKelasLulus { get; set; } = false;
     public required DateOnly TanggalMasuk { get; set; }
     public DateOnly? TanggalKeluar { get; set; }
+    public bool Aktif { get; set; } = true;
 
     public Rombel Rombel { get; set; }
     public Siswa Siswa { get; set; }
