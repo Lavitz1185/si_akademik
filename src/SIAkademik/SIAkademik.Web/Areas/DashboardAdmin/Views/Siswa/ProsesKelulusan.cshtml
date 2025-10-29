@@ -58,144 +58,135 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="table-responsive">
         <form asp-action="ProsesKelulusan" id="prosesKelulusan" method="post">
-            <input asp-for="@Model.IdTahunAjaran" hidden readonly />
-            <table class="table table-striped table-hover" id="save-stage1">
-                <thead>
-                    <tr>
-                        <th style="min-width: 60px; text-align: center;">
-                            <input class="select-all" id="pilihSemua" type="checkbox" style="cursor:pointer;" />
-                        </th>
-                        <th>Id</th>
-                        <th>NISN</th>
-                        <th>NIS</th>
-                        <th style="min-width: 200px">Nama</th>
-                        <th>Agama</th>
-                        <th>Jenis Kelamin</th>
-                        <th style="min-width: 100px">TTL</th>
-                        <th>Tanggal Masuk</th>
-                        <th>Status Aktif</th>
-                        <th>Jenjang</th>
-                        <th style="min-width: 100px">Biodata Lengkap?</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (int i = 0; i < Model.DaftarSiswa.Count; i++)
-                    {
-                        var siswa = Model.DaftarSiswa[i];
+            <div class="table-responsive">
+                <input asp-for="@Model.IdTahunAjaran" hidden readonly />
+                <table class="table table-striped table-hover" id="save-stage2">
+                    <thead>
                         <tr>
-                            <td style="text-align: center; padding-right: 28px;">
-                                <input asp-for="@Model.DaftarEntry[@i].Luluskan" data-checkbox-all="#pilihSemua" type="checkbox" />
-                                <input asp-for="@Model.DaftarEntry[@i].IdSiswa" hidden readonly />
-                            </td>
-                            <td>@siswa.Id</td>
-                            <td>@siswa.NISN</td>
-                            <td>@siswa.NIS</td>
-                            <td>@siswa.Nama</td>
-                            <td>@siswa.Agama.Humanize(LetterCasing.Title)</td>
-                            <td>@siswa.JenisKelamin.Humanize()</td>
-                            <td>@siswa.TTL</td>
-                            <td>@siswa.TanggalMasuk.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td>
-                            <td>@siswa.StatusAktif.Humanize()</td>
-                            <td>@siswa.Jenjang.Humanize()</td>
-                            <td>
-                                @if (siswa.IsBiodataComplete())
-                                {
-                                    @("Lengkap")
-                                }
-                                else
-                                {
-                                    @("Tidak Lengkap")
-                                }
-                            </td>
+                            <th style="min-width: 60px; text-align: center;">
+                                <input class="select-all" id="pilihSemua" type="checkbox" style="cursor:pointer;" />
+                            </th>
+                            <th>Id</th>
+                            <th>NISN</th>
+                            <th>NIS</th>
+                            <th style="min-width: 200px">Nama</th>
+                            <th>Agama</th>
+                            <th>Jenis Kelamin</th>
+                            <th style="min-width: 100px">TTL</th>
+                            <th>Tanggal Masuk</th>
+                            <th>Status Aktif</th>
+                            <th>Jenjang</th>
+                            <th style="min-width: 100px">Biodata Lengkap?</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.DaftarSiswa.Count; i++)
+                        {
+                            var siswa = Model.DaftarSiswa[i];
+                            <tr>
+                                <td style="text-align: center; padding-right: 28px;">
+                                    <input asp-for="@Model.DaftarEntry[@i].Luluskan" data-checkbox-all="#pilihSemua" type="checkbox" />
+                                    <input asp-for="@Model.DaftarEntry[@i].IdSiswa" hidden readonly />
+                                </td>
+                                <td>@siswa.Id</td>
+                                <td>@siswa.NISN</td>
+                                <td>@siswa.NIS</td>
+                                <td>@siswa.Nama</td>
+                                <td>@siswa.Agama.Humanize(LetterCasing.Title)</td>
+                                <td>@siswa.JenisKelamin.Humanize()</td>
+                                <td>@siswa.TTL</td>
+                                <td>@siswa.TanggalMasuk.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td>
+                                <td>@siswa.StatusAktif.Humanize()</td>
+                                <td>@siswa.Jenjang.Humanize()</td>
+                                <td>
+                                    @if (siswa.IsBiodataComplete())
+                                    {
+                                        @("Lengkap")
+                                    }
+                                    else
+                                    {
+                                        @("Tidak Lengkap")
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </form>
     </div>
 </div>
 
 @section Scripts {
     <script type="text/javascript">
-        $(function() {
-            $('select#idTahunAjaran').on('change', function() {
-                $(this).closest('form').trigger('submit');
+        $(document).ready(function () {
+            // Inisialisasi DataTable dengan paging aktif
+            var table = $('#save-stage2').DataTable({
+                paging: true,
+                scrollX: true,
+                stateSave: true,
+                columnDefs: [
+                    { orderable: false, targets: 0 } // kolom pertama (checkbox) tidak bisa di-sort
+                ],
+                lengthMenu: [10, 25, 50, 100], // tetap ada opsi pilihan
+                pageLength: 50 // default tampilkan 50 data
             });
 
-            $('button#simpan').on('click', () => $('form#prosesKelulusan').trigger('submit'))
-        })
-
-        $(document).ready(function () {
-            var table = $('#save-stage1').DataTable();
-
-            // === 🧮 Fungsi untuk update jumlah terpilih ===
+            // 🧮 Fungsi update jumlah terpilih
             function updateSelectedCount() {
-                var total = table.rows().nodes().to$().find('input[type="checkbox"][data-checkbox-all]').length;
-                var checked = table.rows().nodes().to$().find('input[type="checkbox"][data-checkbox-all]:checked').length;
+                var total = table.rows().nodes().to$().find('input[data-checkbox-all]').length;
+                var checked = table.rows().nodes().to$().find('input[data-checkbox-all]:checked').length;
 
                 $('#selectedCount').text(checked);
                 $('#totalCount').text(total);
-
-                // ✅ Aktif/nonaktif tombol simpan
-                if (checked > 0) {
-                    $('button#simpan').prop('disabled', false);
-                } else {
-                    $('button#simpan').prop('disabled', true);
-                }
+                $('button#simpan').prop('disabled', checked === 0);
             }
 
-            // --- 1️⃣ Saat klik "Pilih Semua"
+            // === 1️⃣ Klik "Pilih Semua"
             $('#pilihSemua').on('click', function () {
                 var isChecked = $(this).is(':checked');
 
-                table.rows().nodes().to$().each(function () {
-                    $(this).find('input[type="checkbox"][data-checkbox-all]').prop('checked', isChecked);
+                // Ubah status semua checkbox di tabel
+                table.rows().nodes().to$().find('input[data-checkbox-all]').prop('checked', isChecked);
+                updateSelectedCount();
+
+                // 🧭 Jika pilih semua → tampilkan semua data (paging off)
+                // jika batal pilih semua → aktifkan paging lagi
+                table.destroy(); // hancurkan instance lama
+
+                table = $('#save-stage2').DataTable({
+                    paging: !isChecked, // paging mati kalau pilih semua
+                    stateSave: true,
+                    language: {
+                        emptyTable: "Tidak ada data tersedia dalam tabel ini"
+                    }
                 });
 
-                table.rows().every(function () {
-                    var $checkbox = $(this.node()).find('input[type="checkbox"][data-checkbox-all]');
-                    $checkbox.prop('checked', isChecked);
-                });
-
+                // Setelah reinit, tetap sinkronkan checkbox
+                table.rows().nodes().to$().find('input[data-checkbox-all]').prop('checked', isChecked);
                 updateSelectedCount();
             });
 
-            // --- 2️⃣ Saat user centang / uncheck salah satu checkbox siswa
-            $('#save-stage1').on('change', 'input[type="checkbox"][data-checkbox-all]', function () {
-                var allCheckboxes = table.rows().nodes().to$().find('input[type="checkbox"][data-checkbox-all]');
+            // === 2️⃣ Klik salah satu checkbox siswa
+            $('#save-stage2').on('change', 'input[data-checkbox-all]', function () {
+                var allCheckboxes = table.rows().nodes().to$().find('input[data-checkbox-all]');
                 var total = allCheckboxes.length;
                 var checked = allCheckboxes.filter(':checked').length;
 
+                // Sinkronkan status "Pilih Semua"
                 if (checked === total) {
-                    $('#pilihSemua').prop('checked', true).prop('indeterminate', false);
+                    $('#pilihSemua').prop({ checked: true, indeterminate: false });
                 } else if (checked === 0) {
-                    $('#pilihSemua').prop('checked', false).prop('indeterminate', false);
+                    $('#pilihSemua').prop({ checked: false, indeterminate: false });
                 } else {
-                    $('#pilihSemua').prop('indeterminate', true);
+                    $('#pilihSemua').prop({ indeterminate: true });
                 }
 
                 updateSelectedCount();
             });
 
-            // --- 3️⃣ Pastikan status centang tetap sinkron meski berpindah page
-            table.on('draw', function () {
-                var globalChecked = $('#pilihSemua').prop('checked');
-                var isIndeterminate = $('#pilihSemua').prop('indeterminate');
-
-                table.rows({ page: 'current' }).nodes().to$().find('input[type="checkbox"][data-checkbox-all]').each(function () {
-                    if (!isIndeterminate) {
-                        $(this).prop('checked', globalChecked);
-                    }
-                });
-
-                updateSelectedCount();
-            });
-
-            // 🔄 Jalankan pertama kali saat halaman selesai load
             updateSelectedCount();
         });
     </script>
