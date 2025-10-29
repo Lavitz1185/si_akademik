@@ -218,7 +218,7 @@
 }
 
 /* ------------------------------------ MOBILE ------------------------------------ */
-@media (max-width: 500px) {
+@media (max-width: 640px) {
     #kontalam-home[b-bmjxfi04rh] {
         background-image: linear-gradient(rgba(9, 5, 54, 0.4), rgba(5, 4, 46, 0.4)), url("images/siswa2.jpg");
         width: 100%;
