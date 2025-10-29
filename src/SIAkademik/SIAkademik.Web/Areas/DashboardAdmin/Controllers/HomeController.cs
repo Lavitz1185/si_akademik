@@ -43,7 +43,6 @@ namespace SIAkademik.Web.Areas.DashboardAdmin.Controllers
             _tahunAjaranRepository = tahunAjaranRepository;
             _passwordHasher = passwordHasher;
             _unitOfWork = unitOfWork;
-            _holidayService = holidayService;
         }
 
         public async Task<IActionResult> Index()
