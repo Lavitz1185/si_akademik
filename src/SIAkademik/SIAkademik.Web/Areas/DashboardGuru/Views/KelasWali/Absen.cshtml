@@ -158,7 +158,7 @@
                                 @foreach (var pertemuan in daftarJadwalMengajar
                                     .SelectMany(j => j.DaftarPertemuan)
                                     .Where(p => p.StatusPertemuan != StatusPertemuan.BelumMulai && 
-                                        DateOnly.FromDateTime(p.TanggalPelaksanaan!.Value) == Model.Tanggal))
+                                        DateOnly.FromDateTime(p.TanggalPelaksanaan) == Model.Tanggal))
                                 {
                                     var rowspan = pertemuan.DaftarAbsen.Count + 1;
 
@@ -166,7 +166,7 @@
                                         <td rowspan="@rowspan">@pertemuan.Nomor</td>
                                         <td rowspan="@rowspan">@pertemuan.JadwalMengajar.MataPelajaran.Nama</td>
                                         <td rowspan="@rowspan">@pertemuan.JadwalMengajar.Pegawai.Nama</td>
-                                        <td rowspan="@rowspan">@pertemuan.TanggalPelaksanaan!.Value.ToString("hh:mm dddd, dd MMMM yyyy", CultureInfos.CI)</td>
+                                        <td rowspan="@rowspan">@pertemuan.TanggalPelaksanaan.ToString("hh:mm dddd, dd MMMM yyyy", CultureInfos.CI)</td>
                                         <td rowspan="@rowspan">@pertemuan.StatusPertemuan.Humanize()</td>
                                     </tr>
 

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SIAkademik.Domain.Abstracts;
 using SIAkademik.Domain.Authentication;
 using SIAkademik.Domain.ModulSiakad.Repositories;
+using SIAkademik.Domain.Services;
 using SIAkademik.Web.Areas.DashboardAdmin.Models.Home;
 using SIAkademik.Web.Authentication;
 using SIAkademik.Web.Services.Toastr;
@@ -31,7 +32,8 @@ namespace SIAkademik.Web.Areas.DashboardAdmin.Controllers
             IPegawaiRepository pegawaiRepository,
             ITahunAjaranRepository tahunAjaranRepository,
             IPasswordHasher<AppUser> passwordHasher,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            IHolidayService holidayService)
         {
             _signInManager = signInManager;
             _notificationService = notificationService;
@@ -41,6 +43,7 @@ namespace SIAkademik.Web.Areas.DashboardAdmin.Controllers
             _tahunAjaranRepository = tahunAjaranRepository;
             _passwordHasher = passwordHasher;
             _unitOfWork = unitOfWork;
+            _holidayService = holidayService;
         }
 
         public async Task<IActionResult> Index()

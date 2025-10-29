@@ -118,19 +118,7 @@ public class JadwalMengajarController : Controller
             Rombel = rombel
         };
 
-        var daftarPertemuan = Enumerable.Range(1, vm.JumlahPertemuan)
-            .Select(i => new Pertemuan
-            {
-                Nomor = i,
-                JadwalMengajar = jadwalMengajar,
-                StatusPertemuan = StatusPertemuan.BelumMulai
-            }).ToList();
-
-        jadwalMengajar.DaftarPertemuan = daftarPertemuan;
-
         _jadwalMengajarRepository.Add(jadwalMengajar);
-
-        foreach (var pertemuan in daftarPertemuan) _pertemuanRepository.Add(pertemuan);
 
         var result = await _unitOfWork.SaveChangesAsync();
         if (result.IsFailure)

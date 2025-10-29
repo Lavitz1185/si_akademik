@@ -6,6 +6,7 @@ using SIAkademik.Domain.Abstracts;
 using SIAkademik.Domain.Authentication;
 using SIAkademik.Domain.ModulProfil.Repositories;
 using SIAkademik.Domain.ModulSiakad.Repositories;
+using SIAkademik.Domain.Services;
 using SIAkademik.Infrastructure.Authentication;
 using SIAkademik.Infrastructure.Configurations;
 using SIAkademik.Infrastructure.Database;

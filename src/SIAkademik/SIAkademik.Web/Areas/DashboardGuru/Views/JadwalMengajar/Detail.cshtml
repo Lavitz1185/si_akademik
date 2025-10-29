@@ -113,14 +113,7 @@
                                             <tr>
                                                 <td>@pertemuan.Nomor</td>
                                                 <td>
-                                                    @if (pertemuan.TanggalPelaksanaan is null)
-                                                    {
-                                                        <p>Belum Dimulai</p>
-                                                    }
-                                                    else
-                                                    {
-                                                        @pertemuan.TanggalPelaksanaan.Value.ToString(CultureInfos.CI.DateTimeFormat.LongDatePattern, CultureInfos.CI)
-                                                    }
+                                                    @pertemuan.TanggalPelaksanaan.ToString(CultureInfos.CI.DateTimeFormat.LongDatePattern, CultureInfos.CI)
                                                 </td>
                                                 <td>@pertemuan.StatusPertemuan.Humanize()</td>
                                                 <td>@pertemuan.Keterangan</td>

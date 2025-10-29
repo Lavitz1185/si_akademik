@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using SIAkademik.Domain.Authentication;
+using SIAkademik.Domain.Services;
 using SIAkademik.Infrastructure;
 using SIAkademik.Web.Areas;
 using SIAkademik.Web.Authentication;
+using SIAkademik.Web.Services.HolidayServices;
 using SIAkademik.Web.Services.PDFGenerator;
 using SIAkademik.Web.Services.Toastr;
 
@@ -29,6 +31,13 @@ builder.Services.AddScoped<ISignInManager, SignInManager>();
 builder.Services.AddScoped<IToastrNotificationService, ToastrNotificationService>();
 builder.Services.AddRazorTemplating();
 builder.Services.AddSingleton<IPDFGeneratorService, PDFGeneratorService>();
+builder.Services.AddHttpClient<IHolidayService, HolidayService>(conf =>
+{
+    conf.BaseAddress = new Uri("https://tanggalan.com");
+    conf.DefaultRequestHeaders
+        .UserAgent
+        .ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/119.0.0.0 Safari/537.36");
+});
 
 var app = builder.Build();
 

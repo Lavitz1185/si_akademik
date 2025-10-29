@@ -68,7 +68,7 @@ public class PertemuanController : Controller
             AnggotaRombel = a,
             Keterangan = string.Empty,
             Pertemuan = pertemuan,
-            Tanggal = DateOnly.FromDateTime(pertemuan.TanggalPelaksanaan.Value),
+            Tanggal = DateOnly.FromDateTime(pertemuan.TanggalPelaksanaan),
             Absensi = Absensi.Hadir
         }).ToList();
 
@@ -176,6 +176,7 @@ public class PertemuanController : Controller
         {
             Nomor = vm.Nomor,
             JadwalMengajar = jadwalMengajar,
+            TanggalPelaksanaan = vm.TanggalPelaksanaan,
             StatusPertemuan = StatusPertemuan.BelumMulai
         };
 
@@ -208,7 +209,7 @@ public class PertemuanController : Controller
             Id = id,
             Keterangan = pertemuan.Keterangan!,
             Nomor = pertemuan.Nomor,
-            TanggalPelaksanaan = pertemuan.TanggalPelaksanaan!.Value
+            TanggalPelaksanaan = pertemuan.TanggalPelaksanaan
         });
     }
 
