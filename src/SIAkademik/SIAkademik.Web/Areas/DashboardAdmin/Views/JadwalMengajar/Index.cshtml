@@ -28,6 +28,7 @@
                 @if (Model.TahunAjaran is not null)
                 {
                     <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah" asp-route-idTahunAjaran="@Model.TahunAjaran.Id"
+                       asp-route-idRombel="@Model.IdRombel"
                        data-toggle="tooltip" title="Tambah Jadwal Mengajar">
                         <i class="fas fa-plus"></i>Tambah Jadwal Mengajar
                     </a>

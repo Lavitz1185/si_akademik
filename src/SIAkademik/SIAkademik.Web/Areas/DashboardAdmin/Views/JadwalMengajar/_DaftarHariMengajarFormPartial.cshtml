@@ -1,0 +1,33 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.JadwalMengajarModels
+@model TambahVM
+
+@for(int i = 0; i < Model.DaftarTambahEntryVM.Count; i++)
+{
+    <div class="row">
+        <div class="form-group">
+            <label asp-for="@Model.DaftarTambahEntryVM[@i].Hari"></label>
+            <select asp-for="@Model.DaftarTambahEntryVM[@i].Hari" class="form-control">
+                <option value="@null">-- Pilih Hari --</option>
+                @foreach (var hari in Enum.GetValues<Hari>())
+                {
+                    <option value="@hari">@hari.Humanize()</option>
+                }
+            </select>
+            <span asp-validation-for="@Model.DaftarTambahEntryVM[@i].Hari" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.DaftarTambahEntryVM[@i].JamMulai"></label>
+            <input asp-for="@Model.DaftarTambahEntryVM[@i].JamMulai" type="time" class="form-control" />
+            <span asp-validation-for="@Model.DaftarTambahEntryVM[@i].JamMulai" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.DaftarTambahEntryVM[@i].JamAkhir"></label>
+            <input asp-for="@Model.DaftarTambahEntryVM[@i].JamAkhir" type="time" class="form-control" />
+            <span asp-validation-for="@Model.DaftarTambahEntryVM[@i].JamAkhir" class="text-danger"></span>
+        </div>
+
+        <button type="button" onclick="hapusHariEntry(@i)">Hapus</button>
+    </div>
+}

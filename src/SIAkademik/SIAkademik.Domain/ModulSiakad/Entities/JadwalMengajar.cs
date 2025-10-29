@@ -52,7 +52,7 @@ public class JadwalMengajar : Entity<int>
                 nomor += DaftarHariMengajar.Count;
                 closest = closest.AddDays(7);
                 numAdded++;
-            } while (numAdded <= numberOfPertemuan || closest <= Rombel.TahunAjaran.TanggalSelesai);
+            } while (numAdded <= numberOfPertemuan && closest <= Rombel.TahunAjaran.TanggalSelesai);
         }
 
         return Result.Success();
