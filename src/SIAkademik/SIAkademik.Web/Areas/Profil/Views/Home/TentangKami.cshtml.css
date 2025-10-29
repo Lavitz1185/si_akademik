@@ -267,7 +267,7 @@
 
 /* ==================================== RESPONSIVE ==================================== */
 /* ------------------------------------ LAPTOP KECIL ------------------------------------ */
-@media (max-width: 1050px) {
+@media (max-width: 1350px) {
     #sambutan2 .sambutan2-wrapper[b-lh8iyyrbpt] {
         gap: 30px;
     }
@@ -303,7 +303,7 @@
 }
 
 /* ------------------------------------ MOBILE ------------------------------------ */
-@media (max-width: 500px) {
+@media (max-width: 640px) {
     #tentang-home[b-lh8iyyrbpt] {
         display: flex;
         flex-direction: column;
