@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SIAkademik.Infrastructure.Database;
@@ -12,9 +13,11 @@ using SIAkademik.Infrastructure.Database;
 namespace SIAkademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251028211940_UbahDanSeedingPertemuan")]
+    partial class UbahDanSeedingPertemuan
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -362,13 +365,6 @@ namespace SIAkademik.Infrastructure.Migrations
                             PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
                             Role = "Siswa",
                             UserName = "252629"
-                        },
-                        new
-                        {
-                            Id = 47,
-                            PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
-                            Role = "GURU",
-                            UserName = "etymissa0703@gmail.com"
                         });
                 });
 
@@ -2979,7 +2975,6 @@ namespace SIAkademik.Infrastructure.Migrations
                         {
                             Id = "PJ18-012",
                             Agama = 0,
-                            AppUserId = 47,
                             DivisiId = 1,
                             Email = "etymissa0703@gmail.com",
                             GolonganDarah = 0,

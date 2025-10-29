@@ -140,7 +140,7 @@ internal class PegawaiEntityConfiguration : IEntityTypeConfiguration<Pegawai>
                 NoRekening = "2502791721 (BANK NTT)",
                 JabatanId = 4,
                 DivisiId = 1,
-                AppUserId = (int?)(null)
+                AppUserId = 47
             },
             new
             {
