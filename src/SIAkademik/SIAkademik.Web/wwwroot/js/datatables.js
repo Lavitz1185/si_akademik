@@ -40,9 +40,12 @@ $("#table-2").dataTable({
     order: [[1, "asc"]] 
 
 });
+
 $('#save-stage').DataTable({
-    "scrollX": true,
-    stateSave: true
+    scrollX: true,
+    stateSave: true,
+    lengthMenu: [10, 25, 50, 100], // tetap ada opsi pilihan
+    pageLength: 50 // default tampilkan 50 data
 });
 
 $('#save-stage1').DataTable({
@@ -50,25 +53,33 @@ $('#save-stage1').DataTable({
     stateSave: true,
     columnDefs: [
         { orderable: false, targets: 0 } // kolom pertama (checkbox) tidak bisa di-sort
-    ]
+    ],
+    lengthMenu: [10, 25, 50, 100], // tetap ada opsi pilihan
+    pageLength: 50 // default tampilkan 50 data
 });
 
 $('#table-akun0').DataTable({
     columnDefs: [
         { "sortable": false, "targets": [2] } 
     ],
+    lengthMenu: [10, 25, 50, 100], // tetap ada opsi pilihan
+    pageLength: 50 // default tampilkan 50 data
 });
 
 $('#table-akun').DataTable({
     columnDefs: [
         { "sortable": false, "targets": [2] }
     ],
+    lengthMenu: [10, 25, 50, 100], // tetap ada opsi pilihan
+    pageLength: 50 // default tampilkan 50 data
 });
 
 $('#table-akunn').DataTable({
     columnDefs: [
         { "sortable": false, "targets": [2] }
     ],
+    lengthMenu: [10, 25, 50, 100], // tetap ada opsi pilihan
+    pageLength: 50 // default tampilkan 50 data
 });
 
 $('#table-akun-1').DataTable({
@@ -80,6 +91,7 @@ $('#table-akun-1').DataTable({
         { "sortable": false, "targets": [2] } // Menonaktifkan pengurutan untuk kolom tertentu
     ],
     lengthMenu: [10, 25, 50, 100], // Opsi "Show entries"
+    pageLength: 50
 });
 $('#table-akun-2').DataTable({
     dom: '<"row justify-content-between"lf><"row"B>rt<"bottom-wrapper"ip>', 
@@ -142,22 +154,30 @@ $('#table-akun1').DataTable({
     columnDefs: [
         { "sortable": false, "targets": [1] }
     ],
+    lengthMenu: [10, 25, 50, 100], // tetap ada opsi pilihan
+    pageLength: 50 // default tampilkan 50 data
 });
 
 $('#table-akun2').DataTable({
     columnDefs: [
         { "sortable": false, "targets": [1] }
     ],
+    lengthMenu: [10, 25, 50, 100], // tetap ada opsi pilihan
+    pageLength: 50 // default tampilkan 50 data
 });
 
 $('#table-akun3').DataTable({
     columnDefs: [
         { "sortable": false, "targets": [1] }
     ],
+    lengthMenu: [10, 25, 50, 100], // tetap ada opsi pilihan
+    pageLength: 50 // default tampilkan 50 data
 });
 
 $('#table-akun4').DataTable({
     columnDefs: [
         { "sortable": false, "targets": [1] }
     ],
+    lengthMenu: [10, 25, 50, 100], // tetap ada opsi pilihan
+    pageLength: 50 // default tampilkan 50 data
 });
