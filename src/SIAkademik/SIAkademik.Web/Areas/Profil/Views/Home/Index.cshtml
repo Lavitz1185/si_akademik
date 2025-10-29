@@ -1,14 +1,15 @@
-﻿<!-- ======================================= SECTION LANDING ======================================= -->
+﻿@using SIAkademik.Web.Areas.Profil.Models.Home
+@model IndexVM
+
+<!-- ======================================= SECTION LANDING ======================================= -->
 <section id="home">
-    <h2>SMA Kristen Pandhega Jaya</h2>
+    <h2>@Model.InformasiUmum.NamaSekolah</h2>
     <p>
-        Sekolah berlandaskan nilai-nilai Kristiani yang membimbing setiap peserta didik
-        untuk tumbuh menjadi pribadi yang beriman, berkarakter, dan berprestasi.
-        Bersama kami, raih masa depan yang cerah melalui pendidikan yang unggul dan penuh kasih.
+        @Model.InformasiUmum.SloganSekolah
     </p>
     <div class="btn">
         <a class="blue" asp-action="Kurikulum" asp-controller="Home" asp-area="Profil">Lihat Kurikulum</a>
-        <a class="yellow" href="">Daftar PPDB</a>
+        <a class="yellow" href="#">Daftar PPDB</a>
     </div>
 </section>
 
@@ -16,29 +17,26 @@
 <section id="sambutan">
     <div class="sambutan-wrapper">
         <div class="sambutan-image">
-            <iframe src="https://www.youtube.com/embed/0F0zrVop0Gg?si=-bMdPjk3DHJkXz7H">
+            <iframe src="@Model.InformasiUmum.VideoHalamanBeranda.OriginalString">
             </iframe>
         </div>
         <div class="sambutan-content">
             <p class="sambutan-lihat">Lihat Lebih Dekat</p>
             <h1>Profil Singkat SMA Kristen Pandhega Jaya</h1>
             <p class="sambutan-text">
-                Selamat datang di SMA Kristen Pandhega Jaya, tempat dimana ilmu dan
-                keterampilan diajarkan dengan penuh kasih sayang. Kami bangga dapat
-                menyediakan lingkungan belajar yang menyenangkan dan menyegarkan
-                bagi siswa-siswi kami.
+                @Model.InformasiUmum.ProfilSingkatSekolah
             </p>
             <div class="sambutan-statistik">
                 <div class="stat-box">
-                    <div class="stat-number">200</div>
+                    <div class="stat-number">@Model.DaftarSiswa.Where(s => s.StatusAktif == StatusAktifMahasiswa.Aktif).Count()</div>
                     <div class="stat-label">Peserta Didik</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-number">15</div>
+                    <div class="stat-number">@Model.DaftarPegawai.Count</div>
                     <div class="stat-label">Guru & Tendik</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-number">300</div>
+                    <div class="stat-number">@Model.DaftarSiswa.Where(s => s.StatusAktif == StatusAktifMahasiswa.TidakAktif).Count()</div>
                     <div class="stat-label">Alumni</div>
                 </div>
             </div>
@@ -51,56 +49,27 @@
     <h1>Berita & Pengumuman Terbaru</h1>
     <p class="para-berita">Dapatkan Informasi dan Pengumuman Terbaru Seputar Kegiatan Sekolah</p>
     <div class="berita-box">
-        <!-- Informasi -->
-        <div class="beritas">
-            <img src="/images/siswa1.jpg" alt="" />
-            <div class="berita-details">
-                <a class="berita-details-judul" asp-action="Detail" asp-controller="Berita" asp-area="Profil">Pengumuman - Kelulusan Kelas XII Tahun Pelajaran 2024/2025</a>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem
-                    ipsum dolor sit amet consectetur adipisicing elit
-                </p>
-                <a class="berita-details-lanjut" asp-action="Detail" asp-controller="Berita" asp-area="Profil">Lihat Selengkapnya</a>
+        @foreach(var berita in Model.DaftarBerita.OrderByDescending(b => b.Tanggal))
+        {
+            <!-- Informasi -->
+            <div class="beritas">
+                <img src="@berita.Foto.OriginalString" alt="" />
+                <div class="berita-details">
+                    <a class="berita-details-judul" asp-route-id="@berita.Id" asp-action="Detail" asp-controller="Berita" asp-area="Profil">@berita.KategoriBerita.Nama - @berita.Judul</a>
+                    <p class="berita-isi">
+                        @Html.Raw(berita.Isi.Truncate(120, "..."))
+                    </p>
+                    <a class="berita-details-lanjut" asp-route-id="@berita.Id" asp-action="Detail" asp-controller="Berita" asp-area="Profil">Lihat Selengkapnya</a>
+                </div>
+                <div class="berita-tanggal">
+                    <h2>@berita.Tanggal.Day</h2>
+                    <h6>@berita.Tanggal.ToString("MMM, yyyy", CultureInfos.CI)</h6>
+                </div>
             </div>
-            <div class="berita-tanggal">
-                <h2>20</h2>
-                <h6>Agust, 2025</h6>
-            </div>
-        </div>
-
-        <!-- Informasi -->
-        <div class="beritas">
-            <img src="images/siswa2.jpg" alt="" />
-            <div class="berita-details">
-                <a class="berita-details-judul" asp-action="Detail" asp-controller="Berita" asp-area="Profil">Pengumuman - Kelulusan Kelas XII Tahun Pelajaran 2024/2025</a>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem
-                    ipsum dolor sit amet consectetur adipisicing elit
-                </p>
-                <a class="berita-details-lanjut" asp-action="Detail" asp-controller="Berita" asp-area="Profil">Lihat Selengkapnya</a>
-            </div>
-            <div class="berita-tanggal">
-                <h2>20</h2>
-                <h6>Agust, 2025</h6>
-            </div>
-        </div>
-
-        <!-- Informasi -->
-        <div class="beritas">
-            <img src="images/siswa1.jpg" alt="" />
-            <div class="berita-details">
-                <a class="berita-details-judul" asp-action="Detail" asp-controller="Berita" asp-area="Profil">Pengumuman - Kelulusan Kelas XII Tahun Pelajaran 2024/2025</a>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem
-                    ipsum dolor sit amet consectetur adipisicing elit
-                </p>
-                <a class="berita-details-lanjut" asp-action="Detail" asp-controller="Berita" asp-area="Profil">Lihat Selengkapnya</a>
-            </div>
-            <div class="berita-tanggal">
-                <h2>20</h2>
-                <h6>Agust, 2025</h6>
-            </div>
-        </div>
+        }
+    </div>
+    <div class="button_lihat_semua">
+        <a asp-action="Index" asp-controller="Berita" asp-area="Profil">Lihat Semua</a>
     </div>
 </section>
 
@@ -144,100 +113,31 @@
     <div class="swiper expert-box">
         <div class="swiper-wrapper">
             <!-- Guru -->
-            <div class="swiper-slide profile">
-                <img src="images/guru/guru.jpg" alt="" />
-                <h6>Ema Irnik</h6>
-                <p>Guru</p>
-                <div class="pro-links">
-                    <i class="ri-facebook-fill"></i>
-                    <i class="ri-instagram-fill"></i>
-                    <i class="ri-linkedin-fill"></i>
-                </div>
-            </div>
+            @foreach (var pegawai in Model.DaftarPegawai)
+            {
+                <div class="swiper-slide profile">
+                    @if (pegawai.FotoProfil is not null)
+                    {
+                        <img src="@pegawai.FotoProfil.OriginalString" alt="Foto Profil" style="width: 100%;" />
+                    }
+                    else
+                    {
+                        var inisial = string.Join("", pegawai.Nama.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(n => n[0]))
+                            .ToUpperInvariant();
 
-            <!-- Guru -->
-            <div class="swiper-slide profile">
-                <img src="images/guru/guru.jpg" alt="" />
-                <h6>Ema Irnik</h6>
-                <p>Guru</p>
-                <div class="pro-links">
-                    <i class="ri-facebook-fill"></i>
-                    <i class="ri-instagram-fill"></i>
-                    <i class="ri-linkedin-fill"></i>
-                </div>
-            </div>
+                        if (inisial.Length > 2) inisial = inisial.Substring(0, 2);
 
-            <!-- Guru -->
-            <div class="swiper-slide profile">
-                <img src="images/guru/guru.jpg" alt="" />
-                <h6>Ema Irnik</h6>
-                <p>Guru</p>
-                <div class="pro-links">
-                    <i class="ri-facebook-fill"></i>
-                    <i class="ri-instagram-fill"></i>
-                    <i class="ri-linkedin-fill"></i>
+                        <div class="fotoprofil">
+                            @inisial
+                        </div>
+                    }
+                    <h6>@pegawai.Nama</h6>
+                    <p>@pegawai.Jabatan.Jenis.Humanize()</p>
+                    <div class="pro-links">
+                        <a href="https://instagram.com/@pegawai.NamaInstagram" target="_blank"><i class="ri-instagram-fill"></i></a>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Guru -->
-            <div class="swiper-slide profile">
-                <img src="images/guru/guru.jpg" alt="" />
-                <h6>Ema Irnik</h6>
-                <p>Guru</p>
-                <div class="pro-links">
-                    <i class="ri-facebook-fill"></i>
-                    <i class="ri-instagram-fill"></i>
-                    <i class="ri-linkedin-fill"></i>
-                </div>
-            </div>
-
-            <!-- Guru -->
-            <div class="swiper-slide profile">
-                <img src="images/guru/guru.jpg" alt="" />
-                <h6>Ema Irnik</h6>
-                <p>Guru</p>
-                <div class="pro-links">
-                    <i class="ri-facebook-fill"></i>
-                    <i class="ri-instagram-fill"></i>
-                    <i class="ri-linkedin-fill"></i>
-                </div>
-            </div>
-
-            <!-- Guru -->
-            <div class="swiper-slide profile">
-                <img src="images/guru/guru.jpg" alt="" />
-                <h6>Ema Irnik</h6>
-                <p>Guru</p>
-                <div class="pro-links">
-                    <i class="ri-facebook-fill"></i>
-                    <i class="ri-instagram-fill"></i>
-                    <i class="ri-linkedin-fill"></i>
-                </div>
-            </div>
-
-            <!-- Guru -->
-            <div class="swiper-slide profile">
-                <img src="images/guru/guru.jpg" alt="" />
-                <h6>Ema Irnik</h6>
-                <p>Guru</p>
-                <div class="pro-links">
-                    <i class="ri-facebook-fill"></i>
-                    <i class="ri-instagram-fill"></i>
-                    <i class="ri-linkedin-fill"></i>
-                </div>
-            </div>
-
-            <!-- Guru -->
-            <div class="swiper-slide profile">
-                <img src="images/guru/guru.jpg" alt="" />
-                <h6>Ema Irnik</h6>
-                <p>Guru</p>
-                <div class="pro-links">
-                    <i class="ri-facebook-fill"></i>
-                    <i class="ri-instagram-fill"></i>
-                    <i class="ri-linkedin-fill"></i>
-                </div>
-            </div>
+            }
         </div>
 
         <!-- Navigasi swiper -->

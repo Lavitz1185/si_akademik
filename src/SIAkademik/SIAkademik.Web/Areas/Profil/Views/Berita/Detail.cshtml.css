@@ -139,7 +139,7 @@
     color: #222222;
 }
 
-.navigasi-post .judul-post {
+.navigasi-post ::deep .judul-post {
     display: inline-block;
     margin-top: 8px;
     color: #999999;
@@ -150,7 +150,7 @@
     transition: 0.3s ease;
 }
 
-    .navigasi-post .judul-post:hover {
+    .navigasi-post ::deep .judul-post:hover {
         color: #fdc93b;
     }
 

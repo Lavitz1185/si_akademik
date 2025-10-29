@@ -21,7 +21,7 @@
                                 }
                                 else
                                 {
-                                    var inisial = string.Join("", Model.Nama?.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                                    var inisial = string.Join("", Model.Nama.Split(' ', StringSplitOptions.RemoveEmptyEntries)
                                     .Select(n => n[0]))
                                     .ToUpperInvariant();
                                     if (inisial.Length > 2) inisial = inisial.Substring(0, 2);

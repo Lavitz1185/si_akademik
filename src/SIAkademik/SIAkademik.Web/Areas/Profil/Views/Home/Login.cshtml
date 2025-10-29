@@ -1,15 +1,19 @@
 ﻿@using SIAkademik.Web.Areas.DashboardAdmin.Controllers
 @using SIAkademik.Web.Areas.Profil.Models.Home
+
 @model LoginVM
+
+@inject IInformasiUmumRepository InformasiUmumRepository
 
 @{
     Layout = null;
+    var informasiUmum = await InformasiUmumRepository.Get();
 }
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - Siakad SMAK Pandhega Jaya</title>
+    <title>Login - Siakad @informasiUmum.NamaSekolah</title>
     <link rel="stylesheet" href="~/css/app.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/datatables/datatables.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
@@ -53,10 +57,10 @@
                 <div class="row">
                     <div class="col-12 col-md-10 offset-md-1 col-lg-10 offset-lg-1">
                         <div class="d-flex justify-content-center align-items-center">
-                            <img src="~/images/navigation/logo_sekolah_transparent.png" style="width: 50px; height: 50px;" />
+                            <img src="@informasiUmum.LogoSekolah.OriginalString" style="width: 50px; height: 50px;" />
                         </div>
                         <div class="login-brand mt-2">
-                            SIAKAD SMAK PANDHEGA JAYA
+                            SIAKAD @informasiUmum.NamaSekolah.ToUpper()
                         </div>
                         <div class="card card-primary">
                             <div class="row m-0">

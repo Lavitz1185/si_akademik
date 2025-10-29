@@ -1,7 +1,4 @@
-﻿using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Spreadsheet;
-using Humanizer;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SIAkademik.Domain.Abstracts;
@@ -26,7 +23,6 @@ public class SiswaController : Controller
     private readonly IUnitOfWork _unitOfWork;
     private readonly IToastrNotificationService _toastrNotificationService;
     private readonly IPasswordHasher<AppUser> _passwordHasher;
-    private readonly IFileService _fileService;
 
     public SiswaController(
         ISiswaRepository siswaRepository,
@@ -34,8 +30,7 @@ public class SiswaController : Controller
         IUnitOfWork unitOfWork,
         IToastrNotificationService toastrNotificationService,
         IPasswordHasher<AppUser> passwordHasher,
-        ITahunAjaranRepository tahunAjaranRepository,
-        IFileService fileService)
+        ITahunAjaranRepository tahunAjaranRepository)
     {
         _siswaRepository = siswaRepository;
         _appUserRepository = appUserRepository;
@@ -43,28 +38,78 @@ public class SiswaController : Controller
         _toastrNotificationService = toastrNotificationService;
         _passwordHasher = passwordHasher;
         _tahunAjaranRepository = tahunAjaranRepository;
-        _fileService = fileService;
     }
 
     public async Task<IActionResult> Index(
-        JenisKelamin? jenisKelamin = null,
-        Agama? agama = null,
-        StatusAktifMahasiswa? statusAktif = null,
-        DateOnly? tanggalMasuk = null,
-        Jenjang? jenjang = null)
+        List<JenisKelamin> jenisKelamin,
+        List<Agama> agama,
+        List<StatusAktifMahasiswa> statusAktif,
+        List<int> tahunMasuk,
+        List<int> tahunLahir,
+        List<Jenjang> jenjang)
     {
         var daftarSiswa = await _siswaRepository.GetAll();
 
         return View(new IndexVM
         {
-            Agama = agama,
-            StatusAktif = statusAktif,
-            JenisKelamin = jenisKelamin,
-            TanggalMasuk = tanggalMasuk,
-            Jenjang = jenjang,
-            DaftarSiswa = daftarSiswa
+            Agama = [
+                .. FilterEntryVM
+                .FromEnum<Agama>()
+                .Select(e => new FilterEntryVM<Agama> { Value = e.Value, Selected = agama.Contains(e.Value)})
+            ],
+            StatusAktif = [
+                .. FilterEntryVM
+                .FromEnum<StatusAktifMahasiswa>()
+                .Select(e => new FilterEntryVM<StatusAktifMahasiswa> { Value = e.Value, Selected = statusAktif.Contains(e.Value)})
+            ],
+            JenisKelamin = [
+                .. FilterEntryVM
+                .FromEnum<JenisKelamin>()
+                .Select(e => new FilterEntryVM<JenisKelamin> { Value = e.Value, Selected = jenisKelamin.Contains(e.Value)})
+            ],
+            TahunMasuk = [
+                .. daftarSiswa
+                .Select(t => t.TanggalMasuk.Year)
+                .Distinct()
+                .Order()
+                .Select(e => new FilterEntryVM<int>{ Value = e, Selected = tahunMasuk.Contains(e)})
+            ],
+            TahunLahir = [
+                .. daftarSiswa
+                .Select(t => t.TanggalLahir.Year)
+                .Distinct()
+                .Order()
+                .Select(e => new FilterEntryVM<int>{ Value = e, Selected = tahunLahir.Contains(e)})
+            ],
+            Jenjang = [
+                .. FilterEntryVM
+                .FromEnum<Jenjang>()
+                .Select(e => new FilterEntryVM<Jenjang> { Value = e.Value, Selected = jenjang.Contains(e.Value)})
+            ],
+            DaftarSiswa = [
+                .. daftarSiswa
+                .Where(s => 
+                    (jenisKelamin.Count == 0 || jenisKelamin.Contains(s.JenisKelamin)) &&
+                    (agama.Count == 0 || agama.Contains(s.Agama)) &&
+                    (statusAktif.Count == 0 || statusAktif.Contains(s.StatusAktif)) &&
+                    (tahunMasuk.Count == 0 || tahunMasuk.Contains(s.TanggalMasuk.Year)) &&
+                    (tahunLahir.Count == 0 || tahunLahir.Contains(s.TanggalLahir.Year)) &&
+                    (jenjang.Count == 0 || jenjang.Contains(s.Jenjang))
+                )
+            ]
         });
     }
+
+    [HttpPost]
+    public IActionResult Index(IndexVM vm) => RedirectToAction(nameof(Index), new
+    {
+        jenisKelamin = vm.JenisKelamin.Where(e => e.Selected).Select(e => e.Value).ToList(),
+        agama = vm.Agama.Where(e => e.Selected).Select(e => e.Value).ToList(),
+        statusAktif = vm.StatusAktif.Where(e => e.Selected).Select(e => e.Value).ToList(),
+        tahunMasuk = vm.TahunMasuk.Where(e => e.Selected).Select(e => e.Value).ToList(),
+        tahunLahir = vm.TahunLahir.Where(e => e.Selected).Select(e => e.Value).ToList(),
+        jenjang = vm.Jenjang.Where(e => e.Selected).Select(e => e.Value).ToList()
+    });
 
     public IActionResult Tambah() => View(new TambahVM());
 

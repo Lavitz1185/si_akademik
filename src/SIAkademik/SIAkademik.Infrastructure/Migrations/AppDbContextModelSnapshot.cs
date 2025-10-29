@@ -365,6 +365,266 @@ namespace SIAkademik.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SIAkademik.Domain.ModulProfil.Entities.Berita", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Foto")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Isi")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Judul")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("KategoriBeritaId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateOnly>("Tanggal")
+                        .HasColumnType("date");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KategoriBeritaId");
+
+                    b.ToTable("TblBerita");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Foto = "/images/siswa1.jpg",
+                            Isi = "<p>Tahun ajaran 2025/2026 menjadi momen yang sangat berharga bagi para siswa kelas XII di seluruh Indonesia. Setelah menempuh perjalanan panjang selama tiga tahun, penuh dengan tantangan akademik maupun non-akademik, akhirnya mereka sampai pada titik akhir pendidikan menengah. Kelulusan ini bukan hanya menjadi bukti pencapaian secara akademik, tetapi juga mencerminkan kedewasaan dan kesiapan siswa untuk melangkah ke jenjang yang lebih tinggi. Selama masa pendidikan, para siswa telah menghadapi berbagai perubahan, mulai dari kurikulum Merdeka Belajar, metode pembelajaran digital, hingga tantangan pasca-pandemi. Namun, dengan semangat belajar dan dukungan dari guru, orang tua, serta lingkungan sekolah, mereka mampu menyelesaikan studi dengan baik.</p><br><p>Pencapaian ini tentu patut dibanggakan karena mencerminkan kerja keras dan ketekunan yang konsisten. Kelulusan tahun ini juga menjadi momentum penting untuk merefleksikan potensi dan tujuan ke depan. Bagi sebagian siswa, ini menjadi awal untuk melanjutkan pendidikan ke perguruan tinggi, sementara yang lain mungkin memilih jalur vokasi, wirausaha, atau dunia kerja. Apa pun pilihannya, bekal ilmu, karakter, dan pengalaman selama di SMA akan menjadi fondasi penting dalam menghadapi masa depan. Pihak sekolah turut memberikan apresiasi kepada seluruh siswa atas pencapaian mereka. Acara kelulusan tahun ini dirancang secara khidmat namun tetap meriah, menghadirkan suasana haru sekaligus kegembiraan. Guru-guru juga memberikan pesan motivasi agar para lulusan tidak hanya menjadi pribadi yang cerdas, tetapi juga beretika dan peduli terhadap lingkungan sosial mereka. Akhirnya, kelulusan bukanlah akhir dari segalanya, melainkan awal dari perjalanan hidup yang lebih menantang. Harapan besar ditujukan kepada seluruh lulusan SMA tahun ajaran 2025/2026 agar terus belajar, tumbuh, dan memberikan kontribusi positif bagi masyarakat. Selamat atas kelulusan, semoga langkah selanjutnya selalu diberkati dan penuh kesuksesan.</p>",
+                            Judul = "Kelulusan Kelas XII Tahun Pelajaran 2024/2025",
+                            KategoriBeritaId = 2,
+                            Tanggal = new DateOnly(2025, 8, 27)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Foto = "/images/siswa1.jpg",
+                            Isi = "<p>Tahun ajaran 2025/2026 menjadi momen yang sangat berharga bagi para siswa kelas XII di seluruh Indonesia. Setelah menempuh perjalanan panjang selama tiga tahun, penuh dengan tantangan akademik maupun non-akademik, akhirnya mereka sampai pada titik akhir pendidikan menengah. Kelulusan ini bukan hanya menjadi bukti pencapaian secara akademik, tetapi juga mencerminkan kedewasaan dan kesiapan siswa untuk melangkah ke jenjang yang lebih tinggi. Selama masa pendidikan, para siswa telah menghadapi berbagai perubahan, mulai dari kurikulum Merdeka Belajar, metode pembelajaran digital, hingga tantangan pasca-pandemi. Namun, dengan semangat belajar dan dukungan dari guru, orang tua, serta lingkungan sekolah, mereka mampu menyelesaikan studi dengan baik.</p><br><p>Pencapaian ini tentu patut dibanggakan karena mencerminkan kerja keras dan ketekunan yang konsisten. Kelulusan tahun ini juga menjadi momentum penting untuk merefleksikan potensi dan tujuan ke depan. Bagi sebagian siswa, ini menjadi awal untuk melanjutkan pendidikan ke perguruan tinggi, sementara yang lain mungkin memilih jalur vokasi, wirausaha, atau dunia kerja. Apa pun pilihannya, bekal ilmu, karakter, dan pengalaman selama di SMA akan menjadi fondasi penting dalam menghadapi masa depan. Pihak sekolah turut memberikan apresiasi kepada seluruh siswa atas pencapaian mereka. Acara kelulusan tahun ini dirancang secara khidmat namun tetap meriah, menghadirkan suasana haru sekaligus kegembiraan. Guru-guru juga memberikan pesan motivasi agar para lulusan tidak hanya menjadi pribadi yang cerdas, tetapi juga beretika dan peduli terhadap lingkungan sosial mereka. Akhirnya, kelulusan bukanlah akhir dari segalanya, melainkan awal dari perjalanan hidup yang lebih menantang. Harapan besar ditujukan kepada seluruh lulusan SMA tahun ajaran 2025/2026 agar terus belajar, tumbuh, dan memberikan kontribusi positif bagi masyarakat. Selamat atas kelulusan, semoga langkah selanjutnya selalu diberkati dan penuh kesuksesan.</p>",
+                            Judul = "Kelulusan Kelas XII Tahun Pelajaran 2024/2025",
+                            KategoriBeritaId = 2,
+                            Tanggal = new DateOnly(2025, 9, 27)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Foto = "/images/siswa1.jpg",
+                            Isi = "<p>Tahun ajaran 2025/2026 menjadi momen yang sangat berharga bagi para siswa kelas XII di seluruh Indonesia. Setelah menempuh perjalanan panjang selama tiga tahun, penuh dengan tantangan akademik maupun non-akademik, akhirnya mereka sampai pada titik akhir pendidikan menengah. Kelulusan ini bukan hanya menjadi bukti pencapaian secara akademik, tetapi juga mencerminkan kedewasaan dan kesiapan siswa untuk melangkah ke jenjang yang lebih tinggi. Selama masa pendidikan, para siswa telah menghadapi berbagai perubahan, mulai dari kurikulum Merdeka Belajar, metode pembelajaran digital, hingga tantangan pasca-pandemi. Namun, dengan semangat belajar dan dukungan dari guru, orang tua, serta lingkungan sekolah, mereka mampu menyelesaikan studi dengan baik.</p><br><p>Pencapaian ini tentu patut dibanggakan karena mencerminkan kerja keras dan ketekunan yang konsisten. Kelulusan tahun ini juga menjadi momentum penting untuk merefleksikan potensi dan tujuan ke depan. Bagi sebagian siswa, ini menjadi awal untuk melanjutkan pendidikan ke perguruan tinggi, sementara yang lain mungkin memilih jalur vokasi, wirausaha, atau dunia kerja. Apa pun pilihannya, bekal ilmu, karakter, dan pengalaman selama di SMA akan menjadi fondasi penting dalam menghadapi masa depan. Pihak sekolah turut memberikan apresiasi kepada seluruh siswa atas pencapaian mereka. Acara kelulusan tahun ini dirancang secara khidmat namun tetap meriah, menghadirkan suasana haru sekaligus kegembiraan. Guru-guru juga memberikan pesan motivasi agar para lulusan tidak hanya menjadi pribadi yang cerdas, tetapi juga beretika dan peduli terhadap lingkungan sosial mereka. Akhirnya, kelulusan bukanlah akhir dari segalanya, melainkan awal dari perjalanan hidup yang lebih menantang. Harapan besar ditujukan kepada seluruh lulusan SMA tahun ajaran 2025/2026 agar terus belajar, tumbuh, dan memberikan kontribusi positif bagi masyarakat. Selamat atas kelulusan, semoga langkah selanjutnya selalu diberkati dan penuh kesuksesan.</p>",
+                            Judul = "Kelulusan Kelas XII Tahun Pelajaran 2024/2025",
+                            KategoriBeritaId = 2,
+                            Tanggal = new DateOnly(2025, 10, 27)
+                        });
+                });
+
+            modelBuilder.Entity("SIAkademik.Domain.ModulProfil.Entities.Fasilitas", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Deskripsi")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Foto")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Nama")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TblFasilitas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Deskripsi = "Bangunan ini digunakan oleh siswa/i untuk beristirahat. Bangunan ini dilengkapi dengan lemari, tempat tidur, dan kamar mandi. Asrama dibagi menjadi dua, yaitu asrama putera dan asrama puteri.",
+                            Foto = "/images/fasilitas/asrama.png",
+                            Nama = "Asrama"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Deskripsi = "Tempat ini digunakan siswa/i untuk mencari tugas dan informasi untuk keperluan sekolah. Tempat ini dilengkapi 30 komputer yang bisa mengakses internet, memberikan kemudahan bagi siswa dalam mengakses sumber belajar secara online. ",
+                            Foto = "/images/fasilitas/lab_komputer.png",
+                            Nama = "Lab Komputer"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Deskripsi = "Tempat ini digunakan untuk menyimpan buku-buku bacaan di SMA Kr PANDHEGA JAYA, buku-buku yang tersedia juga adalah buku yang sudah di survei oleh tim perpustakaan agar dapat menunjang pembelajaran di SMA Kr PANDHEGA JAYA.",
+                            Foto = "/images/fasilitas/perpustakaan.png",
+                            Nama = "Perpustakaan"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Deskripsi = "Fasilitas dapur digunakan sebagai tempat kegiatan memasak dan pengolahan makanan bagi seluruh warga asrama. Dapur dilengkapi dengan peralatan memasak yang memadai untuk mendukung penyediaan konsumsi harian, serta menjadi area pendukung dalam menjaga kebersihan dan kesehatan lingkungan asrama.",
+                            Foto = "/images/fasilitas/dapur.png",
+                            Nama = "Dapur"
+                        });
+                });
+
+            modelBuilder.Entity("SIAkademik.Domain.ModulProfil.Entities.InformasiUmum", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AlamatSekolah")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("DewanPembinaYayasan")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("EmailSekolah")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FacebookSekolah")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("InstagramSekolah")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("KetuaUmum2Yayasan")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("KetuaUmumYayasan")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LirikMarsSekolah")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LogoSekolah")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("MisiSekolah")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("NamaSekolah")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("NamaYayasan")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("NoHPSekolah")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProfilSingkatSekolah")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SambutanPimpinanYayasan")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SloganSekolah")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("VideoHalamanBeranda")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("VideoHalamanTentangKami")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("VisiSekolah")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TblInformasiUmum");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AlamatSekolah = "Jl. Tilong Dam Km 5, Desa Oelnasi, Kecamatan Kupang Tengah. Kabupaten Kupang. NTT – 85361",
+                            DewanPembinaYayasan = "Budi Utomo, S.T., M.TH",
+                            EmailSekolah = "smapandhegajaya@gmail.com",
+                            FacebookSekolah = "https://www.facebook.com/",
+                            InstagramSekolah = "https://www.instagram.com/",
+                            KetuaUmum2Yayasan = "Erlangga Dharma, S.E., M.SC",
+                            KetuaUmumYayasan = "Anton Darmawan, S.T",
+                            LirikMarsSekolah = "<p>Kamilah pemimpin </p><p> Yang siap untuk dibentuk</p><p> Berkarakter Kristus dan cintai bangsa </p><p> Di atas kebenaran kami berpijak </p><p> Percaya diri untuk mandiri </p><p> Berani berkreasi kembangkan potensi </p><p> Menjadi anak bangsa yang penuh prestasi </p><p> Memajukan negeri tercinta </p><p> Bangkitlah Pandhega Jaya </p><p> Berkaryalah bagi bangsa </p><p> Dengan Nilai kebenaran </p><p> Bersiaplah tuk menjadi </p><p> Pembangun Indonesia </p><p> Pandhega Berjayalah </p>",
+                            LogoSekolah = "/images/logo_sekolah_transparent.png",
+                            MisiSekolah = "<ol class=\"isi\"><li>Membangkitkan kesadaran dalam diri setiap siswa bahwa mereka adalah ciptaan Tuhan yang unik dan ditetapkan sebagai pemimpin.</li> <li>Menanamkan dan menumbuhkan jiwa kewirausahaan dalam diri setiap siswa. </li><li>Menanamkan nilai-nilai pengabdian kepada bangsa dan negara.</li></ol>",
+                            NamaSekolah = "SMA Kristen Pandhega Jaya",
+                            NamaYayasan = "Yayasan Pandhega Jaya",
+                            NoHPSekolah = "081238007577",
+                            ProfilSingkatSekolah = "Selamat datang di SMA Kristen Pandhega Jaya, tempat dimana ilmu dan keterampilan diajarkan dengan penuh kasih sayang. Kami bangga dapat menyediakan lingkungan belajar yang menyenangkan dan menyegarkan bagi siswa-siswi kami. ",
+                            SambutanPimpinanYayasan = "Selamat datang di SMA Kristen Pandhega Jaya, tempat dimana ilmu dan keterampilan diajarkan dengan penuh kasih sayang. Kami bangga dapat menyediakan lingkungan belajar yang menyenangkan dan menyegarkan bagi siswa-siswi kami. Kami bertekad untuk memberikan pendidikan yang berkualitas dan berkelanjutan, yang akan mempersiapkan siswa-siswi kami untuk menjadi pemimpin masa depan yang sukses. Terima kasih atas dukungan dan kerja sama anda.",
+                            SloganSekolah = "Sekolah berlandaskan nilai-nilai Kristiani yang membimbing setiap peserta didik untuk tumbuh menjadi pribadi yang beriman, berkarakter, dan berprestasi. Bersama kami, raih masa depan yang cerah melalui pendidikan yang unggul dan penuh kasih. ",
+                            VideoHalamanBeranda = "https://www.youtube.com/embed/0F0zrVop0Gg?si=-bMdPjk3DHJkXz7H",
+                            VideoHalamanTentangKami = "https://www.youtube.com/embed/4Wt526OVxGg?si=L2EcPoD6nAunNxC6",
+                            VisiSekolah = "<p>Visi SMAKr. Pandhega Jaya adalah “Mempersiapkan calon pemimpin yang cakap, berintegritas, penuh pengabdian, dan mencintai bangsa”.</p><ul class=\"isi\"><li>Cakap artinya mempunyai kemampuan dan kepandaian untuk mengerjakan tanggung jawab dengan cekatan.</li><li>Berintegritas artinya berani bertanggung jawab atas tindakan maupun perkataan, serta dapat diandalkan.</li><li>Penuh pengabdian artinya atas kesadaran pribadi memberikan diri untuk melakukan tanggung jawab tanpa pamrih.</li><li>Mencintai bangsa artinya memikirkan kelangsungan hidup bangsa dan melakukan berbagai upaya untuk membangunnya.</li></ul>"
+                        });
+                });
+
+            modelBuilder.Entity("SIAkademik.Domain.ModulProfil.Entities.KategoriBerita", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nama")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TblKategoriBerita");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Nama = "Berita"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Nama = "Pengumuman"
+                        });
+                });
+
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Absen", b =>
                 {
                     b.Property<int>("Id")
@@ -2100,13 +2360,13 @@ namespace SIAkademik.Infrastructure.Migrations
                         {
                             Id = 1,
                             Jenjang = 2,
-                            PeminatanId = 1
+                            PeminatanId = 5
                         },
                         new
                         {
                             Id = 2,
                             Jenjang = 0,
-                            PeminatanId = 5
+                            PeminatanId = 1
                         },
                         new
                         {
@@ -4454,6 +4714,17 @@ namespace SIAkademik.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SIAkademik.Domain.ModulProfil.Entities.Berita", b =>
+                {
+                    b.HasOne("SIAkademik.Domain.ModulProfil.Entities.KategoriBerita", "KategoriBerita")
+                        .WithMany("DaftarBerita")
+                        .HasForeignKey("KategoriBeritaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("KategoriBerita");
+                });
+
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.Absen", b =>
                 {
                     b.HasOne("SIAkademik.Domain.ModulSiakad.Entities.AnggotaRombel", "AnggotaRombel")
@@ -4742,6 +5013,11 @@ namespace SIAkademik.Infrastructure.Migrations
                     b.Navigation("Guru");
 
                     b.Navigation("Siswa");
+                });
+
+            modelBuilder.Entity("SIAkademik.Domain.ModulProfil.Entities.KategoriBerita", b =>
+                {
+                    b.Navigation("DaftarBerita");
                 });
 
             modelBuilder.Entity("SIAkademik.Domain.ModulSiakad.Entities.AnggotaRombel", b =>

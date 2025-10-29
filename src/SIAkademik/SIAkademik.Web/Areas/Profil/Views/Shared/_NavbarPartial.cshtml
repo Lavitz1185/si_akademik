@@ -1,10 +1,21 @@
-﻿<!-- ======================================= NAVIGATION ======================================= -->
+﻿@inject IInformasiUmumRepository InformasiUmumRepository
+@inject ISignInManager SignInManager
+
+@{
+    var informasiUmum = await InformasiUmumRepository.Get();
+    var user = await SignInManager.GetUser();
+}
+
+<!-- ======================================= NAVIGATION ======================================= -->
 <nav>
     <div class="logo">
-        <img src="/images/navigation/logo_sekolah.jpg" alt="Logo Sekolah" />
+        <img src="@informasiUmum.LogoSekolah.OriginalString" alt="Logo Sekolah" />
         <a asp-action="Index" asp-controller="Home" asp-area="Profil">
-            SMA Kristen<br />
-            Pandhega Jaya
+            @{
+                var namaSekolahSplit = informasiUmum.NamaSekolah.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+            }
+            @string.Join(" ", namaSekolahSplit.Take(2)) <br />
+            @string.Join(" ", namaSekolahSplit.Skip(2))
         </a>
     </div>
     <div class="navigation">
@@ -22,7 +33,27 @@
             <li><a asp-action="Fasilitas" asp-controller="Home" asp-area="Profil">Fasilitas</a></li>
             <li><a asp-action="TentangKami" asp-controller="Home" asp-area="Profil">Tentang Kami</a></li>
             <li><a asp-action="Kontak" asp-controller="Home" asp-area="Profil">Alamat</a></li>
-            <li><a asp-action="Login" asp-controller="Home" asp-area=@AreaNames.Profil>Login</a></li>
+            @if (user is null)
+            {
+                <li><a asp-action="Login" asp-controller="Home" asp-area=@AreaNames.Profil>Login</a></li>
+            }
+            else
+            {
+                @if (user.Role == AppUserRoles.Admin)
+                {
+                    <li><a asp-action="Index" asp-controller="Home" asp-area=@AreaNames.DashboardAdmin>Dashboard</a></li>
+                }
+
+                @if (user.Role == AppUserRoles.Guru)
+                {
+                    <li><a asp-action="Index" asp-controller="Home" asp-area=@AreaNames.DashboardGuru>Dashboard</a></li>
+                }
+
+                @if (user.Role == AppUserRoles.Siswa)
+                {
+                    <li><a asp-action="Index" asp-controller="Home" asp-area=@AreaNames.DashboardSiswa>Dashboard</a></li>
+                }
+            }
         </ul>
         <img id="menu-btn" src="/images/menu.png" alt="Menu Button" />
     </div>

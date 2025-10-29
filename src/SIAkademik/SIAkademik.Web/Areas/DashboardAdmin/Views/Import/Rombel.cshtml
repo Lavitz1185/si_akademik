@@ -1,0 +1,47 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.ImportModels
+@model ImportVM<Rombel>
+
+<a asp-action="DownloadTemplateRombel" target="_blank">Download Template</a>
+
+<form asp-action="Rombel" enctype="multipart/form-data">
+    <label asp-for="@Model.FormFile"></label>
+    <input asp-for="@Model.FormFile" />
+    <span asp-validation-for="@Model.FormFile"></span>
+
+    <button type="submit">Upload</button>
+</form>
+
+@if (Model.FileName is not null)
+{
+    <p>File Yang Diupload : @Model.FileName</p>
+    <h2>Data Baru</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nama</th>
+                <th>Kelas</th>
+                <th>Wali</th>
+                <th>Jumlah Siswa</th>
+                <th>Tahun Ajaran</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var rombel in Model.NewData)
+            {
+                <tr>
+                    <td>@rombel.Id</td>
+                    <td>@rombel.Nama</td>
+                    <td>@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Nama</td>
+                    <td>@rombel.Wali.Nama</td>
+                    <td>@rombel.DaftarAnggotaRombel.Count</td>
+                    <td>@rombel.TahunAjaran.Periode @rombel.TahunAjaran.Semester.Humanize()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

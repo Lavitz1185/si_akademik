@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SIAkademik.Domain.Abstracts;
 using SIAkademik.Domain.Authentication;
+using SIAkademik.Domain.ModulProfil.Entities;
 using SIAkademik.Domain.ModulSiakad.Entities;
 
 namespace SIAkademik.Infrastructure.Database;
@@ -27,6 +28,13 @@ internal class AppDbContext(DbContextOptions<AppDbContext> dbContextOptions) : D
 
     public DbSet<AppUser> AppUser { get; set; }
 
+    // Modul Profil
+    public DbSet<Berita> TblBerita { get; set; }
+    public DbSet<Fasilitas> TblFasilitas { get; set; }
+    public DbSet<InformasiUmum> TblInformasiUmum { get; set; }
+    public DbSet<KategoriBerita> TblKategoriBerita { get; set; }
+
+    // Modul Siakad
     public DbSet<Absen> TblAbsen { get; set; }
     public DbSet<AbsenKelas> TblAbsenKelas { get; set; }
     public DbSet<AnggotaRombel> TblAnggotaRombel { get; set; }

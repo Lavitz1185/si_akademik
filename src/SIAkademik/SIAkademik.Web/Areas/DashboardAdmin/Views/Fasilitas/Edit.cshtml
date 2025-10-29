@@ -1,0 +1,60 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.FasilitasModels
+
+@model EditVM
+
+<!-- Breadcrumb -->
+<div class="row">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Profil</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Fasilitas" asp-action="Index">Fasilitas</a></li>
+            <li class="breadcrumb-item" aria-current="page">Edit Data</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="section-body">
+    <div class="row" style="justify-content: center;">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card card-success">
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Edit Fasilitas</h4>
+                </div>
+
+                <form asp-action="Edit" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Nama"></label>
+                            <input asp-for="@Model.Nama" class="form-control" />
+                            <span asp-validation-for="@Model.Nama" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Deskripsi"></label>
+                            <textarea asp-for="@Model.Deskripsi" class="form-control"></textarea>
+                            <span asp-validation-for="@Model.Deskripsi" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.FotoBaru"></label>
+                            <input asp-for="@Model.FotoBaru" type="file" class="form-control" />
+                            <input asp-for="@Model.FotoLama" hidden readonly/>
+                            <span asp-validation-for="@Model.FotoBaru" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class="card-footer text-right pt-0">
+                        <a href="javascript:void(0)" class="btn btn-danger text-white swal-cancel">Batal</a>
+                        <button class="btn btn-primary mr-1" type="submit">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

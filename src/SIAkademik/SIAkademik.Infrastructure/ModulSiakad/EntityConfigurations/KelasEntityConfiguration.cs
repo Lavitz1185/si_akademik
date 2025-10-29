@@ -19,13 +19,13 @@ internal class KelasEntityConfiguration : IEntityTypeConfiguration<Kelas>
             {
                 Id = 1,
                 Jenjang = Jenjang.XII,
-                PeminatanId = 1
+                PeminatanId = 5
             },
             new
             {
                 Id = 2,
                 Jenjang = Jenjang.X,
-                PeminatanId = 5
+                PeminatanId = 1
             },
             new
             {

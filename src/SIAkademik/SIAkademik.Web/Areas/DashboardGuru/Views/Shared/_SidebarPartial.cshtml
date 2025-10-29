@@ -1,9 +1,15 @@
-﻿<!-- SIDEBAR -->
+﻿@inject IInformasiUmumRepository InformasiUmumRepository
+
+@{
+    var informasiUmum = await InformasiUmumRepository.Get();
+}
+
+<!-- SIDEBAR -->
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
             <a href="">
-                <img src="~/images/navigation/logo_sekolah.jpg" style="width: 30px; height: 30px;" />
+                <img src="@informasiUmum.LogoSekolah.OriginalString" style="width: 30px; height: 30px;" />
                 <span class="logo-name">GURU</span>
             </a>
         </div>

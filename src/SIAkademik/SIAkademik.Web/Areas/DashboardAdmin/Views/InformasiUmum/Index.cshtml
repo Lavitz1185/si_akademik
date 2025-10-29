@@ -1,0 +1,67 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.InformasiUmumModels
+@model EditVM
+
+<a asp-action="Edit" class="btn btn-primary">Edit</a>
+
+<label asp-for="@Model.NamaSekolah"></label>
+<input asp-for="@Model.NamaSekolah" class="form-control" readonly/>
+
+<label asp-for="@Model.ProfilSingkatSekolah"></label>
+<textarea asp-for="@Model.ProfilSingkatSekolah" class="form-control" readonly></textarea>
+
+<label asp-for="@Model.SloganSekolah"></label>
+<textarea asp-for="@Model.SloganSekolah" class="form-control" readonly></textarea>
+
+<label asp-for="@Model.AlamatSekolah"></label>
+<textarea asp-for="@Model.AlamatSekolah" class="form-control" readonly></textarea>
+
+<label asp-for="@Model.NoHPSekolah"></label>
+<input asp-for="@Model.NoHPSekolah" class="form-control" readonly />
+
+<label asp-for="@Model.EmailSekolah"></label>
+<input asp-for="@Model.EmailSekolah" class="form-control" readonly />
+
+<label asp-for="@Model.FacebookSekolah"></label>
+<input asp-for="@Model.FacebookSekolah" class="form-control" readonly />
+
+<label asp-for="@Model.InstagramSekolah"></label>
+<input asp-for="@Model.InstagramSekolah" class="form-control" readonly />
+
+<label asp-for="@Model.VisiSekolah"></label>
+<div class="p-2" style="background-color:#e9ecef;border-color:#e4e6fc;border:1px solid #ced4da">
+    @Html.Raw(Model.VisiSekolah)
+</div>
+
+<label asp-for="@Model.MisiSekolah"></label>
+<div class="p-2" style="background-color:#e9ecef;border-color:#e4e6fc;border:1px solid #ced4da">
+    @Html.Raw(Model.MisiSekolah)
+</div>
+
+<label asp-for="@Model.LirikMarsSekolah"></label>
+<div class="p-2" style="background-color:#e9ecef;border-color:#e4e6fc;border:1px solid #ced4da">
+    @Html.Raw(Model.LirikMarsSekolah)
+</div>
+
+<label asp-for="@Model.LogoSekolahBaru"></label>
+<img src="@Model.LogoSekolahLama.OriginalString"/>
+
+<label asp-for="@Model.VideoHalamanBeranda"></label>
+<iframe src="@Model.VideoHalamanBeranda"></iframe>
+
+<label asp-for="@Model.VideoHalamanTentangKami"></label>
+<iframe src="@Model.VideoHalamanTentangKami"></iframe>
+
+<label asp-for="@Model.NamaYayasan"></label>
+<input asp-for="@Model.NamaYayasan" class="form-control" readonly />
+
+<label asp-for="@Model.SambutanPimpinanYayasan"></label>
+<textarea asp-for="@Model.SambutanPimpinanYayasan" class="form-control" readonly></textarea>
+
+<label asp-for="@Model.DewanPembinaYayasan"></label>
+<input asp-for="@Model.DewanPembinaYayasan" class="form-control" readonly />
+
+<label asp-for="@Model.KetuaUmumYayasan"></label>
+<input asp-for="@Model.KetuaUmumYayasan" class="form-control" readonly />
+
+<label asp-for="@Model.KetuaUmum2Yayasan"></label>
+<input asp-for="@Model.KetuaUmum2Yayasan" class="form-control" readonly />

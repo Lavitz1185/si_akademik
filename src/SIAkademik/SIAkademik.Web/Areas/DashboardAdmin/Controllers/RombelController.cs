@@ -3,12 +3,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SIAkademik.Domain.Abstracts;
 using SIAkademik.Domain.Authentication;
-using SIAkademik.Domain.Enums;
 using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Web.Areas.DashboardAdmin.Models.RombelModels;
+using SIAkademik.Web.Models;
 using SIAkademik.Web.Services.Toastr;
-using System.Security.Cryptography.Xml;
 
 namespace SIAkademik.Web.Areas.DashboardAdmin.Controllers;
 
@@ -214,14 +213,30 @@ public class RombelController : Controller
         var rombel = await _rombelRepository.Get(id);
         if (rombel is null) return NotFound();
 
-        var kelas = await _kelasRepository.Get(rombel.Kelas.Id);
+        var daftarSiswa = await _siswaRepository.GetAllAktif();
 
-        rombel.Kelas = kelas!;
-
-        return View(rombel);
+        return View(new DetailVM
+        {
+            Id = id,
+            Rombel = rombel,
+            DaftarSiswaTambah = [.. daftarSiswa
+                .Where(s => s.DaftarAnggotaRombel.All(a => a.Rombel.TahunAjaran != rombel.TahunAjaran) && s.Jenjang == rombel.Kelas.Jenjang)
+                .OrderBy(s => s.Nama)
+                .Select(s => new DetailEntryVM
+                {
+                    IdSiswa = s.Id,
+                    Siswa = s,
+                    Selected = false,
+                })],
+            DaftarSiswaHapus = [.. rombel.DaftarAnggotaRombel.OrderBy(a => a.Siswa.Nama).Select(a => new DetailEntryVM
+            {
+                IdSiswa = a.IdSiswa,
+                Siswa = a.Siswa,
+                Selected = false,
+            })],
+        });
     }
 
-    [HttpPost]
     public async Task<IActionResult> TambahSiswa(int id, int idSiswa)
     {
         var rombel = await _rombelRepository.Get(id);
@@ -264,7 +279,6 @@ public class RombelController : Controller
         return RedirectToAction(nameof(Detail), new { id });
     }
 
-    [HttpPost]
     public async Task<IActionResult> HapusSiswa(int id, int idSiswa)
     {
         var rombel = await _rombelRepository.Get(id);
@@ -284,6 +298,64 @@ public class RombelController : Controller
             _toastrNotificationService.AddSuccess("Siswa berhasil dihapus dari rombel");
 
         return RedirectToAction(nameof(Detail), new { id });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> TambahSiswaBanyak(DetailVM vm)
+    {
+        var rombel = await _rombelRepository.Get(vm.Id);
+        if (rombel is null) return NotFound();
+
+        foreach (var entry in vm.DaftarSiswaTambah.Where(e => e.Selected))
+        {
+            if (!rombel.DaftarAnggotaRombel.Any(a => a.IdSiswa == entry.IdSiswa))
+            {
+                var siswa = await _siswaRepository.Get(entry.IdSiswa);
+                if (siswa is null) continue;
+
+                var anggotaRombel = new AnggotaRombel
+                {
+                    IdRombel = rombel.Id,
+                    IdSiswa = entry.IdSiswa,
+                    Siswa = siswa,
+                    TanggalMasuk = DateOnly.FromDateTime(CultureInfos.DateTimeNow)
+                };
+
+                _anggotaRombelRepository.Add(anggotaRombel);
+            }
+        }
+
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsSuccess)
+            _toastrNotificationService.AddSuccess("Simpan Berhasil!");
+        else
+            _toastrNotificationService.AddError("Simpan Gagal!");
+
+        return RedirectToAction(nameof(Detail), new { vm.Id });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> HapusSiswaBanyak(DetailVM vm)
+    {
+        var rombel = await _rombelRepository.Get(vm.Id);
+        if (rombel is null) return NotFound();
+
+        foreach (var entry in vm.DaftarSiswaHapus.Where(e => e.Selected))
+        {
+            var anggotaRombel = rombel.DaftarAnggotaRombel.FirstOrDefault(a => a.IdSiswa == entry.IdSiswa);
+            if (anggotaRombel is not null)
+            {
+                _anggotaRombelRepository.Delete(anggotaRombel);
+            }
+        }
+
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsSuccess)
+            _toastrNotificationService.AddSuccess("Simpan Berhasil!");
+        else
+            _toastrNotificationService.AddError("Simpan Gagal!");
+
+        return RedirectToAction(nameof(Detail), new { vm.Id });
     }
 
     [HttpGet]

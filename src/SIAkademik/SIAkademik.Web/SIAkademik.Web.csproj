@@ -1,19 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Pendaftaran\Models\" />
-    <Folder Include="wwwroot\fileaktaKelahiran\" />
-    <Folder Include="wwwroot\fileFotoProfil\" />
-    <Folder Include="wwwroot\fileijazahSMP\" />
-    <Folder Include="wwwroot\file\importTemplate\" />
-    <Folder Include="wwwroot\file\pdf\" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml" Version="3.3.0" />
