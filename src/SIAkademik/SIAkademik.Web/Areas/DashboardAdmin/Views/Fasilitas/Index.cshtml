@@ -30,7 +30,7 @@
                     <tr>
                         <th>Nama</th>
                         <th>Deskripsi</th>
-                        <th width="5%">Foto</th>
+                        <th>Foto</th>
                         <th style="min-width: 80px !important">Aksi</th>
                     </tr>
                 </thead>
@@ -41,7 +41,7 @@
                             <td>@fasilitas.Nama</td>
                             <td>@fasilitas.Deskripsi</td>
                             <td>
-                                <img src="@fasilitas.Foto.OriginalString"/>
+                                <img style="width: 100px;" src="@fasilitas.Foto.OriginalString" />
                             </td>
                             <td>
                                 <a asp-action="Edit" asp-route-id="@fasilitas.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit Fasilitas">
