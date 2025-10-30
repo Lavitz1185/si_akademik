@@ -128,7 +128,7 @@
 /* ------------------------------------ LAPTOP MEDIUM ------------------------------------ */
 @media (max-width: 1280px) {
     /* ------------------------------------ SECTION BERITA ------------------------------------ */
-    #berita .beritas .berita-tanggal[b-5k926p3mh8] {
+    #berita .beritas .berita-tanggal[b-td5gxfqine] {
         bottom: 200px;
     }
 }
@@ -136,14 +136,14 @@
 /* ------------------------------------ TABLET ------------------------------------ */
 @media (max-width: 780px) {
     /* ------------------------------------ SECTION BERITA ------------------------------------ */
-    #berita .berita-box[b-5k926p3mh8] {
+    #berita .berita-box[b-td5gxfqine] {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         grid-gap: 1rem;
         margin-top: 50px;
     }
 
-    #berita .beritas .berita-tanggal[b-5k926p3mh8] {
+    #berita .beritas .berita-tanggal[b-td5gxfqine] {
         bottom: 180px;
     }
 }
@@ -175,14 +175,14 @@
         text-align: center;
     }
 
-    #berita .berita-box[b-5k926p3mh8] {
+    #berita .berita-box[b-td5gxfqine] {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         grid-gap: 1rem;
         margin-top: 30px;
     }
 
-    #berita .beritas .berita-tanggal[b-5k926p3mh8] {
+    #berita .beritas .berita-tanggal[b-td5gxfqine] {
         bottom: 180px;
     }
 
@@ -203,11 +203,11 @@
 /* ------------------------------------ MOBILE MINI ------------------------------------ */
 @media (max-width: 350px) {   
     /* ------------------------------------ SECTION BERITA ------------------------------------ */
-    #berita .berita-box[b-5k926p3mh8][b-5k926p3mh8] {
+    #berita .berita-box[b-td5gxfqine] {
         grid-gap: 2rem;
     }
 
-    #berita .beritas .berita-tanggal[b-5k926p3mh8] {
+    #berita .beritas .berita-tanggal[b-td5gxfqine] {
         bottom: 150px;
     }
 }
