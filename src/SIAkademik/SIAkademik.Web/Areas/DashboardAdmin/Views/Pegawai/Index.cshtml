@@ -53,110 +53,173 @@
 
         <!-- Panel Filter -->
         <form asp-action="Index" method="post">
-            <div id="filterPanel" class="card p-3 mb-4" @(Model.Agama.Any(a => a.Selected) || Model.JenisKelamin.Any(a => a.Selected) || Model.Divisi.Any(a => a.Selected) || Model.Jabatan.Any(a => a.Selected) || Model.GolonganDarah.Any(a => a.Selected) || Model.StatusPerkawinan.Any(a => a.Selected) || Model.TahunLahir.Any(a => a.Selected) || Model.TahunMasuk.Any(a => a.Selected) ? "" : "style=display:none")>
-                <div class="row">
-                    <div class="col-md-3 mb-3">
-                        <h6>Jenis Kelamin</h6>
-                        @for (int i = 0; i < Model.JenisKelamin.Count; i++)
-                        {
-                            <div>
-                                <input type="checkbox" class="submit-on-change" asp-for="@Model.JenisKelamin[@i].Selected">
-                                <input asp-for="@Model.JenisKelamin[@i].Value" readonly hidden> 
-                                @Model.JenisKelamin[i].Value.Humanize()
+            <div id="filterPanel" class="p-3 mb-4"
+            @(Model.Agama.Any(a => a.Selected) || Model.JenisKelamin.Any(a => a.Selected) || Model.Divisi.Any(a => a.Selected) || Model.Jabatan.Any(a => a.Selected) || Model.GolonganDarah.Any(a => a.Selected) || Model.StatusPerkawinan.Any(a => a.Selected) || Model.TahunLahir.Any(a => a.Selected) || Model.TahunMasuk.Any(a => a.Selected) ? "" : "style=display:none")>
+
+                <div class="row g-3 mb-3">
+                    <!-- Jenis Kelamin -->
+                    <div class="col-md-3">
+                        <div class="card shadow-sm h-100" style="border: 1px solid #e0e0e0;">
+                            <div class="card-body p-2">
+                                <h6 class="fw-bold border-bottom pb-1 mb-2 text-center" style="font-size: 1.1rem">Jenis Kelamin</h6>
+                                <div class="filter-scroll-content">
+                                    @for (int i = 0; i < Model.JenisKelamin.Count; i++)
+                                    {
+                                        <div class="form-check mb-1">
+                                            <input type="checkbox" class="form-check-input submit-on-change" asp-for="@Model.JenisKelamin[@i].Selected">
+                                            <label class="form-check-label" style="font-size: 0.9rem">@Model.JenisKelamin[i].Value.Humanize()</label>
+                                            <input asp-for="@Model.JenisKelamin[@i].Value" hidden />
+                                        </div>
+                                    }
+                                </div>
                             </div>
-                        }
+                        </div>
                     </div>
 
-                    <div class="col-md-3 mb-3">
-                        <h6>Agama</h6>
-                        @for (int i = 0; i < Model.Agama.Count; i++)
-                        {
-                            <div>
-                                <input type="checkbox" class="submit-on-change" asp-for="@Model.Agama[@i].Selected">
-                                <input asp-for="@Model.Agama[@i].Value" readonly hidden> 
-                                @Model.Agama[i].Value.Humanize()
+                    <!-- Agama -->
+                    <div class="col-md-3">
+                        <div class="card shadow-sm h-100" style="border: 1px solid #e0e0e0;">
+                            <div class="card-body p-2">
+                                <h6 class="fw-bold border-bottom pb-1 mb-2 text-center" style="font-size: 1.1rem">Agama</h6>
+                                <div class="filter-scroll-content">
+                                    @for (int i = 0; i < Model.Agama.Count; i++)
+                                    {
+                                        <div class="form-check mb-1">
+                                            <input type="checkbox" class="form-check-input submit-on-change" asp-for="@Model.Agama[@i].Selected">
+                                            <label class="form-check-label" style="font-size: 0.9rem">@Model.Agama[i].Value.Humanize()</label>
+                                            <input asp-for="@Model.Agama[@i].Value" hidden />
+                                        </div>
+                                    }
+                                </div>
                             </div>
-                        }
+                        </div>
                     </div>
 
-                    <div class="col-md-3 mb-3">
-                        <h6>Status Perkawinan</h6>
-                        @for (int i = 0; i < Model.StatusPerkawinan.Count; i++)
-                        {
-                            <div>
-                                <input type="checkbox" class="submit-on-change" asp-for="@Model.StatusPerkawinan[@i].Selected">
-                                <input asp-for="@Model.StatusPerkawinan[@i].Value" readonly hidden> 
-                                @Model.StatusPerkawinan[i].Value.Humanize()
+                    <!-- Status Perkawinan -->
+                    <div class="col-md-3">
+                        <div class="card shadow-sm h-100" style="border: 1px solid #e0e0e0;">
+                            <div class="card-body p-2">
+                                <h6 class="fw-bold border-bottom pb-1 mb-2 text-center" style="font-size: 1.1rem">Status Perkawinan</h6>
+                                <div class="filter-scroll-content">
+                                    @for (int i = 0; i < Model.StatusPerkawinan.Count; i++)
+                                    {
+                                        <div class="form-check mb-1">
+                                            <input type="checkbox" class="form-check-input submit-on-change" asp-for="@Model.StatusPerkawinan[@i].Selected">
+                                            <label class="form-check-label" style="font-size: 0.9rem">@Model.StatusPerkawinan[i].Value.Humanize()</label>
+                                            <input asp-for="@Model.StatusPerkawinan[@i].Value" hidden />
+                                        </div>
+                                    }
+                                </div>
                             </div>
-                        }
+                        </div>
                     </div>
 
-                    <div class="col-md-3 mb-3">
-                        <h6>Golongan Darah</h6>
-                        @for (int i = 0; i < Model.GolonganDarah.Count; i++)
-                        {
-                            <div>
-                                <input type="checkbox" class="submit-on-change" asp-for="@Model.GolonganDarah[@i].Selected">
-                                <input asp-for="@Model.GolonganDarah[@i].Value" readonly hidden> 
-                                @Model.GolonganDarah[i].Value.Humanize()
+                    <!-- Golongan Darah -->
+                    <div class="col-md-3">
+                        <div class="card shadow-sm h-100" style="border: 1px solid #e0e0e0;">
+                            <div class="card-body p-2">
+                                <h6 class="fw-bold border-bottom pb-1 mb-2 text-center" style="font-size: 1.1rem">Golongan Darah</h6>
+                                <div class="filter-scroll-content">
+                                    @for (int i = 0; i < Model.GolonganDarah.Count; i++)
+                                    {
+                                        <div class="form-check mb-1">
+                                            <input type="checkbox" class="form-check-input submit-on-change" asp-for="@Model.GolonganDarah[@i].Selected">
+                                            <label class="form-check-label" style="font-size: 0.9rem">@Model.GolonganDarah[i].Value.Humanize()</label>
+                                            <input asp-for="@Model.GolonganDarah[@i].Value" hidden />
+                                        </div>
+                                    }
+                                </div>
                             </div>
-                        }
-                    </div>
-
-                    <div class="col-md-3 mb-3">
-                        <h6>Jabatan</h6>
-                        @for (int i = 0; i < Model.Jabatan.Count; i++)
-                        {
-                            <div>
-                                <input type="checkbox" class="submit-on-change" asp-for="@Model.Jabatan[@i].Selected">
-                                <input asp-for="@Model.Jabatan[@i].Value" readonly hidden> 
-                                @daftarJabatan.First(a => a.Id == Model.Jabatan[i].Value).Nama
-                            </div>
-                        }
-                    </div>
-
-                    <div class="col-md-3 mb-3">
-                        <h6>Divisi</h6>
-                        @for (int i = 0; i < Model.Divisi.Count; i++)
-                        {
-                            <div>
-                                <input type="checkbox" class="submit-on-change" asp-for="@Model.Divisi[@i].Selected">
-                                <input asp-for="@Model.Divisi[@i].Value" readonly hidden> 
-                                @daftarDivisi.First(a => a.Id == Model.Divisi[i].Value).Nama
-                            </div>
-                        }
-                    </div>
-
-                    <div class="col-md-3 mb-3">
-                        <h6>Tahun Masuk</h6>
-                        @for (int i = 0; i < Model.TahunMasuk.Count; i++)
-                        {
-                            <div>
-                                <input type="checkbox" class="submit-on-change" asp-for="@Model.TahunMasuk[@i].Selected">
-                                <input asp-for="@Model.TahunMasuk[@i].Value" readonly hidden>
-                                @Model.TahunMasuk[i].Value
-                            </div>
-                        }
-                    </div>
-
-                    <div class="col-md-3 mb-3">
-                        <h6>Tahun Lahir</h6>
-                        @for (int i = 0; i < Model.TahunLahir.Count; i++)
-                        {
-                            <div>
-                                <input type="checkbox" class="submit-on-change" asp-for="@Model.TahunLahir[@i].Selected">
-                                <input asp-for="@Model.TahunLahir[@i].Value" readonly hidden>
-                                @Model.TahunLahir[i].Value
-                            </div>
-                        }
+                        </div>
                     </div>
                 </div>
 
-                <div class="text-right">
-                    <a class="btn btn-secondary btn-sm" asp-action="Index">Reset</a>
+                <div class="row g-3">
+                    <!-- Jabatan -->
+                    <div class="col-md-3">
+                        <div class="card shadow-sm h-100" style="border: 1px solid #e0e0e0;">
+                            <div class="card-body p-2">
+                                <h6 class="fw-bold border-bottom pb-1 mb-2 text-center" style="font-size: 1.1rem">Jabatan</h6>
+                                <div class="filter-scroll-content">
+                                    @for (int i = 0; i < Model.Jabatan.Count; i++)
+                                    {
+                                        <div class="form-check mb-1">
+                                            <input type="checkbox" class="form-check-input submit-on-change" asp-for="@Model.Jabatan[@i].Selected">
+                                            <label class="form-check-label" style="font-size: 0.9rem">@daftarJabatan.First(a => a.Id == Model.Jabatan[i].Value).Nama</label>
+                                            <input asp-for="@Model.Jabatan[@i].Value" hidden />
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Divisi -->
+                    <div class="col-md-3">
+                        <div class="card shadow-sm h-100" style="border: 1px solid #e0e0e0;">
+                            <div class="card-body p-2">
+                                <h6 class="fw-bold border-bottom pb-1 mb-2 text-center" style="font-size: 1.1rem">Divisi</h6>
+                                <div class="filter-scroll-content">
+                                    @for (int i = 0; i < Model.Divisi.Count; i++)
+                                    {
+                                        <div class="form-check mb-1">
+                                            <input type="checkbox" class="form-check-input submit-on-change" asp-for="@Model.Divisi[@i].Selected">
+                                            <label class="form-check-label" style="font-size: 0.9rem">@daftarDivisi.First(a => a.Id == Model.Divisi[i].Value).Nama</label>
+                                            <input asp-for="@Model.Divisi[@i].Value" hidden />
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tahun Masuk -->
+                    <div class="col-md-3">
+                        <div class="card shadow-sm h-100" style="border: 1px solid #e0e0e0;">
+                            <div class="card-body p-2">
+                                <h6 class="fw-bold border-bottom pb-1 mb-2 text-center" style="font-size: 1.1rem">Tahun Masuk</h6>
+                                <div class="filter-scroll-content">
+                                    @for (int i = 0; i < Model.TahunMasuk.Count; i++)
+                                    {
+                                        <div class="form-check mb-1">
+                                            <input type="checkbox" class="form-check-input submit-on-change" asp-for="@Model.TahunMasuk[@i].Selected">
+                                            <label class="form-check-label" style="font-size: 0.9rem">@Model.TahunMasuk[i].Value</label>
+                                            <input asp-for="@Model.TahunMasuk[@i].Value" hidden />
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tahun Lahir -->
+                    <div class="col-md-3">
+                        <div class="card shadow-sm h-100" style="border: 1px solid #e0e0e0;">
+                            <div class="card-body p-2">
+                                <h6 class="fw-bold border-bottom pb-1 mb-2 text-center" style="font-size: 1.1rem">Tahun Lahir</h6>
+                                <div class="filter-scroll-content">
+                                    @for (int i = 0; i < Model.TahunLahir.Count; i++)
+                                    {
+                                        <div class="form-check mb-1">
+                                            <input type="checkbox" class="form-check-input submit-on-change" asp-for="@Model.TahunLahir[@i].Selected">
+                                            <label class="form-check-label" style="font-size: 0.9rem">@Model.TahunLahir[i].Value</label>
+                                            <input asp-for="@Model.TahunLahir[@i].Value" hidden />
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <div class="text-end mt-3 ml-auto">
+                        <a class="btn btn-secondary btn-sm" asp-action="Index">Reset</a>
+                    </div>
                 </div>
             </div>
         </form>
+
 
         <div class="table-responsive">
             <table class="table table-striped table-hover" id="save-stage2">

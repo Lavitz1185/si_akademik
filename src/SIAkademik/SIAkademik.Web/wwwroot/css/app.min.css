@@ -525,6 +525,21 @@ pre {
     overflow-y: scroll
 }
 
+.filter-scroll-content {
+    max-height: 170px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+    .filter-scroll-content::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .filter-scroll-content::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+        border-radius: 2px;
+    }
+
 .container {
     width: 100%;
     padding-right: 15px;
