@@ -1,0 +1,45 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.ImportModels
+@model ImportVM<TujuanPembelajaran>
+
+<a asp-action="DownloadTemplateTP" target="_blank">Download Template</a>
+
+<form asp-action="TujuanPembelajaran" enctype="multipart/form-data">
+    <label asp-for="@Model.FormFile"></label>
+    <input asp-for="@Model.FormFile" />
+    <span asp-validation-for="@Model.FormFile"></span>
+
+    <button type="submit">Upload</button>
+</form>
+
+@if (Model.FileName is not null)
+{
+    <p>File Yang Diupload : @Model.FileName</p>
+    <h2>Data Baru</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Mata Pelajaran</th>
+                <th>Fase</th>
+                <th>Nomor</th>
+                <th>Deskripsi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tujuanPembelajaran in Model.NewData)
+            {
+                <tr>
+                    <td>@tujuanPembelajaran.Id</td>
+                    <td>@tujuanPembelajaran.MataPelajaran.Nama</td>
+                    <td>@tujuanPembelajaran.Fase.Humanize()</td>
+                    <td>@tujuanPembelajaran.Nomor</td>
+                    <td>@tujuanPembelajaran.Deskripsi</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

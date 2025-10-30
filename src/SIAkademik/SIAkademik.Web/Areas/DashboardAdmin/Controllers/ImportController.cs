@@ -36,6 +36,8 @@ public class ImportController : Controller
     private readonly IPeminatanRepository _peminatanRepository;
     private readonly IKelasRepository _kelasRepository;
     private readonly IRombelRepository _rombelRepository;
+    private readonly IMataPelajaranRepository _mataPelajaranRepository;
+    private readonly ITujuanPembelajaranRepository _tujuanPembelajaranRepository;
 
     public ImportController(
         IFileService fileService,
@@ -51,7 +53,9 @@ public class ImportController : Controller
         ITahunAjaranRepository tahunAjaranRepository,
         IPeminatanRepository peminatanRepository,
         IKelasRepository kelasRepository,
-        IRombelRepository rombelRepository)
+        IRombelRepository rombelRepository,
+        IMataPelajaranRepository mataPelajaranRepository,
+        ITujuanPembelajaranRepository tujuanPembelajaranRepository)
     {
         _fileService = fileService;
         _unitOfWork = unitOfWork;
@@ -67,6 +71,8 @@ public class ImportController : Controller
         _peminatanRepository = peminatanRepository;
         _kelasRepository = kelasRepository;
         _rombelRepository = rombelRepository;
+        _mataPelajaranRepository = mataPelajaranRepository;
+        _tujuanPembelajaranRepository = tujuanPembelajaranRepository;
     }
 
     public IActionResult Siswa() => View(new ImportVM<Siswa>());
@@ -402,11 +408,6 @@ public class ImportController : Controller
             isEditable: true);
 
         var workBookPart = spreadSheet.WorkbookPart!;
-        var sharedStrings = workBookPart
-            .SharedStringTablePart?
-            .SharedStringTable
-            .Elements<SharedStringItem>()
-            .Select(s => s.InnerText).ToList() ?? [];
         
         var sheet = workBookPart.Workbook.Sheets!.Elements<Sheet>().First(a => a.Name == "Sheet2");
         var workSheetPart = (WorksheetPart)workBookPart.GetPartById(sheet.Id!);
@@ -604,6 +605,172 @@ public class ImportController : Controller
         _toastrNotificationService.AddSuccess($"Simpan Berhasil. Berhasil menambahkan {dataBaru.Count} data");
 
         return View(new ImportVM<Rombel>
+        {
+            FileName = vm.FormFile.FileName,
+            NewData = dataBaru
+        });
+    }
+
+    public async Task<IActionResult> DownloadTemplateTP()
+    {
+        var daftarMataPelajaran = await _mataPelajaranRepository.GetAll();
+        var fileBytes = System.IO.File.ReadAllBytes(
+            Path.Combine(_webHostEnvironment.WebRootPath, "file/importTemplate/Template Import Data Tujuan Pembelajaran.xlsx"));
+
+        using var memoryStream = new MemoryStream();
+        memoryStream.Write(fileBytes, 0, fileBytes.Length);
+
+        using var spreadSheet = SpreadsheetDocument.Open(
+            memoryStream,
+            isEditable: true);
+
+        var workBookPart = spreadSheet.WorkbookPart!;
+
+        var sheet = workBookPart.Workbook.Sheets!.Elements<Sheet>().First(a => a.Name == "Sheet2");
+        var workSheetPart = (WorksheetPart)workBookPart.GetPartById(sheet.Id!);
+        var sheetData = workSheetPart.Worksheet.Elements<SheetData>().First();
+
+        foreach (var mataPelajaran in daftarMataPelajaran)
+        {
+            var row = new Row();
+            var cell = new Cell
+            {
+                CellValue = new CellValue($"{mataPelajaran.Id} - {mataPelajaran.Nama} ({mataPelajaran.Peminatan.Nama})")
+            };
+            row.Append(cell);
+            sheetData.Append(row);
+        }
+
+        sheet = workBookPart.Workbook.Sheets!.Elements<Sheet>().First()!;
+        workSheetPart = (WorksheetPart)workBookPart.GetPartById(sheet.Id!);
+        sheetData = workSheetPart.Worksheet.Elements<SheetData>().First();
+
+        var dataValidation = new DataValidation
+        {
+            Type = DataValidationValues.List,
+            AllowBlank = true,
+            SequenceOfReferences = new ListValue<StringValue> { InnerText = "A2:A5" },
+            Formula1 = new Formula1($"Sheet2!$A$1:$A${daftarMataPelajaran.Count}")
+        };
+
+        var dvs = workSheetPart.Worksheet.GetFirstChild<DataValidations>();
+        if (dvs is not null)
+        {
+            dvs.Count = (dvs?.Count ?? 0) + 1;
+            dvs!.Append(dataValidation);
+        }
+        else
+        {
+            var newDvs = new DataValidations();
+            newDvs.AppendChild(dataValidation);
+            newDvs.Count = (dvs?.Count ?? 0) + 1;
+            workSheetPart.Worksheet.Append(newDvs);
+        }
+
+        workBookPart.Workbook.Descendants<WorkbookView>().First().ActiveTab = Convert
+            .ToUInt32(workBookPart.Workbook.Descendants<Sheet>().ToList().IndexOf(sheet));
+
+        spreadSheet.Save();
+
+        return File(
+            memoryStream.ToArray(),
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            fileDownloadName: "Template Import Data Tujuan Pembelajaran.xlsx");
+    }
+
+    public IActionResult TujuanPembelajaran() => View(new ImportVM<TujuanPembelajaran>());
+
+    [HttpPost]
+    public async Task<IActionResult> TujuanPembelajaran(ImportVM<TujuanPembelajaran> vm)
+    {
+        if (!ModelState.IsValid) return View(vm);
+
+        if (vm.FormFile is null)
+        {
+            ModelState.AddModelError(nameof(ImportVM<TujuanPembelajaran>.FormFile), "File harus diisi");
+            return View(vm);
+        }
+
+        var file = await _fileService.ProcessFormFile<ImportVM<TujuanPembelajaran>>(
+            vm.FormFile,
+            [".xlsx"],
+            0,
+            long.MaxValue);
+
+        if (file.IsFailure)
+        {
+            ModelState.AddModelError(nameof(ImportVM<TujuanPembelajaran>.FormFile), file.Error.Message);
+            return View(vm);
+        }
+
+        using var memoryStream = new MemoryStream(file.Value);
+        using var spreadSheet = SpreadsheetDocument.Open(memoryStream, isEditable: false);
+
+        var workBookPart = spreadSheet.WorkbookPart!;
+        var sharedStrings = workBookPart
+            .SharedStringTablePart?
+            .SharedStringTable
+            .Elements<SharedStringItem>()
+            .Select(s => s.InnerText).ToList() ?? [];
+
+        var sheet = workBookPart.Workbook.Sheets!.Elements<Sheet>().First()!;
+        var workSheetPart = (WorksheetPart)workBookPart.GetPartById(sheet.Id!);
+        var sheetData = workSheetPart.Worksheet.Elements<SheetData>().First();
+
+        var daftarMataPelajaran = await _mataPelajaranRepository.GetAll();
+
+        var dataBaru = new List<TujuanPembelajaran>();
+
+        foreach (var row in sheetData.Elements<Row>().Skip(1))
+        {
+            var cells = row.Elements<Cell>().ToList();
+
+            if (cells.Count != 4) continue;
+
+            var mataPelajaranStr = GetCellValues(cells[0], sharedStrings);
+            if (string.IsNullOrEmpty(mataPelajaranStr)) continue;
+            var match = Regex.Match(mataPelajaranStr, @"(?<id>\d+) - (?:\w+\s*)+ \((?:\w+\s*)+\)");
+            if (!match.Success || !match.Groups.TryGetValue("id", out var groupId))
+                continue;
+            var mataPelajaran = daftarMataPelajaran.FirstOrDefault(a => a.Id == int.Parse(groupId.Value));
+            if (mataPelajaran is null) continue;
+
+            var faseStr = GetCellValues(cells[1], sharedStrings);
+            if (string.IsNullOrEmpty(faseStr) || !Enum.TryParse<Fase>(faseStr, out var fase))
+                continue;
+
+            var nomorStr = GetCellValues(cells[2], sharedStrings);
+            if (string.IsNullOrEmpty(nomorStr) || 
+                !int.TryParse(nomorStr, out var nomor) || 
+                await _tujuanPembelajaranRepository.IsExist(nomor, mataPelajaran.Id, fase))
+                continue;
+
+            var deskripsi = GetCellValues(cells[3], sharedStrings);
+            if (string.IsNullOrEmpty(deskripsi) || await _tujuanPembelajaranRepository.IsExist(deskripsi, mataPelajaran.Id, fase)) 
+                continue;
+
+            var tujuanPembelajaran = new TujuanPembelajaran
+            {
+                Fase = fase,
+                Deskripsi = deskripsi,
+                Nomor = nomor,
+                MataPelajaran = mataPelajaran
+            };
+
+            _tujuanPembelajaranRepository.Add(tujuanPembelajaran);
+            dataBaru.Add(tujuanPembelajaran);
+        }
+
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsFailure)
+        {
+            _toastrNotificationService.AddError("Simpan Gagal");
+            return RedirectToAction(nameof(TujuanPembelajaran));
+        }
+
+        _toastrNotificationService.AddSuccess($"Simpan Berhasil. Berhasil menambahkan {dataBaru.Count} data");
+
+        return View(new ImportVM<TujuanPembelajaran>
         {
             FileName = vm.FormFile.FileName,
             NewData = dataBaru
