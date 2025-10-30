@@ -25,167 +25,206 @@
                     <div class="card-body d-flex" style="flex-direction: column;">
                         <div asp-validation-summary="ModelOnly"></div>
 
-                        <div class="mb-3">
-                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                        <div class="d-flex justify-content-between mb-3 mr-3">
+                            <div class="mb-0 rounded" style="background-color: #d9edf7; font-weight: 400; padding: 15px; color: #31708f;">
+                                <p class="mb-0">Tekan Tombol "Simpan Perubahan" untuk menyimpan infromasi yang telah diubah</p>
+                            </div>
+                            <div class="mb-0">
+                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                            </div>
                         </div>
 
-                        <div class="d-flex">
-                            <div class="col-6 p-0">
+
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="identitas-tab" data-toggle="tab" href="#pertama" role="tab"
+                                   aria-controls="identitas" aria-selected="true">Identitas Sekolah</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="yayasan-tab" data-toggle="tab" href="#kedua" role="tab"
+                                   aria-controls="yayasan" aria-selected="false">Sambutan & Struktur Yayasan</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="visi-tab" data-toggle="tab" href="#ketiga" role="tab"
+                                   aria-controls="visi" aria-selected="false">Visi, Misi, & Mars</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="medsos-tab" data-toggle="tab" href="#keempat" role="tab"
+                                   aria-controls="medsos" aria-selected="false">Media Sosial & Kontak</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="pertama" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="section-title mt-0">
                                     Identitas Sekolah
                                 </div>
+                                <div class="d-flex">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.NamaSekolah"></label>
+                                            <input asp-for="@Model.NamaSekolah" class="form-control" />
+                                            <span asp-validation-for="@Model.NamaSekolah"></span>
+                                        </div>
 
-                                <div class="form-group">
-                                    <label asp-for="@Model.NamaSekolah"></label>
-                                    <input asp-for="@Model.NamaSekolah" class="form-control" />
-                                    <span asp-validation-for="@Model.NamaSekolah"></span>
-                                </div>
+                                        <div class="form-group">
+                                            <label asp-for="@Model.SloganSekolah"></label>
+                                            <textarea asp-for="@Model.SloganSekolah" style="min-height: 120px" class="form-control"></textarea>
+                                            <span asp-validation-for="@Model.SloganSekolah"></span>
+                                        </div>                                       
 
-                                <div class="form-group">
-                                    <label asp-for="@Model.ProfilSingkatSekolah"></label>
-                                    <textarea asp-for="@Model.ProfilSingkatSekolah" style="min-height: 100px" class="form-control"></textarea>
-                                    <span asp-validation-for="@Model.ProfilSingkatSekolah"></span>
-                                </div>
+                                        <div class="form-group">
+                                            <label asp-for="@Model.LogoSekolahBaru"></label>
+                                            <div class="mb-2" style="display: flex; justify-content: center;">
+                                                <img style="width: 150px;" src="@Model.LogoSekolahLama.OriginalString" />
+                                            </div>
+                                            <input asp-for="@Model.LogoSekolahBaru" type="file" />
+                                            <input asp-for="@Model.LogoSekolahLama" hidden readonly />
+                                            <span asp-validation-for="@Model.LogoSekolahBaru"></span>
+                                        </div>
 
-                                <div class="form-group">
-                                    <label asp-for="@Model.SloganSekolah"></label>
-                                    <textarea asp-for="@Model.SloganSekolah" style="min-height: 100px" class="form-control"></textarea>
-                                    <span asp-validation-for="@Model.SloganSekolah"></span>
-                                </div>
+                                        
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.AlamatSekolah"></label>
+                                            <textarea asp-for="@Model.AlamatSekolah" class="form-control"></textarea>
+                                            <span asp-validation-for="@Model.AlamatSekolah"></span>
+                                        </div>
 
-                                <div class="form-group">
-                                    <label asp-for="@Model.AlamatSekolah"></label>
-                                    <textarea asp-for="@Model.AlamatSekolah" class="form-control"></textarea>
-                                    <span asp-validation-for="@Model.AlamatSekolah"></span>
-                                </div>
+                                        <div class="form-group">
+                                            <label asp-for="@Model.ProfilSingkatSekolah"></label>
+                                            <textarea asp-for="@Model.ProfilSingkatSekolah" style="min-height: 120px" class="form-control"></textarea>
+                                            <span asp-validation-for="@Model.ProfilSingkatSekolah"></span>
+                                        </div>
 
-                                <div class="form-group">
-                                    <label asp-for="@Model.NoHPSekolah"></label>
-                                    <input asp-for="@Model.NoHPSekolah" class="form-control" />
-                                    <span asp-validation-for="@Model.NoHPSekolah"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    <label asp-for="@Model.EmailSekolah"></label>
-                                    <input asp-for="@Model.EmailSekolah" class="form-control" />
-                                    <span asp-validation-for="@Model.EmailSekolah"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    <label asp-for="@Model.LogoSekolahBaru"></label>
-                                    <div class="mb-2" style="display: flex; justify-content: center;">
-                                        <img style="width: 200px;" src="@Model.LogoSekolahLama.OriginalString" />
-                                    </div>                             
-                                    <input asp-for="@Model.LogoSekolahBaru" type="file" />
-                                    <input asp-for="@Model.LogoSekolahLama" hidden readonly />
-                                    <span asp-validation-for="@Model.LogoSekolahBaru"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    <label asp-for="@Model.VideoHalamanBeranda"></label>
-                                    <div class="mb-2" style="display: flex; justify-content: center;">
-                                        <iframe src="@Model.VideoHalamanBeranda"></iframe>
-                                    </div>                                  
-                                    <input asp-for="@Model.VideoHalamanBeranda" class="form-control"/>
-                                    <span asp-validation-for="@Model.VideoHalamanBeranda"></span>
-                                </div>
-
-                                <div class="section-title">
-                                    Media Sosial & Kontak
-                                </div>
-
-                                <div class="form-group">
-                                    <label asp-for="@Model.InstagramSekolah"></label>
-                                    <input asp-for="@Model.InstagramSekolah" class="form-control" />
-                                    <span asp-validation-for="@Model.InstagramSekolah"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    <label asp-for="@Model.FacebookSekolah"></label>
-                                    <input asp-for="@Model.FacebookSekolah" class="form-control" />
-                                    <span asp-validation-for="@Model.FacebookSekolah"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    <label asp-for="@Model.FacebookSekolah"></label>
-                                    <input asp-for="@Model.FacebookSekolah" class="form-control" />
-                                    <span asp-validation-for="@Model.FacebookSekolah"></span>
+                                        <div class="form-group">
+                                            <label asp-for="@Model.VideoHalamanBeranda">Video Sambutan</label>
+                                            <div class="mb-2" style="display: flex; justify-content: center;">
+                                                <iframe src="@Model.VideoHalamanBeranda"></iframe>
+                                            </div>
+                                            <input asp-for="@Model.VideoHalamanBeranda" class="form-control" />
+                                            <span asp-validation-for="@Model.VideoHalamanBeranda"></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="col-6">
+                            <div class="tab-pane fade" id="kedua" role="tabpanel" aria-labelledby="yayasan-tab">
                                 <div class="section-title mt-0">
                                     Sambutan & Struktur Yayasan
                                 </div>
+                                <div class="d-flex">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.NamaYayasan"></label>
+                                            <input asp-for="@Model.NamaYayasan" class="form-control" />
+                                            <span asp-validation-for="@Model.NamaYayasan"></span>
+                                        </div>
 
-                                <div class="form-group">
-                                    <label asp-for="@Model.NamaYayasan"></label>
-                                    <input asp-for="@Model.NamaYayasan" class="form-control" />
-                                    <span asp-validation-for="@Model.NamaYayasan"></span>
-                                </div>
+                                        <div class="form-group">
+                                            <label asp-for="@Model.DewanPembinaYayasan"></label>
+                                            <input asp-for="@Model.DewanPembinaYayasan" class="form-control" />
+                                            <span asp-validation-for="@Model.DewanPembinaYayasan"></span>
+                                        </div>
 
-                                
-
-                                <div class="form-group">
-                                    <label asp-for="@Model.SambutanPimpinanYayasan"></label>
-                                    <textarea asp-for="@Model.SambutanPimpinanYayasan" class="form-control"></textarea>
-                                    <span asp-validation-for="@Model.SambutanPimpinanYayasan"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    <label asp-for="@Model.DewanPembinaYayasan"></label>
-                                    <input asp-for="@Model.DewanPembinaYayasan" class="form-control" />
-                                    <span asp-validation-for="@Model.DewanPembinaYayasan"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    <label asp-for="@Model.KetuaUmumYayasan"></label>
-                                    <input asp-for="@Model.KetuaUmumYayasan" class="form-control" />
-                                    <span asp-validation-for="@Model.KetuaUmumYayasan"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    <label asp-for="@Model.KetuaUmum2Yayasan"></label>
-                                    <input asp-for="@Model.KetuaUmum2Yayasan" class="form-control" />
-                                    <span asp-validation-for="@Model.KetuaUmum2Yayasan"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    <label asp-for="@Model.VideoHalamanTentangKami"></label>
-                                    <div class="mb-2" style="display: flex; justify-content: center;">
-                                        <iframe src="@Model.VideoHalamanTentangKami"></iframe>
+                                        <div class="form-group">
+                                            <label asp-for="@Model.SambutanPimpinanYayasan"></label>
+                                            <textarea asp-for="@Model.SambutanPimpinanYayasan" style="min-height: 200px" class="form-control"></textarea>
+                                            <span asp-validation-for="@Model.SambutanPimpinanYayasan"></span>
+                                        </div>
                                     </div>
-                                    
-                                    <input asp-for="@Model.VideoHalamanTentangKami" class="form-control"/>
-                                    <span asp-validation-for="@Model.VideoHalamanTentangKami"></span>
-                                </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.KetuaUmumYayasan"></label>
+                                            <input asp-for="@Model.KetuaUmumYayasan" class="form-control" />
+                                            <span asp-validation-for="@Model.KetuaUmumYayasan"></span>
+                                        </div>
 
-                                <div class="section-title">
-                                    Visi, Misi, dan Mars
-                                </div>
+                                        <div class="form-group">
+                                            <label asp-for="@Model.KetuaUmum2Yayasan"></label>
+                                            <input asp-for="@Model.KetuaUmum2Yayasan" class="form-control" />
+                                            <span asp-validation-for="@Model.KetuaUmum2Yayasan"></span>
+                                        </div>
 
-                                <div class="form-group">
-                                    <label asp-for="@Model.VisiSekolah"></label>
-                                    <textarea asp-for="@Model.VisiSekolah" class="form-control editor"></textarea>
-                                    <span asp-validation-for="@Model.VisiSekolah"></span>
-                                </div>
+                                        <div class="form-group">
+                                            <label asp-for="@Model.VideoHalamanTentangKami"></label>
+                                            <div class="mb-2" style="display: flex; justify-content: center;">
+                                                <iframe src="@Model.VideoHalamanTentangKami"></iframe>
+                                            </div>
 
-                                <div class="form-group">
-                                    <label asp-for="@Model.MisiSekolah"></label>
-                                    <textarea asp-for="@Model.MisiSekolah" class="form-control editor"></textarea>
-                                    <span asp-validation-for="@Model.MisiSekolah"></span>
+                                            <input asp-for="@Model.VideoHalamanTentangKami" class="form-control" />
+                                            <span asp-validation-for="@Model.VideoHalamanTentangKami"></span>
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
+                            <div class="tab-pane fade" id="ketiga" role="tabpanel" aria-labelledby="visi-tab">
+                                <div class="section-title mt-0">
+                                    Visi, Misi, & Mars
+                                </div>
+                                <div class="">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.VisiSekolah"></label>
+                                        <textarea asp-for="@Model.VisiSekolah" class="form-control editor"></textarea>
+                                        <span asp-validation-for="@Model.VisiSekolah"></span>
+                                    </div>
 
-                                <div class="form-group">
-                                    <label asp-for="@Model.LirikMarsSekolah"></label>
-                                    <textarea asp-for="@Model.LirikMarsSekolah" class="form-control editor"></textarea>
-                                    <span asp-validation-for="@Model.LirikMarsSekolah"></span>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.MisiSekolah"></label>
+                                        <textarea asp-for="@Model.MisiSekolah" class="form-control editor"></textarea>
+                                        <span asp-validation-for="@Model.MisiSekolah"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="@Model.LirikMarsSekolah"></label>
+                                        <textarea asp-for="@Model.LirikMarsSekolah" class="form-control editor"></textarea>
+                                        <span asp-validation-for="@Model.LirikMarsSekolah"></span>
+                                    </div>
                                 </div>
-                                
+                            </div>
+                            <div class="tab-pane fade" id="keempat" role="tabpanel" aria-labelledby="medsos-tab">
+                                <div class="section-title mt-0">
+                                    Media Sosial & Kontak
+                                </div>
+                                <div class="d-flex">
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.InstagramSekolah"></label>
+                                            <input asp-for="@Model.InstagramSekolah" class="form-control" />
+                                            <span asp-validation-for="@Model.InstagramSekolah"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label asp-for="@Model.FacebookSekolah"></label>
+                                            <input asp-for="@Model.FacebookSekolah" class="form-control" />
+                                            <span asp-validation-for="@Model.FacebookSekolah"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label asp-for="@Model.FacebookSekolah"></label>
+                                            <input asp-for="@Model.FacebookSekolah" class="form-control" />
+                                            <span asp-validation-for="@Model.FacebookSekolah"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.NoHPSekolah"></label>
+                                            <input asp-for="@Model.NoHPSekolah" class="form-control" />
+                                            <span asp-validation-for="@Model.NoHPSekolah"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label asp-for="@Model.EmailSekolah"></label>
+                                            <input asp-for="@Model.EmailSekolah" class="form-control" />
+                                            <span asp-validation-for="@Model.EmailSekolah"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
-
-                        
                     </div>
                 </form>
             </div>
