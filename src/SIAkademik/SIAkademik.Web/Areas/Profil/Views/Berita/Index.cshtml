@@ -11,6 +11,24 @@
         <h2>Berita & Pengumuman</h2>
         <div class="garis-sisa"></div>
     </div>
+
+    <div class="search-filter-container">
+        <!-- Kolom Pencarian -->
+        <div class="search-box">
+            <input type="text" placeholder="Cari berita atau pengumuman...">
+            <button type="button">Cari</button>
+        </div>
+
+        <!-- Tombol Filter -->
+        <div class="filter-buttons">
+            <button type="button">Semua</button>
+            <button type="button">Berita</button>
+            <button type="button">Pengumuman</button>
+        </div>
+    </div>
+    
+
+
     <div class="berita-box">
         @foreach (var berita in Model)
         {
@@ -30,5 +48,17 @@
                 </div>
             </div>
         }
+    </div>
+
+    <div class="pagination-container">
+        <ul class="pagination">
+            <li><a href="#" class="disabled">Sebelumnya</a></li>
+            <li><a href="#" class="active">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">Selanjutnya</a></li>
+        </ul>
     </div>
 </section>
