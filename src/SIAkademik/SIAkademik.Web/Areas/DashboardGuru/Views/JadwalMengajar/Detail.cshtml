@@ -120,7 +120,17 @@
                                                 <td>
                                                     @if (pertemuan.StatusPertemuan == StatusPertemuan.BelumMulai)
                                                     {
-                                                        <a asp-action="Mulai" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id" class="btn btn-success"><i class="fas fa-play mr-2"></i>Mulai</a>
+                                                        var modelTambah = new MulaiVM
+                                                        {
+                                                            Id = pertemuan.Id
+                                                        };
+
+                                                        <button asp-action="Mulai" asp-controller="Pertemuan" type="button" class="btn btn-success btn-tambah">
+                                                            <i class="fas fa-play mr-2"></i>Mulai
+                                                        </button>
+                                                        <div style="display:none" class="form-tambah">
+                                                            <partial name="/Areas/DashboardGuru/Views/Pertemuan/_FormMulaiPartial.cshtml" model="@modelTambah" />
+                                                        </div>
                                                     }
 
                                                     @if (pertemuan.StatusPertemuan == StatusPertemuan.Berjalan)
@@ -274,7 +284,7 @@
                                                     </button>
                                                     <div class="form-edit-tp" style="display:none">
                                                         <form asp-action="Edit" asp-controller="AsesmenSumatif"
-                                                              asp-route-id="@asesmenSumatif.Id" 
+                                                              asp-route-id="@asesmenSumatif.Id"
                                                               asp-route-idJadwalMengajar="@Model.Id"
                                                               method="post">
                                                             <div class="modal-header">

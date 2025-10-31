@@ -38,17 +38,6 @@ public class PertemuanController : Controller
         _toastrNotificationService = toastrNotificationService;
     }
 
-    public async Task<IActionResult> Mulai(int id)
-    {
-        var pertemuan = await _pertemuanRepository.Get(id);
-        if (pertemuan is null) return NotFound();
-
-        return View(new MulaiVM
-        {
-            Id = pertemuan.Id
-        });
-    }
-
     [HttpPost]
     public async Task<IActionResult> Mulai(MulaiVM vm)
     {
@@ -86,7 +75,7 @@ public class PertemuanController : Controller
         return RedirectToAction(
             nameof(JadwalMengajarController.Detail),
             "JadwalMengajar",
-            new { Area = AreaNames.DashboardGuru, id = pertemuan.JadwalMengajar.Id });
+            new { id = pertemuan.JadwalMengajar.Id });
     }
 
     [HttpPost]
