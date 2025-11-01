@@ -36,6 +36,7 @@ public class ImportController : Controller
     private readonly IWebHostEnvironment _webHostEnvironment;
     private readonly IToastrNotificationService _toastrNotificationService;
     private readonly INilaiEvaluasiSiswaRepository _nilaiEvaluasiSiswaRepository;
+    private readonly IAsesmenSumatifAkhirSemesterRepository _asesmenSumatifAkhirSemesterRepository;
 
     public ImportController(
         IUnitOfWork unitOfWork,
@@ -49,7 +50,8 @@ public class ImportController : Controller
         ISignInManager signInManager,
         IWebHostEnvironment webHostEnvironment,
         IToastrNotificationService toastrNotificationService,
-        INilaiEvaluasiSiswaRepository nilaiEvaluasiSiswaRepository)
+        INilaiEvaluasiSiswaRepository nilaiEvaluasiSiswaRepository,
+        IAsesmenSumatifAkhirSemesterRepository asesmenSumatifAkhirSemesterRepository)
     {
         _unitOfWork = unitOfWork;
         _fileService = fileService;
@@ -63,6 +65,7 @@ public class ImportController : Controller
         _webHostEnvironment = webHostEnvironment;
         _toastrNotificationService = toastrNotificationService;
         _nilaiEvaluasiSiswaRepository = nilaiEvaluasiSiswaRepository;
+        _asesmenSumatifAkhirSemesterRepository = asesmenSumatifAkhirSemesterRepository;
     }
 
     public async Task<IActionResult> DownloadFormatAsesmenSumatif(int idJadwalMengajar)
@@ -419,6 +422,228 @@ public class ImportController : Controller
 
         vm.FileName = vm.FormFile.FileName;
         vm.NewData = orderedAsesmenSumatif;
+        return View(vm);
+    }
+
+    public async Task<IActionResult> DownloadFormatNilaiSAS(int idJadwalMengajar)
+    {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        var jadwalMengajar = await _jadwalMengajarRepository.Get(idJadwalMengajar);
+        if (jadwalMengajar is null || jadwalMengajar.Pegawai != pegawai) return NotFound();
+
+        var rombel = (await _rombelRepository.Get(jadwalMengajar.Rombel.Id))!;
+
+        var fileBytes = System.IO.File.ReadAllBytes(
+            Path.Combine(_webHostEnvironment.WebRootPath, "file/importTemplate/Template Import Data Nilai SAS.xlsx"));
+
+        using var memoryStream = new MemoryStream();
+        memoryStream.Write(fileBytes, 0, fileBytes.Length);
+
+        using var spreadSheet = SpreadsheetDocument.Open(
+            memoryStream,
+            isEditable: true);
+
+        var workBookPart = spreadSheet.WorkbookPart!;
+
+        var sheet = workBookPart.Workbook.Sheets!.Elements<Sheet>().First();
+        var workSheetPart = (WorksheetPart)workBookPart.GetPartById(sheet.Id!);
+        var sheetData = workSheetPart.Worksheet.Elements<SheetData>().First();
+
+        var rowIndex = 7u;
+
+        #region DataUmum
+        var tahunAjaranCell = sheetData.Descendants<Cell>().First(c => c.CellReference == "C1");
+        tahunAjaranCell.CellValue = new CellValue(jadwalMengajar.Rombel.TahunAjaran.Periode);
+
+        var semesterCell = sheetData.Descendants<Cell>().First(c => c.CellReference == "C2");
+        semesterCell.CellValue = new CellValue(jadwalMengajar.Rombel.TahunAjaran.Semester.Humanize());
+
+        var kelasCell = sheetData.Descendants<Cell>().First(c => c.CellReference == "C3");
+        kelasCell.CellValue = new CellValue($"{jadwalMengajar.Rombel.Kelas.Jenjang} " +
+            $"{jadwalMengajar.Rombel.Kelas.Peminatan.Nama} {jadwalMengajar.Rombel.Nama}");
+
+        var mataPelajaranCell = sheetData.Descendants<Cell>().First(c => c.CellReference == "C4");
+        mataPelajaranCell.CellValue = new CellValue($"{jadwalMengajar.MataPelajaran.Nama} ({jadwalMengajar.MataPelajaran.Peminatan.Nama})");
+
+        var guruCell = sheetData.Descendants<Cell>().First(c => c.CellReference == "C5");
+        guruCell.CellValue = new CellValue(jadwalMengajar.Pegawai.Nama);
+        #endregion
+
+        #region DataSiswa
+        for (int i = 0; i < rombel.DaftarAnggotaRombel.Count; i++)
+        {
+            var anggotaRombel = rombel.DaftarAnggotaRombel[i];
+
+            var row = new Row() { RowIndex = rowIndex++ };
+            row.Append(
+                new Cell { CellValue = new CellValue(i + 1) },
+                new Cell { CellValue = new CellValue(anggotaRombel.Siswa.Nama) },
+                new Cell { CellValue = new CellValue(anggotaRombel.Siswa.NIS) },
+                new Cell { CellValue = new CellValue(anggotaRombel.Siswa.NISN) },
+                new Cell { DataType = null }
+            );
+
+            sheetData.Append(row);
+        }
+        #endregion
+
+        spreadSheet.Save();
+
+        return File(
+            memoryStream.ToArray(),
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            fileDownloadName: "Template Import Data Nilai SAS.xlsx");
+    }
+
+    public async Task<IActionResult> NilaiSAS(int? idTahunAjaran = null, int? idJadwalMengajar = null)
+    {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        var tahunAjaran = idTahunAjaran is null ?
+            await _tahunAjaranRepository.GetNewest() :
+            await _tahunAjaranRepository.Get(idTahunAjaran.Value) ?? await _tahunAjaranRepository.GetNewest();
+
+        if (tahunAjaran is null) return View(new NilaiSASVM { Pegawai = pegawai });
+
+        var jadwalMengajar = idJadwalMengajar is null ?
+            (await _jadwalMengajarRepository.GetAllByTahunAjaran(tahunAjaran.Id)).FirstOrDefault(j => j.Pegawai == pegawai) :
+            await _jadwalMengajarRepository.Get(idJadwalMengajar.Value);
+
+        if (jadwalMengajar is null || jadwalMengajar.Pegawai != pegawai || jadwalMengajar.Rombel.TahunAjaran != tahunAjaran)
+            jadwalMengajar = (await _jadwalMengajarRepository.GetAllByTahunAjaran(tahunAjaran.Id)).FirstOrDefault(j => j.Pegawai == pegawai);
+
+        if (jadwalMengajar is null) return View(new NilaiSASVM
+        {
+            Pegawai = pegawai,
+            TahunAjaran = tahunAjaran,
+            IdTahunAjaran = tahunAjaran.Id
+        });
+
+        return View(new NilaiSASVM
+        {
+            Pegawai = pegawai,
+            TahunAjaran = tahunAjaran,
+            IdTahunAjaran = tahunAjaran.Id,
+            JadwalMengajar = jadwalMengajar,
+            IdJadwalMengajar = jadwalMengajar.Id
+        });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> NilaiSAS(NilaiSASVM vm)
+    {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        vm.Pegawai = pegawai;
+
+        if (vm.IdTahunAjaran is null)
+        {
+            _toastrNotificationService.AddError("Tahun ajaran harus dipilih");
+            return RedirectToAction(nameof(NilaiSAS));
+        }
+
+        var tahunAjaran = await _tahunAjaranRepository.Get(vm.IdTahunAjaran.Value);
+        if (tahunAjaran is null)
+        {
+            _toastrNotificationService.AddError("Tahun Ajaran tidak ditemukan");
+            return RedirectToAction(nameof(NilaiSAS));
+        }
+        vm.TahunAjaran = tahunAjaran;
+
+        if (vm.IdJadwalMengajar is null)
+        {
+            _toastrNotificationService.AddError("Jadwal Mengajar harus dipilih");
+            return RedirectToAction(nameof(NilaiSAS), new { vm.IdTahunAjaran });
+        }
+
+        var jadwalMengajar = await _jadwalMengajarRepository.Get(vm.IdJadwalMengajar.Value);
+        if (jadwalMengajar is null)
+        {
+            _toastrNotificationService.AddError("Jadwal Mengajar tidak ditemukan");
+            return RedirectToAction(nameof(NilaiSAS), new { vm.IdTahunAjaran });
+        }
+        vm.JadwalMengajar = jadwalMengajar;
+
+        if (vm.FormFile is null)
+        {
+            ModelState.AddModelError(nameof(vm.FormFile), "File harus diupload");
+            return View(vm);
+        }
+
+        var file = await _fileService.ProcessFormFile<NilaiSASVM>(
+            vm.FormFile,
+            [".xlsx"],
+            0,
+            long.MaxValue);
+
+        if (file.IsFailure)
+        {
+            ModelState.AddModelError(nameof(NilaiSASVM.FormFile), file.Error.Message);
+            return View(vm);
+        }
+
+        using var memoryStream = new MemoryStream(file.Value);
+        using var spreadSheet = SpreadsheetDocument.Open(memoryStream, isEditable: false);
+
+        var workBookPart = spreadSheet.WorkbookPart!;
+        var sharedStrings = workBookPart
+            .SharedStringTablePart?
+            .SharedStringTable
+            .Elements<SharedStringItem>()
+            .Select(s => s.InnerText).ToList() ?? [];
+
+        var sheet = workBookPart.Workbook.Sheets!.Elements<Sheet>().First()!;
+        var workSheetPart = (WorksheetPart)workBookPart.GetPartById(sheet.Id!);
+        var sheetData = workSheetPart.Worksheet.Elements<SheetData>().First();
+
+        var rombel = (await _rombelRepository.Get(jadwalMengajar.Rombel.Id))!;
+        var dataBaru = new List<AsesmenSumatifAkhirSemester>();
+
+        const int startRowIndex = 7;
+        for (int i = 0; i < rombel.DaftarAnggotaRombel.Count; i++)
+        {
+            var anggotaRombel = rombel.DaftarAnggotaRombel[i];
+
+            var asesmenAkhirSemester = anggotaRombel
+                .DaftarAsesmenSumatifAkhirSemester
+                .FirstOrDefault(a => a.JadwalMengajar == jadwalMengajar);
+
+            if (asesmenAkhirSemester is null)
+            {
+                asesmenAkhirSemester = new AsesmenSumatifAkhirSemester
+                {
+                    AnggotaRombel = anggotaRombel,
+                    JadwalMengajar = jadwalMengajar,
+                    Nilai = 0,
+                };
+                _asesmenSumatifAkhirSemesterRepository.Add(asesmenAkhirSemester);
+            }
+
+            var cellNilai = sheetData.Descendants<Cell>().FirstOrDefault(c => c.CellReference == $"E{startRowIndex + i}");
+            if (cellNilai is null) continue;
+
+            var nilaiStr = GetCellValues(cellNilai, sharedStrings);
+            if (string.IsNullOrEmpty(nilaiStr) || !double.TryParse(nilaiStr, out var nilai) || nilai < 0 || nilai > 100)
+                continue;
+
+            asesmenAkhirSemester.Nilai = nilai;
+        }
+
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsFailure)
+        {
+            _toastrNotificationService.AddError("Simpan Gagal");
+            return RedirectToAction(nameof(NilaiSAS), new { vm.IdTahunAjaran, vm.IdJadwalMengajar });
+        }
+
+        _toastrNotificationService.AddSuccess($"Simpan Berhasil");
+
+        vm.FileName = vm.FormFile.FileName;
+        vm.NewData = dataBaru;
         return View(vm);
     }
 
