@@ -631,6 +631,7 @@ public class ImportController : Controller
                 continue;
 
             asesmenAkhirSemester.Nilai = nilai;
+            dataBaru.Add(asesmenAkhirSemester);
         }
 
         var result = await _unitOfWork.SaveChangesAsync();
