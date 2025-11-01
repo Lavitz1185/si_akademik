@@ -3,6 +3,7 @@
 @inject IKategoriBeritaRepository KategoriBeritaRepository
 
 @{
+    ViewData["Title"] = "Tambah Berita";
     var daftarKategori = await KategoriBeritaRepository.GetAll();
 }
 
@@ -14,7 +15,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Profil</a></li>
             <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Berita" asp-action="Index">Berita & Pengumuman</a></li>
-            <li class="breadcrumb-item" aria-current="page">Tambah Data</li>
+            <li class="breadcrumb-item" aria-current="page">Tambah Berita</li>
         </ol>
     </nav>
 </div>

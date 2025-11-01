@@ -1,14 +1,29 @@
-﻿<!DOCTYPE html>
+﻿@inject IInformasiUmumRepository InformasiUmumRepository
+
+@{
+    var informasiUmum = await InformasiUmumRepository.Get();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - SIAkademik.Web</title>
+
+    @if (ViewData["Title"] is null)
+    {
+        <title>Dashboard Admin | Siakad @informasiUmum.NamaSekolah</title>
+    }
+    else
+    {
+        <title>@ViewData["Title"] - Dashboard Admin | Siakad @informasiUmum.NamaSekolah</title>
+    }
+
     <link rel="stylesheet" href="~/css/app.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/datatables/datatables.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/bootstrap-daterangepicker/daterangepicker.css" asp-append-version="true" />
-@*     <link rel="stylesheet" href="~/lib/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css" asp-append-version="true" /> *@
+    @*     <link rel="stylesheet" href="~/lib/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css" asp-append-version="true" /> *@
     <link rel="stylesheet" href="~/css/components.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/theme.css" asp-append-version="true" />
     @* <link rel="stylesheet" href="~/lib/izitoast/css/iziToast.min.css" asp-append-version="true" /> *@
@@ -27,7 +42,7 @@
                     </main>
                 </div>
 
-@*                 <partial name="_ModalPartial" />*@                
+                @*                 <partial name="_ModalPartial" />*@                
 @*                 <partial name="_SettingsthemePartial" />
  *@            </div>
         </div>
@@ -41,7 +56,7 @@
     <script src="~/lib/bootstrap-daterangepicker/daterangepicker.js" asp-append-version="true"></script>
     <script src="~/js/sweetalert.js" asp-append-version="true"></script>
     <script src="~/lib/sweetalert/sweetalert.min.js" asp-append-version="true"></script>
-@*     <script src="~/js/toastr.js" asp-append-version="true"></script>
+    @*     <script src="~/js/toastr.js" asp-append-version="true"></script>
     <script src="~/lib/izitoast/js/iziToast.min.js" asp-append-version="true"></script> *@
     <script src="~/lib/datatables/export-tables/dataTables.buttons.min.js" asp-append-version="true"></script>
     <script src="~/lib/datatables/export-tables/buttons.flash.min.js" asp-append-version="true"></script>
@@ -50,7 +65,7 @@
     <script src="~/lib/datatables/export-tables/pdfmake.min.js" asp-append-version="true"></script>
     <script src="~/lib/datatables/export-tables/vfs_fonts.js" asp-append-version="true"></script>
     <script src="~/js/datatables.js" asp-append-version="true"></script>
-@*     <script src="~/lib/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js" asp-append-version="true"></script> *@
+    @*     <script src="~/lib/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js" asp-append-version="true"></script> *@
 
     @{
         var globalOptions = new ToastrOptions

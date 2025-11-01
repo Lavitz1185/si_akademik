@@ -1,12 +1,17 @@
 ﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.InformasiUmumModels
 @model EditVM
 
+@{
+    ViewData["Title"] = "Edit Informasi Umum";
+}
+
 <!-- Breadcrumb -->
 <div class="row">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Profil</a></li>
-            <li class="breadcrumb-item" aria-current="page">Informasi Umum</li>
+            <li class="breadcrumb-item"><a asp-action="Index">Informasi Umum</a></li>
+            <li class="breadcrumb-item" aria-current="page">Edit</li>
         </ol>
     </nav>
 </div>

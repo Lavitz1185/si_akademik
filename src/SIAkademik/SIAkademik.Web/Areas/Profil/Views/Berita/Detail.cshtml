@@ -1,6 +1,10 @@
 ﻿@using SIAkademik.Web.Areas.Profil.Models.BeritaModels
 @model DetailVM
 
+@{
+    ViewData["Title"] = $"{Model.Berita.KategoriBerita.Nama} - {Model.Berita.Judul}";
+}
+
 <!-- ======================================= PENGANTAR ======================================= -->
 <section id="isinformasi-home">
     <div class="isinformasi-wrapper">

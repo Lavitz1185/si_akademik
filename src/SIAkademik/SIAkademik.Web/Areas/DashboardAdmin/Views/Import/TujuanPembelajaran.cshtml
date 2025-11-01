@@ -1,6 +1,10 @@
 ﻿@using SIAkademik.Web.Models
 @model ImportVM<TujuanPembelajaran>
 
+@{
+    ViewData["Title"] = "Import Data Tujuan Pembelajaran (TP)";
+}
+
 <a asp-action="DownloadTemplateTP" target="_blank">Download Template</a>
 
 <form asp-action="TujuanPembelajaran" enctype="multipart/form-data">

@@ -1,9 +1,22 @@
-﻿<!DOCTYPE html>
+﻿@inject IInformasiUmumRepository InformasiUmumRepository
+
+@{
+    var informasiUmum = await InformasiUmumRepository.Get();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SMAKr Pandhega Jaya</title>
+    @if (ViewData["Title"] is null)
+    {
+        <title>@informasiUmum.NamaSekolah</title>
+    }
+    else
+    {
+        <title>@ViewData["Title"] - @informasiUmum.NamaSekolah</title>
+    }
     <link rel="stylesheet" href="~/css/profil-site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SIAkademik.Web.styles.css" asp-append-version="true" />
 

@@ -4,6 +4,7 @@
 @inject IKategoriBeritaRepository KategoriBeritaRepository
 
 @{
+    ViewData["Title"] = "Berita & Pengumuman";
     var daftarKategoriBerita = await KategoriBeritaRepository.GetAll();
 }
 

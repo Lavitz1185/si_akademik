@@ -1,6 +1,10 @@
 ﻿@using SIAkademik.Web.Models
 @model ImportVM<Rombel>
 
+@{
+    ViewData["Title"] = "Import Data Rombel";
+}
+
 <a asp-action="DownloadTemplateRombel" target="_blank">Download Template</a>
 
 <form asp-action="Rombel" enctype="multipart/form-data">
