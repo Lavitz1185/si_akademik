@@ -1,0 +1,163 @@
+﻿@using SIAkademik.Web.Areas.DashboardGuru.Models.Import
+@model AsesmenSumatifVM
+
+@inject ITahunAjaranRepository TahunAjaranRepository
+@inject IRombelRepository RombelRepository
+
+@{
+    var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
+}
+
+<!-- Breadcrumb -->
+<div class="row">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Akademik</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardGuru" asp-controller="Import" asp-action="AsesmenSumatif"></a>Import Nilai Asesmen Sumatif</li>
+        </ol>
+    </nav>
+</div>
+
+<!-- Isi Konten -->
+<div class="card card-primary">
+    <div class="card-header">
+        <h4>Import Nilai Asesmen Sumatif</h4>
+    </div>
+    <div class="padding-20">
+        <div class="d-flex justify-content-start mb-3">
+            <form method="get" class="row g-2 align-items-end">
+                <!-- Tahun Ajaran -->
+                <div class="col-12 col-md-4 mb-3">
+                    <label asp-for="@Model.IdTahunAjaran" class="form-label fw-semibold mb-1">Tahun Ajaran:</label>
+                    <select asp-for="@Model.IdTahunAjaran" class="submit-on-change form-control form-control-sm">
+                        @if (Model.TahunAjaran is null)
+                        {
+                            <option value="@null">-- Pilih Tahun Ajaran --</option>
+                        }
+
+                        @foreach (var tahunAjaran in daftarTahunAjaran)
+                        {
+                            <option value="@tahunAjaran.Id">@tahunAjaran.Periode @tahunAjaran.Semester.Humanize()</option>
+                        }
+                    </select>
+                </div>
+
+                <!-- Jadwal Mengajar -->
+                <div class="col-12 col-md-4 mb-3">
+                    <label asp-for="@Model.IdJadwalMengajar" class="form-label fw-semibold mb-1">Jadwal Mengajar:</label>
+                    <select asp-for="@Model.IdJadwalMengajar" class="submit-on-change form-control form-control-sm">
+                        @if (Model.IdJadwalMengajar is null)
+                        {
+                            <option value="@null">-- Pilih Jadwal Mengajar --</option>
+                        }
+
+                        @if (Model.TahunAjaran is not null)
+                        {
+                            @foreach (var jadwal in Model.Pegawai.DaftarJadwalMengajar.Where(j => j.Rombel.TahunAjaran == Model.TahunAjaran))
+                            {
+                                <option value="@jadwal.Id">@jadwal.MataPelajaran.Nama @jadwal.Rombel.Kelas.Jenjang.Humanize() @jadwal.Rombel.Kelas.Peminatan.Nama @jadwal.Rombel.Nama</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        @if (Model.JadwalMengajar is not null && Model.JadwalMengajar.DaftarAsesmenSumatif.Count > 0)
+        {
+            <a asp-action="DownloadFormatAsesmenSumatif" asp-route-idJadwalMengajar="@Model.JadwalMengajar.Id" target="_blank">
+                Download Format Input
+            </a>
+
+            <form asp-action="AsesmenSumatif" asp-route-idTahunAjaran="@Model.IdTahunAjaran" 
+                asp-route-idJadwalMengajar="@Model.IdJadwalMengajar" method="post" enctype="multipart/form-data">
+                <label asp-for="@Model.FormFile"></label>
+                <input asp-for="@Model.FormFile"/>
+                <span asp-validation-for="@Model.FormFile"></span>
+
+                <button type="submit">Upload</button>
+            </form>
+        }
+
+        @if (Model.JadwalMengajar is not null)
+        {
+            <hr />
+            <h4>Asesmen Sumatif</h4>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover" id="table-akun">
+                    <thead>
+                        <tr>
+                            <th>Nomor</th>
+                            <th>Deskripsi</th>
+                            <th>Batas Bawah Sangat Baik</th>
+                            <th>Batas Bawah Baik</th>
+                            <th>Batas Bawah Cukup</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var asesmensSumatif in Model.JadwalMengajar.DaftarAsesmenSumatif.OrderBy(a => a.TujuanPembelajaran.Nomor))
+                        {
+                            <tr>
+                                <td>@asesmensSumatif.TujuanPembelajaran.Nomor</td>
+                                <td>@asesmensSumatif.TujuanPembelajaran.Deskripsi</td>
+                                <td>@asesmensSumatif.BatasBawahSangatBaik</td>
+                                <td>@asesmensSumatif.BatasBawahBaik</td>
+                                <td>@asesmensSumatif.BatasBawahCukup</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+        @if(Model.FileName is not null && Model.JadwalMengajar is not null)
+        {
+            var rombel = (await RombelRepository.Get(Model.JadwalMengajar.Rombel.Id))!;
+
+            <hr />
+            <h4>Nilai yang diimport</h4>
+            <b>Nama File : @Model.FileName</b>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover" id="table-akun">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Nomor</th>
+                            <th rowspan="2">Nama</th>
+                            <th rowspan="2">NIS</th>
+                            <th rowspan="2">NISN</th>
+                        <th colspan="@Model.NewData.Count">Nilai Sumatif</th>
+                        </tr>
+                        <tr>
+                            @foreach (var asesmenSumatif in Model.NewData)
+                            {
+                                <th>Sum@(asesmenSumatif.TujuanPembelajaran.Nomor) : @asesmenSumatif.TujuanPembelajaran.Nomor</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(int i = 0; i < rombel.DaftarAnggotaRombel.Count; i++)
+                        {
+                            var anggotaRombel = rombel.DaftarAnggotaRombel[i];
+                            <tr>
+                                <td>@(i + 1)</td>
+                                <td>@anggotaRombel.Siswa.Nama</td>
+                                <td>@anggotaRombel.Siswa.NIS</td>
+                                <td>@anggotaRombel.Siswa.NISN</td>
+                                
+                                @foreach (var asesmenSumatif in Model.NewData)
+                                {
+                                    <td>@asesmenSumatif.RataNilai(anggotaRombel)</td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

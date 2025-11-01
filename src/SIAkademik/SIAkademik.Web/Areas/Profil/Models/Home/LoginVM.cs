@@ -17,6 +17,5 @@ public class LoginVM
     [Required(ErrorMessage = "{0} harus diisi")]
     public bool RememberMe { get; set; }
 
-    [Required(ErrorMessage = "{0} harus ada")]
-    public required string ReturnUrl { get; set; }
+    public string? ReturnUrl { get; set; }
 }

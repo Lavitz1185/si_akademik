@@ -1,7 +1,7 @@
 ﻿using SIAkademik.Domain.ModulSiakad.Entities;
 using System.ComponentModel.DataAnnotations;
 
-namespace SIAkademik.Web.Areas.DashboardAdmin.Models.ImportModels;
+namespace SIAkademik.Web.Models;
 
 public class ImportVM<T>
 {

@@ -12,7 +12,7 @@ using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Domain.ValueObjects;
 using SIAkademik.Infrastructure.Services.FileServices;
-using SIAkademik.Web.Areas.DashboardAdmin.Models.ImportModels;
+using SIAkademik.Web.Models;
 using SIAkademik.Web.Services.Toastr;
 using System.Text.RegularExpressions;
 

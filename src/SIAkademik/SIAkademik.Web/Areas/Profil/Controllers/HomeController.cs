@@ -66,13 +66,7 @@ public class HomeController : Controller
         return View(await _informasiUmumRepository.Get());
     }
 
-    public IActionResult Login(string? returnUrl = null)
-    {
-        return View(new LoginVM
-        {
-            ReturnUrl = returnUrl ?? Url.Action(nameof(Index))!
-        });
-    }
+    public IActionResult Login(string? returnUrl = null) => View(new LoginVM { ReturnUrl = returnUrl });
 
     [HttpPost]
     public async Task<IActionResult> Login(LoginVM vm)
@@ -86,12 +80,15 @@ public class HomeController : Controller
             return View(vm);
         }
 
-        if(result.Value == AppUserRoles.Admin)
-            return RedirectToAction("Index", "Home", new { Area = AreaNames.DashboardAdmin});
-        else if (result.Value == AppUserRoles.Guru)
-            return RedirectToAction("Index", "Home", new { Area = AreaNames.DashboardGuru});
-        else
-            return RedirectToAction("Index", "Home", new { Area = AreaNames.DashboardSiswa});
+        if (vm.ReturnUrl is null)
+            if (result.Value == AppUserRoles.Admin)
+                return RedirectToAction("Index", "Home", new { Area = AreaNames.DashboardAdmin });
+            else if (result.Value == AppUserRoles.Guru)
+                return RedirectToAction("Index", "Home", new { Area = AreaNames.DashboardGuru });
+            else
+                return RedirectToAction("Index", "Home", new { Area = AreaNames.DashboardSiswa });
+
+        return Redirect(vm.ReturnUrl);
     }
 
     public IActionResult AccessDenied()
