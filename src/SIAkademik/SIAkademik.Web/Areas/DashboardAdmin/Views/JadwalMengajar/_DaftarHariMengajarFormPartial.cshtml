@@ -28,6 +28,8 @@
             <span asp-validation-for="@Model.DaftarTambahEntryVM[@i].JamAkhir" class="text-danger"></span>
         </div>
 
-        <button type="button" onclick="hapusHariEntry(@i)">Hapus</button>
+        <div class="m-3">
+            <button type="button" class="btn btn-danger" onclick="hapusHariEntry(@i)">Hapus</button>
+        </div>
     </div>
 }

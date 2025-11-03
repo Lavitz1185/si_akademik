@@ -4,6 +4,7 @@
 @inject IPeminatanRepository PeminatanRepository
 
 @{
+    ViewData["Title"] = "Edit Kelas";
     var daftarPeminatan = await PeminatanRepository.GetAll();
 }
 

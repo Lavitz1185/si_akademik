@@ -7,6 +7,7 @@
 @inject IPegawaiRepository PegawaiRepository
 
 @{
+    ViewData["Title"] = "Edit Jadwal Mengajar";
     var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
     var daftarRombel = await RombelRepository.GetAllByTahunAjaran(Model.IdTahunAjaran);
     var daftarMataPelajaran = await MataPelajaranRepository.GetAll();

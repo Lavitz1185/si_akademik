@@ -5,6 +5,7 @@
 @inject IPegawaiRepository PegawaiRepository
 
 @{
+    ViewData["Title"] = "Tambah Rombel";
     var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
     var daftarKelas = await KelasRepository.GetAll();
     var daftarPegawai = await PegawaiRepository.GetAll();

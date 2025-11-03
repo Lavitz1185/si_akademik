@@ -4,6 +4,7 @@
 @inject ITahunAjaranRepository TahunAjaranRepository
 
 @{
+    ViewData["Title"] = "Jadwal Mengajar";
     var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
 }
 
@@ -40,7 +41,7 @@
                     <div class="d-flex align-items-center mr-2" style="gap: 8px;">
                         <label asp-for="@Model.IdTahunAjaran" class="mb-0" style="font-weight: 600;">Tahun Ajaran:</label>
                         <select asp-for="@Model.IdTahunAjaran" class="submit-on-change form-control form-control-sm w-auto" style="min-width:150px;">
-                            @if(Model.IdTahunAjaran is null)
+                            @if (Model.IdTahunAjaran is null)
                             {
                                 <option value="@null">-- Pilih --</option>
                             }
@@ -110,17 +111,28 @@
                                                         @hari.JamAkhir.ToString(CultureInfos.CI.DateTimeFormat.ShortTimePattern, CultureInfos.CI)
                                                     </td>
                                                     <td class="text-center">
-                                                        <a asp-action="EditHari"
-                                                           asp-route-id="@jadwalMengajar.Id"
-                                                           asp-route-idHariMengajar="@hari.Id"
-                                                           class="btn btn-sm border-0 bg-transparent"
+                                                        <button type="button" class="btn btn-edit btn-sm border-0 bg-transparent"
                                                            style="box-shadow: none; color: inherit;"
                                                            onmouseover="this.style.color='inherit'"
                                                            onmouseout="this.style.color='inherit'"
                                                            data-toggle="tooltip"
                                                            title="Edit Jadwal">
                                                             <i class="fas fa-pencil-alt"></i>
-                                                        </a>
+                                                        </button>
+                                                        <div class="form-edit" style="display:none">
+                                                            @{
+                                                                var modelEditHariMengajar = new EditHariVM
+                                                                {
+                                                                    IdJadwalMengajar = jadwalMengajar.Id,
+                                                                    IdHariMengajar = hari.Id,
+                                                                    Hari = hari.Hari,
+                                                                    JamMulai = hari.JamMulai,
+                                                                    JamAkhir = hari.JamAkhir
+                                                                };
+
+                                                                <partial name="_EditHariPartial" model="@modelEditHariMengajar" />
+                                                            }
+                                                        </div>
                                                         <form asp-action="HapusHari"
                                                               asp-route-id="@jadwalMengajar.Id"
                                                               asp-route-idHariMengajar="@hari.Id"
@@ -138,11 +150,15 @@
                                         </tbody>
                                     </table>
 
-                                    <a asp-action="TambahHari"
-                                       asp-route-id="@jadwalMengajar.Id"
-                                       class="btn btn-primary btn-sm" data-toggle="tooltip" title="Tambah Jadwal">
+                                    <button type="button" class="btn btn-primary btn-sm btn-tambah" data-toggle="tooltip" title="Tambah Jadwal">
                                         <i class="fas fa-plus"></i> Tambah
-                                    </a>
+                                    </button>
+                                    <div style="display:none;" class="form-tambah">
+                                        @{
+                                            var modelTambahHari = new TambahHariVM { IdJadwalMengajar = jadwalMengajar.Id };
+                                        }
+                                        <partial name="_TambahHariPartial" model="@modelTambahHari" />
+                                    </div>
                                 </div>
                             </td>
                             <td>
@@ -160,11 +176,5 @@
 </div>
 
 @section Scripts {
-    <script type="text/javascript">
-        $(function() {
-            $('.submit-on-change').on('change', function() {
-                $(this).closest('form').trigger('submit');
-            });
-        });
-    </script>
+    <partial name="_ValidationScriptsPartial" />
 }

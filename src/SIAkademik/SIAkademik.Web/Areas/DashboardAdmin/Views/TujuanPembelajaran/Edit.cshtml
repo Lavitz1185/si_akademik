@@ -3,6 +3,7 @@
 @inject IMataPelajaranRepository MataPelajaranRepository
 
 @{
+    ViewData["Title"] = "Edit Tujuan Pembelajaran (TP)";
     var daftarMataPelajaran = await MataPelajaranRepository.GetAll();
 }
 

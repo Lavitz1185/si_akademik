@@ -5,6 +5,7 @@
 @inject IPeminatanRepository PeminatanRepository
 
 @{
+    ViewData["Title"] = "Tambah Kelas";
     var daftarPeminatan = await PeminatanRepository.GetAll();
 }
 

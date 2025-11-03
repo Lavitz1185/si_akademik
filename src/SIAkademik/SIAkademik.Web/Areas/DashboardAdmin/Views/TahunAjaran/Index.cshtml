@@ -1,5 +1,9 @@
 ﻿@model List<TahunAjaran>
 
+@{
+    ViewData["Title"] = "Tahun Ajaran";
+}
+
 <!-- Breadcrumb -->
 <div class="row">
     <nav aria-label="breadcrumb">
@@ -52,10 +56,6 @@
                             <td>@tahunAjaran.TanggalSelesai.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td>
                             <td>@tahunAjaran.DaftarRombel.Count</td>
                             <td>
-
-                                <a asp-action="Index" asp-controller="Kelas" asp-route-idTahunAjaran="@tahunAjaran.Id" class="btn btn-warning" data-toggle="tooltip" title="Lihat Daftar Kelas">
-                                    <i class="fas fa-eye"></i>
-                                </a>
                                 <a asp-action="Edit" asp-route-id="@tahunAjaran.Id" class="btn btn-primary btn-action" data-toggle="tooltip" title="Edit Tahun Ajaran">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>

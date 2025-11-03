@@ -5,6 +5,7 @@
 @inject IJabatanRepository JabatanRepository
 
 @{
+    ViewData["Title"] = "Pegawai";
     var daftarJabatan = await JabatanRepository.GetAll();
     var daftarDivisi = await DivisiRepository.GetAll();
 }

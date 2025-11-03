@@ -4,6 +4,7 @@
 @inject IMataPelajaranRepository MataPelajaranRepository
 
 @{
+    ViewData["Title"] = "Tujuan Pembelajaran (TP)";
     var daftarMataPelajaran = await MataPelajaranRepository.GetAll();
 }
 

@@ -205,7 +205,27 @@
                                     <td rowspan="@rowspan">@anggotaRombel.RataNilai(Model.JadwalMengajar)</td>
                                 </tr>
 
-                                @foreach(var asesmenSumatif in Model.JadwalMengajar.DaftarAsesmenSumatif.OrderBy(a => a.TujuanPembelajaran.Nomor))
+                                @if (Model.JadwalMengajar.DaftarAsesmenSumatif.Count == 0)
+                                {
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td colspan="3" style="padding: 0 !important">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                }
+
+                                @foreach (var asesmenSumatif in Model.JadwalMengajar.DaftarAsesmenSumatif.OrderBy(a => a.TujuanPembelajaran.Nomor))
                                 {
                                     <tr>
                                         <td>@asesmenSumatif.TujuanPembelajaran.Deskripsi</td>
@@ -226,22 +246,6 @@
                                             </table>
                                         </td>
                                     </tr>
-
-                                    @* var rowspan2 = asesmenSumatif.DaftarEvaluasiSiswa.Count + 1;
-                                    <tr>
-                                        <td rowspan="@rowspan2">@asesmenSumatif.TujuanPembelajaran.Deskripsi</td>
-                                        <td rowspan="@rowspan2">@asesmenSumatif.RataNilai(anggotaRombel)</td>
-                                        <td rowspan="@rowspan2">@asesmenSumatif.Predikat(anggotaRombel)</td>
-                                    </tr>
-
-                                    @foreach (var evaluasi in asesmenSumatif.DaftarEvaluasiSiswa)
-                                    {
-                                        <tr>
-                                            <td>@evaluasi.Jenis.Humanize()</td>
-                                            <td>@evaluasi.Deskripsi</td>
-                                            <td>@evaluasi.DaftarNilaiEvaluasiSiswa.FirstOrDefault(n => n.AnggotaRombel == anggotaRombel)?.Nilai</td>
-                                        </tr>
-                                    } *@
                                 }
                             }
                         </tbody>

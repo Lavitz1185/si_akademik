@@ -7,6 +7,7 @@
 @inject IPegawaiRepository PegawaiRepository
 
 @{
+    ViewData["Title"] = "Tambah Jadwal Mengajar";
     var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
     var daftarRombel = await RombelRepository.GetAllByTahunAjaran(Model.IdTahunAjaran);
     var daftarMataPelajaran = await MataPelajaranRepository.GetAll();
@@ -101,7 +102,7 @@
                         
                         <div class="col-12">
                             <span asp-validation-for="@Model.DaftarTambahEntryVM"></span>
-                            <button type="button" id="tambahHari">Tambah</button>
+                            <button type="button" class="btn btn-primary" id="tambahHari">Tambah</button>
                             <div id="daftarHariMangajarContainer">
                                 <partial name="_DaftarHariMengajarFormPartial" model="@Model"/>
                             </div>

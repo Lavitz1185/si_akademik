@@ -5,6 +5,7 @@
 @inject IKelasRepository KelasRepository
 
 @{
+    ViewData["Title"] = "Rombel";
     var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
     var daftarKelas = await KelasRepository.GetAll();
 }
