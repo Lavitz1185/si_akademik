@@ -81,10 +81,7 @@ public class RaportController : Controller
             IdTahunAjaran = tahunAjaran.Id,
             IdRombel = rombel.Id,
             TahunAjaran = tahunAjaran,
-            Rombel = rombel,
-            DaftarEntryVM = rombel.DaftarAnggotaRombel
-                .Select(a => new IndexEntryVM { IdAnggotaRombel = a.Id, Selected = a.NaikKelasLulus, Aktif = a.Aktif, AnggotaRombel = a })
-                .ToList()
+            Rombel = rombel
         });
     }
 
@@ -154,53 +151,6 @@ public class RaportController : Controller
         return RedirectToAction(nameof(Index), new { idTahunAjaran, idRombel });
     }
 
-    [HttpPost]
-    public async Task<IActionResult> ProsesNaikKelasLulus(IndexVM vm)
-    {
-        var pegawai = await _signInManager.GetPegawai();
-        if (pegawai is null) return Forbid();
-
-        if (vm.IdTahunAjaran is null)
-        {
-            _toastrNotificationService.AddError("Tahun Ajaran tidak ditemukan!");
-            return RedirectToAction(nameof(Index));
-        }
-
-        var tahunAjaran = await _tahunAjaranRepository.Get(vm.IdTahunAjaran.Value);
-        if (tahunAjaran is null)
-        {
-            _toastrNotificationService.AddError("Tahun Ajaran tidak ditemukan!");
-            return RedirectToAction(nameof(Index));
-        }
-
-        if (vm.IdRombel is null)
-        {
-            _toastrNotificationService.AddError("Rombel tidak ditemukan!");
-            return RedirectToAction(nameof(Index), new { vm.IdTahunAjaran });
-        }
-
-        var rombel = await _rombelRepository.Get(vm.IdRombel.Value);
-        if (rombel is null || rombel.TahunAjaran != tahunAjaran || rombel.Wali != pegawai)
-        {
-            _toastrNotificationService.AddError("Rombel tidak ditemukan!");
-            return RedirectToAction(nameof(Index), new { vm.IdTahunAjaran });
-        }
-
-        foreach (var entry in vm.DaftarEntryVM.Where(a => a.Aktif))
-        {
-            var anggotaRombel = rombel.DaftarAnggotaRombel.First(a => a.Id == entry.IdAnggotaRombel);
-            anggotaRombel.NaikKelasLulus = entry.Selected;
-        }
-
-        var result = await _unitOfWork.SaveChangesAsync();
-        if (result.IsSuccess)
-            _toastrNotificationService.AddSuccess("Simpan Berhasil");
-        else
-            _toastrNotificationService.AddError("Simpan Gagal");
-
-        return RedirectToAction(nameof(Index), new { vm.IdTahunAjaran, vm.IdRombel });
-    }
-
     public async Task<IActionResult> EditCatatanWaliKelasPartial(int idTahunAjaran, int idRombel, int idAnggotaRombel)
     {
         var pegawai = await _signInManager.GetPegawai();
@@ -232,9 +182,7 @@ public class RaportController : Controller
             IdAnggotaRombel = anggotaRombel.Id,
             IdTahunAjaran = idTahunAjaran,
             IdRombel = idRombel,
-            NaikKelasLulus = anggotaRombel.NaikKelasLulus,
             CatatanWaliKelas = anggotaRombel.CatatanWaliKelas,
-            Lulus = rombel.Kelas.Jenjang == Jenjang.XII,
         });
     }
 
@@ -266,7 +214,6 @@ public class RaportController : Controller
         }
 
         anggotaRombel.CatatanWaliKelas = vm.CatatanWaliKelas;
-        anggotaRombel.NaikKelasLulus = vm.NaikKelasLulus;
 
         var result = await _unitOfWork.SaveChangesAsync();
         if (result.IsSuccess)
@@ -460,40 +407,6 @@ public class RaportController : Controller
         return RedirectToAction(nameof(NilaiEkstrakulikuler), new { vm.IdTahunAjaran, vm.IdRombel });
     }
 
-    [Route("[Area]/Cetak")]
-    public async Task<IActionResult> Cetak(int? idTahunAjaran = null, int? idRombel = null)
-    {
-        var pegawai = await _signInManager.GetPegawai();
-        if (pegawai is null) return Forbid();
-
-        var tahunAjaran = idTahunAjaran is null ?
-            await _tahunAjaranRepository.GetNewest() :
-            await _tahunAjaranRepository.Get(idTahunAjaran.Value);
-
-        if (tahunAjaran is null) return View(new CetakVM { Pegawai = pegawai });
-
-        if (idRombel is null) return View(new CetakVM { Pegawai = pegawai, IdTahunAjaran = tahunAjaran.Id, TahunAjaran = tahunAjaran });
-
-        var rombel = await _rombelRepository.Get(idRombel.Value);
-        if (rombel is null) return View(new CetakVM { Pegawai = pegawai, IdTahunAjaran = tahunAjaran.Id, TahunAjaran = tahunAjaran });
-
-        if (rombel.Wali != pegawai)
-        {
-            _toastrNotificationService.AddError("Anda bukan wali kelas untuk kelas ini!");
-            return View(new CetakVM { Pegawai = pegawai, IdTahunAjaran = tahunAjaran.Id, TahunAjaran = tahunAjaran });
-        }
-
-        return View(new CetakVM
-        {
-            Pegawai = pegawai,
-            IdTahunAjaran = tahunAjaran.Id,
-            IdRombel = rombel.Id,
-            TahunAjaran = tahunAjaran,
-            Rombel = rombel
-        });
-    }
-
-    [Route("[Area]/Cetak/Detail")]
     public async Task<IActionResult> DetailCetak(int idSiswa, int idRombel)
     {
         var pegawai = await _signInManager.GetPegawai();

@@ -19,12 +19,4 @@ public class EditCatatanWaliKelasVM
     [Display(Name = "Catatan Wali Kelas")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public required string CatatanWaliKelas { get; set; }
-
-    [Display(Name = "Lulus")]
-    [Required(ErrorMessage = "{0} harus diisi")]
-    public required bool Lulus { get; set; }
-
-    [Display(Name = "Naik Kelas/Lulus")]
-    [Required(ErrorMessage = "{0} harus diisi")]
-    public required bool NaikKelasLulus { get; set; }
 }

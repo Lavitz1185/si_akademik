@@ -2,7 +2,7 @@
 @model EditCatatanWaliKelasVM
 
 <form asp-action="EditCatatanWaliKelas" asp-controller="Raport" asp-route-idTahunAjaran="@Model.IdTahunAjaran"
-      asp-route-idRombel="@Model.IdRombel" asp-route-idAnggotaRombel="@Model.IdAnggotaRombel" asp-route-lulus="@Model.Lulus" method="post">
+      asp-route-idRombel="@Model.IdRombel" asp-route-idAnggotaRombel="@Model.IdAnggotaRombel" method="post">
     <div class="modal-header">
         <h5 class="modal-title" id="modalTambahTitle">Edit</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -17,11 +17,6 @@
             <label asp-for="@Model.CatatanWaliKelas"></label>
             <input asp-for="@Model.CatatanWaliKelas" class="form-control" />
             <span asp-validation-for="@Model.CatatanWaliKelas" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.NaikKelasLulus"></label>
-            <input asp-for="@Model.NaikKelasLulus" class="form form-control-sm" />
-            <span asp-validation-for="@Model.NaikKelasLulus" class="text-danger"></span>
         </div>
     </div>
 
