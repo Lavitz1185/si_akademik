@@ -1,9 +1,24 @@
-﻿<!DOCTYPE html>
+﻿@inject IInformasiUmumRepository InformasiUmumRepository
+
+@{
+    var informasiUmum = await InformasiUmumRepository.Get();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - SIAkademik.Web</title>
+
+    @if (ViewData["Title"] is null)
+    {
+        <title>Dashboard Siswa | Siakad @informasiUmum.NamaSekolah</title>
+    }
+    else
+    {
+        <title>@ViewData["Title"] - Dashboard Siswa | Siakad @informasiUmum.NamaSekolah</title>
+    }
+
     <link rel="stylesheet" href="~/css/app.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/components.css" asp-append-version="true" />

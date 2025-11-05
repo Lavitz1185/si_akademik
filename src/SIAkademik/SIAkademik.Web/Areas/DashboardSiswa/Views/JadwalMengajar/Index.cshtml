@@ -4,6 +4,7 @@
 @inject ITahunAjaranRepository TahunAjaranRepository
 
 @{
+    ViewData["Title"] = "Jadwal Kelas";
     var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
 }
 

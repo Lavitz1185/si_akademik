@@ -4,6 +4,7 @@
 @inject ITahunAjaranRepository TahunAjaranRepository
 
 @{
+    ViewData["Title"] = "Rapor";
     var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
     var daftarPengetahun = Model.DaftarRaport.Where(r => r.KategoriNilai == KategoriNilaiRaport.Pengetahuan);
     var daftarEkstrakulikuler = Model.DaftarRaport.Where(r => r.KategoriNilai == KategoriNilaiRaport.Ekstrakulikuler);

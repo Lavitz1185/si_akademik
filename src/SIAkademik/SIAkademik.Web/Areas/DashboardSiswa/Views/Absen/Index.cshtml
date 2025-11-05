@@ -4,6 +4,7 @@
 @inject ITahunAjaranRepository TahunAjaranRepository
 
 @{
+    ViewData["Title"] = "Presensi";
     var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
 }
 
