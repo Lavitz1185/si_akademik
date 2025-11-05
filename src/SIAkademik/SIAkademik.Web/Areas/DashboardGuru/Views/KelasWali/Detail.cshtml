@@ -103,7 +103,7 @@
                                                 <td>
                                                     @foreach (var hari in jadwal.DaftarHariMengajar.OrderBy(h => h.Hari).ThenBy(h => h.JamMulai))
                                                     {
-                                                        <p>@hari.Hari.Humanize() (@hari.JamMulai.ToString("HH:mm") - @hari.JamAkhir.ToString("HH:mm"))</p>
+                                                        <p>@hari.Hari.Humanize() (@hari.JamMulai.ToString("HH:mm") - @hari.JamSelesai.ToString("HH:mm"))</p>
                                                     }
                                                 </td>
                                                 <td>

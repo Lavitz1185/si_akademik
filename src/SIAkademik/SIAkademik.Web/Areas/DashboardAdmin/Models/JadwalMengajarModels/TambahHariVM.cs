@@ -16,8 +16,4 @@ public class TambahHariVM
     [Display(Name = "Jam Mulai")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public TimeOnly JamMulai { get; set; }
-
-    [Display(Name = "Jam Akhir")]
-    [Required(ErrorMessage = "{0} harus diisi")]
-    public TimeOnly JamAkhir { get; set; }
 }

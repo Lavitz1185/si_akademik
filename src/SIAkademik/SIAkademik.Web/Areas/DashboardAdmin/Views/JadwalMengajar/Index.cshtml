@@ -73,6 +73,7 @@
                 <thead>
                     <tr>
                         <th style="min-width: 30px;">Id</th>
+                        <th style="min-width: 50px;">Durasi</th>
                         <th style="min-width: 40px;">Mata Pelajaran</th>
                         <th style="min-width: 80px;">Rombel</th>
                         <th style="min-width: 80px;">Guru</th>
@@ -85,6 +86,7 @@
                     {
                         <tr>
                             <td>@jadwalMengajar.Id</td>
+                            <td>@jadwalMengajar.DurasiMenit Menit</td>
                             <td>@jadwalMengajar.MataPelajaran.Nama</td>
                             <td>@jadwalMengajar.Rombel.Kelas.Jenjang.Humanize() @jadwalMengajar.Rombel.Kelas.Peminatan.Nama @jadwalMengajar.Rombel.Nama</td>
                             <td>@jadwalMengajar.Pegawai.Nama</td>
@@ -108,7 +110,7 @@
                                                     <td>
                                                         @hari.JamMulai.ToString(CultureInfos.CI.DateTimeFormat.ShortTimePattern, CultureInfos.CI)
                                                         -
-                                                        @hari.JamAkhir.ToString(CultureInfos.CI.DateTimeFormat.ShortTimePattern, CultureInfos.CI)
+                                                        @hari.JamSelesai.ToString(CultureInfos.CI.DateTimeFormat.ShortTimePattern, CultureInfos.CI)
                                                     </td>
                                                     <td class="text-center">
                                                         <button type="button" class="btn btn-edit btn-sm border-0 bg-transparent"
@@ -126,8 +128,7 @@
                                                                     IdJadwalMengajar = jadwalMengajar.Id,
                                                                     IdHariMengajar = hari.Id,
                                                                     Hari = hari.Hari,
-                                                                    JamMulai = hari.JamMulai,
-                                                                    JamAkhir = hari.JamAkhir
+                                                                    JamMulai = hari.JamMulai
                                                                 };
 
                                                                 <partial name="_EditHariPartial" model="@modelEditHariMengajar" />

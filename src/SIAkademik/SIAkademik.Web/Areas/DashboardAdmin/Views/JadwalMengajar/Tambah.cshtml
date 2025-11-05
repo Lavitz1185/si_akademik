@@ -53,6 +53,12 @@
                         </div>
 
                         <div class="form-group">
+                            <label asp-for="@Model.DurasiMenit"></label>
+                            <input asp-for="@Model.DurasiMenit" type="number" class="form-control" />
+                            <span asp-validation-for="@Model.DurasiMenit"></span>
+                        </div>
+
+                        <div class="form-group">
                             <label asp-for="@Model.IdRombel"></label>
                             <select asp-for="@Model.IdRombel" class="form-control">
                                 <option value="@null">-- Pilih Rombel --</option>

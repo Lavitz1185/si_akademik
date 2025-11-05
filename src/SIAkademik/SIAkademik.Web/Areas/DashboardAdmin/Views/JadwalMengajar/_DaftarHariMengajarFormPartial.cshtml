@@ -22,12 +22,6 @@
             <span asp-validation-for="@Model.DaftarTambahEntryVM[@i].JamMulai" class="text-danger"></span>
         </div>
 
-        <div class="form-group">
-            <label asp-for="@Model.DaftarTambahEntryVM[@i].JamAkhir"></label>
-            <input asp-for="@Model.DaftarTambahEntryVM[@i].JamAkhir" type="time" class="form-control" />
-            <span asp-validation-for="@Model.DaftarTambahEntryVM[@i].JamAkhir" class="text-danger"></span>
-        </div>
-
         <div class="m-3">
             <button type="button" class="btn btn-danger" onclick="hapusHariEntry(@i)">Hapus</button>
         </div>

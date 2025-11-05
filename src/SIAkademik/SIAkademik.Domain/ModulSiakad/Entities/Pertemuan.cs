@@ -9,6 +9,8 @@ public class Pertemuan : Entity<int>
     public required DateTime TanggalPelaksanaan { get; set; }
     public required StatusPertemuan StatusPertemuan { get; set; }
 
+    public TimeOnly JamSelesai => TimeOnly.FromDateTime(TanggalPelaksanaan).AddMinutes(JadwalMengajar.DurasiMenit);
+
     public List<Absen> DaftarAbsen { get; set; } = [];
     public JadwalMengajar JadwalMengajar { get; set; }
 }

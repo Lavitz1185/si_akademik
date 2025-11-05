@@ -8,6 +8,11 @@ public class EditVM
     [Required(ErrorMessage = "{0} harus diisi")]
     public required int Id { get; set; }
 
+    [Display(Name = "Durasi (Menit)")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    [Range(0, int.MaxValue, MaximumIsExclusive = false, ErrorMessage = "{0} minimail {1} menit")]
+    public required int DurasiMenit { get; set; }
+
     [Display(Name = "Mata Pelajaran")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public required int IdMataPelajaran { get; set; }

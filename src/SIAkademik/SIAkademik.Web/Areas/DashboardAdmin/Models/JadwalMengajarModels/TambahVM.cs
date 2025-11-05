@@ -17,6 +17,11 @@ public class TambahVM
     [Required(ErrorMessage = "{0} harus diisi")]
     public string NIPPegawai { get; set; } = string.Empty;
 
+    [Display(Name = "Durasi (Menit)")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    [Range(0, int.MaxValue, MaximumIsExclusive = false, ErrorMessage = "{0} minimail {1} menit")]
+    public int DurasiMenit { get; set; }
+
     [Display(Name = "Jumlah Pertemuan")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public int JumlahPertemuan { get; set; }
@@ -39,8 +44,4 @@ public class TambahEntryVM
     [Display(Name = "Jam Mulai")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public TimeOnly JamMulai { get; set; }
-
-    [Display(Name = "Jam Akhir")]
-    [Required(ErrorMessage = "{0} harus diisi")]
-    public TimeOnly JamAkhir { get; set; }
 }

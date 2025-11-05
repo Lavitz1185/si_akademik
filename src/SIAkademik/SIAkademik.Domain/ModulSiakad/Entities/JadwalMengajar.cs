@@ -8,6 +8,8 @@ namespace SIAkademik.Domain.ModulSiakad.Entities;
 
 public class JadwalMengajar : Entity<int>
 {
+    public required int DurasiMenit { get; set; }
+
     public Pegawai Pegawai { get; set; }
     public MataPelajaran MataPelajaran { get; set; }
     public Rombel Rombel { get; set; }

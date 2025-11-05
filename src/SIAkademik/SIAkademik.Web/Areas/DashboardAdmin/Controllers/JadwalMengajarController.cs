@@ -1,4 +1,5 @@
-﻿using Humanizer;
+﻿using AngleSharp.Common;
+using Humanizer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SIAkademik.Domain.Abstracts;
@@ -123,6 +124,7 @@ public class JadwalMengajarController : Controller
 
         var jadwalMengajar = new JadwalMengajar
         {
+            DurasiMenit = vm.DurasiMenit,
             MataPelajaran = mataPelajaran,
             Pegawai = pegawai,
             Rombel = rombel
@@ -133,19 +135,11 @@ public class JadwalMengajarController : Controller
         for(int i = 0; i < vm.DaftarTambahEntryVM.Count; i++)
         {
             var entry = vm.DaftarTambahEntryVM[i];
-            if (entry.JamMulai >= entry.JamAkhir)
-            {
-                ModelState.AddModelError($"{nameof(TambahVM.DaftarTambahEntryVM)}[{i}].{nameof(TambahEntryVM.JamMulai)}",
-                    "Jam Mulai tidak boleh sama atau lebih dari Jam Akhir");
-
-                return View(vm);
-            }
 
             var hariMengajar = new HariMengajar
             {
                 Hari = entry.Hari,
                 JamMulai = entry.JamMulai,
-                JamAkhir = entry.JamAkhir,
                 JadwalMengajar = jadwalMengajar,
             };
 
@@ -174,6 +168,7 @@ public class JadwalMengajarController : Controller
         return View(new EditVM
         {
             Id = jadwalMengajar.Id,
+            DurasiMenit = jadwalMengajar.DurasiMenit,
             IdMataPelajaran = jadwalMengajar.MataPelajaran.Id,
             IdRombel = jadwalMengajar.Rombel.Id,
             NIPPegawai = jadwalMengajar.Pegawai.Id,
@@ -218,6 +213,7 @@ public class JadwalMengajarController : Controller
             return View(vm);
         }
 
+        jadwalMengajar.DurasiMenit = vm.DurasiMenit;
         jadwalMengajar.MataPelajaran = mataPelajaran;
         jadwalMengajar.Rombel = rombel;
         jadwalMengajar.Pegawai = pegawai;
@@ -268,21 +264,10 @@ public class JadwalMengajarController : Controller
             });
         }
 
-        if (vm.JamMulai >= vm.JamAkhir)
-        {
-            _toastrNotificationService.AddError("Jam mulai harus lebih kecil dari jam selesai", "Tambah Hari Mengajar");
-            return RedirectToAction(nameof(Index), new
-            {
-                idTahunAjaran = jadwalMengajar.Rombel.TahunAjaran.Id,
-                idRombel = jadwalMengajar.Rombel.Id
-            });
-        }
-
         var hariMengajar = new HariMengajar
         {
             Hari = vm.Hari,
             JamMulai = vm.JamMulai,
-            JamAkhir = vm.JamAkhir,
             JadwalMengajar = jadwalMengajar
         };
 
@@ -327,7 +312,6 @@ public class JadwalMengajarController : Controller
 
         hariMengajar.Hari = vm.Hari;
         hariMengajar.JamMulai = vm.JamMulai;
-        hariMengajar.JamAkhir = vm.JamAkhir;
 
         _hariMengajarRepository.Update(hariMengajar);
         var result = await _unitOfWork.SaveChangesAsync();
