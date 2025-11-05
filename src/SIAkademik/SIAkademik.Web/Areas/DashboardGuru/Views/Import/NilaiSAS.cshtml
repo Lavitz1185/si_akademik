@@ -4,6 +4,7 @@
 @inject ITahunAjaranRepository TahunAjaranRepository
 
 @{
+    ViewData["Title"] = "Import Nilai SAS";
     var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
 }
 

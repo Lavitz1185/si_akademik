@@ -5,6 +5,7 @@
 @inject ITujuanPembelajaranRepository TujuanPembelajaranRepository
 
 @{
+    ViewData["Title"] = "Detail Jadwal Mengajar";
     var daftarTujuanPembelajaran = await TujuanPembelajaranRepository.GetAll(Model.MataPelajaran.Id, Model.Rombel.Kelas.Jenjang);
 }
 
@@ -143,7 +144,22 @@
                                                     @if (pertemuan.StatusPertemuan != StatusPertemuan.BelumMulai)
                                                     {
                                                         <a asp-action="Absen" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id" class="btn btn-success" data-toggle="tooltip" title="Absen Pertemuan"><i class="fas fa-clipboard-check mr-2"></i>Absen</a>
-                                                        <a asp-action="Edit" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id" class="btn btn-primary" data-toggle="tooltip" title="Edit Pertemuan"><i class="fas fa-pencil-alt mr-2"></i>Edit</a>
+                                                        <button class="btn-edit btn btn-primary" data-toggle="tooltip" title="Edit Pertemuan" type="button">
+                                                            <i class="fas fa-pencil-alt mr-2"></i>Edit
+                                                        </button>
+                                                        <div class="form-edit" style="display:none">
+                                                            @{
+                                                                var modelEdit = new EditVM
+                                                                {
+                                                                    IdPertemuan = pertemuan.Id,
+                                                                    Nomor = pertemuan.Nomor,
+                                                                    Keterangan = pertemuan.Keterangan!,
+                                                                    TanggalPelaksanaan = pertemuan.TanggalPelaksanaan
+                                                                };
+
+                                                                <partial name="/Areas/DashboardGuru/Views/Pertemuan/_FormEditPartial.cshtml" model="@modelEdit" />
+                                                            }
+                                                        </div>
                                                     }
 
                                                     <form asp-action="Hapus" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id" style="display:inline">

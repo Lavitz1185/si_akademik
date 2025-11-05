@@ -180,37 +180,17 @@ public class PertemuanController : Controller
         return RedirectToAction(nameof(JadwalMengajarController.Detail), "JadwalMengajar", new { id = jadwalMengajar.Id });
     }
 
-    public async Task<IActionResult> Edit(int id)
-    {
-        var pertemuan = await _pertemuanRepository.Get(id);
-        if (pertemuan is null) return NotFound();
-
-        if (pertemuan.StatusPertemuan == StatusPertemuan.BelumMulai)
-        {
-            _toastrNotificationService.AddError("Mulai pertemuan sebelum mengeditnya!");
-            return RedirectToAction(nameof(JadwalMengajarController.Detail), "JadwalMengajar", new { id = pertemuan.JadwalMengajar.Id });
-        }
-
-        return View(new EditVM
-        {
-            Id = id,
-            Keterangan = pertemuan.Keterangan!,
-            Nomor = pertemuan.Nomor,
-            TanggalPelaksanaan = pertemuan.TanggalPelaksanaan
-        });
-    }
-
     [HttpPost]
     public async Task<IActionResult> Edit(EditVM vm)
     {
-        var pertemuan = await _pertemuanRepository.Get(vm.Id);
+        var pertemuan = await _pertemuanRepository.Get(vm.IdPertemuan);
         if (pertemuan is null) return NotFound();
 
         var jadwalMengajar = await _jadwalMengajarRepository.Get(pertemuan.JadwalMengajar.Id);
         if (jadwalMengajar!.DaftarPertemuan.Any(p => p.Id != pertemuan.Id && p.Nomor == vm.Nomor))
         {
-            ModelState.AddModelError(nameof(EditVM.Nomor), $"Nomor '{vm.Nomor}' sudah digunakan!");
-            return View(vm);
+            _toastrNotificationService.AddError($"Nomor '{vm.Nomor}' sudah digunakan!", "Edit Pertemuan");
+            return RedirectToAction(nameof(JadwalMengajarController.Detail), "JadwalMengajar", new { id = jadwalMengajar.Id });
         }
 
         pertemuan.Nomor = vm.Nomor;
@@ -220,8 +200,8 @@ public class PertemuanController : Controller
         var result = await _unitOfWork.SaveChangesAsync();
         if (result.IsFailure)
         {
-            ModelState.AddModelError(string.Empty, "Simpan Gagal!");
-            return View(vm);
+            _toastrNotificationService.AddError("Simpan Gagal!", "Edit Pertemuan");
+            return RedirectToAction(nameof(JadwalMengajarController.Detail), "JadwalMengajar", new { id = jadwalMengajar.Id });
         }
 
         _toastrNotificationService.AddSuccess("Edit pertemuan sukses!");

@@ -4,6 +4,7 @@
 @inject ISignInManager SignInManager
 
 @{
+    ViewData["Title"] = "Edit Profil";
     var pegawai = (await SignInManager.GetPegawai())!;
 }
 

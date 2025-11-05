@@ -6,6 +6,7 @@
 @inject IRombelRepository RombelRepository
 
 @{
+    ViewData["Title"] = "Cetak Raport";
     var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
 }
 

@@ -5,6 +5,7 @@
 @inject IRombelRepository RombelRepository
 
 @{
+    ViewData["Title"] = "Import Nilai Asesmen Sumatif";
     var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
 }
 
@@ -82,7 +83,7 @@
         @if (Model.JadwalMengajar is not null)
         {
             <hr />
-            <h4>Asesmen Sumatif</h4>
+            <h4>Target Capaian TP (Tujuan Pembelajaran)</h4>
             <div class="table-responsive">
                 <table class="table table-striped table-hover" id="table-akun">
                     <thead>

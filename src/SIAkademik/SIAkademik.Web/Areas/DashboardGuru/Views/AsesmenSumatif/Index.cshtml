@@ -4,6 +4,7 @@
 @inject ITahunAjaranRepository TahunAjaranRepository
 
 @{
+    ViewData["Title"] = "Asesmen Sumatif";
     var daftarTahunAjaran = await TahunAjaranRepository.GetAll();
 }
 

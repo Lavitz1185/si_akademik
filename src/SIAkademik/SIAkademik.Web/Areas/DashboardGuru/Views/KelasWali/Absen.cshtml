@@ -4,6 +4,7 @@
 @inject IJadwalMengajarRepository JadwalMengajarRepository
 
 @{
+    ViewData["Title"] = "Presensi Kelas Wali";
     var daftarJadwalMengajar = await JadwalMengajarRepository.GetAllByTahunAjaranAndRombel(Model.Rombel.TahunAjaran.Id, Model.Rombel.Id);
 }
 

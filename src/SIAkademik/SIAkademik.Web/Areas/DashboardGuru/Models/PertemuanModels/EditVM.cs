@@ -6,7 +6,7 @@ public class EditVM
 {
     [Display(Name = "Id")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public required int Id { get; set; }
+    public required int IdPertemuan { get; set; }
 
     [Display(Name = "Nomor")]
     [Required(ErrorMessage = "{0} harus diisi")]
