@@ -5,67 +5,100 @@
     ViewData["Title"] = "Import Data Pegawai";
 }
 
-<a href="/file/importTemplate/Template Import Data Pegawai.xlsx" target="_blank">Download Template</a>
+<!-- Breadcrumb -->
+<div class="row">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Manajemen SDM</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Import" asp-action="Pegawai"></a>Import Data Pegawai</li>
+        </ol>
+    </nav>
+</div>
 
-<form asp-action="Pegawai" enctype="multipart/form-data">
-    <label asp-for="@Model.FormFile"></label>
-    <input asp-for="@Model.FormFile" />
-    <span asp-validation-for="@Model.FormFile"></span>
+<!-- Isi Konten -->
+<div class="card card-primary">
+    <div class="card-header">
+        <h4>Import Data Pegawai</h4>
+    </div>
+    <div class="p-4">
+        <div class="d-flex justify-content-start mb-3">
+            <a class="btn btn-icon icon-left btn-success"
+               href="/file/importTemplate/Template Import Data Pegawai.xlsx"
+               target="_blank">
+                Download Template
+            </a>
+        </div>
 
-    <button type="submit">Upload</button>
-</form>
+        <div>
+            <form asp-action="Pegawai" enctype="multipart/form-data" class="text-center w-100">
+                <!-- Kotak dashed -->
+                <label for="fileInput"
+                       class="border border-2 border-secondary-subtle rounded-3 bg-white d-flex flex-column align-items-center justify-content-center w-100"
+                       style="height: 200px; border-style: dashed !important; cursor: pointer;">
+                    <i class="fas fa-file-excel text-success mb-2" style="font-size: 2.5rem;"></i>
+                    <p class="text-muted file-name">Pilih file excel (.xlsx)</p>
+                </label>
 
-@if (Model.FileName is not null)
-{
-    <p>File Yang Diupload : @Model.FileName</p>
-    <h2>Data Baru</h2>
-    <table>
-        <thead>
-            <tr>
-                <th style="min-width: 100px">NIP</th>
-                <th style="min-width: 180px">Nama Lengkap</th>
-                <th style="min-width: 150px">Jenis Kelamin</th>
-                <th style="min-width: 150px">Agama</th>
-                <th style="min-width: 150px">TTL</th>
-                <th style="min-width: 120px">Status Perkawinan</th>
-                <th style="min-width: 250px">Alamat (KTP)</th>
-                <th>No. HP</th>
-                <th style="min-width: 100px">Gol. Darah</th>
-                <th style="min-width: 130px">Tanggal Masuk</th>
-                <th>NIK</th>
-                <th style="min-width: 150px">Nama Instagram</th>
-                <th style="min-width: 150px">Email</th>
-                <th>No. Rekening</th>
-                <th>Divisi</th>
-                <th>Jabatan</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(var guru in Model.NewData)
+                <!-- Input file tersembunyi -->
+                <input asp-for="@Model.FormFile" id="fileInput" class="import-file-input d-none" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                <span asp-validation-for="@Model.FormFile" class="text-danger d-block mt-2"></span>
+
+                <!-- Tombol upload di luar kotak -->
+                <button type="submit" class="btn btn-primary mt-4">Upload</button>
+            </form>
+        </div>
+
+        <div>
+            @if (Model.FileName is not null)
             {
-                <tr>
-                    <td>@guru.Id</td>
-                    <td>@guru.Nama</td>
-                    <td>@guru.JenisKelamin.Humanize()</td>
-                    <td>@guru.Agama.Humanize(LetterCasing.Title)</td>
-                    <td>@guru.TTL</td>
-                    <td>@guru.StatusPerkawinan.Humanize()</td>
-                    <td>@guru.AlamatKTP</td>
-                    <td>@guru.NoHP.Value</td>
-                    <td>@guru.GolonganDarah.Humanize()</td>
-                    <td>@guru.TanggalMasuk.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td>
-                    <td>@guru.NIK</td>
-                    <td>@guru.NamaInstagram</td>
-                    <td>@guru.Email</td>
-                    <td>@guru.NoRekening</td>
-                    <td>@guru.Divisi.Nama</td>
-                    <td>@guru.Jabatan.Nama</td>
-                </tr>
+                <p>File Yang Diupload : @Model.FileName</p>
+                <h2>Data Baru</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="min-width: 100px">NIP</th>
+                            <th style="min-width: 180px">Nama Lengkap</th>
+                            <th style="min-width: 150px">Jenis Kelamin</th>
+                            <th style="min-width: 150px">Agama</th>
+                            <th style="min-width: 150px">TTL</th>
+                            <th style="min-width: 120px">Status Perkawinan</th>
+                            <th style="min-width: 250px">Alamat (KTP)</th>
+                            <th>No. HP</th>
+                            <th style="min-width: 100px">Gol. Darah</th>
+                            <th style="min-width: 130px">Tanggal Masuk</th>
+                            <th>NIK</th>
+                            <th style="min-width: 150px">Nama Instagram</th>
+                            <th style="min-width: 150px">Email</th>
+                            <th>No. Rekening</th>
+                            <th>Divisi</th>
+                            <th>Jabatan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var guru in Model.NewData)
+                        {
+                            <tr>
+                                <td>@guru.Id</td>
+                                <td>@guru.Nama</td>
+                                <td>@guru.JenisKelamin.Humanize()</td>
+                                <td>@guru.Agama.Humanize(LetterCasing.Title)</td>
+                                <td>@guru.TTL</td>
+                                <td>@guru.StatusPerkawinan.Humanize()</td>
+                                <td>@guru.AlamatKTP</td>
+                                <td>@guru.NoHP.Value</td>
+                                <td>@guru.GolonganDarah.Humanize()</td>
+                                <td>@guru.TanggalMasuk.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td>
+                                <td>@guru.NIK</td>
+                                <td>@guru.NamaInstagram</td>
+                                <td>@guru.Email</td>
+                                <td>@guru.NoRekening</td>
+                                <td>@guru.Divisi.Nama</td>
+                                <td>@guru.Jabatan.Nama</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             }
-        </tbody>
-    </table>
-}
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+        </div>
+    </div>
+</div>
