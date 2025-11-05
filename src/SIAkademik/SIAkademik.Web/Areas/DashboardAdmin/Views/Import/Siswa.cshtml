@@ -36,12 +36,12 @@
                 <label for="fileInput"
                        class="border border-2 border-secondary-subtle rounded-3 bg-white d-flex flex-column align-items-center justify-content-center w-100"
                        style="height: 200px; border-style: dashed !important; cursor: pointer;">
-                    <i class="fas fa-file-excel text-success mb-2" style="font-size: 2.5rem;"></i>                   
-                    <p class="text-muted">Pilih file excel (.xlsx)</p>
+                    <i class="fas fa-file-excel text-success mb-2" style="font-size: 2.5rem;"></i>
+                    <p class="text-muted file-name">Pilih file excel (.xlsx)</p>
                 </label>
 
                 <!-- Input file tersembunyi -->
-                <input asp-for="@Model.FormFile" id="fileInput" type="file" class="d-none">
+                <input asp-for="@Model.FormFile" id="fileInput" class="import-file-input d-none" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
                 <span asp-validation-for="@Model.FormFile" class="text-danger d-block mt-2"></span>
 
                 <!-- Tombol upload di luar kotak -->
@@ -92,4 +92,8 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script type="text/javascript">
+        
+    </script>
 }

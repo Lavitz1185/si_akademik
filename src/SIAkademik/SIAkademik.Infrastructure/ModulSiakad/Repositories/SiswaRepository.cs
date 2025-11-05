@@ -103,9 +103,9 @@ internal class SiswaRepository : ISiswaRepository
 
     public async Task<bool> IsExistByNISN(string nisn, int? id = null) => await _appDbContext
         .TblSiswa
-        .AnyAsync(s => s.NISN == nisn && s.Id == id);
+        .AnyAsync(s => s.Id != id && s.NISN == nisn);
 
     public async Task<bool> IsExistByNIS(string nis, int? id = null) => await _appDbContext
         .TblSiswa
-        .AnyAsync(s => s.NIS == nis && s.Id == id);
+        .AnyAsync(s => s.Id != id && s.NIS == nis);
 }
