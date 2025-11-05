@@ -6,8 +6,8 @@ namespace SIAkademik.Domain.ModulSiakad.Entities;
 
 public class AnggotaRombel : Entity<int>
 {
-    public required int IdSiswa { get; set; }
-    public required int IdRombel { get; set; }
+    public int IdSiswa { get; set; }
+    public int IdRombel { get; set; }
     public string CatatanWaliKelas { get; set; } = string.Empty;
     public bool NaikKelasLulus { get; set; } = false;
     public required DateOnly TanggalMasuk { get; set; }

@@ -20,4 +20,6 @@ public class TambahVM
     [Display(Name = "Tanggal Selesai")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public DateOnly TanggalSelesai { get; set; }
+
+    public string? ReturnUrl { get; set; }
 }

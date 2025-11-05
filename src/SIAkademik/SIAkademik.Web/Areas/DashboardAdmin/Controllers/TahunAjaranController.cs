@@ -39,7 +39,13 @@ public class TahunAjaranController : Controller
         return View(daftarTahunAjaran);
     }
 
-    public IActionResult Tambah() => View(new TambahVM());
+    public IActionResult Tambah(int? tahun = null, Semester? semester = null, string? returnUrl = null) => 
+        View(new TambahVM
+        {
+            Tahun = tahun ?? default,
+            Semester = semester ?? default,
+            ReturnUrl = returnUrl
+        });
 
     [HttpPost]
     public async Task<IActionResult> Tambah(TambahVM vm)
@@ -65,7 +71,7 @@ public class TahunAjaranController : Controller
 
         _toastrNotificationService.AddSuccess("Tahun Ajaran Baru Berhasil Ditambahkan");
 
-        return RedirectToAction(nameof(Index));
+        return Redirect(vm.ReturnUrl ?? Url.Action(nameof(Index))!);
     }
 
     public async Task<IActionResult> Edit(int id)
