@@ -5,15 +5,113 @@
     ViewData["Title"] = "Import Data Siswa";
 }
 
-<a href="/file/importTemplate/Template Import Data Siswa.xlsx" target="_blank">Download Template</a>
+<!-- Breadcrumb -->
+<div class="row">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Manajemen Peserta Didik</a></li>
+            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Divisi" asp-action="Index"></a>Import Data Siswa</li>
+        </ol>
+    </nav>
+</div>
 
+<!-- Isi Konten -->
+<div class="card card-primary">
+    <div class="card-header">
+        <h4>Import Data Siswa</h4>
+    </div>
+    <div class="p-4">
+        <div class="d-flex justify-content-start mb-3">
+            <a class="btn btn-icon icon-left btn-success"
+               href="/file/importTemplate/Template Import Data Siswa.xlsx"
+               target="_blank">
+                Download Template
+            </a>
+        </div>
+
+        <div>
+            <form asp-action="Siswa" enctype="multipart/form-data" class="text-center w-100">
+
+                <!-- Kotak dashed -->
+                <label for="fileInput"
+                       class="border border-2 border-secondary-subtle rounded-3 bg-white d-flex flex-column align-items-center justify-content-center w-100"
+                       style="height: 200px; border-style: dashed !important; cursor: pointer;">
+                    <i class="fas fa-file-excel text-success mb-2" style="font-size: 2.5rem;"></i>                   
+                    <p class="text-muted">Pilih file excel (.xlsx)</p>
+                </label>
+
+                <!-- Input file tersembunyi -->
+                <input asp-for="@Model.FormFile" id="fileInput" type="file" class="d-none">
+                <span asp-validation-for="@Model.FormFile" class="text-danger d-block mt-2"></span>
+
+                <!-- Tombol upload di luar kotak -->
+                <button type="submit" class="btn btn-primary mt-4">Upload</button>
+            </form>
+        </div>
+
+        <div>
+            @if (Model.FileName is not null)
+            {
+                <p>File Yang Diupload : @Model.FileName</p>
+                <h2>Data Baru</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>NISN</th>
+                            <th>NIS</th>
+                            <th>Nama</th>
+                            <th>Agama</th>
+                            <th>Jenis Kelamin</th>
+                            <th>TTL</th>
+                            <th>Tanggal Masuk</th>
+                            <th>Status Aktif</th>
+                            <th>Jenjang</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var siswa in Model.NewData)
+                        {
+                            <tr>
+                                <td>@siswa.NISN</td>
+                                <td>@siswa.NIS</td>
+                                <td>@siswa.Nama</td>
+                                <td>@siswa.Agama.Humanize()</td>
+                                <td>@siswa.JenisKelamin.Humanize()</td>
+                                <td>@siswa.TTL</td>
+                                <td>@siswa.TanggalMasuk.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td>
+                                <td>@siswa.StatusAktif.Humanize()</td>
+                                <td>@siswa.Jenjang.Humanize()</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* 
 <form asp-action="Siswa" enctype="multipart/form-data">
     <label asp-for="@Model.FormFile"></label>
     <input asp-for="@Model.FormFile" />
     <span asp-validation-for="@Model.FormFile"></span>
 
     <button type="submit">Upload</button>
-</form>
+</form> *@
 
 @if (Model.FileName is not null)
 {
