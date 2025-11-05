@@ -11,4 +11,6 @@ public class MulaiVM
     [Display(Name = "Keterangan")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public string Keterangan { get; set; } = string.Empty;
+
+    public string? ReturnUrl { get; set; }
 }

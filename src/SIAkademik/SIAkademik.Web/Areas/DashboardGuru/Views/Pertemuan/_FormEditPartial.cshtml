@@ -14,19 +14,19 @@
         <div class="form-group">
             <label asp-for="@Model.Nomor"></label>
             <input asp-for="@Model.Nomor" class="form-control" />
-            <span asp-validation-for="@Model.Nomor"></span>
+            <span asp-validation-for="@Model.Nomor" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="@Model.TanggalPelaksanaan"></label>
             <input asp-for="@Model.TanggalPelaksanaan" type="date" class="form-control" />
-            <span asp-validation-for="@Model.TanggalPelaksanaan"></span>
+            <span asp-validation-for="@Model.TanggalPelaksanaan" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="@Model.Keterangan"></label>
             <textarea asp-for="@Model.Keterangan" class="form-control"></textarea>
-            <span asp-validation-for="@Model.Keterangan"></span>
+            <span asp-validation-for="@Model.Keterangan" class="text-danger"></span>
         </div>
     </div>
 

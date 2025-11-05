@@ -46,6 +46,11 @@ public class PertemuanController : Controller
         var pertemuan = await _pertemuanRepository.Get(vm.Id);
         if (pertemuan is null) return NotFound();
 
+        var returnUrl = vm.ReturnUrl ?? Url.Action(
+            nameof(JadwalMengajarController.Detail),
+            "JadwalMengajar",
+            new { id = pertemuan.JadwalMengajar.Id });
+
         pertemuan.Keterangan = vm.Keterangan;
         pertemuan.StatusPertemuan = StatusPertemuan.Berjalan;
 
@@ -66,23 +71,25 @@ public class PertemuanController : Controller
         var result = await _unitOfWork.SaveChangesAsync();
         if (result.IsFailure)
         {
-            ModelState.AddModelError(string.Empty, "Simpan Gagal!");
-            return View(vm);
+            _toastrNotificationService.AddError("Simpan Gagal!", "Mulai Pertemuan");
+            return Redirect(returnUrl!);
         }
 
-        _toastrNotificationService.AddSuccess("Simpan berhasil!");
+        _toastrNotificationService.AddSuccess("Simpan berhasil!", "Mulai Pertemuan");
 
-        return RedirectToAction(
-            nameof(JadwalMengajarController.Detail),
-            "JadwalMengajar",
-            new { id = pertemuan.JadwalMengajar.Id });
+        return Redirect(returnUrl!);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Akhiri(int id)
+    public async Task<IActionResult> Akhiri(int id, string? returnUrl = null)
     {
         var pertemuan = await _pertemuanRepository.Get(id);
         if (pertemuan is null) return NotFound();
+
+        returnUrl ??= Url.Action(
+            nameof(JadwalMengajarController.Detail),
+            "JadwalMengajar",
+            new { Area = AreaNames.DashboardGuru, id = pertemuan.JadwalMengajar.Id });
 
         pertemuan.StatusPertemuan = StatusPertemuan.Selesai;
 
@@ -90,10 +97,7 @@ public class PertemuanController : Controller
         if (result.IsFailure) _toastrNotificationService.AddError("Simpan Gagal!");
         else _toastrNotificationService.AddSuccess("Simpan Berhasil!");
 
-        return RedirectToAction(
-            nameof(JadwalMengajarController.Detail),
-            "JadwalMengajar",
-            new { Area = AreaNames.DashboardGuru, id = pertemuan.JadwalMengajar.Id });
+        return Redirect(returnUrl!);
     }
 
     public async Task<IActionResult> Absen(int id)

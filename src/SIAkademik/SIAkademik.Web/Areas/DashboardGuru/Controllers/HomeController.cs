@@ -30,6 +30,7 @@ public class HomeController : Controller
     private readonly IToastrNotificationService _toastrNotificationService;
     private readonly IPasswordHasher<AppUser> _passwordHasher;
     private readonly IFileService _fileService;
+    private readonly IPertemuanRepository _pertemuanRepository;
 
     public HomeController(
         ISignInManager signInManager,
@@ -42,7 +43,8 @@ public class HomeController : Controller
         IRombelRepository rombelRepository,
         ITahunAjaranRepository tahunAjaranRepository,
         IPasswordHasher<AppUser> passwordHasher,
-        IFileService fileService)
+        IFileService fileService,
+        IPertemuanRepository pertemuanRepository)
     {
         _signInManager = signInManager;
         _pegawaiRepository = pegawaiRepository;
@@ -55,6 +57,7 @@ public class HomeController : Controller
         _tahunAjaranRepository = tahunAjaranRepository;
         _passwordHasher = passwordHasher;
         _fileService = fileService;
+        _pertemuanRepository = pertemuanRepository;
     }
 
     public async Task<IActionResult> Index(DateOnly? tanggal = null)
@@ -74,6 +77,12 @@ public class HomeController : Controller
             .Where(h => HariExtension.FromHari(h.Hari) == hari)
             .ToList();
 
+        var pertemuanHariIni = guru.DaftarJadwalMengajar
+            .Where(j => j.Rombel.TahunAjaran == tahunAjaran)
+            .SelectMany(j => j.DaftarPertemuan)
+            .Where(p => DateOnly.FromDateTime(p.TanggalPelaksanaan) == tanggal)
+            .ToList();
+
         var rombelWali = guru.DaftarRombelWali
             .Where(j => j.TahunAjaran == tahunAjaran)
             .ToList();
@@ -83,6 +92,7 @@ public class HomeController : Controller
             Pegawai = guru,
             TahunAjaran = tahunAjaran,
             JadwalHariIni = jadwalHariIni,
+            PertemuanHariIni = pertemuanHariIni,
             RombelWali = rombelWali,
             Tanggal = tanggal.Value
         });

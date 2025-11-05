@@ -9,6 +9,7 @@ public class IndexVM
 
     public TahunAjaran? TahunAjaran { get; set; }
 
+    public List<Pertemuan> PertemuanHariIni { get; set; } = [];
     public List<HariMengajar> JadwalHariIni { get; set; } = [];
     public List<Rombel> RombelWali { get; set; } = [];
 }

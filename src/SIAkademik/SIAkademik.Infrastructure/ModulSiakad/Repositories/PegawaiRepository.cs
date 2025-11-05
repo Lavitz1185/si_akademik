@@ -25,6 +25,7 @@ internal class PegawaiRepository : IPegawaiRepository
         .Include(p => p.DaftarRombelWali).ThenInclude(r => r.DaftarAnggotaRombel)
         .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
         .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.DaftarHariMengajar)
+        .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.DaftarPertemuan)
         .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(k => k.TahunAjaran)
         .Include(p => p.DaftarJadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .Include(p => p.Account)
