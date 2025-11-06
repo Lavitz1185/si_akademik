@@ -40,9 +40,9 @@
             padding: 30px 0px;
         }
 
-            #experts .expert-box .profile img {
-                width: 200px;
-                height: 200px;
+            #experts .expert-box .profile ::deep img {
+                width: 160px;
+                height: 160px;
                 object-fit: cover;
             }
 
