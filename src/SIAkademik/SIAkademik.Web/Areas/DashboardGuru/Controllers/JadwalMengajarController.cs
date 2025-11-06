@@ -8,6 +8,7 @@ using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Web.Areas.DashboardGuru.Models.JadwalMengajarModels;
 using SIAkademik.Web.Authentication;
+using SIAkademik.Web.Models;
 using SIAkademik.Web.Services.Toastr;
 
 namespace SIAkademik.Web.Areas.DashboardGuru.Controllers;
@@ -49,10 +50,9 @@ public class JadwalMengajarController : Controller
     {
         var pegawai = await _signInManager.GetPegawai();
         if (pegawai is null) return Forbid();
-        pegawai = (await _pegawaiRepository.Get(pegawai.Id))!;
 
         var tahunAjaran = idTahunAjaran is null ?
-            await _tahunAjaranRepository.GetNewest() :
+            await _tahunAjaranRepository.Get(CultureInfos.DateOnlyNow) :
             await _tahunAjaranRepository.Get(idTahunAjaran.Value);
 
         if (tahunAjaran is null) return View(new IndexVM());
@@ -66,9 +66,12 @@ public class JadwalMengajarController : Controller
 
     public async Task<IActionResult> Detail(int id)
     {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
         var jadwalMengajar = await _jadwalMengajarRepository.Get(id);
 
-        if (jadwalMengajar is null) return NotFound();
+        if (jadwalMengajar is null || jadwalMengajar.Pegawai != pegawai) return NotFound();
 
         if (jadwalMengajar.DaftarAsesmenSumatif.Count == 0)
             _toastrNotificationService.AddWarning("Belum ada target capaian TP. Silahkan pilih minimal 1 TP");
