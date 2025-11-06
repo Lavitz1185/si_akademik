@@ -91,7 +91,7 @@
                                                         ReturnUrl = Url.Action("Index", new { tanggal = Model.Tanggal.ToString("yyyy-MM-dd") })
                                                     };
 
-                                                    <button asp-action="Mulai" asp-controller="Pertemuan" type="button" class="btn btn-success btn-tambah">
+                                                    <button asp-action="Mulai" asp-controller="Pertemuan" type="button" class="btn btn-tambah btn-outline-success btn-sm w-100 mb-1 text-end">
                                                         <i class="fas fa-play mr-2"></i>Mulai
                                                     </button>
                                                     <div style="display:none" class="form-tambah">
@@ -101,14 +101,14 @@
 
                                                 @if (pertemuan.StatusPertemuan == StatusPertemuan.Berjalan)
                                                 {
-                                                    <form asp-action="Akhiri" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id" asp-route-returnUrl="@Url.Action("Index", new { tanggal = Model.Tanggal.ToString("yyyy-MM-dd") })" style="display:inline">
-                                                        <button type="submit" class="btn btn-danger"><i class="fas fa-stop mr-2" data-toggle="tooltip" title="Akhiri Pertemuan"></i>Akhiri</button>
+                                                    <form asp-action="Akhiri" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id" asp-route-returnUrl="@Url.Action("Index", new { tanggal = Model.Tanggal.ToString("yyyy-MM-dd") })" style="display:inline" class="w-100">
+                                                        <button type="submit" class="btn btn-outline-danger btn-sm w-100 mb-1 text-end"><i class="fas fa-stop mr-2" data-toggle="tooltip" title="Akhiri Pertemuan"></i>Akhiri</button>
                                                     </form>
                                                 }
 
                                                 @if (pertemuan.StatusPertemuan != StatusPertemuan.BelumMulai)
                                                 {
-                                                    <a asp-action="Absen" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id" class="btn btn-success" data-toggle="tooltip" title="Absen Pertemuan"><i class="fas fa-clipboard-check mr-2"></i>Absen</a>
+                                                    <a asp-action="Absen" asp-controller="Pertemuan" asp-route-id="@pertemuan.Id" class="btn btn-outline-success btn-sm w-100 mb-1 text-end" data-toggle="tooltip" title="Absen Pertemuan"><i class="fas fa-clipboard-check mr-2"></i>Absen</a>
                                                 }
                                             }
                                         </div>
