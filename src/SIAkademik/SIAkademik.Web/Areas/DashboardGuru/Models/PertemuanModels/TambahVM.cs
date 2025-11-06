@@ -15,5 +15,9 @@ public class TambahVM
 
     [Display(Name = "Tanggal Pelaksanaan")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public DateTime TanggalPelaksanaan { get; set; }
+    public DateOnly TanggalPelaksanaan { get; set; }
+
+    [Display(Name = "Waktu Pelaksanaan")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public TimeOnly WaktuPelaksanaan { get; set; }
 }

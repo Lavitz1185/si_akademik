@@ -6,6 +6,7 @@ using SIAkademik.Domain.Enums;
 using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Web.Areas.DashboardGuru.Models.PertemuanModels;
+using SIAkademik.Web.Authentication;
 using SIAkademik.Web.Models;
 using SIAkademik.Web.Services.Toastr;
 
@@ -21,6 +22,7 @@ public class PertemuanController : Controller
     private readonly IAbsenRepository _absenRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IToastrNotificationService _toastrNotificationService;
+    private readonly ISignInManager _signInManager;
 
     public PertemuanController(
         IPertemuanRepository pertemuanRepository,
@@ -28,7 +30,8 @@ public class PertemuanController : Controller
         IJadwalMengajarRepository jadwalMengajarRepository,
         IAbsenRepository absenRepository,
         IUnitOfWork unitOfWork,
-        IToastrNotificationService toastrNotificationService)
+        IToastrNotificationService toastrNotificationService,
+        ISignInManager signInManager)
     {
         _pertemuanRepository = pertemuanRepository;
         _rombelRepository = rombelRepository;
@@ -36,6 +39,7 @@ public class PertemuanController : Controller
         _absenRepository = absenRepository;
         _unitOfWork = unitOfWork;
         _toastrNotificationService = toastrNotificationService;
+        _signInManager = signInManager;
     }
 
     [HttpPost]
@@ -140,34 +144,32 @@ public class PertemuanController : Controller
         return RedirectToAction(nameof(JadwalMengajarController.Detail), "JadwalMengajar", new { id = pertemuan.JadwalMengajar.Id });
     }
 
-    public async Task<IActionResult> Tambah(int idJadwalMengajar)
-    {
-        var jadwalMengajar = await _jadwalMengajarRepository.Get(idJadwalMengajar);
-        if (jadwalMengajar is null) return NotFound();
-
-        return View(new TambahVM { IdJadwalMengajar = jadwalMengajar.Id });
-    }
-
     [HttpPost]
     public async Task<IActionResult> Tambah(TambahVM vm)
     {
-        if (!ModelState.IsValid) 
-            return RedirectToAction(nameof(JadwalMengajarController.Detail), "JadwalMengajar", new { id = vm.IdJadwalMengajar });
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
 
         var jadwalMengajar = await _jadwalMengajarRepository.Get(vm.IdJadwalMengajar);
-        if (jadwalMengajar is null) return NotFound();
+        if (jadwalMengajar is null || jadwalMengajar.Pegawai != pegawai) return NotFound();
+
+        if (!ModelState.IsValid)
+        {
+            _toastrNotificationService.AddError("Data tidak valid", "Tambah Pertemuan");
+            return RedirectToAction(nameof(JadwalMengajarController.Detail), "JadwalMengajar", new { id = vm.IdJadwalMengajar });
+        }
 
         if (jadwalMengajar.DaftarPertemuan.Any(p => p.Nomor == vm.Nomor))
         {
-            ModelState.AddModelError(nameof(TambahVM.Nomor), $"Nomor '{vm.Nomor}' sudah digunakan pertemuan lain");
-            return View(vm);
+            _toastrNotificationService.AddError($"Nomor '{vm.Nomor}' sudah digunakan pertemuan lain", "Tambah Pertemuan");
+            return RedirectToAction(nameof(JadwalMengajarController.Detail), "JadwalMengajar", new { id = vm.IdJadwalMengajar });
         }
 
         var pertemuan = new Pertemuan
         {
             Nomor = vm.Nomor,
             JadwalMengajar = jadwalMengajar,
-            TanggalPelaksanaan = vm.TanggalPelaksanaan,
+            TanggalPelaksanaan = new DateTime(vm.TanggalPelaksanaan, vm.WaktuPelaksanaan),
             StatusPertemuan = StatusPertemuan.BelumMulai
         };
 
@@ -175,11 +177,11 @@ public class PertemuanController : Controller
         var result = await _unitOfWork.SaveChangesAsync();
         if (result.IsFailure)
         {
-            ModelState.AddModelError(string.Empty, "Simpan Gagal!");
+            _toastrNotificationService.AddError("Simpan Gagal!", "Tambah Pertemuan");
             return View(vm);
         }
 
-        _toastrNotificationService.AddSuccess("Tambah pertemuan sukses!");
+        _toastrNotificationService.AddSuccess("Tambah pertemuan sukses!", "Tambah Pertemuan");
 
         return RedirectToAction(nameof(JadwalMengajarController.Detail), "JadwalMengajar", new { id = jadwalMengajar.Id });
     }
@@ -187,10 +189,20 @@ public class PertemuanController : Controller
     [HttpPost]
     public async Task<IActionResult> Edit(EditVM vm)
     {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
         var pertemuan = await _pertemuanRepository.Get(vm.IdPertemuan);
         if (pertemuan is null) return NotFound();
 
         var jadwalMengajar = await _jadwalMengajarRepository.Get(pertemuan.JadwalMengajar.Id);
+
+        if (!ModelState.IsValid)
+        {
+            _toastrNotificationService.AddError("Data tidak valid", "Edit Pertemuan");
+            return RedirectToAction(nameof(JadwalMengajarController.Detail), "JadwalMengajar", new { id = jadwalMengajar!.Id });
+        }
+
         if (jadwalMengajar!.DaftarPertemuan.Any(p => p.Id != pertemuan.Id && p.Nomor == vm.Nomor))
         {
             _toastrNotificationService.AddError($"Nomor '{vm.Nomor}' sudah digunakan!", "Edit Pertemuan");
@@ -198,7 +210,7 @@ public class PertemuanController : Controller
         }
 
         pertemuan.Nomor = vm.Nomor;
-        pertemuan.TanggalPelaksanaan = vm.TanggalPelaksanaan;
+        pertemuan.TanggalPelaksanaan = new DateTime(vm.TanggalPelaksanaan, vm.WaktuPelaksanaan);
         pertemuan.Keterangan = vm.Keterangan;
 
         var result = await _unitOfWork.SaveChangesAsync();
@@ -234,10 +246,19 @@ public class PertemuanController : Controller
     [HttpGet]
     public async Task<IActionResult> TambahPartial(int idJadwalMengajar)
     {
-        var jadwalMengajar = await _jadwalMengajarRepository.Get(idJadwalMengajar);
-        if (jadwalMengajar is null) return NotFound();
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
 
-        var vm = new TambahVM { IdJadwalMengajar = jadwalMengajar.Id };
+        var jadwalMengajar = await _jadwalMengajarRepository.Get(idJadwalMengajar);
+        if (jadwalMengajar is null || jadwalMengajar.Pegawai != pegawai) return NotFound();
+
+        var vm = new TambahVM
+        {
+            IdJadwalMengajar = jadwalMengajar.Id,
+            TanggalPelaksanaan = CultureInfos.DateOnlyNow,
+            WaktuPelaksanaan = CultureInfos.TimeOnlyNow
+        };
+
         return PartialView("~/Areas/DashboardGuru/Views/Pertemuan/_FormTambah.cshtml", vm);
     }
 }

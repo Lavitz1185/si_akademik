@@ -14,7 +14,11 @@ public class EditVM
 
     [Display(Name = "Tanggal Pelaksanaan")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public required DateTime TanggalPelaksanaan { get; set; }
+    public required DateOnly TanggalPelaksanaan { get; set; }
+
+    [Display(Name = "Waktu Pelaksanaan")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public required TimeOnly WaktuPelaksanaan { get; set; }
 
     [Display(Name = "Keterangan")]
     [Required(ErrorMessage = "{0} harus diisi")]

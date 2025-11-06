@@ -21,8 +21,14 @@
 
         <div class="form-group">
             <label asp-for="TanggalPelaksanaan"></label>
-            <input asp-for="TanggalPelaksanaan" class="form-control" />
+            <input asp-for="TanggalPelaksanaan" type="date" class="form-control" />
             <span asp-validation-for="TanggalPelaksanaan" class="text-danger"></span>
+        </div>        
+
+        <div class="form-group">
+            <label asp-for="WaktuPelaksanaan"></label>
+            <input asp-for="WaktuPelaksanaan" type="time" class="form-control" />
+            <span asp-validation-for="WaktuPelaksanaan" class="text-danger"></span>
         </div>        
     </div>  
 

@@ -24,6 +24,12 @@
         </div>
 
         <div class="form-group">
+            <label asp-for="@Model.WaktuPelaksanaan"></label>
+            <input asp-for="@Model.WaktuPelaksanaan" type="time" class="form-control" />
+            <span asp-validation-for="@Model.WaktuPelaksanaan" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
             <label asp-for="@Model.Keterangan"></label>
             <textarea asp-for="@Model.Keterangan" class="form-control"></textarea>
             <span asp-validation-for="@Model.Keterangan" class="text-danger"></span>
