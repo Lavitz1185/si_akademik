@@ -26,6 +26,7 @@ public class KelasWaliController : Controller
     private readonly IAbsenKelasRepository _absenKelasRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IToastrNotificationService _toastrNotificationService;
+    private readonly IAnggotaRombelRepository _anggotaRombelRepository;
 
     public KelasWaliController(
         ISignInManager signInManager,
@@ -36,7 +37,8 @@ public class KelasWaliController : Controller
         IPertemuanRepository pertemuanRepository,
         IAbsenKelasRepository absenKelasRepository,
         IUnitOfWork unitOfWork,
-        IToastrNotificationService toastrNotificationService)
+        IToastrNotificationService toastrNotificationService,
+        IAnggotaRombelRepository anggotaRombelRepository)
     {
         _signInManager = signInManager;
         _pegawaiRepository = pegawaiRepository;
@@ -47,6 +49,7 @@ public class KelasWaliController : Controller
         _absenKelasRepository = absenKelasRepository;
         _unitOfWork = unitOfWork;
         _toastrNotificationService = toastrNotificationService;
+        _anggotaRombelRepository = anggotaRombelRepository;
     }
 
     public async Task<IActionResult> Index(int? idTahunAjaran = null)
@@ -217,5 +220,172 @@ public class KelasWaliController : Controller
             _toastrNotificationService.AddError("Absen gagal dihapus", "Hapus Absen");
 
         return RedirectToAction(nameof(Absen), new { id, tanggal });
+    }
+
+    [Route("[Area]/[Action]")]
+    public async Task<IActionResult> ProsesKelulusan(int? idTahunAjaran = null, int? idRombel = null, int? idRombelTinggal = null)
+    {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        var tahunAjaran = idTahunAjaran is null ?
+            (await _tahunAjaranRepository.GetAll(Semester.Genap)).LastOrDefault() :
+            await _tahunAjaranRepository.Get(idTahunAjaran.Value);
+
+        if (tahunAjaran is null) return View(new ProsesKelulusanVM { Pegawai = pegawai });
+
+        if (tahunAjaran.Semester != Semester.Genap)
+        {
+            _toastrNotificationService.AddError("Proses Kelulusan hanya bisa dilakukan di semester genap");
+            return View(new ProsesKelulusanVM { Pegawai = pegawai });
+        }
+
+        var tahunAjaranBaru = await _tahunAjaranRepository.Get(tahunAjaran.Tahun + 1, Semester.Ganjil);
+        if (tahunAjaranBaru is null)
+        {
+            _toastrNotificationService.AddError($"Tahun Ajaran baru belum dibuat. Hubungi Admin!");
+            return View(new ProsesKelulusanVM { Pegawai = pegawai, TahunAjaran = tahunAjaran, IdTahunAjaran = tahunAjaran.Id });
+        }
+
+        var rombel = idRombel is null ?
+            (await _rombelRepository.GetAllByTahunAjaran(tahunAjaran.Id)).FirstOrDefault(r => r.Wali == pegawai) :
+            await _rombelRepository.Get(idRombel.Value);
+
+        if (rombel is null || rombel.TahunAjaran != tahunAjaran || rombel.Wali != pegawai || rombel.Kelas.Jenjang != Jenjang.XII)
+            return View(new ProsesKelulusanVM
+            {
+                Pegawai = pegawai,
+                TahunAjaran = tahunAjaran,
+                IdTahunAjaran = tahunAjaran.Id,
+                TahunAjaranBaru = tahunAjaranBaru,
+                IdTahunAjaranBaru = tahunAjaranBaru.Id
+            });
+
+        var daftarRombelTinggal = await _rombelRepository.GetAll(rombel.Kelas.Id, tahunAjaranBaru.Id);
+        var rombelTinggal = idRombelTinggal is null ?
+            daftarRombelTinggal.FirstOrDefault() :
+            daftarRombelTinggal.FirstOrDefault(r => r.Id == idRombelTinggal.Value);
+
+        if (rombelTinggal is null)
+            return View(new ProsesKelulusanVM
+            {
+                Pegawai = pegawai,
+                TahunAjaran = tahunAjaran,
+                IdTahunAjaran = tahunAjaran.Id,
+                TahunAjaranBaru = tahunAjaranBaru,
+                IdTahunAjaranBaru = tahunAjaranBaru.Id,
+                Rombel = rombel,
+                IdRombel = rombel.Id
+            });
+
+        return View(new ProsesKelulusanVM
+        {
+            Pegawai = pegawai,
+            TahunAjaran = tahunAjaran,
+            IdTahunAjaran = tahunAjaran.Id,
+            TahunAjaranBaru = tahunAjaranBaru,
+            IdTahunAjaranBaru = tahunAjaranBaru.Id,
+            Rombel = rombel,
+            IdRombel = rombel.Id,
+            RombelTinggal = rombelTinggal,
+            IdRombelTinggal = rombelTinggal.Id,
+            DaftarEntry = [
+                ..rombel.DaftarAnggotaRombel
+                    .Where(a => a.Aktif && a.Siswa.StatusAktif == StatusAktifMahasiswa.Aktif)
+                    .Select(a => new ProsesKelulusanEntryVM { AnggotaRombel = a, IdAnggotaRombel = a.Id, Selected = false })
+            ]
+        });
+    }
+
+    [Route("[Area]/[Action]")]
+    [HttpPost]
+    public async Task<IActionResult> ProsesKelulusan(ProsesKelulusanVM vm)
+    {
+        var pegawai = await _signInManager.GetPegawai();
+        if (pegawai is null) return Forbid();
+
+        if (vm.IdTahunAjaran is null ||
+            vm.IdTahunAjaranBaru is null ||
+            vm.IdRombel is null ||
+            vm.IdRombelTinggal is null)
+        {
+            _toastrNotificationService.AddError("Data tidak valid!");
+            return RedirectToAction(nameof(ProsesKelulusan));
+        }
+
+        var tahunAjaran = await _tahunAjaranRepository.Get(vm.IdTahunAjaran.Value);
+        if (tahunAjaran is null)
+        {
+            _toastrNotificationService.AddError("Tahun Ajaran tidak ditemukan");
+            return RedirectToAction(nameof(ProsesKelulusan));
+        }
+
+        if (tahunAjaran.Semester != Semester.Genap)
+        {
+            _toastrNotificationService.AddError("Proses Kelulusan hanya bisa dilakukan di semester genap");
+            return RedirectToAction(nameof(ProsesKelulusan));
+        }
+
+        var rombel = await _rombelRepository.Get(vm.IdRombel.Value);
+        if (rombel is null || rombel.TahunAjaran != tahunAjaran || rombel.Wali != pegawai || rombel.Kelas.Jenjang != Jenjang.XII)
+        {
+            _toastrNotificationService.AddError("Rombel tidak ditemukan");
+            return RedirectToAction(nameof(ProsesKelulusan), new { vm.IdTahunAjaran });
+        }
+
+        var tahunAjaranBaru = await _tahunAjaranRepository.Get(vm.IdTahunAjaranBaru.Value);
+        if (tahunAjaranBaru is null || tahunAjaranBaru.Tahun != (tahunAjaran.Tahun + 1) || tahunAjaranBaru.Semester != Semester.Ganjil)
+        {
+            _toastrNotificationService.AddError("Tahun Ajaran Baru tidak ditemukan");
+            return RedirectToAction(nameof(ProsesKelulusan), new { vm.IdTahunAjaran, vm.IdRombel });
+        }
+
+        var rombelTinggal = await _rombelRepository.Get(vm.IdRombelTinggal.Value);
+        if (rombelTinggal is null || rombelTinggal.TahunAjaran != tahunAjaranBaru || rombelTinggal.Kelas != rombel.Kelas)
+        {
+            _toastrNotificationService.AddError("Rombel Tinggal Kelas tidak ditemukan");
+            return RedirectToAction(nameof(ProsesKelulusan), new { vm.IdTahunAjaran, vm.IdRombel });
+        }
+
+        foreach(var entry in vm.DaftarEntry)
+        {
+            var anggotaRombel = rombel.DaftarAnggotaRombel.FirstOrDefault(a => a.Id == entry.IdAnggotaRombel);
+            if (anggotaRombel is null || !anggotaRombel.Aktif) continue;
+
+            anggotaRombel.Aktif = false;
+            anggotaRombel.TanggalKeluar = CultureInfos.DateOnlyNow;
+
+            if (entry.Selected)
+            {
+                anggotaRombel.Siswa.StatusAktif = StatusAktifMahasiswa.TidakAktif;
+                anggotaRombel.NaikKelasLulus = true;
+            }
+            else
+            {
+                anggotaRombel.NaikKelasLulus = false;
+
+                if (!rombelTinggal.DaftarAnggotaRombel.Any(a => a.Siswa == anggotaRombel.Siswa))
+                {
+                    var anggotaRombelTinggal = new AnggotaRombel
+                    {
+                        Rombel = rombelTinggal,
+                        Siswa = anggotaRombel.Siswa,
+                        Aktif = true,
+                        TanggalMasuk = CultureInfos.DateOnlyNow
+                    };
+                    _anggotaRombelRepository.Add(anggotaRombelTinggal);
+                }
+            }
+        }
+
+        var result = await _unitOfWork.SaveChangesAsync();
+        if (result.IsFailure)
+        {
+            _toastrNotificationService.AddError("Simpan Gagal");
+            return RedirectToAction(nameof(ProsesKelulusan), new { vm.IdTahunAjaran, vm.IdRombel, vm.IdRombelTinggal });
+        }
+
+        _toastrNotificationService.AddSuccess("Simpan Berhasil");
+        return RedirectToAction(nameof(ProsesKelulusan), new { vm.IdTahunAjaran, vm.IdRombel, vm.IdRombelTinggal });
     }
 }

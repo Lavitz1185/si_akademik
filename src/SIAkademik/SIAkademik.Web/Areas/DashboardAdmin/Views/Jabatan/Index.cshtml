@@ -34,7 +34,6 @@
             <table class="table table-striped table-hover" id="table-akun">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Nama</th>
                         <th>Jenis</th>
                         <th>Jumlah Guru/Pegawai</th>
@@ -45,7 +44,6 @@
                     @foreach (var jabatan in Model)
                     {
                         <tr>
-                            <td>@jabatan.Id</td>
                             <td>@jabatan.Nama</td>
                             <td>@jabatan.Jenis.Humanize()</td>
                             <td>@jabatan.DaftarPegawai.Count</td>

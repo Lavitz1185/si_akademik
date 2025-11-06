@@ -72,11 +72,10 @@
             <table class="table table-striped" id="table-akun">
                 <thead>
                     <tr>
-                        <th style="min-width: 30px;">Id</th>
-                        <th style="min-width: 50px;">Durasi</th>
-                        <th style="min-width: 40px;">Mata Pelajaran</th>
                         <th style="min-width: 80px;">Rombel</th>
+                        <th style="min-width: 40px;">Mata Pelajaran</th>
                         <th style="min-width: 80px;">Guru</th>
+                        <th style="min-width: 50px;">Durasi</th>
                         <th style="min-width: 250px;">Hari</th>
                         <th style="min-width: 120px !important">Aksi</th>
                     </tr>
@@ -85,11 +84,10 @@
                     @foreach (var jadwalMengajar in Model.DaftarJadwalMengajar)
                     {
                         <tr>
-                            <td>@jadwalMengajar.Id</td>
-                            <td>@jadwalMengajar.DurasiMenit Menit</td>
-                            <td>@jadwalMengajar.MataPelajaran.Nama</td>
                             <td>@jadwalMengajar.Rombel.Kelas.Jenjang.Humanize() @jadwalMengajar.Rombel.Kelas.Peminatan.Nama @jadwalMengajar.Rombel.Nama</td>
+                            <td>@jadwalMengajar.MataPelajaran.Nama</td>
                             <td>@jadwalMengajar.Pegawai.Nama</td>
+                            <td>@jadwalMengajar.DurasiMenit Menit</td>
                             <td>
                                 <p>
                                     <button class="btn btn-outline-info" style="min-width:200px" type="button"

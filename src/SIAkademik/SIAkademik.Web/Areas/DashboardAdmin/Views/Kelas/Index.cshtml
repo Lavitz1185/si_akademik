@@ -36,7 +36,6 @@
             <table class="table table-striped" id="table-akun">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Jenjang</th>
                         <th>Peminatan</th>
                         <th>Jumlah Rombel</th>
@@ -47,7 +46,6 @@
                     @foreach (var kelas in Model.DaftarKelas)
                     {
                         <tr>
-                            <td>@kelas.Id</td>
                             <td>@kelas.Jenjang.Humanize()</td>
                             <td>@kelas.Peminatan.Nama</td>
                             <td>@kelas.DaftarRombel.Count</td>

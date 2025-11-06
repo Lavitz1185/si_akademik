@@ -8,6 +8,8 @@ public interface IRombelRepository
     Task<List<Rombel>> GetAll();
     Task<List<Rombel>> GetAllByKelas(int idKelas);
     Task<List<Rombel>> GetAllByTahunAjaran(int idTahunAjaran);
+    Task<List<Rombel>> GetAll(int idKelas, int idTahunAjaran);
+    Task<List<Rombel>> GetAll(int idTahunAjaran, string nipPegawai);
 
     void Add(Rombel rombel);
     void Delete(Rombel rombel);

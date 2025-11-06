@@ -48,7 +48,7 @@ public class RombelController : Controller
     public async Task<IActionResult> Index(int? idKelas = null, int? idTahunAjaran = null)
     {
         var tahunAjaran = idTahunAjaran is null ? 
-            await _tahunAjaranRepository.GetNewest() : 
+            null : 
             await _tahunAjaranRepository.Get(idTahunAjaran.Value);
 
         var kelas = idKelas is null ? null : await _kelasRepository.Get(idKelas.Value);
@@ -94,7 +94,7 @@ public class RombelController : Controller
             return View(vm);
         }
 
-        if (kelas.DaftarRombel.Any(r => r.Nama.ToLower() == vm.Nama.ToLower()))
+        if (kelas.DaftarRombel.Any(r => r.TahunAjaran == tahunAjaran && r.Nama.ToLower() == vm.Nama.ToLower()))
         {
             ModelState.AddModelError(nameof(TambahVM.Nama), $"Nama '{vm.Nama}' sudah digunakan");
             return View(vm);
@@ -163,7 +163,7 @@ public class RombelController : Controller
             return View(vm);
         }
 
-        if (kelas.DaftarRombel.Any(r => r.Id != vm.Id && r.Nama.ToLower() == vm.Nama.ToLower()))
+        if (kelas.DaftarRombel.Any(r => r.Id != vm.Id && r.TahunAjaran == tahunAjaran && r.Nama.ToLower() == vm.Nama.ToLower()))
         {
             ModelState.AddModelError(nameof(EditVM.Nama), $"Nama '{vm.Nama}' sudah digunakan");
             return View(vm);
@@ -451,27 +451,31 @@ public class RombelController : Controller
                     TahunAjaran = tahunAjaranTujuan,
                     Wali = rombelAsal.Wali,
                     DaftarSiswa = [],
+                    DaftarAnggotaRombel = [],
                 };
 
                 _rombelRepository.Add(rombelTujuan);
                 daftarRombelTujuan.Add(rombelTujuan);
             }
 
-            foreach (var siswa in rombelAsal.DaftarSiswa)
+            foreach (var anggotaRombel in rombelAsal.DaftarAnggotaRombel)
             {
-                if (!rombelTujuan.DaftarSiswa.Contains(siswa))
+                anggotaRombel.Aktif = false;
+                anggotaRombel.NaikKelasLulus = true;
+                anggotaRombel.TanggalKeluar = CultureInfos.DateOnlyNow;
+
+                if (!rombelTujuan.DaftarSiswa.Contains(anggotaRombel.Siswa))
                 {
-                    var anggotaRombel = new AnggotaRombel
+                    var anggotaRombelTujuan = new AnggotaRombel
                     {
                         Rombel = rombelTujuan,
-                        Siswa = siswa,
+                        Siswa = anggotaRombel.Siswa,
                         Aktif = true,
                         TanggalMasuk = CultureInfos.DateOnlyNow
                     };
 
-                    _anggotaRombelRepository.Add(anggotaRombel);
-                    rombelTujuan.DaftarAnggotaRombel.Add(anggotaRombel);
-                    rombelTujuan.DaftarSiswa.Add(siswa);
+                    _anggotaRombelRepository.Add(anggotaRombelTujuan);
+                    rombelTujuan.DaftarAnggotaRombel.Add(anggotaRombelTujuan);
                 }
             }
         }

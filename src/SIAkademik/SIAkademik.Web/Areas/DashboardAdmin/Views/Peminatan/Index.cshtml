@@ -34,7 +34,6 @@
             <table class="table table-striped" id="table-akun">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Nama</th>
                         <th>Jenis</th>
                         <th>Aksi</th>
@@ -44,7 +43,6 @@
                     @foreach (var peminatan in Model)
                     {
                         <tr>
-                            <td>@peminatan.Id</td>
                             <td>@peminatan.Nama</td>
                             <td>@peminatan.Jenis.Humanize()</td>
                             <td>

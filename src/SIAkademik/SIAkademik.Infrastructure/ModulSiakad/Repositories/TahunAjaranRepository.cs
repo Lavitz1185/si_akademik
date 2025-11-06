@@ -31,6 +31,12 @@ internal class TahunAjaranRepository : ITahunAjaranRepository
         .Include(k => k.DaftarRombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
         .FirstOrDefaultAsync(t => tanggal <= t.TanggalSelesai && tanggal >= t.TanggalMulai);
 
+    public async Task<TahunAjaran?> Get(int tahun, Semester semester) => await _appDbContext
+        .TblTahunAjaran
+        .Include(k => k.DaftarRombel).ThenInclude(r => r.DaftarAnggotaRombel)
+        .Include(k => k.DaftarRombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
+        .FirstOrDefaultAsync(t => t.Tahun == tahun && t.Semester == semester);
+
     public async Task<List<TahunAjaran>> GetAll() => await _appDbContext
         .TblTahunAjaran
         .Include(k => k.DaftarRombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)

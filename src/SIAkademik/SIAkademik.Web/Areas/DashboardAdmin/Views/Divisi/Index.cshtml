@@ -34,7 +34,6 @@
             <table class="table full-table table-striped table-hover" id="table-akun">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Nama</th>
                         <th>Jumlah Guru/Pegawai</th>
                         <th>Aksi</th>
@@ -44,7 +43,6 @@
                     @foreach (var divisi in Model)
                     {
                         <tr>
-                            <td>@divisi.Id</td>
                             <td>@divisi.Nama</td>
                             <td>@divisi.DaftarPegawai.Count</td>
                             <td>

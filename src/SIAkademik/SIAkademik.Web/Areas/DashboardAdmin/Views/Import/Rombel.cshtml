@@ -57,7 +57,6 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Id</th>
                             <th>Nama</th>
                             <th>Kelas</th>
                             <th>Wali</th>
@@ -69,7 +68,6 @@
                         @foreach (var rombel in Model.NewData)
                         {
                             <tr>
-                                <td>@rombel.Id</td>
                                 <td>@rombel.Nama</td>
                                 <td>@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Nama</td>
                                 <td>@rombel.Wali.Nama</td>

@@ -59,13 +59,13 @@
                                     <option value="@kelas.Id">@kelas.Jenjang.Humanize() @kelas.Peminatan.Nama</option>
                                 }
                             </select>
-                            <span asp-validation-for="@Model.IdKelas"></span>
+                            <span asp-validation-for="@Model.IdKelas" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
                             <label asp-for="@Model.Nama"></label>
                             <input asp-for="@Model.Nama" type="text" class="form-control" placeholder="Contoh: A" />
-                            <span asp-validation-for="@Model.Nama"></span>
+                            <span asp-validation-for="@Model.Nama" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
@@ -78,7 +78,7 @@
                                     <option value="@pegawai.Id">@pegawai.Nama - @pegawai.Jabatan.Nama</option>
                                 }
                             </select>
-                            <span asp-validation-for="@Model.NIPWali"></span>
+                            <span asp-validation-for="@Model.NIPWali" class="text-danger"></span>
                         </div>                       
                     </div>
                     <div class="card-footer text-right pt-0">
