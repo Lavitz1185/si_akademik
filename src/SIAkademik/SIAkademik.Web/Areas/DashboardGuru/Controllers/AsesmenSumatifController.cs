@@ -6,6 +6,7 @@ using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Web.Areas.DashboardGuru.Models.AsesmenSumatifModels;
 using SIAkademik.Web.Authentication;
+using SIAkademik.Web.Models;
 using SIAkademik.Web.Services.Toastr;
 
 namespace SIAkademik.Web.Areas.DashboardGuru.Controllers;
@@ -171,23 +172,30 @@ public class AsesmenSumatifController : Controller
         if (pegawai is null) return Forbid();
 
         var tahunAjaran = idTahunAjaran is null ?
-            await _tahunAjaranRepository.GetNewest() :
+            await _tahunAjaranRepository.Get(CultureInfos.DateOnlyNow) :
             await _tahunAjaranRepository.Get(idTahunAjaran.Value);
 
         if (tahunAjaran is null) return View(new IndexVM { Pegawai = pegawai });
 
-        var jadwalMengajar = idJadwalMengajar is null ?
-            (await _jadwalMengajarRepository.GetAllByTahunAjaran(tahunAjaran.Id)).FirstOrDefault(j => j.Pegawai == pegawai) :
-            await _jadwalMengajarRepository.Get(idJadwalMengajar.Value);
+        var daftarJadwalMengajar = await _jadwalMengajarRepository.GetAllByTahunAjaranAndPegawai(tahunAjaran.Id, pegawai.Id);
 
-        if (jadwalMengajar is null || jadwalMengajar.Pegawai != pegawai || jadwalMengajar.Rombel.TahunAjaran != tahunAjaran)
+        var jadwalMengajar = idJadwalMengajar is null ?
+            daftarJadwalMengajar.FirstOrDefault() :
+            daftarJadwalMengajar.FirstOrDefault(j => j.Id == idJadwalMengajar.Value);
+
+        jadwalMengajar ??= daftarJadwalMengajar.FirstOrDefault();
+
+        if (jadwalMengajar is null)
             return View(new IndexVM { Pegawai = pegawai, TahunAjaran = tahunAjaran, IdTahunAjaran = tahunAjaran.Id });
 
+        var daftarAsesmenSumatif = await _asesmenSumatifRepository.GetAll(jadwalMengajar.Id);
         var asesmenSumatif = idAsesmenSumatif is null ?
-            null :
-            await _asesmenSumatifRepository.Get(idAsesmenSumatif.Value);
+            daftarAsesmenSumatif.FirstOrDefault() :
+            daftarAsesmenSumatif.FirstOrDefault(a => a.Id == idAsesmenSumatif.Value);
 
-        if (asesmenSumatif is null || asesmenSumatif.JadwalMengajar != jadwalMengajar)
+        asesmenSumatif ??= daftarAsesmenSumatif.FirstOrDefault();
+
+        if (asesmenSumatif is null)
             return View(new IndexVM
             {
                 Pegawai = pegawai,

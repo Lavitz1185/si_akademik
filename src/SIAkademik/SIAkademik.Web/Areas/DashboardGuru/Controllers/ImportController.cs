@@ -258,7 +258,7 @@ public class ImportController : Controller
         if (pegawai is null) return Forbid();
 
         var tahunAjaran = idTahunAjaran is null ?
-            await _tahunAjaranRepository.GetNewest() :
+            await _tahunAjaranRepository.Get(CultureInfos.DateOnlyNow) :
             await _tahunAjaranRepository.Get(idTahunAjaran.Value) ?? await _tahunAjaranRepository.GetNewest();
 
         if (tahunAjaran is null) return View(new AsesmenSumatifVM { Pegawai = pegawai });
@@ -503,7 +503,7 @@ public class ImportController : Controller
         if (pegawai is null) return Forbid();
 
         var tahunAjaran = idTahunAjaran is null ?
-            await _tahunAjaranRepository.GetNewest() :
+            await _tahunAjaranRepository.Get(CultureInfos.DateOnlyNow) :
             await _tahunAjaranRepository.Get(idTahunAjaran.Value) ?? await _tahunAjaranRepository.GetNewest();
 
         if (tahunAjaran is null) return View(new NilaiSASVM { Pegawai = pegawai });

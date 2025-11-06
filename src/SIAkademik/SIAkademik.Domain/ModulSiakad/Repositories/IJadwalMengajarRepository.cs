@@ -6,6 +6,7 @@ public interface IJadwalMengajarRepository
 {
     Task<JadwalMengajar?> Get(int id);
     Task<List<JadwalMengajar>> GetAll();
+    Task<List<JadwalMengajar>> GetAllByTahunAjaranAndPegawai(int idTahunAjaran, string nipPegawai);
     Task<List<JadwalMengajar>> GetAllByTahunAjaran(int idTahunAjaran);
     Task<List<JadwalMengajar>> GetAllByTahunAjaranAndRombel(int idTahunAjaran, int idRombel);
     Task<bool> IsExist(int idMataPelajaran, int idRombel, string nipPegawai, int? id = null);

@@ -6,6 +6,7 @@ public interface IAsesmenSumatifRepository
 {
     Task<AsesmenSumatif?> Get(int id);
     Task<List<AsesmenSumatif>> GetAll();
+    Task<List<AsesmenSumatif>> GetAll(int idJadwalMengajar);
     Task<List<AsesmenSumatif>> GetAll(int idTujuanPembelajaran, int idJadwalMengajar);
 
     void Add(AsesmenSumatif asesmenSumatif);

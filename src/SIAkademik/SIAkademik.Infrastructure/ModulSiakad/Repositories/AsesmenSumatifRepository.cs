@@ -40,4 +40,15 @@ internal class AsesmenSumatifRepository : IAsesmenSumatifRepository
         .Include(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarNilaiEvaluasiSiswa)
         .Where(a => a.IdTujuanPembelajaran == idTujuanPembelajaran && a.IdJadwalMengajar == idJadwalMengajar)
         .ToListAsync();
+
+    public async Task<List<AsesmenSumatif>> GetAll(int idJadwalMengajar) => await _appDbContext.TblAsesmenSumatif
+        .Include(a => a.JadwalMengajar).ThenInclude(j => j.Pegawai)
+        .Include(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.DaftarAnggotaRombel)
+        .Include(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(k => k.TahunAjaran)
+        .Include(a => a.JadwalMengajar).ThenInclude(j => j.Rombel).ThenInclude(r => r.Kelas).ThenInclude(k => k.Peminatan)
+        .Include(a => a.JadwalMengajar).ThenInclude(j => j.MataPelajaran).ThenInclude(m => m.Peminatan)
+        .Include(a => a.TujuanPembelajaran)
+        .Include(a => a.DaftarEvaluasiSiswa).ThenInclude(e => e.DaftarNilaiEvaluasiSiswa).ThenInclude(n => n.AnggotaRombel)
+        .Where(a => a.JadwalMengajar.Id == idJadwalMengajar)
+        .ToListAsync();
 }
