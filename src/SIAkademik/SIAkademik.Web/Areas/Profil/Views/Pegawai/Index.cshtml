@@ -27,14 +27,14 @@
                     }
                     else
                     {
-                        var inisial = string.Join("", pegawai.Nama.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(n => n[0]))
-                        .ToUpperInvariant();
-
-                        if (inisial.Length > 2) inisial = inisial.Substring(0, 2);
-
-                        <div class="fotoprofil">
-                            @inisial
-                        </div>
+                        @if (pegawai.JenisKelamin == JenisKelamin.LakiLaki)
+                        {
+                            <img src="~/images/guru/guru-pria.png" />
+                        }
+                        else
+                        {
+                            <img src="~/images/guru/guru-wanita.png" />
+                        }
                     }
                     <h6>@pegawai.Nama</h6>
                     <p>@pegawai.Jabatan.Jenis.Humanize()</p>
