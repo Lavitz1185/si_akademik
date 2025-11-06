@@ -9,12 +9,17 @@ public class NaikKelasVM
     public int? IdTahunAjaran { get; set; }
     public TahunAjaran? TahunAjaran { get; set; }
 
+    public int? IdTahunAjaranBaru { get; set; }
+    public TahunAjaran? TahunAjaranBaru { get; set; }
+
     public int? IdRombel { get; set; }
     public Rombel? Rombel { get; set; }
 
+    public List<Rombel> DaftarRombelTinggalKelas { get; set; } = [];
     public int? IdRombelTinggal { get; set; }
     public Rombel? RombelTinggal { get; set; }
 
+    public List<Rombel> DaftarRombelNaikKelas { get; set; } = [];
     public int? IdRombelNaikKelas { get; set; }
     public Rombel? RombelNaikKelas { get; set; }
 

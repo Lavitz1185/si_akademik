@@ -67,7 +67,7 @@ public class HomeController : Controller
         var guru = await _signInManager.GetPegawai();
         if (guru is null) return Forbid();
 
-        var tahunAjaran = await _tahunAjaranRepository.GetNewest();
+        var tahunAjaran = await _tahunAjaranRepository.Get(CultureInfos.DateOnlyNow);
         if (tahunAjaran is null) return View(new IndexVM { Pegawai = guru, Tanggal = tanggal.Value });
 
         var hari = tanggal.Value.DayOfWeek;

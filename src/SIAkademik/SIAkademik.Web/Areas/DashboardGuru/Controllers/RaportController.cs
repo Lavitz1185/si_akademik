@@ -9,6 +9,7 @@ using SIAkademik.Domain.ModulSiakad.Entities;
 using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Web.Areas.DashboardGuru.Models.RaportModels;
 using SIAkademik.Web.Authentication;
+using SIAkademik.Web.Models;
 using SIAkademik.Web.Services.PDFGenerator;
 using SIAkademik.Web.Services.Toastr;
 
@@ -59,21 +60,20 @@ public class RaportController : Controller
         if (pegawai is null) return Forbid();
 
         var tahunAjaran = idTahunAjaran is null ?
-            await _tahunAjaranRepository.GetNewest() :
+            await _tahunAjaranRepository.Get(CultureInfos.DateOnlyNow) :
             await _tahunAjaranRepository.Get(idTahunAjaran.Value);
 
         if (tahunAjaran is null) return View(new IndexVM { Pegawai = pegawai });
 
-        if (idRombel is null) return View(new IndexVM { Pegawai = pegawai, IdTahunAjaran = tahunAjaran.Id, TahunAjaran = tahunAjaran });
+        var rombel = idRombel is null ?
+            (await _rombelRepository.GetAll(tahunAjaran.Id, pegawai.Id)).FirstOrDefault() :
+            await _rombelRepository.Get(idRombel.Value);
 
-        var rombel = await _rombelRepository.Get(idRombel.Value);
-        if (rombel is null) return View(new IndexVM { Pegawai = pegawai, IdTahunAjaran = tahunAjaran.Id, TahunAjaran = tahunAjaran });
+        if (rombel is null || rombel.TahunAjaran != tahunAjaran)
+            rombel = (await _rombelRepository.GetAll(tahunAjaran.Id, pegawai.Id)).FirstOrDefault();
 
-        if (rombel.Wali != pegawai)
-        {
-            _toastrNotificationService.AddError("Anda bukan wali kelas untuk kelas ini!");
+        if (rombel is null || rombel.TahunAjaran != tahunAjaran || rombel.Wali != pegawai)
             return View(new IndexVM { Pegawai = pegawai, IdTahunAjaran = tahunAjaran.Id, TahunAjaran = tahunAjaran });
-        }
 
         return View(new IndexVM
         {
@@ -236,10 +236,16 @@ public class RaportController : Controller
 
         if (tahunAjaran is null) return View(new NilaiEkstrakulikulerVM { Pegawai = pegawai });
 
-        if (idRombel is null) return View(new NilaiEkstrakulikulerVM { Pegawai = pegawai, IdTahunAjaran = tahunAjaran.Id, TahunAjaran = tahunAjaran });
 
-        var rombel = await _rombelRepository.Get(idRombel.Value);
-        if (rombel is null) return View(new NilaiEkstrakulikulerVM { Pegawai = pegawai, IdTahunAjaran = tahunAjaran.Id, TahunAjaran = tahunAjaran });
+        var rombel = idRombel is null ?
+            (await _rombelRepository.GetAll(tahunAjaran.Id, pegawai.Id)).FirstOrDefault() :
+            await _rombelRepository.Get(idRombel.Value);
+
+        if (rombel is null || rombel.TahunAjaran != tahunAjaran)
+            rombel = (await _rombelRepository.GetAll(tahunAjaran.Id, pegawai.Id)).FirstOrDefault();
+
+        if (rombel is null || rombel.TahunAjaran != tahunAjaran || rombel.Wali != pegawai) 
+            return View(new NilaiEkstrakulikulerVM { Pegawai = pegawai, IdTahunAjaran = tahunAjaran.Id, TahunAjaran = tahunAjaran });
 
         if (rombel.Wali != pegawai)
         {

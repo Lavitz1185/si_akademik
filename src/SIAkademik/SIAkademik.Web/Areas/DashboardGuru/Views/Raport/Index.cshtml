@@ -54,9 +54,9 @@
 
                         @if (Model.TahunAjaran is not null)
                         {
-                            var daftarRombel = await RombelRepository.GetAllByTahunAjaran(Model.TahunAjaran.Id);
+                            var daftarRombel = await RombelRepository.GetAll(Model.TahunAjaran.Id, Model.Pegawai.Id);
 
-                            @foreach (var rombel in daftarRombel.Where(r => r.Wali == Model.Pegawai))
+                            @foreach (var rombel in daftarRombel)
                             {
                                 <option value="@rombel.Id">@rombel.Kelas.Jenjang.Humanize() @rombel.Kelas.Peminatan.Nama @rombel.Nama</option>
                             }

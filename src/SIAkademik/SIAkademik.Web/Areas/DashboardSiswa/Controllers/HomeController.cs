@@ -58,7 +58,7 @@ public class HomeController : Controller
         if (!siswa.IsBiodataComplete())
             _toastrNotificationService.AddWarning("Biodata anda belum lengkap. Silahkan lengkapi!");
 
-        var tahunAjaran = await _tahunAjaranRepository.GetNewest();
+        var tahunAjaran = await _tahunAjaranRepository.Get(CultureInfos.DateOnlyNow);
         if (tahunAjaran is null) return View(new IndexVM { Siswa = siswa, Tanggal = tanggal.Value });
 
         var anggotaRombel = siswa.DaftarAnggotaRombel.FirstOrDefault(a => a.Rombel.TahunAjaran == tahunAjaran);
