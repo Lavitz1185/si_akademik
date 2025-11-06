@@ -71,37 +71,40 @@
                                     <div class="col-12 col-sm-4" style="font-weight: 600">Catatan Wali Kelas</div>
                                     <div class="col-12 col-sm-8">@Model.AnggotaRombel.CatatanWaliKelas</div>
                                 </div>
-                                @if (Model.AnggotaRombel.Rombel.Kelas.Jenjang == Jenjang.XII)
+                                @if (Model.TahunAjaran is not null && Model.TahunAjaran.Semester == Semester.Genap)
                                 {
-                                    <div class="row mb-2">
-                                        <div class="col-12 col-sm-4" style="font-weight: 600">Kelulusan</div>
-                                        <div class="col-12 col-sm-8">
-                                            @if (Model.AnggotaRombel.NaikKelasLulus)
-                                            {
-                                                @("Lulus")
-                                            }
-                                            else
-                                            {
-                                                @("Tidak Lulus")
-                                            }
+                                    @if (Model.AnggotaRombel.Rombel.Kelas.Jenjang == Jenjang.XII)
+                                    {
+                                        <div class="row mb-2">
+                                            <div class="col-12 col-sm-4" style="font-weight: 600">Kelulusan</div>
+                                            <div class="col-12 col-sm-8">
+                                                @if (Model.AnggotaRombel.NaikKelasLulus)
+                                                {
+                                                    @("Lulus")
+                                                }
+                                                else
+                                                {
+                                                    @("Tidak Lulus")
+                                                }
+                                            </div>
                                         </div>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="row mb-2">
-                                        <div class="col-12 col-sm-4" style="font-weight: 600">Kenaikan Kelass</div>
-                                        <div class="col-12 col-sm-8">
-                                            @if (Model.AnggotaRombel.NaikKelasLulus)
-                                            {
-                                                @("Naik Kelas")
-                                            }
-                                            else
-                                            {
-                                                @("Tidak Naik Kelas")
-                                            }
+                                    }
+                                    else
+                                    {
+                                        <div class="row mb-2">
+                                            <div class="col-12 col-sm-4" style="font-weight: 600">Kenaikan Kelas</div>
+                                            <div class="col-12 col-sm-8">
+                                                @if (Model.AnggotaRombel.NaikKelasLulus)
+                                                {
+                                                    @("Naik Kelas")
+                                                }
+                                                else
+                                                {
+                                                    @("Tidak Naik Kelas")
+                                                }
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
                                 }
                                 <div class="row mb-2">
                                     <div class="col-12 col-sm-4" style="font-weight: 600">Kehadiran</div>

@@ -81,16 +81,19 @@
                             <th rowspan="2">NIS/NISN</th>
                             <th rowspan="2">Nama</th>
                             <th rowspan="2">Catatan Wali Kelas</th>
-                            <th rowspan="2">
-                                @if (Model.Rombel.Kelas.Jenjang == Jenjang.XII)
-                                {
-                                    @("Kelulusan")
-                                }
-                                else
-                                {
-                                    @("Kenaikan Kelas")
-                                }
-                            </th>
+                            @if (Model.TahunAjaran.Semester == Semester.Genap)
+                            {
+                                <th rowspan="2">
+                                    @if (Model.Rombel.Kelas.Jenjang == Jenjang.XII)
+                                    {
+                                        @("Kelulusan")
+                                    }
+                                    else
+                                    {
+                                        @("Kenaikan Kelas")
+                                    }
+                                </th>
+                            }
                             <th colspan="3">Nilai</th>
                             <th colspan="4">Kehadiran</th>
                             <th rowspan="2">Aksi</th>
@@ -112,30 +115,33 @@
                                 <td>@anggota.Siswa.NIS/@anggota.Siswa.NISN</td>
                                 <td>@anggota.Siswa.Nama</td>
                                 <td>@anggota.CatatanWaliKelas</td>
-                                <td>
-                                    @if (Model.Rombel.Kelas.Jenjang == Jenjang.XII)
-                                    {
-                                        @if (anggota.NaikKelasLulus)
+                                @if (Model.TahunAjaran.Semester == Semester.Genap)
+                                {
+                                    <td>
+                                        @if (Model.Rombel.Kelas.Jenjang == Jenjang.XII)
                                         {
-                                            @($"Lulus")
+                                            @if (anggota.NaikKelasLulus)
+                                            {
+                                                @($"Lulus")
+                                            }
+                                            else
+                                            {
+                                                @($"Tidak lulus")
+                                            }
                                         }
                                         else
                                         {
-                                            @($"Tidak lulus")
+                                            @if (anggota.NaikKelasLulus)
+                                            {
+                                                @($"Naik Kelas")
+                                            }
+                                            else
+                                            {
+                                                @($"Tidak naik Kelas")
+                                            }
                                         }
-                                    }
-                                    else
-                                    {
-                                        @if (anggota.NaikKelasLulus)
-                                        {
-                                            @($"Naik Kelas")
-                                        }
-                                        else
-                                        {
-                                            @($"Tidak naik Kelas")
-                                        }
-                                    }
-                                </td>
+                                    </td>
+                                }
                                 <td colspan="3" style="padding: 0 !important">
                                     <table>
                                         <tbody>

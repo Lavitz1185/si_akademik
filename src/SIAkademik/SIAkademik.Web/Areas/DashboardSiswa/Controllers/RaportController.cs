@@ -6,6 +6,7 @@ using SIAkademik.Domain.Authentication;
 using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Web.Areas.DashboardSiswa.Models.RaportModels;
 using SIAkademik.Web.Authentication;
+using SIAkademik.Web.Models;
 using SIAkademik.Web.Services.PDFGenerator;
 
 namespace SIAkademik.Web.Areas.DashboardSiswa.Controllers;
@@ -43,7 +44,7 @@ public class RaportController : Controller
         if (siswa is null) return Forbid();
 
         var tahunAjaran = idTahunAjaran is null ?
-            await _tahunAjaranRepository.GetNewest():
+            await _tahunAjaranRepository.Get(CultureInfos.DateOnlyNow) :
             await _tahunAjaranRepository.Get(idTahunAjaran.Value);
 
         if (tahunAjaran is null) return View(new IndexVM { Siswa = siswa });
