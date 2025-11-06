@@ -263,14 +263,17 @@ public class ImportController : Controller
 
         if (tahunAjaran is null) return View(new AsesmenSumatifVM { Pegawai = pegawai });
 
+        var daftarJadwalMengajar = await _jadwalMengajarRepository.GetAllByTahunAjaranAndPegawai(tahunAjaran.Id, pegawai.Id);
+
         var jadwalMengajar = idJadwalMengajar is null ?
-            (await _jadwalMengajarRepository.GetAllByTahunAjaran(tahunAjaran.Id)).FirstOrDefault(j => j.Pegawai == pegawai) :
-            await _jadwalMengajarRepository.Get(idJadwalMengajar.Value);
+            daftarJadwalMengajar.FirstOrDefault() :
+            daftarJadwalMengajar.FirstOrDefault(j => j.Id == idJadwalMengajar.Value);
 
-        if (jadwalMengajar is null || jadwalMengajar.Pegawai != pegawai || jadwalMengajar.Rombel.TahunAjaran != tahunAjaran)
-            jadwalMengajar = (await _jadwalMengajarRepository.GetAllByTahunAjaran(tahunAjaran.Id)).FirstOrDefault(j => j.Pegawai == pegawai);
+        jadwalMengajar ??= daftarJadwalMengajar.FirstOrDefault();
 
-        if (jadwalMengajar is null) return View(new AsesmenSumatifVM
+        if (jadwalMengajar is null)
+
+            if (jadwalMengajar is null) return View(new AsesmenSumatifVM
         {
             Pegawai = pegawai,
             TahunAjaran = tahunAjaran,
@@ -508,14 +511,17 @@ public class ImportController : Controller
 
         if (tahunAjaran is null) return View(new NilaiSASVM { Pegawai = pegawai });
 
+        var daftarJadwalMengajar = await _jadwalMengajarRepository.GetAllByTahunAjaranAndPegawai(tahunAjaran.Id, pegawai.Id);
+
         var jadwalMengajar = idJadwalMengajar is null ?
-            (await _jadwalMengajarRepository.GetAllByTahunAjaran(tahunAjaran.Id)).FirstOrDefault(j => j.Pegawai == pegawai) :
-            await _jadwalMengajarRepository.Get(idJadwalMengajar.Value);
+            daftarJadwalMengajar.FirstOrDefault() :
+            daftarJadwalMengajar.FirstOrDefault(j => j.Id == idJadwalMengajar.Value);
 
-        if (jadwalMengajar is null || jadwalMengajar.Pegawai != pegawai || jadwalMengajar.Rombel.TahunAjaran != tahunAjaran)
-            jadwalMengajar = (await _jadwalMengajarRepository.GetAllByTahunAjaran(tahunAjaran.Id)).FirstOrDefault(j => j.Pegawai == pegawai);
+        jadwalMengajar ??= daftarJadwalMengajar.FirstOrDefault();
 
-        if (jadwalMengajar is null) return View(new NilaiSASVM
+        if (jadwalMengajar is null)
+
+            if (jadwalMengajar is null) return View(new NilaiSASVM
         {
             Pegawai = pegawai,
             TahunAjaran = tahunAjaran,
