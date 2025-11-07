@@ -10,32 +10,57 @@
 <style>
     #headerLaporan {
         width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        font-family: 'Calibri' !important;
-        font-size: 11px !important;
-        color: black !important;
-    }   
+        font-family: 'Trebuchet MS', sans-serif;
+        font-size: 12px;
+        color: black;
+        border-bottom: 1px solid #333;
+        padding-bottom: 5px;
+        margin-left: 80px;
+        margin-right: 66px;      
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
 
-    #skop {
+    .header-grid {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 40px;
+    }
+
+    .left-col, .right-col {
         display: grid;
-        grid-template-rows: auto auto auto auto;
-        grid-auto-flow: column;
-        justify-content: space-around;
-        row-gap: 10px;
+        grid-template-columns: 100px 10px auto;
+        row-gap: 5px;
+    }
+
+    .label {
+        text-align: left;
+    }
+
+    .colon {
+        text-align: center;
+    }
+
+    .value {
+        text-transform: uppercase;
     }
 </style>
 
 <div id="headerLaporan">
-    <div id="skop">
-        <span>NIS/NISN <span style="display:inline-block;margin-left:20px"></span>: @Model.Siswa.NIS/@Model.Siswa.NISN</span>
-        <span>Nama <span style="display:inline-block;margin-left:111px"></span>: @Model.Siswa.Nama</span>
-        <span>Nama Sekolah <span style="display:inline-block;margin-left:73px"></span>: SMA Kristen Pandhega Jaya</span>
-        <span>Alamat <span style="display:inline-block;margin-left:105px"></span>: Jl.Tilong Dam Km.5, Desa Oenlasi</span>
-        <span>Kelas <span style="display:inline-block;margin-left:49px"></span>: @Model.Rombel.Kelas.Jenjang.Humanize() @Model.Rombel.Kelas.Peminatan.Nama @Model.Rombel.Nama</span>
-        <span>Fase <span style="display:inline-block;margin-left:49px"></span>: @TujuanPembelajaran.FaseFromJenjang(Model.Rombel.Kelas.Jenjang)</span>
-        <span>Semester <span style="display:inline-block;margin-left:34px"></span>: @Model.Rombel.TahunAjaran.Semester.Humanize()</span>
-        <span>Tahun Pelajaran <span style="display:inline-block;margin-left:15px"></span>: @Model.Rombel.TahunAjaran.Periode</span>
+    <div class="header-grid">
+        <div class="left-col">
+            <span class="label">Nama</span><span class="colon">:</span><span class="value">@Model.Siswa.Nama</span>
+            <span class="label">NIS/NISN</span><span class="colon">:</span><span class="value">@Model.Siswa.NIS / @Model.Siswa.NISN</span>
+            <span class="label">Nama Sekolah</span><span class="colon">:</span><span class="value">SMA Kristen Pandhega Jaya</span>
+            <span class="label">Alamat</span><span class="colon">:</span><span class="value">Jl. Raya Tilong Dam Km.5</span>
+        </div>
+
+        <div class="right-col">
+            <span class="label">Kelas</span><span class="colon">:</span><span class="value">@Model.Rombel.Kelas.Jenjang.Humanize() @Model.Rombel.Kelas.Peminatan.Nama @Model.Rombel.Nama</span>
+            <span class="label">Fase</span><span class="colon">:</span><span class="value">@TujuanPembelajaran.FaseFromJenjang(Model.Rombel.Kelas.Jenjang)</span>
+            <span class="label">Semester</span><span class="colon">:</span><span class="value">@Model.Rombel.TahunAjaran.Semester.Humanize()</span>
+            <span class="label">Tahun Pelajaran</span><span class="colon">:</span><span class="value">@Model.Rombel.TahunAjaran.Periode</span>
+        </div>
     </div>
 </div>
