@@ -462,7 +462,7 @@ public class RaportController : Controller
             footer, 
             fileName,
             marginTop:195,
-            marginBottom:100,
+            marginBottom:120,
             marginLeft:75,
             marginRight:54);
 

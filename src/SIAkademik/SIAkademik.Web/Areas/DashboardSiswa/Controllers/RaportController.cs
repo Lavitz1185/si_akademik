@@ -102,10 +102,10 @@ public class RaportController : Controller
             header,
             footer,
             fileName,
-            marginTop: 120,
-            marginBottom: 50,
-            marginLeft: 80,
-            marginRight: 80);
+            marginTop: 195,
+            marginBottom: 120,
+            marginLeft: 75,
+            marginRight: 54);
 
         if (download)
             return File(pdfBinary, "application/pdf", fileDownloadName: fileName);
