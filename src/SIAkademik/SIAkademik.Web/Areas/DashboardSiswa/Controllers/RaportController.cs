@@ -102,7 +102,7 @@ public class RaportController : Controller
             header,
             footer,
             fileName,
-            marginTop: 195,
+            marginTop: 210,
             marginBottom: 120,
             marginLeft: 75,
             marginRight: 54);
