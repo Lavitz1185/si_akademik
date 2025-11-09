@@ -85,7 +85,7 @@
                                     {
                                         <div class="form-check mb-1">
                                             <input type="checkbox" class="form-check-input submit-on-change" asp-for="@Model.Agama[@i].Selected">
-                                            <label class="form-check-label" style="font-size: 0.9rem">@Model.Agama[i].Value.Humanize()</label>
+                                            <label class="form-check-label" style="font-size: 0.9rem">@Model.Agama[i].Value.Humanize(LetterCasing.Title)</label>
                                             <input asp-for="@Model.Agama[@i].Value" hidden />
                                         </div>
                                     }
