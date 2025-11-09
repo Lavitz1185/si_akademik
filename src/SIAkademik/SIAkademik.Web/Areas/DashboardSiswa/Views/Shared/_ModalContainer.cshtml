@@ -1,4 +1,10 @@
-﻿<div class="modal fade" id="modalUbahPassword" tabindex="-1" role="dialog"
+﻿@inject IInformasiUmumRepository InformasiUmumRepository
+
+@{
+    var informasiUmum = await InformasiUmumRepository.Get();
+}
+
+<div class="modal fade" id="modalUbahPassword" tabindex="-1" role="dialog"
      aria-labelledby="modalUbahPasswordTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content" id="modalUbahPasswordContent">
@@ -37,7 +43,7 @@
                 <div class="d-flex align-items-center gap-4" style="justify-content: space-evenly">
                     <!-- WhatsApp -->
                     <div>
-                        <a href="#" target="_blank"
+                        <a href="https://wa.me/@informasiUmum.NoHPSekolah.Value.Replace("+", "")" target="_blank"
                            class="btn btn-success d-flex align-items-center justify-content-center rounded-circle mx-auto"
                            style="width: 60px; height: 60px;">
                             <i class="fab fa-whatsapp fa-2x"></i>

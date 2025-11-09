@@ -53,8 +53,7 @@
                 }
                 else
                 {
-                    var inisial = string.Join("", siswa.Nama?.Split(' ', StringSplitOptions.RemoveEmptyEntries)
-                    .Select(n => n[0])).ToUpperInvariant();
+                    var inisial = string.Join("", siswa.Nama.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(n => n[0])).ToUpperInvariant();
                     if (inisial.Length > 2) inisial = inisial.Substring(0, 2);
 
                     <div class="fotoprofilkecil user-img-radious-style d-flex justify-content-center align-items-center">

@@ -23,7 +23,7 @@ internal class InformasiUmumEntityConfiguration : IEntityTypeConfiguration<Infor
                                 "penuh kasih. ",
                 AlamatSekolah = "Jl. Tilong Dam Km 5, Desa Oelnasi, Kecamatan Kupang Tengah. Kabupaten Kupang. NTT – 85361",
                 EmailSekolah = "smapandhegajaya@gmail.com",
-                NoHPSekolah = NoHP.Create("081238007577").Value,
+                NoHPSekolah = NoHP.Create("+6281238007577").Value,
                 ProfilSingkatSekolah = "Selamat datang di SMA Kristen Pandhega Jaya, tempat dimana ilmu dan keterampilan diajarkan dengan penuh kasih" +
                                        " sayang. Kami bangga dapat menyediakan lingkungan belajar yang menyenangkan dan menyegarkan bagi siswa-siswi" +
                                        " kami. ",

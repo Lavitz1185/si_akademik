@@ -8,7 +8,7 @@ namespace SIAkademik.Domain.ValueObjects;
 public class NoHP : ValueObject
 {
     public const int ValidLength = 12;
-    public const string ValidRegexPattern = @"^08[0-9]+$";
+    public const string ValidRegexPattern = @"^(?:0|\+\d+)8[0-9]+$";
 
     public string Value { get; }
 
@@ -24,9 +24,6 @@ public class NoHP : ValueObject
 
         if (!Regex.IsMatch(noHP, ValidRegexPattern))
             return NoHPErrors.NotValid;
-
-        if (noHP.Length != ValidLength)
-            return NoHPErrors.InvalidLength(ValidLength);
 
         return new NoHP(noHP);
     }
