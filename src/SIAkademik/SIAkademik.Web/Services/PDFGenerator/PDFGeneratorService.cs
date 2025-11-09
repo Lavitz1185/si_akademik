@@ -50,7 +50,15 @@ public class PDFGeneratorService : IPDFGeneratorService
         return await File.ReadAllBytesAsync(filePath);
     }
 
-    public async Task<byte[]> GeneratePDF(string html, string header, string footer, string fileName)
+    public async Task<byte[]> GeneratePDF(
+        string html, 
+        string header, 
+        string footer, 
+        string fileName,
+        double marginTop,
+        double marginBottom,
+        double marginLeft,
+        double marginRight)
     {
         var browserFetcher = new BrowserFetcher();
         await browserFetcher.DownloadAsync();
@@ -71,10 +79,10 @@ public class PDFGeneratorService : IPDFGeneratorService
             Format = PaperFormat.A4,
             MarginOptions = new MarginOptions
             {
-                Bottom = "50px",
-                Top = "120px",
-                Left = "80px",
-                Right = "80px",
+                Top = $"{marginTop}px",
+                Bottom = $"{marginBottom}px",
+                Left = $"{marginLeft}px",
+                Right = $"{marginRight}px",
             }
         });
 

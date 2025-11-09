@@ -456,7 +456,15 @@ public class RaportController : Controller
             $"_{rombel.TahunAjaran.Periode.Replace("/", "-")}" +
             $"_{rombel.TahunAjaran.Semester.Humanize()}";
 
-        var pdfBinary = await _pDFGeneratorService.GeneratePDF(html, header, footer, fileName);
+        var pdfBinary = await _pDFGeneratorService.GeneratePDF(
+            html, 
+            header, 
+            footer, 
+            fileName,
+            marginTop:120,
+            marginBottom:50,
+            marginLeft:80,
+            marginRight:80);
 
         if (download)
             return File(pdfBinary, "application/pdf", fileDownloadName: fileName);
