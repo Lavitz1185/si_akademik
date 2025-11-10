@@ -95,6 +95,7 @@ public class ImportController : Controller
         var sheetData = workSheetPart.Worksheet.Elements<SheetData>().First();
 
         uint rowNumber = 12;
+        var orderedAsesmenSumatif = jadwalMengajar.DaftarAsesmenSumatif.OrderBy(a => a.TujuanPembelajaran.Nomor).ToList();
 
         #region DataUmum
         var tahunAjaranCell = sheetData.Descendants<Cell>().First(c => c.CellReference == "C1");
@@ -124,27 +125,37 @@ public class ImportController : Controller
                 new Cell
                 {
                     CellReference = $"A{row.RowIndex}",
-                    CellValue = new CellValue($"{i + 1}")
+                    CellValue = new CellValue($"{i + 1}"),
+                    StyleIndex = 4
                 },
                 new Cell
                 {
                     CellReference = $"B{row.RowIndex}",
-                    CellValue = new CellValue($"{anggotaRombel.Siswa.Nama}")
+                    CellValue = new CellValue($"{anggotaRombel.Siswa.Nama}"),
+                    StyleIndex = 4
                 },
                 new Cell
                 {
                     CellReference = $"C{row.RowIndex}",
-                    CellValue = new CellValue($"{anggotaRombel.Siswa.NIS}")
+                    CellValue = new CellValue($"{anggotaRombel.Siswa.NIS}"),
+                    StyleIndex = 4
                 },
                 new Cell
                 {
                     CellReference = $"D{row.RowIndex}",
-                    CellValue = new CellValue($"{anggotaRombel.Siswa.NISN}")
+                    CellValue = new CellValue($"{anggotaRombel.Siswa.NISN}"),
+                    StyleIndex = 4
                 }
             );
 
-            for (int j = 0; j < jadwalMengajar.DaftarAsesmenSumatif.Count; j++)
-                row.Append(new Cell { CellReference = $"{(char)((byte)'E' + j)}{row.RowIndex}", DataType = null });
+            for (int j = 0; j < orderedAsesmenSumatif.Count; j++)
+                row.Append(new Cell
+                {
+                    CellReference = $"{(char)((byte)'E' + j)}{row.RowIndex}",
+                    DataType = null,
+                    CellValue = new CellValue(orderedAsesmenSumatif[j].RataNilai(anggotaRombel)),
+                    StyleIndex = 4
+                });
 
             sheetData.Append(row);
         }
@@ -168,7 +179,6 @@ public class ImportController : Controller
                 Reference = $"E9:{(char)((byte)('E') + jadwalMengajar.DaftarAsesmenSumatif.Count - 1)}9"
             });
 
-        var orderedAsesmenSumatif = jadwalMengajar.DaftarAsesmenSumatif.OrderBy(a => a.TujuanPembelajaran.Nomor).ToList();
         for (int i = 0; i < orderedAsesmenSumatif.Count; i++)
         {
             var asesmenSumatif = orderedAsesmenSumatif[i];
@@ -181,13 +191,15 @@ public class ImportController : Controller
             rowAsesmen.Append(new Cell
             {
                 CellReference = $"{(char)((byte)('E') + i)}{rowAsesmen.RowIndex}",
-                CellValue = new CellValue($"Sum{i + 1}:{asesmenSumatif.TujuanPembelajaran.Nomor}")
+                CellValue = new CellValue($"Sum{i + 1}:{asesmenSumatif.TujuanPembelajaran.Nomor}"),
+                StyleIndex = 4
             });
 
             rowAsesmenNilai.Append(new Cell
             {
                 CellReference = $"{(char)((byte)('E') + i)}{rowAsesmenNilai.RowIndex}",
-                CellValue = new CellValue("Nilai")
+                CellValue = new CellValue("Nilai"),
+                StyleIndex = 4
             });
 
             rowBatasBawahSB.Append(new Cell
