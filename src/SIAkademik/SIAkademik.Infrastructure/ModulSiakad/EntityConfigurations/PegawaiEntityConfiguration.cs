@@ -23,7 +23,7 @@ internal class PegawaiEntityConfiguration : IEntityTypeConfiguration<Pegawai>
             o.Property(y => y.KotaKabupaten).IsRequired();
             o.Property(y => y.Provinsi).IsRequired();
         });
-        builder.HasOne(x => x.Account).WithOne(y => y.Guru).HasForeignKey<Pegawai>("AppUserId").IsRequired(false);
+        builder.HasOne(x => x.Account).WithOne(y => y.Guru).HasForeignKey<Pegawai>("AppUserId");
         builder.HasMany(x => x.DaftarRombelWali).WithOne(y => y.Wali);
         builder.HasMany(x => x.DaftarJadwalMengajar).WithOne(y => y.Pegawai);
         builder.HasOne(x => x.Divisi).WithMany(x => x.DaftarPegawai);
@@ -252,7 +252,7 @@ internal class PegawaiEntityConfiguration : IEntityTypeConfiguration<Pegawai>
                 NoRekening = "0245-01-087347-50-8 (BRI)",
                 JabatanId = 9,
                 DivisiId = 1,
-                AppUserId = (int?)null
+                AppUserId = 48
             },
             new
             {

@@ -25,7 +25,6 @@ public class PegawaiController : Controller
     private readonly IDivisiRepository _divisiRepository;
     private readonly IPasswordHasher<AppUser> _passwordHasher;
     private readonly IToastrNotificationService _toastrNotificationService;
-    private readonly IFileService _fileService;
 
     public PegawaiController(
         IUnitOfWork unitOfWork,
@@ -34,8 +33,7 @@ public class PegawaiController : Controller
         IJabatanRepository jabatanRepository,
         IDivisiRepository divisiRepository,
         IPasswordHasher<AppUser> passwordHasher,
-        IToastrNotificationService toastrNotificationService,
-        IFileService fileService)
+        IToastrNotificationService toastrNotificationService)
     {
         _unitOfWork = unitOfWork;
         _pegawaiRepository = pegawaiRepository;
@@ -44,7 +42,6 @@ public class PegawaiController : Controller
         _divisiRepository = divisiRepository;
         _passwordHasher = passwordHasher;
         _toastrNotificationService = toastrNotificationService;
-        _fileService = fileService;
     }
 
     public async Task<IActionResult> Index(
@@ -103,7 +100,7 @@ public class PegawaiController : Controller
             ],
             DaftarPegawai = [
                 ..daftarPegawai
-                .Where(p => 
+                .Where(p =>
                     (jenisKelamin.Count == 0 || jenisKelamin.Contains(p.JenisKelamin)) &&
                     (agama.Count == 0 || agama.Contains(p.Agama)) &&
                     (statusPerkawinan.Count == 0 || statusPerkawinan.Contains(p.StatusPerkawinan)) &&
@@ -147,40 +144,34 @@ public class PegawaiController : Controller
         //Validasi
         if (!ModelState.IsValid) return View(vm);
 
-        if((await _pegawaiRepository.Get(vm.NIP)) is not null)
+        if ((await _pegawaiRepository.Get(vm.NIP)) is not null)
         {
             ModelState.AddModelError(nameof(TambahVM.NIP), $"NIP '{vm.NIP}' sudah digunakan! Gunakan NIP lain.");
             return View(vm);
         }
 
         var noHP = NoHP.Create(vm.NoHP);
-        if(noHP.IsFailure)
+        if (noHP.IsFailure)
         {
             ModelState.AddModelError(nameof(TambahVM.NoHP), noHP.Error.Message);
             return View(vm);
         }
 
-        if(await _pegawaiRepository.IsExistByEmail(vm.Email))
+        if (await _pegawaiRepository.IsExistByEmail(vm.Email))
         {
             ModelState.AddModelError(nameof(TambahVM.Email), $"Email '{vm.Email}' sudah digunakan! Gunakan email lain.");
             return View(vm);
         }
 
         var jabatan = await _jabatanRepository.Get(vm.JabatanId);
-        if(jabatan is null)
+        if (jabatan is null)
         {
             ModelState.AddModelError(nameof(TambahVM.JabatanId), $"Jabatan dengan Id '{vm.JabatanId}' tidak ditemukan");
             return View(vm);
         }
 
-        if (jabatan.Jenis == JenisJabatan.Guru && vm.Password is null)
-        {
-            ModelState.AddModelError(nameof(TambahVM.Password), $"Password harus diisi");
-            return View(vm);
-        }
-
         var divisi = await _divisiRepository.Get(vm.DivisiId);
-        if(divisi is null)
+        if (divisi is null)
         {
             ModelState.AddModelError(nameof(TambahVM.DivisiId), $"Divisi dengan Id '{vm.DivisiId}' tidak ditemukan");
             return View(vm);
@@ -192,7 +183,7 @@ public class PegawaiController : Controller
             Id = vm.NIP,
             Nama = vm.Nama,
             Agama = vm.Agama,
-            AlamatKTP = new Alamat 
+            AlamatKTP = new Alamat
             {
                 Jalan = vm.Alamat.Jalan,
                 RT = vm.Alamat.RT,
@@ -218,25 +209,20 @@ public class PegawaiController : Controller
             Divisi = divisi,
         };
 
-        if(jabatan.Jenis == JenisJabatan.Guru)
+        var appUser = new AppUser
         {
-            var appUser = new AppUser
-            {
-                UserName = pegawai.Email,
-                PasswordHash = _passwordHasher.HashPassword(null, vm.Password!),
-                Role = AppUserRoles.Guru,
-                Guru = pegawai,
-            };
+            UserName = pegawai.Email,
+            PasswordHash = _passwordHasher.HashPassword(null, vm.Password),
+            Role = AppUserRoles.Guru,
+            Guru = pegawai,
+        };
 
-            pegawai.Account = appUser;
+        pegawai.Account = appUser;
 
-            _appUserRepository.Add(appUser);
-        }
-
+        _appUserRepository.Add(appUser);
         _pegawaiRepository.Add(pegawai);
-
         var result = await _unitOfWork.SaveChangesAsync();
-        if(result.IsFailure)
+        if (result.IsFailure)
         {
             ModelState.AddModelError(string.Empty, "Gagal menyimpan data pegawai baru!");
             return View(vm);
@@ -315,12 +301,6 @@ public class PegawaiController : Controller
             return View(vm);
         }
 
-        if (jabatan.Jenis != JenisJabatan.Guru && vm.Password is not null)
-        {
-            ModelState.AddModelError(nameof(EditVM.Password), $"Password hanya untuk Guru");
-            return View(vm);
-        }
-
         var divisi = await _divisiRepository.Get(vm.DivisiId);
         if (divisi is null)
         {
@@ -356,15 +336,13 @@ public class PegawaiController : Controller
         pegawai.Jabatan = jabatan;
         pegawai.NoRekening = vm.NoRekening;
 
-        if(pegawai.Account is not null)
-        {
-            var account = (await _appUserRepository.Get(pegawai.Account.Id))!;
-            account.UserName = vm.Email;
+        var account = (await _appUserRepository.Get(pegawai.Account.Id))!;
+        account.UserName = vm.Email;
 
-            if(vm.Password is not null)
-            {
-                account.PasswordHash = _passwordHasher.HashPassword(null, vm.Password);
-            }
+        if (vm.Password is not null)
+        {
+
+            account.PasswordHash = _passwordHasher.HashPassword(null, vm.Password);
         }
 
         var result = await _unitOfWork.SaveChangesAsync();
@@ -388,7 +366,7 @@ public class PegawaiController : Controller
 
         _pegawaiRepository.Delete(pegawai);
 
-        if(pegawai.Account is not null)
+        if (pegawai.Account is not null)
             _appUserRepository.Delete(pegawai.Account);
 
         var result = await _unitOfWork.SaveChangesAsync();

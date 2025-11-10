@@ -366,7 +366,7 @@ public class ImportController : Controller
             {
                 Role = AppUserRoles.Guru,
                 UserName = pegawai.Email,
-                PasswordHash = _passwordHasher.HashPassword(null, pegawai.NIK),
+                PasswordHash = _passwordHasher.HashPassword(null, pegawai.Id),
                 Guru = pegawai
             };
 

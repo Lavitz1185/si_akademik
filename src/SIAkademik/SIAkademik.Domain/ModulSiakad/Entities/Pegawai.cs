@@ -39,5 +39,5 @@ public class Pegawai : Entity<string>
     public Divisi Divisi { get; set; }
     public Jabatan Jabatan { get; set; }
     
-    public AppUser? Account { get; set; }
+    public AppUser Account { get; set; }
 }

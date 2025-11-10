@@ -337,6 +337,13 @@ internal class AppUserEntityConfiguration : IEntityTypeConfiguration<AppUser>
                 UserName = "etymissa0703@gmail.com",
                 PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
                 Role = AppUserRoles.Guru
+            },
+            new
+            {
+                Id = 48,
+                UserName = "sndymeha55@gmail.com",
+                PasswordHash = "AQAAAAIAAYagAAAAEKXsR8woVHO5DgmyBgmfe5b4I7jeJZYtk71JFY4HkDSCsimeHtIwzOueTyHo8gBH/A==",
+                Role = AppUserRoles.Guru
             }
         );
     }

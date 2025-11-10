@@ -79,5 +79,6 @@ public class TambahVM : IHaveAlamat
 
     [Display(Name = "Password")]
     [DataType(DataType.Password)]
-    public string? Password { get; set; } = string.Empty;
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public string Password { get; set; } = string.Empty;
 }
