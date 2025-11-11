@@ -60,44 +60,22 @@ public class PegawaiController : Controller
 
         return View(new IndexVM
         {
-            JenisKelamin = [
-                .. FilterEntryVM.FromEnum<JenisKelamin>()
-                .Select(e => new FilterEntryVM<JenisKelamin>{ Value = e.Value, Selected = jenisKelamin.Contains(e.Value)})
-            ],
-            Agama = [
-                .. FilterEntryVM.FromEnum<Agama>()
-                .Select(e => new FilterEntryVM<Agama>{ Value = e.Value, Selected = agama.Contains(e.Value)})
-            ],
-            StatusPerkawinan = [
-                .. FilterEntryVM.FromEnum<StatusPerkawinan>()
-                .Select(e => new FilterEntryVM<StatusPerkawinan>{ Value = e.Value, Selected = statusPerkawinan.Contains(e.Value)})
-            ],
-            GolonganDarah = [
-                .. FilterEntryVM.FromEnum<GolonganDarah>()
-                .Select(e => new FilterEntryVM<GolonganDarah>{ Value = e.Value, Selected = golonganDarah.Contains(e.Value)})
-            ],
-            Divisi = [
-                .. daftarDivisi
-                .Select(e => new FilterEntryVM<int> { Value = e.Id, Selected = divisi.Contains(e.Id) })
-            ],
-            Jabatan = [
-                .. daftarJabatan
-                .Select(e => new FilterEntryVM<int> { Value = e.Id, Selected = jabatan.Contains(e.Id) })
-            ],
-            TahunMasuk = [
-                .. daftarPegawai
+            JenisKelamin = FilterEntryVM.FromEnum(jenisKelamin),
+            Agama = FilterEntryVM.FromEnum(agama),
+            StatusPerkawinan = FilterEntryVM.FromEnum(statusPerkawinan),
+            GolonganDarah = FilterEntryVM.FromEnum(golonganDarah),
+            Divisi = daftarDivisi.Select(d => d.Id).ToFilterEntryList(divisi),
+            Jabatan = daftarJabatan.Select(d => d.Id).ToFilterEntryList(jabatan),
+            TahunMasuk = daftarPegawai
                 .Select(e => e.TanggalMasuk.Year)
                 .Distinct()
                 .Order()
-                .Select(e => new FilterEntryVM<int> { Value = e, Selected = tahunMasuk.Contains(e) })
-            ],
-            TahunLahir = [
-                .. daftarPegawai
+                .ToFilterEntryList(tahunMasuk),
+            TahunLahir = daftarPegawai
                 .Select(e => e.TanggalLahir.Year)
                 .Distinct()
                 .Order()
-                .Select(e => new FilterEntryVM<int> { Value = e, Selected = tahunLahir.Contains(e) })
-            ],
+                .ToFilterEntryList(tahunLahir),
             DaftarPegawai = [
                 ..daftarPegawai
                 .Where(p =>
@@ -117,14 +95,14 @@ public class PegawaiController : Controller
     [HttpPost]
     public IActionResult Index(IndexVM vm) => RedirectToAction(nameof(Index), new
     {
-        jenisKelamin = vm.JenisKelamin.Where(e => e.Selected).Select(e => e.Value).ToList(),
-        agama = vm.Agama.Where(e => e.Selected).Select(e => e.Value).ToList(),
-        statusPerkawinan = vm.StatusPerkawinan.Where(e => e.Selected).Select(e => e.Value).ToList(),
-        golonganDarah = vm.GolonganDarah.Where(e => e.Selected).Select(e => e.Value).ToList(),
-        divisi = vm.Divisi.Where(e => e.Selected).Select(e => e.Value).ToList(),
-        jabatan = vm.Jabatan.Where(e => e.Selected).Select(e => e.Value).ToList(),
-        tahunMasuk = vm.TahunMasuk.Where(e => e.Selected).Select(e => e.Value).ToList(),
-        tahunLahir = vm.TahunLahir.Where(e => e.Selected).Select(e => e.Value).ToList()
+        jenisKelamin = vm.JenisKelamin.Selected(),
+        agama = vm.Agama.Selected(),
+        statusPerkawinan = vm.StatusPerkawinan.Selected(),
+        golonganDarah = vm.GolonganDarah.Selected(),
+        divisi = vm.Divisi.Selected(),
+        jabatan = vm.Jabatan.Selected(),
+        tahunMasuk = vm.TahunMasuk.Selected(),
+        tahunLahir = vm.TahunLahir.Selected()
     });
 
     public async Task<IActionResult> DetailPegawai(string nip)

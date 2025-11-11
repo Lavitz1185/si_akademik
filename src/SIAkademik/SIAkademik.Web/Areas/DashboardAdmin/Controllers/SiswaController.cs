@@ -51,40 +51,20 @@ public class SiswaController : Controller
 
         return View(new IndexVM
         {
-            Agama = [
-                .. FilterEntryVM
-                .FromEnum<Agama>()
-                .Select(e => new FilterEntryVM<Agama> { Value = e.Value, Selected = agama.Contains(e.Value)})
-            ],
-            StatusAktif = [
-                .. FilterEntryVM
-                .FromEnum<StatusAktifMahasiswa>()
-                .Select(e => new FilterEntryVM<StatusAktifMahasiswa> { Value = e.Value, Selected = statusAktif.Contains(e.Value)})
-            ],
-            JenisKelamin = [
-                .. FilterEntryVM
-                .FromEnum<JenisKelamin>()
-                .Select(e => new FilterEntryVM<JenisKelamin> { Value = e.Value, Selected = jenisKelamin.Contains(e.Value)})
-            ],
-            TahunMasuk = [
-                .. daftarSiswa
+            Agama = FilterEntryVM.FromEnum(agama),
+            StatusAktif = FilterEntryVM.FromEnum(statusAktif),
+            JenisKelamin = FilterEntryVM.FromEnum(jenisKelamin),
+            TahunMasuk = daftarSiswa
                 .Select(t => t.TanggalMasuk.Year)
                 .Distinct()
                 .Order()
-                .Select(e => new FilterEntryVM<int>{ Value = e, Selected = tahunMasuk.Contains(e)})
-            ],
-            TahunLahir = [
-                .. daftarSiswa
+                .ToFilterEntryList(tahunMasuk),
+            TahunLahir = daftarSiswa
                 .Select(t => t.TanggalLahir.Year)
                 .Distinct()
                 .Order()
-                .Select(e => new FilterEntryVM<int>{ Value = e, Selected = tahunLahir.Contains(e)})
-            ],
-            Jenjang = [
-                .. FilterEntryVM
-                .FromEnum<Jenjang>()
-                .Select(e => new FilterEntryVM<Jenjang> { Value = e.Value, Selected = jenjang.Contains(e.Value)})
-            ],
+                .ToFilterEntryList(tahunLahir),
+            Jenjang = FilterEntryVM.FromEnum(jenjang),
             DaftarSiswa = [
                 .. daftarSiswa
                 .Where(s => 
@@ -102,15 +82,38 @@ public class SiswaController : Controller
     [HttpPost]
     public IActionResult Index(IndexVM vm) => RedirectToAction(nameof(Index), new
     {
-        jenisKelamin = vm.JenisKelamin.Where(e => e.Selected).Select(e => e.Value).ToList(),
-        agama = vm.Agama.Where(e => e.Selected).Select(e => e.Value).ToList(),
-        statusAktif = vm.StatusAktif.Where(e => e.Selected).Select(e => e.Value).ToList(),
-        tahunMasuk = vm.TahunMasuk.Where(e => e.Selected).Select(e => e.Value).ToList(),
-        tahunLahir = vm.TahunLahir.Where(e => e.Selected).Select(e => e.Value).ToList(),
-        jenjang = vm.Jenjang.Where(e => e.Selected).Select(e => e.Value).ToList()
+        jenisKelamin = vm.JenisKelamin.Selected(),
+        agama = vm.Agama.Selected(),
+        statusAktif = vm.StatusAktif.Selected(),
+        tahunMasuk = vm.TahunMasuk.Selected(),
+        tahunLahir = vm.TahunLahir.Selected(),
+        jenjang = vm.Jenjang.Selected()
     });
 
     public IActionResult Tambah() => View(new TambahVM());
+
+    public async Task<IActionResult> Detail(
+        int id,
+        List<JenisKelamin> jenisKelamin,
+        List<Agama> agama,
+        List<StatusAktifMahasiswa> statusAktif,
+        List<int> tahunMasuk,
+        List<int> tahunLahir,
+        List<Jenjang> jenjang)
+    {
+        var siswa = await _siswaRepository.Get(id);
+        if (siswa is null) return NotFound();
+
+        return View(new DetailVM
+        {
+            Siswa = siswa,
+            JenisKelamin = jenisKelamin,
+            Agama = agama,
+            StatusAktif = statusAktif,
+            TahunMasuk = tahunMasuk,
+            TahunLahir = tahunLahir
+        });
+    }
 
     [HttpPost]
     public async Task<IActionResult> Tambah(TambahVM vm)

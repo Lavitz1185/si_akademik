@@ -226,7 +226,20 @@
                                 }
                             </td>
                             <td>
-                                <a class="btn btn-warning" data-toggle="tooltip" title="Detail Biodata Siswa"><i class="fas fa-eye"></i></a>
+                                @{
+                                    var url = Url.ActionLink("Detail", values:new
+                                    {
+                                        id = siswa.Id,
+                                        jenisKelamin = Model.JenisKelamin.Selected(),
+                                        agama = Model.Agama.Selected(),
+                                        statusAktif = Model.StatusAktif.Selected(),
+                                        tahunMasuk = Model.TahunMasuk.Selected(),
+                                        tahunLahir = Model.TahunLahir.Selected(),
+                                        jenjang = Model.Jenjang.Selected()
+                                    });
+                                }
+
+                                <a href="@url" class="btn btn-warning" data-toggle="tooltip" title="Detail Biodata Siswa"><i class="fas fa-eye"></i></a>
 
                                 <a asp-action="Edit" asp-route-id="@siswa.Id" class="btn btn-primary btn-action" data-toggle="tooltip" title="Edit Data Siswa">
                                     <i class="fas fa-pencil-alt"></i>

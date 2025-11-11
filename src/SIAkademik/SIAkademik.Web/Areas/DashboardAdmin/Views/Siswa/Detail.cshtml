@@ -1,0 +1,30 @@
+﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.SiswaModels
+@model DetailVM
+
+<!-- Breadcrumb -->
+<div class="row">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Manajemen Peserta Didik</a></li>
+            <li class="breadcrumb-item">
+                @{
+                    var url = Url.ActionLink("Index", values: new
+                    {
+                        jenisKelamin = Model.JenisKelamin,
+                        agama = Model.Agama,
+                        statusAktif = Model.StatusAktif,
+                        tahunMasuk = Model.TahunMasuk,
+                        tahunLahir = Model.TahunLahir,
+                        jenjang = Model.Jenjang
+                    });
+                }
+
+                <a href="@url">
+                    Siswa
+                </a>
+            </li>
+            <li class="breadcrumb-item">Detail</li>
+        </ol>
+    </nav>
+</div>
+
