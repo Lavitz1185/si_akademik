@@ -93,6 +93,23 @@ $('#table-akun-1').DataTable({
     lengthMenu: [10, 25, 50, 100], // Opsi "Show entries"
     pageLength: 50
 });
+
+$('.table-export').each(function () {
+    $(this).DataTable({
+        dom: '<"row justify-content-between"lf><"row"B>rt<"bottom-wrapper"ip>', // Atur posisi elemen
+        buttons: [
+            'csv', 'excel', 'pdf', 'print' // Tombol ekspor
+        ],
+        columnDefs: [
+            { "sortable": false, "targets": [2] } // Menonaktifkan pengurutan untuk kolom tertentu
+        ],
+        scrollX: true,
+        stateSave: true,
+        lengthMenu: [10, 25, 50, 100], // tetap ada opsi pilihan
+        pageLength: 50 // default tampilkan 50 data
+    })
+});
+
 $('#table-akun-2').DataTable({
     dom: '<"row justify-content-between"lf><"row"B>rt<"bottom-wrapper"ip>', 
     buttons: [

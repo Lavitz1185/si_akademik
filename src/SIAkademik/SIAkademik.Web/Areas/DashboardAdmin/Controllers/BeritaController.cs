@@ -45,21 +45,13 @@ public class BeritaController : Controller
 
         return View(new IndexVM
         {
-            KategoriBerita = [
-                .. daftarKategoriBerita
-                .Select(k => new FilterEntryVM<int>{ Value = k.Id, Selected = kategoriBerita.Contains(k.Id) })
-            ],
-            Bulan = [
-                .. Enumerable.Range(1, 12)
-                .Select(b => new FilterEntryVM<int>{ Value = b, Selected = bulan.Contains(b) })
-            ],
-            Tahun = [
-                .. daftarBerita
+            KategoriBerita = daftarKategoriBerita.Select(k => k.Id).ToFilterEntryList(kategoriBerita),
+            Bulan = Enumerable.Range(1, 12).ToFilterEntryList(bulan),
+            Tahun = daftarBerita
                 .Select(b => b.Tanggal.Year)
                 .Distinct()
                 .Order()
-                .Select(y =>  new FilterEntryVM<int> { Value = y, Selected = tahun.Contains(y)})
-            ],
+                .ToFilterEntryList(tahun),
             DaftarBerita = [
                 .. daftarBerita
                 .Where(b => 
@@ -73,9 +65,9 @@ public class BeritaController : Controller
     [HttpPost]
     public IActionResult Index(IndexVM vm) => RedirectToAction(nameof(Index), new
     {
-        kategoriBerita = vm.KategoriBerita.Where(k => k.Selected).Select(k => k.Value).ToList(),
-        bulan = vm.Bulan.Where(b => b.Selected).Select(k => k.Value).ToList(),
-        tahun = vm.Tahun.Where(t => t.Selected).Select(t => t.Value).ToList()
+        kategoriBerita = vm.KategoriBerita.Selected(),
+        bulan = vm.Bulan.Selected(),
+        tahun = vm.Tahun.Selected()
     });
 
     public IActionResult Tambah() => View(new TambahVM());
