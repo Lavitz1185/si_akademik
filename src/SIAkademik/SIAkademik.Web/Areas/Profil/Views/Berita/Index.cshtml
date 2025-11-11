@@ -1,7 +1,12 @@
-﻿@model List<Berita>
+﻿@using SIAkademik.Web.Areas.Profil.Models.BeritaModels
+@model IndexVM
+
+@inject IKategoriBeritaRepository KategoriBeritaRepository
 
 @{
     ViewData["Title"] = "Berita & Pengumuman";
+
+    var daftarKategori = await KategoriBeritaRepository.GetAll();
 }
 
 <!-- ======================================= PENGANTAR ======================================= -->
@@ -18,23 +23,53 @@
 
     <div class="search-filter-container">
         <!-- Kolom Pencarian -->
-        <div class="search-box">
-            <input type="text" placeholder="Cari berita atau pengumuman...">
-            <button type="button">Cari</button>
-        </div>
+        <form asp-action="Index" asp-route-idKategoriBerita="@Model.IdKategoriBerita" method="get">
+            <div class="search-box">
+                <input asp-for="@Model.SearchString" type="text" placeholder="Cari berita atau pengumuman...">
+                <button type="submit">Cari</button>
+            </div>
+        </form>
 
         <!-- Tombol Filter -->
         <div class="filter-buttons">
-            <button type="button">Semua</button>
-            <button type="button">Berita</button>
-            <button type="button">Pengumuman</button>
+            @if (Model.IdKategoriBerita is null)
+            {
+                <a asp-action="Index" asp-route-searchString="@Model.SearchString" class="active">
+                    Semua
+                </a>
+            }
+            else
+            {
+                <a asp-action="Index" asp-route-searchString="@Model.SearchString">
+                    Semua
+                </a>
+            }
+
+            @foreach (var kategori in daftarKategori)
+            {
+                @if (kategori.Id == Model.IdKategoriBerita)
+                {
+                    <a asp-action="Index"
+                       asp-route-searchString="@Model.SearchString"
+                       asp-route-idKategoriBerita="@kategori.Id"
+                       class="active">
+                        @kategori.Nama
+                    </a>
+                }
+                else
+                {
+                    <a asp-action="Index"
+                       asp-route-searchString="@Model.SearchString"
+                       asp-route-idKategoriBerita="@kategori.Id">
+                        @kategori.Nama
+                    </a>
+                }
+            }
         </div>
     </div>
 
-
-
     <div class="berita-box">
-        @foreach (var berita in Model)
+        @foreach (var berita in Model.DaftarBerita)
         {
             <!-- Informasi -->
             <div class="beritas">
@@ -56,13 +91,63 @@
 
     <div class="pagination-container">
         <ul class="pagination">
-            <li><a href="#" class="disabled">Sebelumnya</a></li>
-            <li><a href="#" class="active">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">Selanjutnya</a></li>
+            @if (Model.DaftarBerita.HasPrevious)
+            {
+                <li>
+                    <a asp-action="Index"
+                       asp-route-idKategoriBerita="@Model.IdKategoriBerita"
+                       asp-route-pageIndex="@Model.DaftarBerita.PreviousPageIndex"
+                       asp-route-searchString="@Model.SearchString">
+                        Sebelumnya
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li><a href="#" class="disabled">Sebelumnya</a></li>
+            }
+
+            @foreach (var pageNumber in Model.DaftarBerita.PageNumbers)
+            {
+                if (pageNumber == Model.DaftarBerita.PageIndex)
+                {
+                    <li>
+                        <a asp-action="Index"
+                           asp-route-pageIndex="@pageNumber"
+                           asp-route-idKategoriBerita="@Model.IdKategoriBerita"
+                           asp-route-searchString="@Model.SearchString" class="active">
+                            @(pageNumber + 1)
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a asp-action="Index"
+                           asp-route-pageIndex="@pageNumber"
+                           asp-route-idKategoriBerita="@Model.IdKategoriBerita"
+                           asp-route-searchString="@Model.SearchString">
+                            @(pageNumber + 1)
+                        </a>
+                    </li>
+                }
+            }
+
+            @if (Model.DaftarBerita.HasNext)
+            {
+                <li>
+                    <a asp-action="Index"
+                       asp-route-pageIndex="@Model.DaftarBerita.NextPageIndex"
+                       asp-route-idKategoriBerita="@Model.IdKategoriBerita"
+                       asp-route-searchString="@Model.SearchString">
+                        Selanjutnya
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li><a href="#" class="disabled">Selanjutnya</a></li>
+            }
         </ul>
     </div>
 </section>

@@ -2,6 +2,7 @@
 using SIAkademik.Domain.ModulProfil.Entities;
 using SIAkademik.Domain.ModulProfil.Repositories;
 using SIAkademik.Web.Areas.Profil.Models.BeritaModels;
+using SIAkademik.Web.Models;
 
 namespace SIAkademik.Web.Areas.Profil.Controllers;
 
@@ -15,11 +16,26 @@ public class BeritaController : Controller
         _beritaRepository = beritaRepository;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(
+        int pageSize = 6,
+        int pageIndex = 0,
+        int? idKategoriBerita = null,
+        string? searchString = null)
     {
         var daftarBerita = await _beritaRepository.GetAll();
 
-        return View(daftarBerita);
+        return View(new IndexVM
+        {
+            SearchString = searchString,
+            IdKategoriBerita = idKategoriBerita,
+            DaftarBerita = daftarBerita
+                .Where(b => (idKategoriBerita is null || b.KategoriBerita.Id == idKategoriBerita) &&
+                            (searchString is null || searchString
+                                .ToLower()
+                                .Split(" ")
+                                .Any(s => b.Judul.Contains(s, StringComparison.InvariantCultureIgnoreCase))))
+                .ToPagedList(pageSize, pageIndex)
+        });
     }
 
     public async Task<IActionResult> Detail(int id)

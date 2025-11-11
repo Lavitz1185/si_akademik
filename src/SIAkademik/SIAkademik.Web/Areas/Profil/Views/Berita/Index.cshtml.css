@@ -174,8 +174,9 @@
     gap: 8px;
 }
 
-    .filter-buttons button {
+    .filter-buttons ::deep a {
         padding: 12px 20px;
+        text-decoration:none;
         background-color: #fff;
         color: #23385f;
         border: 1px solid #23385f;
@@ -185,7 +186,7 @@
         transition: 0.3s;
     }
 
-        .filter-buttons button:hover {
+        .filter-buttons ::deep a:hover, .filter-buttons ::deep a.active {
             background-color: #23385f;
             color: #fff;
         }
@@ -213,7 +214,7 @@
         display: inline-block;
     }
 
-    .pagination a {
+    .pagination ::deep a {
         display: inline-block;
         padding: 10px 16px;
         border: 1px solid #ccc;
@@ -225,22 +226,23 @@
     }
 
         /* === HOVER & ACTIVE === */
-        .pagination a:hover {
+        .pagination ::deep a:hover {
             background-color: #23385f;
             color: #fff;
         }
 
-        .pagination a.active {
+        .pagination ::deep a.active {
             background-color: #23385f;
             color: #fff;
             border-color: #23385f;
         }
 
         /* === DISABLED BUTTON === */
-        .pagination a.disabled {
+        .pagination ::deep a.disabled {
             color: #aaa;
             cursor: not-allowed;
             border-color: #eee;
+            pointer-events: none;
         }
 
 
@@ -261,12 +263,12 @@
             font-size: 15px;
         }
 
-    .filter-buttons button {
+    .filter-buttons ::deep a {
         padding: 10px 16px;
     }
 
     /* ------------------------------------ PAGINATION  ------------------------------------ */
-    .pagination a {
+    .pagination ::deep a {
         padding: 9px 14px;
         font-size: 15px;
     }
@@ -301,7 +303,7 @@
     }
 
     /* ------------------------------------ PAGINATION  ------------------------------------ */
-    .pagination a {
+    .pagination ::deep a {
         padding: 8px 12px;
         font-size: 14px;
     }
@@ -380,7 +382,7 @@
         gap: 6px;
     }
 
-        .pagination a {
+        .pagination ::deep a {
             padding: 8px 10px;
             font-size: 13px;
         }
