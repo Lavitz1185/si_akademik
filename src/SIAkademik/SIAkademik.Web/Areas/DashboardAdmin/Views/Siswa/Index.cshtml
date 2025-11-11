@@ -184,35 +184,35 @@
 
         <!-- Tabel -->
         <div class="table-responsive">
-            <table class="table table-striped" id="save-stage">
+            <table class="table table-striped" id="table-akun">
                 <thead>
                     <tr>
-                        <th style="min-width: 30px">Id</th>
+                        @* <th style="min-width: 30px">Id</th> *@
                         <th style="min-width: 100px">NISN</th>
                         <th style="min-width: 100px">NIS</th>
                         <th style="min-width: 200px">Nama</th>
-                        <th style="min-width: 100px">Agama</th>
-                        <th style="min-width: 100px">Jenis Kelamin</th>
-                        <th style="min-width: 120px">TTL</th>
-                        <th style="min-width: 120px">Tanggal Masuk</th>
+                        @* <th style="min-width: 100px">Agama</th> *@
+                        @* <th style="min-width: 100px">Jenis Kelamin</th>*@
+                        @* <th style="min-width: 120px">TTL</th>*@
+                        @* <th style="min-width: 120px">Tanggal Masuk</th> *@
                         <th style="min-width: 100px">Status Aktif</th>
                         <th style="min-width: 50px">Jenjang</th>
                         <th style="min-width: 120px">Biodata Lengkap?</th>
-                        <th style="min-width: 100px">Aksi</th>
+                        <th style="min-width: 130px">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var siswa in Model.DaftarSiswa)
                     {
                         <tr>
-                            <td>@siswa.Id</td>
+                            @* <td>@siswa.Id</td> *@
                             <td>@siswa.NISN</td>
                             <td>@siswa.NIS</td>
                             <td>@siswa.Nama</td>
-                            <td>@siswa.Agama.Humanize(LetterCasing.Title)</td>
-                            <td>@siswa.JenisKelamin.Humanize()</td>
-                            <td>@siswa.TTL</td>
-                            <td>@siswa.TanggalMasuk.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td>
+                            @* <td>@siswa.Agama.Humanize(LetterCasing.Title)</td> *@
+                            @* <td>@siswa.JenisKelamin.Humanize()</td> *@
+                            @* <td>@siswa.TTL</td> *@
+                            @* <td>@siswa.TanggalMasuk.ToString(CultureInfos.CI.DateTimeFormat.ShortDatePattern, CultureInfos.CI)</td> *@
                             <td>@siswa.StatusAktif.Humanize()</td>
                             <td>@siswa.Jenjang.Humanize()</td>
                             <td>

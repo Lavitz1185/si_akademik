@@ -22,12 +22,11 @@
                         jenjang = Model.Jenjang
                     });
                 }
-
                 <a href="@url">
                     Siswa
                 </a>
             </li>
-            <li class="breadcrumb-item">Detail</li>
+            <li class="breadcrumb-item">Detail Data</li>
         </ol>
     </nav>
 </div>
@@ -36,16 +35,16 @@
 <div class="section-body">
     <div class="row" style="justify-content: center;">
         <div class="col-12 col-md-12 col-lg-12">
-            <div class="card card-success">
-                <div class="card-header" style="padding-top: 20px;">
-                    <h4>Tambah Data Siswa</h4>
-                </div>
+            <div class="card card-info">
 
+                <div class="card-header" style="padding-top: 20px;">
+                    <h4>Detail Data Siswa</h4>
+                </div>
 
                 <div class="card-body d-flex">
                     <div class="col-6 p-0">
                         <div class="form-group">
-                            <label>NISN</label>
+                            <label>Nomor Induk Siswa Nasional</label>
                             <input value="@Model.Siswa.NISN" type="text" class="form-control" readonly />
                         </div>
 
@@ -72,7 +71,7 @@
 
                     <div class="col-6">
                         <div class="form-group">
-                            <label>NIS</label>
+                            <label>Nomor Induk Siswa</label>
                             <input value="@Model.Siswa.NIS" type="text" class="form-control" readonly />
                         </div>
 
