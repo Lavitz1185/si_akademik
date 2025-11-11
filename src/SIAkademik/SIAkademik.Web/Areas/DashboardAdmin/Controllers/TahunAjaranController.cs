@@ -16,20 +16,17 @@ namespace SIAkademik.Web.Areas.DashboardAdmin.Controllers;
 public class TahunAjaranController : Controller
 {
     private readonly ITahunAjaranRepository _tahunAjaranRepository;
-    private readonly IKelasRepository _kelasRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IToastrNotificationService _toastrNotificationService;
 
     public TahunAjaranController(
         ITahunAjaranRepository tahunAjaranRepository,
         IUnitOfWork unitOfWork,
-        IToastrNotificationService toastrNotificationService,
-        IKelasRepository kelasRepository)
+        IToastrNotificationService toastrNotificationService)
     {
         _tahunAjaranRepository = tahunAjaranRepository;
         _unitOfWork = unitOfWork;
         _toastrNotificationService = toastrNotificationService;
-        _kelasRepository = kelasRepository;
     }
 
     public async Task<IActionResult> Index()
