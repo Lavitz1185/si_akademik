@@ -493,11 +493,11 @@ public class ImportController : Controller
 
             var row = new Row() { RowIndex = rowIndex++ };
             row.Append(
-                new Cell { CellValue = new CellValue(i + 1) },
-                new Cell { CellValue = new CellValue(anggotaRombel.Siswa.Nama) },
-                new Cell { CellValue = new CellValue(anggotaRombel.Siswa.NIS) },
-                new Cell { CellValue = new CellValue(anggotaRombel.Siswa.NISN) },
-                new Cell { DataType = null }
+                new Cell { CellValue = new CellValue(i + 1), StyleIndex = 3 },
+                new Cell { CellValue = new CellValue(anggotaRombel.Siswa.Nama), StyleIndex = 3 },
+                new Cell { CellValue = new CellValue(anggotaRombel.Siswa.NIS), StyleIndex = 3 },
+                new Cell { CellValue = new CellValue(anggotaRombel.Siswa.NISN), StyleIndex = 3 },
+                new Cell { DataType = null, StyleIndex = 3 }
             );
 
             sheetData.Append(row);
