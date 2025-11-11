@@ -44,12 +44,32 @@
                 dataTransfer.items.add(fileItem);
                 fileInput.files = dataTransfer.files;
 
+                const orgStr = $(label).children('.file-name').text();
+                const closeBtn = $(' <button class="btn"><i class="fas fa-times text-danger"></i></div></button>');
+                $(closeBtn).on('click', function (e) {
+                    e.stopPropagation();
+                    const emptyDataTransfer = new DataTransfer();
+                    fileInput.files = emptyDataTransfer.files;
+                    $(label).children('.file-name').text(orgStr);
+                })
+
                 $(label).children('.file-name').text(fileItem.name)
+                $(label).children('.file-name').append(closeBtn);
             }
         });
 
         $(fileInput).on('change', function () {
+            const orgStr = $(label).children('.file-name').text();
+            const closeBtn = $(' <button class="btn"><i class="fas fa-times text-danger"></i></div></button>');
+            $(closeBtn).on('click', function (e) {
+                e.stopPropagation();
+                const emptyDataTransfer = new DataTransfer();
+                fileInput.files = emptyDataTransfer.files;
+                $(label).children('.file-name').text(orgStr);
+            })
+
             $(label).children('.file-name').text(fileInput.files[0].name)
+            $(label).children('.file-name').append(closeBtn);
         })
     })
 });
