@@ -48,4 +48,6 @@ public class EditVM
     [Display(Name = "Jenjang")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public required Jenjang Jenjang { get; set; }
+
+    public required string ReturnUrl { get; set; }
 }

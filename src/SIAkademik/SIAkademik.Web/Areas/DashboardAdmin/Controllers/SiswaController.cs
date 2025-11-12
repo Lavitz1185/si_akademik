@@ -90,8 +90,6 @@ public class SiswaController : Controller
         jenjang = vm.Jenjang.Selected()
     });
 
-    public IActionResult Tambah() => View(new TambahVM());
-
     public async Task<IActionResult> Detail(
         int id,
         List<JenisKelamin> jenisKelamin,
@@ -114,6 +112,8 @@ public class SiswaController : Controller
             TahunLahir = tahunLahir
         });
     }
+
+    public IActionResult Tambah(string? returnUrl) => View(new TambahVM { ReturnUrl = returnUrl ?? Url.ActionLink(nameof(Index))!});
 
     [HttpPost]
     public async Task<IActionResult> Tambah(TambahVM vm)
@@ -167,10 +167,10 @@ public class SiswaController : Controller
 
         _toastrNotificationService.AddSuccess("Tambah data siswa berhasil!");
 
-        return RedirectToAction(nameof(Index));
+        return Redirect(vm.ReturnUrl);
     }
 
-    public async Task<IActionResult> Edit(int id)
+    public async Task<IActionResult> Edit(int id, string? returnUrl = null)
     {
         var siswa = await _siswaRepository.Get(id);
         if (siswa is null) return NotFound();
@@ -187,7 +187,8 @@ public class SiswaController : Controller
             TanggalMasuk = siswa.TanggalMasuk,
             TempatLahir = siswa.TempatLahir,
             StatusAktif = siswa.StatusAktif,
-            Jenjang = siswa.Jenjang
+            Jenjang = siswa.Jenjang,
+            ReturnUrl = returnUrl ?? Url.ActionLink(nameof(Index))!
         });
     }
 
@@ -240,11 +241,11 @@ public class SiswaController : Controller
 
         _toastrNotificationService.AddSuccess("Ubah data siswa berhasil!");
 
-        return RedirectToAction(nameof(Index));
+        return Redirect(vm.ReturnUrl);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Hapus(int id)
+    public async Task<IActionResult> Hapus(int id, string? returnUrl)
     {
         var siswa = await _siswaRepository.Get(id);
         if (siswa is null) return NotFound();
@@ -257,6 +258,6 @@ public class SiswaController : Controller
         else
             _toastrNotificationService.AddSuccess("Hapus data siswa berhasil!");
 
-        return RedirectToAction(nameof(Index));
+        return returnUrl is null ? RedirectToAction(nameof(Index)) : RedirectPermanent(returnUrl);
     }
 }

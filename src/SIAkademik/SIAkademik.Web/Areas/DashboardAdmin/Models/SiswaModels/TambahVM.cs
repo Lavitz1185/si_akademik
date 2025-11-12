@@ -44,4 +44,6 @@ public class TambahVM
     [Display(Name = "Jenjang")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public Jenjang Jenjang { get; set; }
+
+    public required string ReturnUrl { get; set; }
 }

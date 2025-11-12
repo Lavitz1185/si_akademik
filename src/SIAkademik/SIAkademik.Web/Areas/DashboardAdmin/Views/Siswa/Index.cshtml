@@ -25,7 +25,7 @@
 
         <div class="d-flex justify-content-start ml-auto mb-3">
             <div class="mb-0">
-                <a class="btn btn-icon icon-left btn-primary mr-1" asp-action="Tambah"
+                <a class="btn btn-icon icon-left btn-primary mr-1" asp-action="Tambah" asp-route-returnUrl="@Context.Request.AbsoluteUri()"
                    data-toggle="tooltip" title="Tambah Data Siswa">
                     <i class="fas fa-plus"></i> Tambah Data
                 </a>
@@ -241,10 +241,10 @@
 
                                 <a href="@url" class="btn btn-warning" data-toggle="tooltip" title="Detail Biodata Siswa"><i class="fas fa-eye"></i></a>
 
-                                <a asp-action="Edit" asp-route-id="@siswa.Id" class="btn btn-primary btn-action" data-toggle="tooltip" title="Edit Data Siswa">
+                                <a asp-action="Edit" asp-route-id="@siswa.Id" asp-route-returnUrl="@Context.Request.AbsoluteUri()" class="btn btn-primary btn-action" data-toggle="tooltip" title="Edit Data Siswa">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                <form asp-action="Hapus" asp-route-id="@siswa.Id" style="display:inline" method="post">
+                                <form asp-action="Hapus" asp-route-id="@siswa.Id" asp-route-returnUrl="@Context.Request.AbsoluteUri()" style="display:inline" method="post">
                                     <button type="button" class="btn btn-danger btn-action swal-confirm" data-toggle="tooltip" title="Hapus Data Siswa">
                                         <i class="fas fa-trash"></i>
                                     </button>
