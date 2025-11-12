@@ -70,7 +70,7 @@ public class BeritaController : Controller
         tahun = vm.Tahun.Selected()
     });
 
-    public IActionResult Tambah() => View(new TambahVM());
+    public IActionResult Tambah(string? returnUrl) => View(new TambahVM { ReturnUrl = returnUrl ?? Url.Action(nameof(Index))!});
 
     [HttpPost]
     public async Task<IActionResult> Tambah(TambahVM vm)
@@ -125,10 +125,10 @@ public class BeritaController : Controller
 
         _toastrNotificationService.AddSuccess("Simpan Berhasil!");
 
-        return RedirectToAction(nameof(Index));
+        return Redirect(vm.ReturnUrl);
     }
 
-    public async Task<IActionResult> Edit(int id)
+    public async Task<IActionResult> Edit(int id, string? returnUrl = null)
     {
         var berita = await _beritaRepository.Get(id);
         if (berita is null) return NotFound();
@@ -140,7 +140,8 @@ public class BeritaController : Controller
             Id = berita.Id,
             IdKategoriBerita = berita.KategoriBerita.Id,
             Isi = berita.Isi,
-            Tanggal = berita.Tanggal
+            Tanggal = berita.Tanggal,
+            ReturnUrl = returnUrl ?? Url.ActionLink(nameof(Index))!
         });
     }
 
@@ -196,11 +197,11 @@ public class BeritaController : Controller
 
         _toastrNotificationService.AddSuccess("Simpan Berhasil!");
 
-        return RedirectToAction(nameof(Index));
+        return Redirect(vm.ReturnUrl);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Hapus(int id)
+    public async Task<IActionResult> Hapus(int id, string? returnUrl = null)
     {
         var berita = await _beritaRepository.Get(id);
         if (berita is null) return NotFound();
@@ -217,6 +218,6 @@ public class BeritaController : Controller
         else
             _toastrNotificationService.AddError("Hapus Gagal!");
 
-        return RedirectToAction(nameof(Index));
+        return returnUrl is null ? RedirectToAction(nameof(Index)) : RedirectPermanent(returnUrl);
     }
 }

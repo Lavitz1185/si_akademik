@@ -24,4 +24,6 @@ public class TambahVM
     [Display(Name = "Foto")]
     [Required(ErrorMessage = "{0} harus diupload")]
     public IFormFile? Foto { get; set; }
+
+    public required string ReturnUrl { get; set; }
 }

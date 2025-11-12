@@ -26,7 +26,7 @@
     <div class="padding-20">
         <div class="d-flex justify-content-beetwen mb-3">
             <div class="mb-0">
-                <a class="btn btn-icon icon-left btn-primary mr-1" asp-action="Tambah" data-toggle="tooltip" title="Tambah Berita">
+                <a class="btn btn-icon icon-left btn-primary mr-1" asp-action="Tambah" asp-route-returnUrl="@Context.Request.AbsoluteUri()" data-toggle="tooltip" title="Tambah Berita">
                     <i class="fas fa-plus"></i> Tambah Data
                 </a>
             </div>
@@ -115,10 +115,10 @@
                             <td>@Html.Raw(item.Isi.Truncate(100, "..."))</td>
                             <td>@item.KategoriBerita.Nama</td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit Berita">
+                                <a asp-action="Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.AbsoluteUri()" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit Berita">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                <form style="display:inline" asp-action="Hapus" asp-route-id="@item.Id" method="post">
+                                <form style="display:inline" asp-action="Hapus" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.AbsoluteUri()" method="post">
                                     <button type="button" class="btn btn-danger btn-action swal-confirm" data-toggle="tooltip" title="Hapus Berita">
                                         <i class="fas fa-trash"></i>
                                     </button>

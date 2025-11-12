@@ -28,4 +28,6 @@ public class EditVM
     [Display(Name = "Foto")]
     public IFormFile? FotoBaru { get; set; }
     public required Uri FotoLama { get; set; }
+
+    public required string ReturnUrl { get; set; }
 }
