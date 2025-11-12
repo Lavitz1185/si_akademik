@@ -79,6 +79,7 @@ public class EditVM : IHaveAlamat
 
     [Display(Name = "Password")]
     [DataType(DataType.Password)]
-    [Required(ErrorMessage = "{0} harus diisi")]
     public string? Password { get; set; }
+
+    public required string ReturnUrl { get; set; }
 }

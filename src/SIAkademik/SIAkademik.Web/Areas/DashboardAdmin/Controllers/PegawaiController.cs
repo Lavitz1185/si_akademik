@@ -114,7 +114,7 @@ public class PegawaiController : Controller
         return View(pegawai);
     }
 
-    public IActionResult Tambah() => View(new TambahVM());
+    public IActionResult Tambah(string? returnUrl = null) => View(new TambahVM { ReturnUrl = returnUrl ?? Url.ActionLink(nameof(Index))!});
 
     [HttpPost]
     public async Task<IActionResult> Tambah(TambahVM vm)
@@ -208,10 +208,10 @@ public class PegawaiController : Controller
 
         _toastrNotificationService.AddSuccess("Data pegawai baru berhasil ditambahkan");
 
-        return RedirectToAction(nameof(Index));
+        return Redirect(vm.ReturnUrl);
     }
 
-    public async Task<IActionResult> Edit(string nip)
+    public async Task<IActionResult> Edit(string nip, string? returnUrl = null)
     {
         var pegawai = await _pegawaiRepository.Get(nip);
 
@@ -246,7 +246,8 @@ public class PegawaiController : Controller
                 StatusPerkawinan = pegawai.StatusPerkawinan,
                 TanggalLahir = pegawai.TanggalLahir,
                 TanggalMasuk = pegawai.TanggalMasuk,
-                TempatLahir = pegawai.TempatLahir
+                TempatLahir = pegawai.TempatLahir,
+                ReturnUrl = returnUrl ?? Url.ActionLink(nameof(Index))!
             }
         );
     }
@@ -319,7 +320,6 @@ public class PegawaiController : Controller
 
         if (vm.Password is not null)
         {
-
             account.PasswordHash = _passwordHasher.HashPassword(null, vm.Password);
         }
 
@@ -332,11 +332,11 @@ public class PegawaiController : Controller
 
         _toastrNotificationService.AddSuccess("Data pegawai berhasil diubah!");
 
-        return RedirectToAction(nameof(Index));
+        return Redirect(vm.ReturnUrl);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Hapus(string nip)
+    public async Task<IActionResult> Hapus(string nip, string? returnUrl)
     {
         var pegawai = await _pegawaiRepository.Get(nip);
 
@@ -353,6 +353,6 @@ public class PegawaiController : Controller
         else
             _toastrNotificationService.AddSuccess("Berhasil Menghapus Data Pegawai");
 
-        return RedirectToAction(nameof(Index));
+        return returnUrl is null ? RedirectToAction(nameof(Index)) : RedirectPermanent(returnUrl);
     }
 }

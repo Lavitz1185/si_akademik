@@ -81,4 +81,6 @@ public class TambahVM : IHaveAlamat
     [DataType(DataType.Password)]
     [Required(ErrorMessage = "{0} harus diisi")]
     public string Password { get; set; } = string.Empty;
+
+    public required string ReturnUrl { get; set; }
 }

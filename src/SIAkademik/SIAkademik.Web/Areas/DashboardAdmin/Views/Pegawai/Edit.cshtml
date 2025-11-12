@@ -17,7 +17,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Manajemen SDM</a></li>
-            <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="Pegawai" asp-action="Index">Guru & Tendik</a></li>
+            <li class="breadcrumb-item"><a href="@Model.ReturnUrl">Guru & Tendik</a></li>
             <li class="breadcrumb-item" aria-current="page">Edit Data</li>
         </ol>
     </nav>
@@ -33,7 +33,7 @@
                     <h4>Edit Data Guru/Tendik</h4>
                 </div>
 
-                <form asp-action="Edit">
+                <form asp-action="Edit" asp-route-nip="@Model.NIP" asp-route-returnUrl="@Model.ReturnUrl">
                     <div class="card-body d-flex">
                         <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
 
@@ -41,11 +41,6 @@
 
                             <div class="section-title mt-0">
                                 Data Kepegawaian
-                            </div>
-
-                            <div>
-                                <input asp-for="@Model.NIP" type="text" hidden readonly />
-                                <span asp-validation-for="@Model.NIP"></span>
                             </div>
 
                             <div class="form-group">

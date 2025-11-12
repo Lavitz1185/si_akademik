@@ -28,7 +28,7 @@
     <div class="padding-20">
         <div class="d-flex justify-content-beetwen mb-3">
             <div class="mb-0">
-                <a class="btn btn-icon icon-left btn-primary mr-1" asp-action="Tambah" data-toggle="tooltip" title="Tambah Guru/Tendik">
+                <a class="btn btn-icon icon-left btn-primary mr-1" asp-action="Tambah" asp-route-returnUrl="@Context.Request.AbsoluteUri()" data-toggle="tooltip" title="Tambah Guru/Tendik">
                     <i class="fas fa-plus"></i> Tambah Data
                 </a>
 
@@ -266,10 +266,10 @@
                             <td>@item.Divisi.Nama</td>
                             <td>@item.Jabatan.Nama</td>
                             <td>
-                                <a asp-action="Edit" asp-route-nip="@item.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit Guru/Tendik">
+                                <a asp-action="Edit" asp-route-nip="@item.Id" asp-route-returnUrl="@Context.Request.AbsoluteUri()" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit Guru/Tendik">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                <form style="display:inline" asp-action="Hapus" asp-route-nip="@item.Id" method="post">
+                                <form style="display:inline" asp-action="Hapus" asp-route-nip="@item.Id" asp-route-returnUrl="@Context.Request.AbsoluteUri()" method="post">
                                     <button type="button" class="btn btn-danger btn-action swal-confirm" data-toggle="tooltip" title="Hapus Guru/Tendik">
                                         <i class="fas fa-trash"></i>
                                     </button>
