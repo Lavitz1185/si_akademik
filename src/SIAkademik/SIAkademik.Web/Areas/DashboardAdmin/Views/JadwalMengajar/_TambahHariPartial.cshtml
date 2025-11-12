@@ -1,7 +1,7 @@
 ﻿@using SIAkademik.Web.Areas.DashboardAdmin.Models.JadwalMengajarModels
 @model TambahHariVM
 
-<form asp-action="TambahHari" asp-route-idJadwalMengajar="@Model.IdJadwalMengajar" method="post" id="formTambahHari">
+<form asp-action="TambahHari" asp-route-idJadwalMengajar="@Model.IdJadwalMengajar" asp-route-returnUrl="@Model.ReturnUrl" method="post" id="formTambahHari">
     <div class="modal-header">
         <h5 class="modal-title" id="modalTambahTitle">Tambah Hari Mengajar</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">

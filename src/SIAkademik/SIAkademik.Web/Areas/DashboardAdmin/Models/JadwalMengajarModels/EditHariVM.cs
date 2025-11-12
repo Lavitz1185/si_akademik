@@ -20,4 +20,6 @@ public class EditHariVM
     [Display(Name = "Jam Mulai")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public required TimeOnly JamMulai { get; set; }
+
+    public required string ReturnUrl { get; set; }
 }

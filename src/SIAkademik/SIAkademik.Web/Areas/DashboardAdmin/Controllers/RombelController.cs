@@ -65,8 +65,13 @@ public class RombelController : Controller
         });
     }
 
-    public IActionResult Tambah(int? idKelas = null, int? idTahunAjaran = null) => 
-        View(new TambahVM { IdKelas = idKelas ?? default, IdTahunAjaran = idTahunAjaran ?? default });
+    public IActionResult Tambah(int? idKelas = null, int? idTahunAjaran = null, string? returnUrl = null) => 
+        View(new TambahVM
+        {
+            IdKelas = idKelas ?? default,
+            IdTahunAjaran = idTahunAjaran ?? default,
+            ReturnUrl = returnUrl ?? Url.ActionLink(nameof(Index))!
+        });
 
     [HttpPost]
     public async Task<IActionResult> Tambah(TambahVM vm)
@@ -119,10 +124,10 @@ public class RombelController : Controller
 
         _toastrNotificationService.AddSuccess("Simpan data rombel baru berhasil!");
 
-        return RedirectToAction(nameof(Index), new { idKelas = kelas.Id, idTahunAjaran = tahunAjaran.Id });
+        return Redirect(vm.ReturnUrl);
     }
 
-    public async Task<IActionResult> Edit(int id)
+    public async Task<IActionResult> Edit(int id, string? returnUrl = null)
     {
         var rombel = await _rombelRepository.Get(id);
         if (rombel is null) return NotFound();
@@ -133,7 +138,8 @@ public class RombelController : Controller
             Nama = rombel.Nama,
             IdKelas = rombel.Kelas.Id,
             NIPWali = rombel.Wali.Id,
-            IdTahunAjaran = rombel.TahunAjaran.Id
+            IdTahunAjaran = rombel.TahunAjaran.Id,
+            ReturnUrl = returnUrl ?? Url.ActionLink(nameof(Index))!
         });
     }
 
@@ -187,11 +193,11 @@ public class RombelController : Controller
 
         _toastrNotificationService.AddSuccess("Ubah data rombel berhasil!");
 
-        return RedirectToAction(nameof(Index), new { idTahunAjaran = tahunAjaran.Id, idKelas = kelas.Id });
+        return Redirect(vm.ReturnUrl);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Hapus(int id)
+    public async Task<IActionResult> Hapus(int id, string? returnUrl = null)
     {
         var rombel = await _rombelRepository.Get(id);
         if (rombel is null) return NotFound();
@@ -206,10 +212,10 @@ public class RombelController : Controller
         if (result.IsFailure) _toastrNotificationService.AddError("Hapus data rombel gagal!");
         else _toastrNotificationService.AddSuccess("Hapus data rombel berhasil!");
 
-        return RedirectToAction(nameof(Index), new { idKelas, idTahunAjaran });
+        return returnUrl is null ? RedirectToAction(nameof(Index), new { idKelas, idTahunAjaran }) : RedirectPermanent(returnUrl);
     }
 
-    public async Task<IActionResult> Detail(int id)
+    public async Task<IActionResult> Detail(int id, string? returnUrl = null)
     {
         var rombel = await _rombelRepository.Get(id);
         if (rombel is null) return NotFound();
@@ -220,6 +226,7 @@ public class RombelController : Controller
         {
             Id = id,
             Rombel = rombel,
+            ReturnUrl = returnUrl ?? Url.ActionLink(nameof(Index))!,
             DaftarSiswaTambah = [.. daftarSiswa
                 .Where(s => s.DaftarAnggotaRombel.All(a => a.Rombel.TahunAjaran != rombel.TahunAjaran) && s.Jenjang == rombel.Kelas.Jenjang)
                 .OrderBy(s => s.Nama)

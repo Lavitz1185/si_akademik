@@ -29,7 +29,7 @@
                 @if (Model.TahunAjaran is not null)
                 {
                     <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah" asp-route-idTahunAjaran="@Model.TahunAjaran.Id"
-                       asp-route-idRombel="@Model.IdRombel"
+                       asp-route-idRombel="@Model.IdRombel" asp-route-returnUrl="@Context.Request.AbsoluteUri()"
                        data-toggle="tooltip" title="Tambah Jadwal Mengajar">
                         <i class="fas fa-plus"></i>Tambah Data
                     </a>
@@ -126,7 +126,8 @@
                                                                     IdJadwalMengajar = jadwalMengajar.Id,
                                                                     IdHariMengajar = hari.Id,
                                                                     Hari = hari.Hari,
-                                                                    JamMulai = hari.JamMulai
+                                                                    JamMulai = hari.JamMulai,
+                                                                    ReturnUrl = Context.Request.AbsoluteUri()
                                                                 };
 
                                                                 <partial name="_EditHariPartial" model="@modelEditHariMengajar" />
@@ -135,6 +136,7 @@
                                                         <form asp-action="HapusHari"
                                                               asp-route-id="@jadwalMengajar.Id"
                                                               asp-route-idHariMengajar="@hari.Id"
+                                                              asp-route-returnUrl="@Context.Request.AbsoluteUri()"
                                                               class="d-inline">
                                                             <button type="button"
                                                                     class="btn btn-sm text-danger border-0 bg-transparent swal-confirm"
@@ -154,15 +156,19 @@
                                     </button>
                                     <div style="display:none;" class="form-tambah">
                                         @{
-                                            var modelTambahHari = new TambahHariVM { IdJadwalMengajar = jadwalMengajar.Id };
+                                            var modelTambahHari = new TambahHariVM 
+                                            { 
+                                                IdJadwalMengajar = jadwalMengajar.Id,
+                                                ReturnUrl = Context.Request.AbsoluteUri()
+                                            };
                                         }
                                         <partial name="_TambahHariPartial" model="@modelTambahHari" />
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@jadwalMengajar.Id" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit Jadwal Mengajar"><i class="fas fa-pencil-alt"></i></a>
-                                <form asp-action="Hapus" asp-route-id="@jadwalMengajar.Id" method="post" style="display:inline">
+                                <a asp-action="Edit" asp-route-id="@jadwalMengajar.Id" asp-route-returnUrl="@Context.Request.AbsoluteUri()" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit Jadwal Mengajar"><i class="fas fa-pencil-alt"></i></a>
+                                <form asp-action="Hapus" asp-route-id="@jadwalMengajar.Id" asp-route-returnUrl="@Context.Request.AbsoluteUri()" method="post" style="display:inline">
                                     <button type="button" class="btn btn-danger btn-action swal-confirm" data-toggle="tooltip" title="Hapus Jadwal Mengajar"><i class="fas fa-trash"></i></button>
                                 </form>
                             </td>

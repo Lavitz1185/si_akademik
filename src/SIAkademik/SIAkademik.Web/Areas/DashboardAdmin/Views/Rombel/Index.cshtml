@@ -30,7 +30,7 @@
 
             <div class="mb-0">
                 <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah" asp-route-idTahunAjaran="@Model.IdTahunAjaran"
-                   asp-route-idKelas="@Model.IdKelas"
+                   asp-route-idKelas="@Model.IdKelas" asp-route-returnUrl="@Context.Request.AbsoluteUri()"
                    data-toggle="tooltip" title="Tambah Rombel">
                     <i class="fas fa-plus"></i> Tambah Data
                 </a>
@@ -91,9 +91,9 @@
                             <td>@rombel.Wali.Nama</td>
                             <td>@rombel.DaftarAnggotaRombel.Count</td>
                             <td>
-                                <a asp-action="Detail" asp-route-id="@rombel.Id" class="btn btn-warning" data-toggle="tooltip" title="Detail Rombel"><i class="fas fa-eye"></i></a>
-                                <a asp-action="Edit" asp-route-id="@rombel.Id" class="btn btn-primary" data-toggle="tooltip" title="Edit Rombel"><i class="fas fa-pencil-alt"></i></a>
-                                <form asp-action="Hapus" asp-route-id="@rombel.Id" style="display:inline" method="post">
+                                <a asp-action="Detail" asp-route-id="@rombel.Id" asp-route-returnUrl="@Context.Request.AbsoluteUri()" class="btn btn-warning" data-toggle="tooltip" title="Detail Rombel"><i class="fas fa-eye"></i></a>
+                                <a asp-action="Edit" asp-route-id="@rombel.Id" asp-route-returnUrl="@Context.Request.AbsoluteUri()" class="btn btn-primary" data-toggle="tooltip" title="Edit Rombel"><i class="fas fa-pencil-alt"></i></a>
+                                <form asp-action="Hapus" asp-route-id="@rombel.Id" asp-route-returnUrl="@Context.Request.AbsoluteUri()" style="display:inline" method="post">
                                     <button type="button" class="btn btn-danger swal-confirm" data-toggle="tooltip" title="Hapus Rombel"><i class="fas fa-trash"></i></button>
                                 </form>
                             </td>

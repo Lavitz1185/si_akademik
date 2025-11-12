@@ -21,4 +21,6 @@ public class EditVM
     public required string NIPWali { get; set; }
 
     public required int IdTahunAjaran { get; set; }
+
+    public required string ReturnUrl { get; set; }
 }

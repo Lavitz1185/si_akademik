@@ -33,6 +33,8 @@ public class TambahVM
     [Display(Name = "Tahun Ajaran")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public required int IdTahunAjaran { get; set; }
+
+    public required string ReturnUrl { get; set; }
 }
 
 public class TambahEntryVM

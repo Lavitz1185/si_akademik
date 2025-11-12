@@ -16,4 +16,6 @@ public class TambahHariVM
     [Display(Name = "Jam Mulai")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public TimeOnly JamMulai { get; set; }
+
+    public required string ReturnUrl { get; set; }
 }

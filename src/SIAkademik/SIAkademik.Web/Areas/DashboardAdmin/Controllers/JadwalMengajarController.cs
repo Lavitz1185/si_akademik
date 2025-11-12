@@ -74,12 +74,17 @@ public class JadwalMengajarController : Controller
         });
     }
 
-    public async Task<IActionResult> Tambah(int idTahunAjaran, int? idRombel = null)
+    public async Task<IActionResult> Tambah(int idTahunAjaran, int? idRombel = null, string? returnUrl = null)
     {
         var tahunAjaran = await _tahunAjaranRepository.Get(idTahunAjaran);
         if (tahunAjaran is null) return NotFound();
 
-        return View(new TambahVM { IdTahunAjaran = tahunAjaran.Id, IdRombel = idRombel ?? default });
+        return View(new TambahVM
+        {
+            IdTahunAjaran = tahunAjaran.Id,
+            IdRombel = idRombel ?? default,
+            ReturnUrl = returnUrl ?? Url.ActionLink(nameof(Index))!
+        });
     }
 
     [HttpPost]
@@ -157,10 +162,10 @@ public class JadwalMengajarController : Controller
         }
 
         _toastrNotificationService.AddSuccess("Jadwal mengajar berhasil ditambahkan!");
-        return RedirectToAction(nameof(Index), new { idTahunAjaran = vm.IdTahunAjaran, idRombel = vm.IdRombel });
+        return Redirect(vm.ReturnUrl);
     }
 
-    public async Task<IActionResult> Edit(int id)
+    public async Task<IActionResult> Edit(int id, string? returnUrl = null)
     {
         var jadwalMengajar = await _jadwalMengajarRepository.Get(id);
         if (jadwalMengajar is null) return NotFound();
@@ -173,6 +178,7 @@ public class JadwalMengajarController : Controller
             IdRombel = jadwalMengajar.Rombel.Id,
             NIPPegawai = jadwalMengajar.Pegawai.Id,
             IdTahunAjaran = jadwalMengajar.Rombel.TahunAjaran.Id,
+            ReturnUrl = returnUrl ?? Url.ActionLink(nameof(Index))!
         });
     }
 
@@ -226,11 +232,11 @@ public class JadwalMengajarController : Controller
         }
 
         _toastrNotificationService.AddSuccess("Jadwal mengajar berhasil diubah!");
-        return RedirectToAction(nameof(Index), new { idTahunAjaran = vm.IdTahunAjaran });
+        return Redirect(vm.ReturnUrl);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Hapus(int id)
+    public async Task<IActionResult> Hapus(int id, string? returnUrl = null)
     {
         var jadwalMengajar = await _jadwalMengajarRepository.Get(id);
         if (jadwalMengajar is null) return NotFound();
@@ -245,7 +251,7 @@ public class JadwalMengajarController : Controller
         else
             _toastrNotificationService.AddSuccess("Jadwal mengajar berhasil dihapus!");
 
-        return RedirectToAction(nameof(Index), new { idTahunAjaran });
+        return returnUrl is null ? RedirectToAction(nameof(Index), new { idTahunAjaran }) : Redirect(returnUrl);
     }
 
     [HttpPost]
@@ -257,11 +263,7 @@ public class JadwalMengajarController : Controller
         if (!ModelState.IsValid) 
         {
             _toastrNotificationService.AddError("Data tidak valid", "Tambah Hari Mengajar");
-            return RedirectToAction(nameof(Index), new
-            {
-                idTahunAjaran = jadwalMengajar.Rombel.TahunAjaran.Id,
-                idRombel = jadwalMengajar.Rombel.Id
-            });
+            return Redirect(vm.ReturnUrl);
         }
 
         var hariMengajar = new HariMengajar
@@ -274,21 +276,11 @@ public class JadwalMengajarController : Controller
         _hariMengajarRepository.Add(hariMengajar);
         var result = await _unitOfWork.SaveChangesAsync();
         if (result.IsFailure)
-        {
             _toastrNotificationService.AddError("Simpan gagal!", "Tambah Hari Mengajar");
-            return RedirectToAction(nameof(Index), new 
-            { 
-                idTahunAjaran = jadwalMengajar.Rombel.TahunAjaran.Id, 
-                idRombel = jadwalMengajar.Rombel.Id 
-            });
-        }
+        else
+            _toastrNotificationService.AddSuccess("Hari mengajar berhasil ditambahkan!", "Tambah Hari Mengajar");
 
-        _toastrNotificationService.AddSuccess("Hari mengajar berhasil ditambahkan!", "Tambah Hari Mengajar");
-        return RedirectToAction(nameof(Index), new 
-        { 
-            idTahunAjaran = jadwalMengajar.Rombel.TahunAjaran.Id, 
-            idRombel = jadwalMengajar.Rombel.Id 
-        });
+        return Redirect(vm.ReturnUrl);
     }
 
     [HttpPost]
@@ -300,11 +292,7 @@ public class JadwalMengajarController : Controller
         if (!ModelState.IsValid) 
         {
             _toastrNotificationService.AddError("Data tidak valid", "Edit Hari Mengajar");
-            return RedirectToAction(nameof(Index), new
-            {
-                idTahunAjaran = jadwalMengajar.Rombel.TahunAjaran.Id,
-                idRombel = jadwalMengajar.Rombel.Id
-            });
+            return Redirect(vm.ReturnUrl);
         }
 
         var hariMengajar = jadwalMengajar.DaftarHariMengajar.FirstOrDefault(h => h.Id == vm.IdHariMengajar);
@@ -316,25 +304,15 @@ public class JadwalMengajarController : Controller
         _hariMengajarRepository.Update(hariMengajar);
         var result = await _unitOfWork.SaveChangesAsync();
         if (result.IsFailure)
-        {
             _toastrNotificationService.AddError("Simpan gagal!", "Edit Hari Mengajar");
-            return RedirectToAction(nameof(Index), new
-            {
-                idTahunAjaran = jadwalMengajar.Rombel.TahunAjaran.Id,
-                idRombel = jadwalMengajar.Rombel.Id
-            });
-        }
+        else
+            _toastrNotificationService.AddSuccess("Hari mengajar berhasil diubah!", "Edit Hari Mengajar");
 
-        _toastrNotificationService.AddSuccess("Hari mengajar berhasil diubah!", "Edit Hari Mengajar");
-        return RedirectToAction(nameof(Index), new
-        {
-            idTahunAjaran = jadwalMengajar.Rombel.TahunAjaran.Id,
-            idRombel = jadwalMengajar.Rombel.Id
-        });
+        return Redirect(vm.ReturnUrl);
     }
 
     [HttpPost]
-    public async Task<IActionResult> HapusHari(int id, int idHariMengajar)
+    public async Task<IActionResult> HapusHari(int id, int idHariMengajar, string? returnUrl = null)
     {
         var jadwalMengajar = await _jadwalMengajarRepository.Get(id);
         if (jadwalMengajar is null) return NotFound();
@@ -349,7 +327,7 @@ public class JadwalMengajarController : Controller
         else
             _toastrNotificationService.AddSuccess("Hapus Berhasil!");
 
-        return RedirectToAction(nameof(Index), new { idTahunAjaran = jadwalMengajar.Rombel.TahunAjaran.Id });
+        return returnUrl is null ? RedirectToAction(nameof(Index)) : RedirectPermanent(returnUrl);
     }
 
     [HttpPost]

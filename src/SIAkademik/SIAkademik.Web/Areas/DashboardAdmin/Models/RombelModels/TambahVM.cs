@@ -19,4 +19,6 @@ public class TambahVM
     [Display(Name = "Guru Wali")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public string NIPWali { get; set; } = string.Empty;
+
+    public required string ReturnUrl { get; set; }
 }

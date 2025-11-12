@@ -20,7 +20,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Manajemen Akademik</a></li>
-                <li class="breadcrumb-item"><a asp-area="@AreaNames.DashboardAdmin" asp-controller="JadwalMengajar" asp-action="Index">Jadwal Mengajar</a></li>
+                <li class="breadcrumb-item"><a href="@Model.ReturnUrl">Jadwal Mengajar</a></li>
                 <li class="breadcrumb-item" aria-current="page">Edit Data</li>
             </ol>
         </nav>
@@ -36,7 +36,7 @@
                     <h4>Edit Data Jadwal Mengajar</h4>
                 </div>
 
-                <form asp-action="Edit" method="post">
+                <form asp-action="Edit" asp-route-returnUrl="@Model.ReturnUrl" method="post">
                     <div class="card-body">
                         <div asp-validation-summary="ModelOnly"></div>
 
