@@ -157,7 +157,7 @@ public class ImportController : Controller
                     !double.TryParse(tanggalMasukStr, out var tanggalMasukDouble) ||
                     tanggalMasukDouble < 0)
                     continue;
-                var tanggalMasuk = DateOnly.FromDateTime(DateTime.FromOADate(tanggaLahirDouble));
+                var tanggalMasuk = DateOnly.FromDateTime(DateTime.FromOADate(tanggalMasukDouble));
 
                 var statusAktifStr = GetCellValues(cells[8], sharedStrings);
                 if (string.IsNullOrWhiteSpace(statusAktifStr) || !Enum.TryParse<StatusAktifMahasiswa>(statusAktifStr, out var statusAktif))
