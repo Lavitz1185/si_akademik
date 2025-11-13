@@ -30,7 +30,7 @@ public class KategoriBeritaController : Controller
 
     public async Task<IActionResult> Index() => View(await _kategoriBeritaRepository.GetAll());
 
-    public IActionResult Tambah() => View(new TambahVM());
+    public IActionResult Tambah(string? returnUrl = null) => View(new TambahVM { ReturnUrl = returnUrl ?? Url.ActionLink(nameof(Index))!});
 
     [HttpPost]
     public async Task<IActionResult> Tambah(TambahVM vm)
@@ -58,7 +58,7 @@ public class KategoriBeritaController : Controller
 
         _toastrNotificationService.AddSuccess("Simpan Berhasil!");
 
-        return RedirectToAction(nameof(Index));
+        return Redirect(vm.ReturnUrl);
     }
 
     public async Task<IActionResult> Edit(int id)

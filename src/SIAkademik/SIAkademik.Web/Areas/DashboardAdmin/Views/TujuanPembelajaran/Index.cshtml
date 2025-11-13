@@ -28,7 +28,7 @@
 
             <div class="mb-0">
                 <a class="btn btn-icon icon-left btn-primary" asp-action="Tambah" asp-route-idMataPelajaran="@Model.IdMataPelajaran"
-                   asp-route-fase="@Model.Fase"
+                   asp-route-fase="@Model.Fase" asp-route-returnUrl="@Context.Request.AbsoluteUri()"
                    data-toggle="tooltip" title="Tambah Tujuan Pembelajaran">
                     <i class="fas fa-plus"></i> Tambah Data
                 </a>
@@ -127,6 +127,7 @@
                                                                asp-route-id="@tp.Id"
                                                                asp-route-idMataPelajaran="@Model.IdMataPelajaran"
                                                                asp-route-fase="@Model.Fase"
+                                                               asp-route-returnUrl="@Context.Request.AbsoluteUri()"
                                                                class="btn btn-sm btn-primary"
                                                                data-toggle="tooltip"
                                                                title="Edit Tujuan Pembelajaran">
@@ -137,6 +138,7 @@
                                                                   asp-route-id="@tp.Id"
                                                                   asp-route-idMataPelajaran="@Model.IdMataPelajaran"
                                                                   asp-route-fase="@Model.Fase"
+                                                                  asp-route-returnUrl="@Context.Request.AbsoluteUri()"
                                                                   method="post"
                                                                   class="d-inline">
                                                                 <button type="button"

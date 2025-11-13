@@ -13,7 +13,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Manajemen Akademik</a></li>
-                <li class="breadcrumb-item"><a asp-action="Index" asp-route-idMataPelajaran="@Model.idMataPelajaran" asp-route-fase="@Model.fase">Tujuan Pembelajaran (TP)</a></li>
+                <li class="breadcrumb-item"><a href="@Model.ReturnUrl">Tujuan Pembelajaran (TP)</a></li>
                 <li class="breadcrumb-item" aria-current="page">Tambah Data</li>
             </ol>
         </nav>
@@ -29,7 +29,7 @@
                     <h4>Tambah Tujuan Pembelajaran</h4>
                 </div>
 
-                <form asp-action="Tambah" asp-route-idMataPelajaran="@Model.idMataPelajaran" asp-route-fase="@Model.fase" method="post">
+                <form asp-action="Tambah" asp-route-idMataPelajaran="@Model.idMataPelajaran" asp-route-fase="@Model.fase" asp-route-returnUrl="@Model.ReturnUrl" method="post">
                     <div class="card-body">
                         <div asp-validation-summary="ModelOnly"></div>
 

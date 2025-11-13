@@ -41,6 +41,7 @@
                                     <option value="@kategori.Id">@kategori.Nama</option>
                                 }
                             </select>
+                            <a asp-action="Tambah" asp-controller="KategoriBerita" asp-route-returnUrl="@Context.Request.AbsoluteUri()">Tambah Kategori Berita</a>
                             <span asp-validation-for="@Model.IdKategoriBerita" class="text-danger"></span>
                         </div>
 
@@ -70,11 +71,11 @@
                             <span asp-validation-for="@Model.Isi" class="text-danger"></span>
                         </div>
                     </div>
+
                     <div class="card-footer text-right pt-0">
                         <a href="javascript:void(0)" class="btn btn-danger text-white swal-cancel">Batal</a>
                         <button class="btn btn-primary mr-1" type="submit">Simpan</button>
                     </div>
-
                 </form>
             </div>
         </div>

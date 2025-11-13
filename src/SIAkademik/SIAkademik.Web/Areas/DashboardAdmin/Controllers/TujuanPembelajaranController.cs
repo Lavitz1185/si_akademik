@@ -56,7 +56,7 @@ public class TujuanPembelajaranController : Controller
         });
     }
 
-    public async Task<IActionResult> Tambah(int? idMataPelajaran = null, Fase? fase = null)
+    public async Task<IActionResult> Tambah(int? idMataPelajaran = null, Fase? fase = null, string? returnUrl = null)
     {
         MataPelajaran? mataPelajaran = idMataPelajaran is null ? null : await _mataPelajaranRepository.Get(idMataPelajaran.Value);
 
@@ -65,7 +65,8 @@ public class TujuanPembelajaranController : Controller
             IdMataPelajaran = mataPelajaran?.Id ?? default,
             Fase = fase ?? default,
             idMataPelajaran = mataPelajaran?.Id,
-            fase = fase
+            fase = fase,
+            ReturnUrl = returnUrl ?? Url.ActionLink(nameof(Index))!
         });
     }
 
@@ -114,10 +115,10 @@ public class TujuanPembelajaranController : Controller
         }
 
         _toastrNotificationService.AddSuccess("Simpan Berhasil!");
-        return RedirectToAction(nameof(Index), new { vm.idMataPelajaran, vm.fase });
+        return Redirect(vm.ReturnUrl);
     }
 
-    public async Task<IActionResult> Edit(int id, int? idMataPelajaran = null, Fase? fase = null)
+    public async Task<IActionResult> Edit(int id, int? idMataPelajaran = null, Fase? fase = null, string? returnUrl = null)
     {
         var tujuanPembelajaran = await _tujuanPembelajaranRepository.Get(id);
         if (tujuanPembelajaran is null) return NotFound();
@@ -132,7 +133,8 @@ public class TujuanPembelajaranController : Controller
             Fase = tujuanPembelajaran.Fase,
             IdMataPelajaran = tujuanPembelajaran.MataPelajaran.Id,
             fase = fase,
-            idMataPelajaran = mataPelajaran?.Id
+            idMataPelajaran = mataPelajaran?.Id,
+            ReturnUrl = returnUrl ?? Url.ActionLink(nameof(Index))!
         });
     }
 
@@ -180,11 +182,11 @@ public class TujuanPembelajaranController : Controller
         }
 
         _toastrNotificationService.AddSuccess("Simpan Berhasil!");
-        return RedirectToAction(nameof(Index), new { vm.idMataPelajaran, vm.fase });
+        return Redirect(vm.ReturnUrl);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Hapus(int id, int? idMataPelajaran = null, Fase? fase = null)
+    public async Task<IActionResult> Hapus(int id, int? idMataPelajaran = null, Fase? fase = null, string? returnUrl = null)
     {
         var tujuanPembelajaran = await _tujuanPembelajaranRepository.Get(id);
         if (tujuanPembelajaran is null) return NotFound();
@@ -198,6 +200,6 @@ public class TujuanPembelajaranController : Controller
         else
             _toastrNotificationService.AddSuccess("Hapus Berhasil!");
 
-        return RedirectToAction(nameof(Index), new { idMataPelajaran = mataPelajaran?.Id, fase });
+        return returnUrl is null ? RedirectToAction(nameof(Index), new { idMataPelajaran = mataPelajaran?.Id, fase }) : RedirectPermanent(returnUrl);
     }
 }

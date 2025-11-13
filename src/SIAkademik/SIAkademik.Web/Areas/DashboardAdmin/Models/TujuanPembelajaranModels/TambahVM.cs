@@ -24,4 +24,6 @@ public class TambahVM
 
     public int? idMataPelajaran { get; set; }
     public Fase? fase { get; set; }
+
+    public required string ReturnUrl { get; set; }
 }
