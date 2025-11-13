@@ -34,7 +34,7 @@ public class DivisiController : Controller
         return View(daftarDivisi);
     }
 
-    public IActionResult Tambah() => View(new TambahVM());
+    public IActionResult Tambah(string? returnUrl = null) => View(new TambahVM { ReturnUrl = returnUrl ?? Url.ActionLink(nameof(Index))!});
 
     [HttpPost]
     public async Task<IActionResult> Tambah(TambahVM vm)
@@ -61,7 +61,7 @@ public class DivisiController : Controller
         }
 
         _toastrNotificationService.AddSuccess("Simpan data divisi baru berhasil!");
-        return RedirectToAction(nameof(Index));
+        return Redirect(vm.ReturnUrl);
     }
 
     public async Task<IActionResult> Edit(int id)

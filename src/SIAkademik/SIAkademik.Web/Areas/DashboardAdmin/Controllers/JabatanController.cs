@@ -35,7 +35,7 @@ public class JabatanController : Controller
         return View(daftarJabatan);
     }
 
-    public IActionResult Tambah() => View(new TambahVM());
+    public IActionResult Tambah(string? returnUrl = null) => View(new TambahVM { ReturnUrl = returnUrl ?? Url.ActionLink(nameof(Index))! });
 
     [HttpPost]
     public async Task<IActionResult> Tambah(TambahVM vm)
@@ -64,7 +64,7 @@ public class JabatanController : Controller
 
         _toastrNotificationService.AddSuccess("Simpan data jabatan baru berhasil!");
 
-        return RedirectToAction(nameof(Index));
+        return Redirect(vm.ReturnUrl);
     }
 
     public async Task<IActionResult> Edit(int id)

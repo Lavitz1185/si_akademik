@@ -60,7 +60,7 @@
                                         <option value="@divisi.Id">@divisi.Nama</option>
                                     }
                                 </select>
-                                <a asp-action="Tambah" asp-controller="Divisi">Tambah Divisi</a>
+                                <a asp-action="Tambah" asp-controller="Divisi" asp-route-returnUrl="@Context.Request.AbsoluteUri()">Tambah Divisi</a>
                                 <span asp-validation-for="@Model.DivisiId"></span>
                             </div>
 
@@ -72,7 +72,7 @@
                                         <option value="@jabatan.Id">@jabatan.Nama</option>
                                     }
                                 </select>
-                                <a asp-action="Tambah" asp-controller="Jabatan">Tambah Jabatan</a>
+                                <a asp-action="Tambah" asp-controller="Jabatan" asp-route-returnUrl="@Context.Request.AbsoluteUri()">Tambah Jabatan</a>
                                 <span asp-validation-for="@Model.JabatanId"></span>
                             </div>
 

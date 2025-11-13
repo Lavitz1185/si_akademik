@@ -12,4 +12,6 @@ public class TambahVM
     [Display(Name = "Jenis")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public JenisJabatan Jenis { get; set; }
+
+    public required string ReturnUrl { get; set; }
 }
