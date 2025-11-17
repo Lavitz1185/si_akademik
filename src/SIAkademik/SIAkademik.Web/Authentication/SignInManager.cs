@@ -85,7 +85,7 @@ public class SignInManager : ISignInManager
 
         var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
         var claimPrincipal = new ClaimsPrincipal(claimIdentity);
-        var authProperties = new AuthenticationProperties { IsPersistent = rememberMe };
+        var authProperties = new AuthenticationProperties { IsPersistent = rememberMe, ExpiresUtc = DateTimeOffset.UtcNow.AddHours(4) };
 
         await httpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, authProperties);
 
