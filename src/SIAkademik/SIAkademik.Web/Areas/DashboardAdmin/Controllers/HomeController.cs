@@ -7,6 +7,7 @@ using SIAkademik.Domain.ModulSiakad.Repositories;
 using SIAkademik.Domain.Services;
 using SIAkademik.Web.Areas.DashboardAdmin.Models.Home;
 using SIAkademik.Web.Authentication;
+using SIAkademik.Web.Models;
 using SIAkademik.Web.Services.Toastr;
 
 namespace SIAkademik.Web.Areas.DashboardAdmin.Controllers
@@ -47,7 +48,7 @@ namespace SIAkademik.Web.Areas.DashboardAdmin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var tahunAjaran = await _tahunAjaranRepository.GetNewest();
+            var tahunAjaran = await _tahunAjaranRepository.Get(CultureInfos.DateOnlyNow);
             if (tahunAjaran is null) return View(new IndexVM());
 
             var daftarSiswa = await _siswaRepository.GetAll();
